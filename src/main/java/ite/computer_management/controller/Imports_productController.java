@@ -22,7 +22,7 @@ public class Imports_productController implements MouseListener, KeyListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource() == Imports.btn_accept) {
-			Imports.addProductActionPerformed(this);
+			Imports.addProductActionPerformed();
 		} else if(e.getSource() == Imports.btn_DeleteProduct) {
 			Imports.delete_toTableImport();
 		}

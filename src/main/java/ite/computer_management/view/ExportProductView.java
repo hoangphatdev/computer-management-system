@@ -8,8 +8,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.Window;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.Box;
+import javax.swing.ImageIcon;
+
 import java.awt.Component;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTable;
@@ -31,6 +39,16 @@ public class ExportProductView extends JPanel {
 	private JTable table_1;
 	private JTextField textField_2;
 	private ImportDAO Import_Delivery_DAO;
+	private JLabel bgLbl;
+	private JLabel lblQuantity_1;
+	private Component btn_DeleteProduct;
+	private JButton btn_accept;
+	private JTextField TF_Sreach;
+	private ImportDAO Imports_DAO;
+	private JTextField TF_Form;
+	private JTable table_Product;
+	private JTable table_Imports;
+	private JTextField TF_Quantity;
 
 	/**
 	 * Launch the application.
@@ -56,17 +74,16 @@ public class ExportProductView extends JPanel {
 		this.setVisible(true);
 	}
 	public void init() {
-		Import_Delivery_DAO = new ImportDAO(this);
+		Imports_DAO = new ImportDAO(this);
 		Imports_productController Imports_productController = new Imports_productController(this);
 		
-		this.setSize(1032,763);
+		this.setSize(1250,800);
 		setLayout(null);
-		
-		
-		textField = new JTextField();
-		textField.setBounds(37, 49, 278, 28);
-		add(textField);
-		textField.setColumns(10);
+
+		TF_Sreach = new JTextField();
+		TF_Sreach.setBounds(37, 49, 282, 28);
+		add(TF_Sreach);
+		TF_Sreach.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Sreach:");
 		lblNewLabel.setForeground(Color.BLACK);
@@ -75,129 +92,171 @@ public class ExportProductView extends JPanel {
 		add(lblNewLabel);
 		
 		Box verticalBox = Box.createVerticalBox();
-		verticalBox.setBackground(Color.WHITE);
+		verticalBox.setBackground(SystemColor.inactiveCaptionText);
 		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox.setBounds(22, 10, 343, 87);
+		verticalBox.setBounds(22, 10, 317, 87);
 		add(verticalBox);
 		
-		JLabel lblFrom = new JLabel("From:");
+		JLabel lblFrom = new JLabel("Form:");
 		lblFrom.setForeground(Color.BLACK);
 		lblFrom.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblFrom.setBounds(508, 26, 90, 13);
+		lblFrom.setBounds(518, 26, 90, 13);
 		add(lblFrom);
 		
 		JLabel lblSupplier = new JLabel("Supplier:");
 		lblSupplier.setForeground(Color.BLACK);
 		lblSupplier.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblSupplier.setBounds(508, 74, 90, 13);
+		lblSupplier.setBounds(518, 75, 90, 13);
 		add(lblSupplier);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(651, 25, 349, 28);
-		add(textField_1);
+		TF_Form = new JTextField();
+		TF_Form.setColumns(10);
+		TF_Form.setBounds(600, 26, 349, 28);
+		TF_Form.setEditable(false);
+		add(TF_Form);
 		
-		table_product = new JTable();
-		table_product.setModel(new DefaultTableModel(
+		table_Product = new JTable();
+		table_Product.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
 				"Number", "Code", "Name", "Quantity", "Price"
 			}
 		));
-		table_product.getColumnModel().getColumn(0).setPreferredWidth(54);
-		table_product.getColumnModel().getColumn(1).setPreferredWidth(42);
-		table_product.getColumnModel().getColumn(2).setPreferredWidth(168);
-		table_product.getColumnModel().getColumn(3).setPreferredWidth(53);
-		table_product.getColumnModel().getColumn(4).setPreferredWidth(43);
+		table_Product.getColumnModel().getColumn(0).setPreferredWidth(54);
+		table_Product.getColumnModel().getColumn(1).setPreferredWidth(42);
+		table_Product.getColumnModel().getColumn(2).setPreferredWidth(168);
+		table_Product.getColumnModel().getColumn(3).setPreferredWidth(53);
+		table_Product.getColumnModel().getColumn(4).setPreferredWidth(43);
 
-		JScrollPane scrollPane_product = new JScrollPane(table_product);
-		scrollPane_product.setBounds(22, 114, 452, 429);
-		add(scrollPane_product);
+		table_Product.addMouseListener(new MouseAdapter() {
+			public int r;
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				r= table_Product.getSelectedRow();
+				if(r!=-1) {
+					TF_Quantity.setText(table_Product.getValueAt(r, 3)+"");
+			      
+				}
+			}
+		});
 		
-		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
+		
+		JScrollPane scrollPane = new JScrollPane(table_Product);
+		scrollPane.setBounds(22, 114, 452, 571);
+		add(scrollPane);
+		
+		table_Imports = new JTable();
+		table_Imports.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
 				"Number", "Code ", "Name", "Quantity", "Price"
 			}
 		));
-		table_1.getColumnModel().getColumn(0).setPreferredWidth(50);
-		table_1.getColumnModel().getColumn(1).setPreferredWidth(57);
-		table_1.getColumnModel().getColumn(2).setPreferredWidth(185);
-		table_1.getColumnModel().getColumn(3).setPreferredWidth(50);
-		table_1.getColumnModel().getColumn(4).setPreferredWidth(37);
-		table_1.setBounds(553, 203, 1, 1);
-		add(table_1);
+		table_Imports.getColumnModel().getColumn(0).setPreferredWidth(50);
+		table_Imports.getColumnModel().getColumn(1).setPreferredWidth(57);
+		table_Imports.getColumnModel().getColumn(2).setPreferredWidth(185);
+		table_Imports.getColumnModel().getColumn(3).setPreferredWidth(50);
+		table_Imports.getColumnModel().getColumn(4).setPreferredWidth(37);
+		table_Imports.setBounds(553, 203, 1, 1);
+		add(table_Imports);
 		
-		JScrollPane scrollPane_Export = new JScrollPane(table_1);
-		scrollPane_Export.setBounds(508, 114, 492, 356);
-		add(scrollPane_Export);
+		JScrollPane scrollPane_1 = new JScrollPane(table_Imports);
+		scrollPane_1.setBounds(512, 144, 700, 510);
+		add(scrollPane_1);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(651, 69, 349, 28);
-		add(comboBox);
+		JComboBox Combo_Supplier = new JComboBox();
+		Combo_Supplier.setBounds(600, 69, 349, 28);
+		add(Combo_Supplier);
 		
 		JLabel lblQuantity = new JLabel("Quantity:");
-		lblQuantity.setForeground(Color.RED);
+		lblQuantity.setForeground(SystemColor.inactiveCaptionText);
 		lblQuantity.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblQuantity.setBounds(75, 578, 90, 13);
+		lblQuantity.setBounds(26, 710, 90, 13);
 		add(lblQuantity);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(163, 573, 132, 28);
-		add(textField_2);
+		TF_Quantity = new JTextField();
+		TF_Quantity.setColumns(10);
+		TF_Quantity.setBounds(111, 705, 125, 28);
+		add(TF_Quantity);
 		
-		JButton btnNewButton = new JButton("Accept");
-		btnNewButton.setBackground(Color.LIGHT_GRAY);
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton.setBounds(306, 573, 85, 28);
-		add(btnNewButton);
+		btn_accept = new JButton("Accept");
+		btn_accept.setBackground(Color.LIGHT_GRAY);
+		btn_accept.setForeground(new Color(0, 0, 0));
+		btn_accept.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_accept.setBounds(246, 702, 85, 28);
+		add(btn_accept);
+		btn_accept.addMouseListener(Imports_productController);
 		
-		JButton btnExcel = new JButton("Excel");
-		btnExcel.setBackground(Color.LIGHT_GRAY);
-		btnExcel.setForeground(new Color(0, 0, 0));
-		btnExcel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnExcel.setBounds(548, 482, 85, 28);
-		add(btnExcel);
+		JButton btn_Excel = new JButton("Excel");
+		btn_Excel.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
+		btn_Excel.setBackground(Color.LIGHT_GRAY);
+		btn_Excel.setForeground(new Color(0, 0, 0));
+		btn_Excel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_Excel.setBounds(1024, 26, 188, 28);
+		add(btn_Excel);
 		
-		JButton btnChangeQuantity = new JButton("Change quantity");
-		btnChangeQuantity.setBackground(Color.LIGHT_GRAY);
-		btnChangeQuantity.setForeground(new Color(0, 0, 0));
-		btnChangeQuantity.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnChangeQuantity.setBounds(651, 482, 160, 28);
-		add(btnChangeQuantity);
+		JButton btn_ChangeQuantity = new JButton("Change quantity");
+		btn_ChangeQuantity.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 20.png"));
+		btn_ChangeQuantity.setBackground(Color.LIGHT_GRAY);
+		btn_ChangeQuantity.setForeground(new Color(0, 0, 0));
+		btn_ChangeQuantity.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_ChangeQuantity.setBounds(1024, 67, 188, 28);
+		add(btn_ChangeQuantity);
 		
-		JButton btnDeleteProduct = new JButton("Delete product");
-		btnDeleteProduct.setBackground(Color.LIGHT_GRAY);
-		btnDeleteProduct.setForeground(new Color(0, 0, 0));
-		btnDeleteProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnDeleteProduct.setBounds(822, 480, 143, 28);
-		add(btnDeleteProduct);
+		 btn_DeleteProduct = new JButton("Delete product");
+
+		btn_DeleteProduct.setBackground(Color.LIGHT_GRAY);
+		btn_DeleteProduct.setForeground(new Color(0, 0, 0));
+		btn_DeleteProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_DeleteProduct.setBounds(1024, 106, 188, 28);
+		add(btn_DeleteProduct);
+		btn_DeleteProduct.addMouseListener(Imports_productController);
 		
 		JLabel lblTotalAmount = new JLabel("Total amount:");
 		lblTotalAmount.setForeground(Color.BLACK);
 		lblTotalAmount.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblTotalAmount.setBounds(508, 548, 181, 28);
+		lblTotalAmount.setBounds(518, 664, 181, 28);
 		add(lblTotalAmount);
 		
-		JLabel lblQuantity_1 = new JLabel("0Đ");
+		lblQuantity_1 = new JLabel("0Đ");
 		lblQuantity_1.setForeground(Color.RED);
-		lblQuantity_1.setFont(new Font("Tahoma", Font.BOLD, 29));
-		lblQuantity_1.setBounds(681, 539, 90, 41);
+		lblQuantity_1.setFont(new Font("Tahoma", Font.BOLD, 25));
+		lblQuantity_1.setBounds(697, 657, 341, 41);
 		add(lblQuantity_1);
 		
-		JButton btnImportsProduct = new JButton("Delivery product");
-		btnImportsProduct.setBackground(Color.LIGHT_GRAY);
-		btnImportsProduct.setForeground(new Color(0, 0, 0));
-		btnImportsProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnImportsProduct.setBounds(824, 576, 160, 28);
-		add(btnImportsProduct);
+		JButton btn_ImportsProduct = new JButton("Imports product");
+		btn_ImportsProduct.setBackground(Color.LIGHT_GRAY);
+		btn_ImportsProduct.setForeground(new Color(0, 0, 0));
+		btn_ImportsProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_ImportsProduct.setBounds(1052, 682, 160, 41);
+		add(btn_ImportsProduct);
 		
-		// hien thị bang product
-		Import_Delivery_DAO.display(table_product);
+		Imports_DAO.display(table_Product);
+		
+		Box verticalBox_1 = Box.createVerticalBox();
+		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		verticalBox_1.setBackground(SystemColor.desktop);
+		verticalBox_1.setBounds(512, 10, 461, 107);
+		add(verticalBox_1);
+		
+		bgLbl = new JLabel("");
+		bgLbl.setBounds(0, -27, 1250, 817);
+		bgLbl.setBackground(new Color(224, 218, 218));
+		bgLbl.setBackground(new Color(191, 186, 166));
+		bgLbl.setOpaque(true);
+		add(bgLbl);
+		
+		// lấy dữ liệu từ bảng supplier trong database để hiện thị trong Jcombobox
+		ImportDAO importDAO = new ImportDAO();
+		List<String> supplierNames = importDAO.getSupplierNames();
+		for (String supplierName : supplierNames) {
+		    Combo_Supplier.addItem(supplierName);
+		}
+		ImportsProductView view = new ImportsProductView();
+
+		view.setRandomFormValue();
 	}
 }

@@ -1,12 +1,10 @@
+
 package ite.computer_management.view;
-import org.apache.poi.ss.usermodel.Cell; 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import javax.swing.JPanel; 
-import java.awt.Color;
-import java.awt.Desktop;
 import javax.swing.JPanel; 
 import java.awt.Color;
 import java.awt.Desktop;
@@ -15,9 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import ite.computer_management.controller.ProductController;
-import ite.computer_management.dao.ProductDAO;
-import ite.computer_management.model.Computer;
 import ite.computer_management.controller.ProductController;
 import ite.computer_management.dao.ProductDAO;
 import ite.computer_management.model.Computer;
@@ -33,8 +28,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 public class ProductView extends JPanel {
@@ -112,7 +105,7 @@ public class ProductView extends JPanel {
 		excelBtn.setBackground(new Color(214, 210, 199));
 		excelBtn.addMouseListener(productController);
 		add(excelBtn);
-		
+
 
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(36, 243, 1186, 509);
@@ -139,7 +132,7 @@ public class ProductView extends JPanel {
 		titleLbl = new JLabel("PRODUCT MANAGEMENT");
 		titleLbl.setFont(new Font("Bakery", Font.PLAIN, 35));
 		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLbl.setBounds(0, 0, 1250, 110);
+		titleLbl.setBounds(0, 10, 1250, 110);
 		titleLbl.setOpaque(true);
 		titleLbl.setBackground(new Color(54, 51, 46));
 		titleLbl.setForeground(new Color(222, 173, 91));
@@ -149,16 +142,6 @@ public class ProductView extends JPanel {
 		borderLbl.setBounds(35, 130, 488, 88);
 		borderLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
 		add(borderLbl);
-		
-		bgLbl = new JLabel("");
-		bgLbl.setBounds(0, 114, 1250, 676);
-		bgLbl.setBackground(new Color(191, 186, 166));
-		bgLbl.setOpaque(true);
-		add(bgLbl);
-		
-	}
-	public void clickAddLbl() {
-		dashboard.dispose();
 
 		bgLbl = new JLabel("");
 		bgLbl.setBounds(0, 114, 1250, 676);
@@ -167,6 +150,9 @@ public class ProductView extends JPanel {
 		bgLbl.setOpaque(true);
 		add(bgLbl);
 
+	}
+	public void clickAddLbl() {
+		new AddProductView(this, dashboard);
 	}
 	public void clickDeleteLbl() {
 		int check = table.getSelectedRowCount();
@@ -236,6 +222,7 @@ public class ProductView extends JPanel {
 					out.close();
 					}
 				JOptionPane.showMessageDialog(null, "Export successfully ><");
+//				JOptionPane.showMessageDialog(null, "Export successfully ><");
 				}catch(FileNotFoundException e) {
 					JOptionPane.showMessageDialog(null, e);
 				}catch(IOException e) {
@@ -248,7 +235,6 @@ public class ProductView extends JPanel {
 		if(check <1) { 
 			JOptionPane.showMessageDialog(null, "Please select row to edit >< ");
 		}else {
-			dashboard.setVisible(false);
 			EditProductView editProductView = new EditProductView(this, dashboard);
 			editProductView.computerNameTxt.setText( (String)model.getValueAt(selectedRowIndex,0) );
 			editProductView.computerCodeTxt.setText( (String)model.getValueAt(selectedRowIndex, 1) );
@@ -271,4 +257,3 @@ public class ProductView extends JPanel {
 	
 	
 }
-

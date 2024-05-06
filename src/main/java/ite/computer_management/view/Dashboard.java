@@ -57,6 +57,9 @@ public class Dashboard extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(254, -20, 1250, 800);
+		contentPane.add(tabbedPane);
 		
 		ProductView productView = new ProductView(this);
 		tabbedPane.addTab("Product Management", productView);
@@ -64,27 +67,25 @@ public class Dashboard extends JFrame {
 		AccountView accountView = new AccountView(this);
 		tabbedPane.addTab("Account Mangement", accountView);
 		
+		ImportsProductView ImportsProductView = new ImportsProductView();
+		tabbedPane.addTab("Imports Product", ImportsProductView);
+	
+		ExportProductView ExportProductView = new ExportProductView();
+		tabbedPane.addTab("Export Product", ExportProductView);
+	
 		SupplierView supplierView = new SupplierView(this);
-		tabbedPane.addTab("Supplier Management", supplierView);
-		
-		ImportsProductView importsProductView = new ImportsProductView();
-		tabbedPane.addTab("Import Product", importsProductView);
-		
-		ExportProductView exportProductView = new ExportProductView();
-		tabbedPane.addTab("Export Product", exportProductView);
+		tabbedPane.addTab("Supplier manegement", supplierView );
 		
 		ImportCouponView importCouponView = new ImportCouponView(this);
 		tabbedPane.addTab("Import coupon", importCouponView);
-
+		
+		
 		navPanel = new JPanel();
 		navPanel.setLayout(null);
 		navPanel.setBounds(0, 0, 250, 800);
 		navPanel.setBackground( new Color(54, 51, 46) );
 		contentPane.add(navPanel);
 		
-		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(254, -20, 1250, 800);
-		contentPane.add(tabbedPane);
 		
 		productNavLbl = new JLabel("Product");
 		productNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
@@ -370,7 +371,6 @@ public class Dashboard extends JFrame {
 		this.setVisible(false);
 	}
 	public void clickLogoutNav() {
-		this.setVisible(false);
+		
 	}
 }
-
