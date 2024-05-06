@@ -1,7 +1,18 @@
 package ite.computer_management.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
+import ite.computer_management.database.ConnectDatabase;
+import ite.computer_management.model.Form;
 import ite.computer_management.model.ImportsForm;
 import ite.computer_management.view.ImportCouponView;
 
@@ -39,7 +50,7 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
 
 	@Override
 	public ArrayList<ImportsForm> selectAll() {
-		// TODO Auto-generated method stub
+	
 		return null;
 	}
 
@@ -60,5 +71,25 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	public ArrayList<Form> selectAllP() {
+        ArrayList<Form> ketQua = new ArrayList<Form>();
+        try {
+        	Connection con = ConnectDatabase.getInstance().getConnection();
+            String sql = "SELECT maPhieu,thoiGianTao,nguoiTao,tongTien FROM PhieuNhap UNION SELECT * FROM PhieuXuat ORDER BY thoiGianTao DESC";
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                String maPhieu = rs.getString("maPhieu");
+                Timestamp thoiGianTao = rs.getTimestamp("thoiGianTao");
+                String nguoiTao = rs.getString("nguoiTao");
+                double tongTien = rs.getDouble("tongTien");
+                Form p = new Form(maPhieu, thoiGianTao, Details_ImportDAO.getInstance().selectAll(maPhieu), nguoiTao, tongTien);
+                ketQua.add(p);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return ketQua;
+    }
 }
