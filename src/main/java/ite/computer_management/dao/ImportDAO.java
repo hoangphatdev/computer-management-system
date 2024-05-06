@@ -159,5 +159,21 @@ public class ImportDAO implements DAOInterface<Computer> {
 		    }
 		    return productInfo;
 		}
+	 public int updateProductQuantity(String productCode, int newQuantity) {
+		    int rowsAffected = 0;
+		    try {
+		        ConnectDatabase.getInstance();
+		        Connection connection = ConnectDatabase.getConnection();
+		        String sql = "UPDATE computer SET quantity = ? WHERE computer_Code = ?";
+		        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+		            statement.setInt(1, newQuantity);
+		            statement.setString(2, productCode);
+		            rowsAffected = statement.executeUpdate();
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    return rowsAffected;
+		}
 
 }

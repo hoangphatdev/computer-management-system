@@ -277,7 +277,7 @@ public class ImportsProductView extends JPanel {
 		setRandomFormValue();
 	}
 	public void addProductActionPerformed() {
-		Imports_productController imports_productController;
+	    Imports_productController imports_productController;
 	    int row = table_Product.getSelectedRow();
 	    if (row == -1) {
 	        JOptionPane.showMessageDialog(this, "Please choose the row you need!");
@@ -293,21 +293,53 @@ public class ImportsProductView extends JPanel {
 	                    int currentQuantity = Integer.parseInt(productInfo[1]); // Số lượng hiện có của sản phẩm
 	                    if (quantity == currentQuantity) {
 	                        DefaultTableModel tableModelImports = (DefaultTableModel) table_Imports.getModel();
-	                        tableModelImports.addRow(new Object[] { productInfo[0], productCode, productName, quantity, productInfo[1], productInfo[2] });
+	                        // Kiểm tra xem sản phẩm đã tồn tại trong bảng nhập hàng hay chưa
+	                        boolean productExists = false;
+	                        for (int i = 0; i < tableModelImports.getRowCount(); i++) {
+	                            if (productCode.equals(tableModelImports.getValueAt(i, 1))) {
+	                                int existingQuantity = (int) tableModelImports.getValueAt(i, 3);
+	                                tableModelImports.setValueAt(existingQuantity + quantity, i, 3);
+	                                productExists = true;
+	                                break;
+	                            }
+	                        }
+	                        if (!productExists) {
+	                            tableModelImports.addRow(new Object[] { productInfo[0], productCode, productName, quantity, productInfo[1], productInfo[2] });
+	                        }
 	                        // Xóa hàng đã chọn khỏi bảng table_Product
 	                        DefaultTableModel tableModelProduct = (DefaultTableModel) table_Product.getModel();
 	                        tableModelProduct.removeRow(row);
 	                        // Cập nhật lại tổng số tiền
 	                        updateTotalAmount();
+
+	                        // Cập nhật số lượng trong cơ sở dữ liệu
+	                        int newQuantity = currentQuantity - quantity;
+	                        Imports_DAO.updateProductQuantity(productCode, newQuantity);
 	                    } else if (quantity < currentQuantity) {
 	                        DefaultTableModel tableModelProduct = (DefaultTableModel) table_Product.getModel();
 	                        // Cập nhật số lượng của sản phẩm trong bảng table_Product
-	                        table_Product.setValueAt(currentQuantity - quantity, row, 3);
+	                        int quantityNow = currentQuantity - quantity;
+	                        table_Product.setValueAt(quantityNow, row, 3);
 	                        // Thêm sản phẩm vào bảng table_Imports với số lượng nhập
 	                        DefaultTableModel tableModelImports = (DefaultTableModel) table_Imports.getModel();
-	                        tableModelImports.addRow(new Object[] { productInfo[0], productCode, productName, quantity, productInfo[1], productInfo[2] });
+	                        boolean productExists = false;
+	                        for (int i = 0; i < tableModelImports.getRowCount(); i++) {
+	                            if (productCode.equals(tableModelImports.getValueAt(i, 1))) {
+	                                int existingQuantity = (int) tableModelImports.getValueAt(i, 3);
+	                                tableModelImports.setValueAt(existingQuantity + quantity, i, 3);
+	                                productExists = true;
+	                                break;
+	                            }
+	                        }
+	                        if (!productExists) {
+	                            tableModelImports.addRow(new Object[] { productInfo[0], productCode, productName, quantity, productInfo[1], productInfo[2] });
+	                        }
 	                        // Cập nhật lại tổng số tiền
 	                        updateTotalAmount();
+
+	                        // Cập nhật số lượng trong cơ sở dữ liệu
+	                        int newQuantity = currentQuantity - quantity;
+	                        Imports_DAO.updateProductQuantity(productCode, newQuantity);
 	                    } else {
 	                        JOptionPane.showMessageDialog(this, "Not enough quantity available for this product!");
 	                    }
@@ -364,22 +396,26 @@ public class ImportsProductView extends JPanel {
 	            JOptionPane.showMessageDialog(this, "Please choose the row you need!");
 	        } else {
 	            try {
-	                int quantity = Integer.parseInt(TF_Quantity.getText().trim());
+	            	DefaultTableModel tableModelProduct = (DefaultTableModel) table_Product.getModel();
+	            	DefaultTableModel tableModelImports = (DefaultTableModel) table_Imports.getModel();
+	            	
+	            	int quantity = Integer.parseInt(tableModelImports.getValueAt(row, 3).toString());
 	                String productCode = table_Imports.getValueAt(row, 1).toString();
 	                String productName = table_Imports.getValueAt(row, 2).toString();
 	                
 	                // Thực hiện truy vấn để lấy thông tin còn lại từ cơ sở dữ liệu
 	                String[] productInfo = Imports_DAO.getProductInfo(productCode);
 	                  
-	                DefaultTableModel tableModelProduct = (DefaultTableModel) table_Product.getModel();
+	                
 	                
 	                // Kiểm tra xem sản phẩm đã tồn tại trong bảng table_Product hay chưa
 	                boolean productExists = false;
 	                for (int i = 0; i < tableModelProduct.getRowCount(); i++) {
 	                    if (productCode.equals(tableModelProduct.getValueAt(i, 1).toString())) {
-	                        // Nếu sản phẩm đã tồn tại, cộng số lượng
+	                        // Nếu sản phẩm đã tồn tại, cộng số lượng	
 	                        int currentQuantity = Integer.parseInt(tableModelProduct.getValueAt(i, 3).toString());
-	                        tableModelProduct.setValueAt(currentQuantity + quantity, i, 3);
+	                        int quantity_now = currentQuantity + quantity;
+	                        tableModelProduct.setValueAt(quantity_now, i, 3);
 	                        productExists = true;
 	                        break;
 	                    }
@@ -391,14 +427,19 @@ public class ImportsProductView extends JPanel {
 	                }
 
 	                // Xóa hàng đã chọn khỏi bảng table_Imports
-	                DefaultTableModel tableModelImports = (DefaultTableModel) table_Imports.getModel();
 	                tableModelImports.removeRow(row);
 	                
 	                // Cập nhật lại tổng số tiền
 	                updateTotalAmount();
+
+	                // Cập nhật số lượng trong cơ sở dữ liệu
+	                int newQuantity = Integer.parseInt(productInfo[1]) + quantity;
+	                Imports_DAO.updateProductQuantity(productCode, newQuantity);
+
 	            } catch (NumberFormatException e) {
 	                JOptionPane.showMessageDialog(this, "Please enter the quantity as an integer!");
 	            }
 	        }
 	    }
+
 }

@@ -147,69 +147,13 @@ public class ImportCouponView extends JPanel {
 		
 	}
 	public void clickDeleteLbl() {
-		int check = table.getSelectedRowCount();
-		int selectedRow = table.getSelectedRow();
-		
-		if(check <1) {
-			JOptionPane.showMessageDialog(null, "Please select row to delete.");
-		}else {
-			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?"); // yes:0, no:1
-			if(confirm == 0) {
-				String computerCode =  model.getValueAt(selectedRow, 1).toString(); // index cua gelValuAt bat dau tu 0
-				String computerName = model.getValueAt(selectedRow,0).toString();
-				Computer deleteProduct = new Computer();
-				deleteProduct.setComputerCode(computerCode);
-				int result = ProductDAO.getInstance().delete(deleteProduct);
-				System.out.println(result);
-				if(result == 1) {
-					model.removeRow(selectedRow);
-				}
-			}
-			
-		}
+	
 	}
 	public void clickSearchBtn() {
-		DefaultTableModel demo = (DefaultTableModel) table.getModel();
-		TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(demo);
-		table.setRowSorter(trs);
-		trs.setRowFilter(RowFilter.regexFilter(searchTxt.getText()));
+	
 	}
 	public void clickExportExcel() {
-			try {
-				JFileChooser jFileChooser = new JFileChooser();
-				jFileChooser.showSaveDialog(this);
-				File saveFile = jFileChooser.getSelectedFile();
-				
-				if(saveFile != null) {
-					saveFile = new File(saveFile.toString() + ".xlsx");
-					Workbook wb = new XSSFWorkbook();
-					Sheet sheet = wb.createSheet("product");
-					
-					Row rowCol = sheet.createRow(0);
-					for(int i=0; i<table.getColumnCount(); i++) {
-						Cell cell = rowCol.createCell(i);
-						cell.setCellValue(table.getColumnName(i));
-					}
-					for(int j=0; j<table.getRowCount(); j++) {
-						Row row = sheet.createRow(j);
-						for(int k=0; k<table.getColumnCount(); k++) {
-							Cell cell = row.createCell(k);
-							if(table.getValueAt(j, k) != null) {
-								cell.setCellValue(table.getValueAt(j, k).toString());
-							}
-						}
-					}
-					FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
-					wb.write(out);
-					wb.close();
-					out.close();
-					}
-//				JOptionPane.showMessageDialog(null, "Export successfully ><");
-				}catch(FileNotFoundException e) {
-					JOptionPane.showMessageDialog(null, e);
-				}catch(IOException e) {
-					JOptionPane.showMessageDialog(null, e);
-				}
+			
     }
 	public void clickEditBtn() {
 			
@@ -225,8 +169,5 @@ public class ImportCouponView extends JPanel {
 		}
 		
 	}
-	
-	
-	
 }
 

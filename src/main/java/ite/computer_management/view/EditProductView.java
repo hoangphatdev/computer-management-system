@@ -279,7 +279,6 @@ public class EditProductView extends JFrame {
 			productView.model.setValueAt(screenSize, selectedRowIndex, 10);
 			productView.model.setValueAt(batteryCapacity, selectedRowIndex, 11);
 			productView.model.setValueAt(origin, selectedRowIndex, 12);
-	
 	}
 	public void clickCancelBtn() {
 		this.dispose();
