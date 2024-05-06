@@ -109,6 +109,13 @@ public class ImportCouponView extends JPanel {
 		add(scrollPane);
 		//create table and fetch data from database
 		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Number", "Form code", "Supplier", "Creator", "Creation time", "Total amount"
+			}
+		));
 		model = (DefaultTableModel) table.getModel();
 		ImportCouponDAO importCouponDAO = new ImportCouponDAO(this);
 		importCouponDAO.selectAll();
