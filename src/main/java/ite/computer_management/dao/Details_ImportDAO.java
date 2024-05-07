@@ -57,11 +57,6 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 	        return ketQua;
 	}
 
-	@Override
-	public Details_Form selectById(Details_Form t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public ArrayList<Details_Form> selectByCondition(String condition) {
@@ -98,4 +93,11 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
         }
         return ketQua;
     }
+
+
+	@Override
+	public Details_Form selectById(String t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

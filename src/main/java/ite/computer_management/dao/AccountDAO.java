@@ -122,14 +122,15 @@ public class AccountDAO implements DAOInterface<Account> {
 		return null;
 	}
 
-	@Override
-	public Account selectById(Account  account) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public ArrayList selectByCondition(String condition) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Account selectById(String t) {
 		// TODO Auto-generated method stub
 		return null;
 	}

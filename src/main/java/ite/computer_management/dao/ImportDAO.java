@@ -56,12 +56,6 @@ public class ImportDAO implements DAOInterface<Computer> {
 	}
 
 	@Override
-	public Computer selectById(Computer t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public ArrayList<Computer> selectByCondition(String condition) {
 		// TODO Auto-generated method stub
 		return null;
@@ -175,5 +169,11 @@ public class ImportDAO implements DAOInterface<Computer> {
 		    }
 		    return rowsAffected;
 		}
+
+	@Override
+	public Computer selectById(String t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

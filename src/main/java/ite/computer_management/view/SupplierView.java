@@ -48,6 +48,10 @@ public class SupplierView extends JPanel {
 	public Dashboard dashboard;
 	private JLabel bgLbl;
 	
+	public SupplierView() {
+		
+	}
+	
 	public SupplierView(Dashboard dashboard) {
 		this.dashboard = dashboard;
 		SupplierController SupplierController = new SupplierController(this);
@@ -116,10 +120,17 @@ public class SupplierView extends JPanel {
 		add(scrollPane);
 		//create table and fetch data from database
 		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Supplier code", "Supplier Name", "Phone number", "Address"
+			}
+		));
 		model = (DefaultTableModel) table.getModel();
 		SupplierDAO supplierDAO = new SupplierDAO(this);
-		//
-		supplierDAO.selectAll();
+		//hiển thị sup lên tabel
+		supplierDAO.display(table);
 		scrollPane.setViewportView(table);
 		
 		searchTxt = new JTextField();

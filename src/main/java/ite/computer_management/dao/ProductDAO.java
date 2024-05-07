@@ -66,14 +66,14 @@ public class ProductDAO implements DAOInterface<Computer> {
 	@Override
 	public int delete(Computer t) {
 		int check = 0;
-		Connection connect = ConnectDatabase.getInstance().getConnection();
+		ConnectDatabase.getInstance();
+		Connection connect = ConnectDatabase.getConnection();
 		String sql = "DELETE FROM computer WHERE computer_code=?";
 		try {
 			PreparedStatement ps = connect.prepareStatement(sql);
 			ps.setString(1, t.getComputerCode());
 			check = ps.executeUpdate();
 			connect.close();
-			System.out.println("----------\n"+ sql + t.getComputerCode());
 			JOptionPane.showMessageDialog(null, "Delete successfully ");
 			
 		} catch (SQLException e) {
@@ -163,11 +163,6 @@ public class ProductDAO implements DAOInterface<Computer> {
 		return null;
 	}
 
-	@Override
-	public Computer selectById(Computer t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public ArrayList<Computer> selectByCondition(String condition) {
@@ -178,6 +173,11 @@ public class ProductDAO implements DAOInterface<Computer> {
 	public int update(Computer t) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	@Override
+	public Computer selectById(String t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
