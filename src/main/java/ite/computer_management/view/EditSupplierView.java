@@ -131,8 +131,7 @@ public class EditSupplierView extends JFrame {
 		setVisible(true);
 	}
 	public void clickUpdateBtn() {	
-		int selectedRowIndex = this.supplierView.table.getSelectedRow();
-		String condition_Supplier_Code = (String) this.supplierView.table.getValueAt(selectedRowIndex, 1);
+		int selectedRowIndex = SupplierView.table.getSelectedRow();
 		String Supplier_Code = SupplierCodeTxt.getText();
 		String Supplier_Name = SupplierNameTxt.getText();
 		String Phone_Number = PhoneTxt.getText();
@@ -140,8 +139,7 @@ public class EditSupplierView extends JFrame {
 
 		Supplier sup = new Supplier(Supplier_Code, Supplier_Name, Phone_Number, Address);
 		//back-end
-		int check = SupplierDAO.getInstance().update(sup, condition_Supplier_Code);
-			//front-end
+		int check = SupplierDAO.getInstance().update(sup);			//front-end
 		supplierView.model.setValueAt(Supplier_Code, selectedRowIndex, 0);
 		supplierView.model.setValueAt(Supplier_Name, selectedRowIndex, 1);
 		supplierView.model.setValueAt(Phone_Number, selectedRowIndex, 2);

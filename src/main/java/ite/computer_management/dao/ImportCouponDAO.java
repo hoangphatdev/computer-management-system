@@ -32,33 +32,89 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
 	
 	@Override
 	public int insert(ImportsForm t) {
-		// TODO Auto-generated method stub
-		return 0;
+		   int ketQua = 0;
+	        try {
+	        	Connection connect = ConnectDatabase.getInstance().getConnection();
+	            String sql = "INSERT INTO import_coupon (form_Code, time_Start, creator, supplier, total_Amount) VALUES (?,?,?,?,?)";
+	            PreparedStatement pst = connect.prepareStatement(sql);
+	            pst.setString(1, t.getForm_Code());
+	            pst.setTimestamp(2, t.getTime_Start());
+	            pst.setString(3, t.getCreator());
+	            pst.setString(4, t.getSupplier());
+	            pst.setDouble(5, t.getTotal_Amount());
+	            ketQua = pst.executeUpdate();
+	            connect.close();
+	        } catch (Exception e) {
+	            // TODO: handle exception
+	            e.printStackTrace();
+	        }
+	        return ketQua;
 	}
 
 	@Override
 	public int delete(ImportsForm t) {
-		// TODO Auto-generated method stub
-		return 0;
+		   int ketQua = 0;
+	        try {
+	        	Connection connect = ConnectDatabase.getInstance().getConnection();
+	            String sql = "DELETE FROM import_coupon WHERE form_Code=?";
+	            PreparedStatement pst = connect.prepareStatement(sql);
+	            pst.setString(1, t.getForm_Code());
+	            ketQua = pst.executeUpdate();
+	            connect.close();
+	            JOptionPane.showMessageDialog(null, "Delete successfully ");
+	        } catch (Exception e) {
+	            // TODO: handle exception
+	            e.printStackTrace();
+	        }
+	        return ketQua;
 	}
 
 	@Override
 	public int update(ImportsForm t) {
-		// TODO Auto-generated method stub
-		return 0;
+		 int ketQua = 0;
+	        try {
+	        	Connection connect = ConnectDatabase.getInstance().getConnection();
+	            String sql = "UPDATE import_coupon SET form_Code=?, time_Start=?, creator=?, supplier=?, total_Amount = ? WHERE form_Code=?";
+	            PreparedStatement pst = connect.prepareStatement(sql);
+	            pst.setString(1, t.getForm_Code());
+	            pst.setTimestamp(2, t.getTime_Start());
+	            pst.setString(3, t.getCreator());
+	            pst.setString(4, t.getSupplier());
+	            pst.setDouble(5, t.getTotal_Amount());
+	            pst.setString(6, t.getForm_Code());
+	            ketQua = pst.executeUpdate();
+	            connect.close();
+	        } catch (Exception e) {
+	            // TODO: handle exception
+	            e.printStackTrace();
+	        }
+	        return ketQua;
 	}
 
 	@Override
 	public ArrayList<ImportsForm> selectAll() {
-	
-		return null;
+		  ArrayList<ImportsForm> ketQua = new ArrayList<ImportsForm>();
+	        try {
+	        	Connection connect = ConnectDatabase.getInstance().getConnection();
+	            String sql = "SELECT * FROM import_coupon ORDER BY time_start DESC";
+	            PreparedStatement pst = connect.prepareStatement(sql);
+	            ResultSet rs = pst.executeQuery();
+	            while (rs.next()) {
+	                String form_Code = rs.getString("form_Code");
+	                Timestamp time_Start = rs.getTimestamp("time_Start");
+	                String creator = rs.getString("creator");
+	                String supplier_Code = rs.getString("supplier_Code");
+	                double total_Amout = rs.getDouble("total_Amout");
+	                ImportsForm p = new ImportsForm(supplier_Code, form_Code, time_Start, creator, Details_ImportDAO.getInstance().selectAll(supplier_Code), total_Amout);
+	                ketQua.add(p);
+	            }
+	        } catch (Exception e) {
+	            // TODO: handle exception
+	            e.printStackTrace();
+	        }
+	        return ketQua;
 	}
 
-	@Override
-	public ImportsForm selectById(ImportsForm t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public ArrayList<ImportsForm> selectByCondition(String condition) {
@@ -68,28 +124,46 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
 
 	@Override
 	public int update(ImportsForm t, String condition) {
-		// TODO Auto-generated method stub
-		return 0;
+		  int ketQua = 0;
+	        try {
+	        	Connection connect = ConnectDatabase.getInstance().getConnection();
+	            String sql = "UPDATE import_coupon SET form_Code=?, time_start=?, creator=?, supplier_Code=?, total_Amount = ? WHERE form_Code=?";
+	            PreparedStatement pst = connect.prepareStatement(sql);
+	            pst.setString(1, t.getForm_Code());
+	            pst.setTimestamp(2, t.getTime_Start());
+	            pst.setString(3, t.getCreator());
+	            pst.setString(4, t.getSupplier());
+	            pst.setDouble(5, t.getTotal_Amount());
+	            pst.setString(6, t.getForm_Code());
+	            ketQua = pst.executeUpdate();
+	            connect.close();
+	        } catch (Exception e) {
+	            // TODO: handle exception
+	            e.printStackTrace();
+	        }
+	        return ketQua;
 	}
-	public ArrayList<Form> selectAllP() {
-        ArrayList<Form> ketQua = new ArrayList<Form>();
+	@Override
+	public ImportsForm selectById(String t) {
+		ImportsForm ketQua = null;
         try {
-        	Connection con = ConnectDatabase.getInstance().getConnection();
-            String sql = "SELECT maPhieu,thoiGianTao,nguoiTao,tongTien FROM PhieuNhap UNION SELECT * FROM PhieuXuat ORDER BY thoiGianTao DESC";
-            PreparedStatement pst = con.prepareStatement(sql);
+        	Connection connect = ConnectDatabase.getInstance().getConnection();
+            String sql = "SELECT * FROM import_coupon WHERE form_Code=?";
+            PreparedStatement pst = connect.prepareStatement(sql);
+            pst.setString(1, t);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                String maPhieu = rs.getString("maPhieu");
-                Timestamp thoiGianTao = rs.getTimestamp("thoiGianTao");
-                String nguoiTao = rs.getString("nguoiTao");
-                double tongTien = rs.getDouble("tongTien");
-                Form p = new Form(maPhieu, thoiGianTao, Details_ImportDAO.getInstance().selectAll(maPhieu), nguoiTao, tongTien);
-                ketQua.add(p);
+                String form_Code = rs.getString("form_Code");
+                Timestamp time_Start = rs.getTimestamp("time_Start");
+                String creator = rs.getString("creator");
+                String supplier_Code = rs.getString("supplier_Code");
+                double total_Amount = rs.getDouble("total_Amount");
+                ketQua = new ImportsForm(supplier_Code, form_Code, time_Start, creator, Details_ImportDAO.getInstance().selectAll(form_Code), total_Amount);
             }
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
         return ketQua;
-    }
+	}
 }

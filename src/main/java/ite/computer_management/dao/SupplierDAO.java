@@ -1,34 +1,35 @@
 package ite.computer_management.dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import ite.computer_management.database.ConnectDatabase;
 import ite.computer_management.model.Supplier;
 import ite.computer_management.view.SupplierView;
 
-public class SupplierDAO implements DAOInterface<Supplier>{
-	private SupplierView SupplierView;
-	
-	public SupplierDAO() {};
-	public SupplierDAO(SupplierView SV) {
-		this.SupplierView = SV;
-	}
-	public static SupplierDAO getInstance() {
-		return new SupplierDAO();
-	}
-	
-	@Override
-	public int insert(Supplier t) {
-		int check = 0;
-		Connection connect = ConnectDatabase.getInstance().getConnection();
+public class SupplierDAO implements DAOInterface<Supplier> {
+    private SupplierView SupplierView;
+
+    public SupplierDAO() {}
+
+    public SupplierDAO(SupplierView SV) {
+        this.SupplierView = SV;
+    }
+
+    public static SupplierDAO getInstance() {
+        return new SupplierDAO();
+    }
+
+    @Override
+    public int insert(Supplier t) {
+    	int check = 0;
+		ConnectDatabase.getInstance();
+		Connection connect = ConnectDatabase.getConnection();
 		try {
 			String sql = "INSERT INTO Supplier(supplier_Code, supplier_Name, phone_Number, address)" + " VALUE"		
 					+ "(?,?,?,?)";
@@ -47,19 +48,19 @@ public class SupplierDAO implements DAOInterface<Supplier>{
 			JOptionPane.showMessageDialog(null, "Computer code already exist");
 		}
 		return check;
-	}
+    }
 
-	@Override
-	public int delete(Supplier t) {
-		int check = 0;
-		Connection connect = ConnectDatabase.getInstance().getConnection();
+    @Override
+    public int delete(Supplier t) {
+    	int check = 0;
+		ConnectDatabase.getInstance();
+		Connection connect = ConnectDatabase.getConnection();
 		String sql = "DELETE FROM supplier WHERE supplier_Code=?";
 		try {
 			PreparedStatement ps = connect.prepareStatement(sql);
 			ps.setString(1, t.getSupplier_Code());
 			check = ps.executeUpdate();
 			connect.close();
-			System.out.println("----------\n"+ sql + t.getSupplier_Code());
 			JOptionPane.showMessageDialog(null, "Delete successfully ");
 			
 		} catch (SQLException e) {
@@ -67,77 +68,114 @@ public class SupplierDAO implements DAOInterface<Supplier>{
 		}
 		
 		return check;
-	}
+    }
 
-	@Override
-	public int update(Supplier t) {
-		int check = 0;
-		Connection connect = ConnectDatabase.getInstance().getConnection();
-		String sql = "UPDATE supplier SET supplier_Code=?, supplier_Name=?, phone_Number=?, address=?" + " WHERE supplier_Code=?";
-		try {
-			PreparedStatement ps = connect.prepareStatement(sql);
-			ps.setString(1, t.getSupplier_Code());
-			ps.setString(2,t.getSupplier_Name());
-			ps.setString(3, t.getPhone_Number());
-			ps.setString(4, t.getAddress());
-			check = ps.executeUpdate();
-			connect.close();
-			JOptionPane.showMessageDialog(null, "Edit successfully ><");
-			
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,"Error: " + e);
-		}
-		
-		return 0;
-	}
+    @Override
+    public int update(Supplier t) {
+        int check = 0;
+        ConnectDatabase.getInstance();
+        Connection connect = ConnectDatabase.getConnection();
+        String sql = "UPDATE supplier SET supplier_Code=?, supplier_Name=?, phone_Number=?, address=? WHERE supplier_Code=?";
+        try {
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setString(1, t.getSupplier_Code());
+            ps.setString(2, t.getSupplier_Name());
+            ps.setString(3, t.getPhone_Number());
+            ps.setString(4, t.getAddress());
+            ps.setString(5, t.getSupplier_Code()); 
+            check = ps.executeUpdate();
+            connect.close();
+            if (check > 0) {
+                JOptionPane.showMessageDialog(null, "Edit successfully");
+            } else {
+                JOptionPane.showMessageDialog(null, "No records were updated");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+        return check;
+    }
 
-	@Override
-	public ArrayList<Supplier> selectAll() {
-Connection connect = ConnectDatabase.getInstance().getConnection();
-		
-		try {
-			Statement st = connect.createStatement();
-			String sql = "SELECT * FROM supplier";
-			ResultSet rs = st.executeQuery(sql);
-			ResultSetMetaData rsmd = rs.getMetaData();
-		
-			int cols = rsmd.getColumnCount();
 
-			String[] colName = {"Supplier Code", "Computer Name" , "Phone Number" , "Address"}; 
-			SupplierView.model.setColumnIdentifiers(colName);
-			String supplier_Code, supplier_Name, phone_Number, address;
-			int quantity;
-			Double price, screenSize;
-			while(rs.next()) {
-				supplier_Code = rs.getString(1);  
-				supplier_Name = rs.getString(2);
-				phone_Number = rs.getString(3);
-				address = rs.getString(4);
-				String[] row = { supplier_Code, supplier_Name, phone_Number, address};
-				SupplierView.model.addRow(row);
-			}
-			connect.close();
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, e);
-		}
-		return null;
-	}
+    @Override
+    public ArrayList<Supplier> selectAll() {
+        ArrayList<Supplier> ketQua = new ArrayList<>();
+        ConnectDatabase.getInstance();
+		try (Connection connect = ConnectDatabase.getConnection()) {
+            String sql = "SELECT * FROM supplier";
+            try (PreparedStatement pst = connect.prepareStatement(sql); ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    String supplier_Code = rs.getString("supplier_Code");
+                    String supplier_Name = rs.getString("supplier_Name");
+                    String phone_Number = rs.getString("phone_Number");
+                    String address = rs.getString("address");
+                    Supplier sup = new Supplier(supplier_Code, supplier_Name, phone_Number, address);
+                    ketQua.add(sup);
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+        return ketQua;
+    }
+    public void display(JTable table) {
+		 try {
+		        ConnectDatabase.getInstance();
+				Connection connection = ConnectDatabase.getConnection();
 
-	@Override
-	public Supplier selectById(Supplier t) {
-		// TODO Auto-generated method stub
-		return null;
+		        String sql = "SELECT * FROM supplier";
+		        try (PreparedStatement p = connection.prepareStatement(sql)) {
+		            try (ResultSet re = p.executeQuery()) {
+		                DefaultTableModel model_table = (DefaultTableModel) table.getModel();
+		                model_table.setRowCount(0);	
+		                while (re.next()) {
+		                    Object[] row = new Object[]{
+		                 		
+		                            re.getString("supplier_Code"),
+		                            re.getString("supplier_Name"),                     
+		                            re.getString("phone_Number"),
+		                            re.getString("address"),   
+		                    };
+		                    model_table.addRow(row);
+		                }
+		            }
+		        }
+		    } catch (SQLException ex) {
+		        ex.printStackTrace();
+		    } 	
 	}
+    public Supplier selectById(String t) {
+        Supplier ketQua = null;
+        ConnectDatabase.getInstance();
+		try (Connection connect = ConnectDatabase.getConnection()) {
+            String sql = "SELECT * FROM supplier WHERE supplier_Code=?";
+            try (PreparedStatement pst = connect.prepareStatement(sql)) {
+                pst.setString(1, t);
+                try (ResultSet rs = pst.executeQuery()) {
+                    if (rs.next()) {
+                        String supplier_Code = rs.getString("supplier_Code");
+                        String supplier_Name = rs.getString("supplier_Name");
+                        String phone_Number = rs.getString("phone_Number");
+                        String address = rs.getString("address");
+                        ketQua = new Supplier(supplier_Code, supplier_Name, phone_Number, address);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+        return ketQua;
+    }
 
-	@Override
-	public ArrayList<Supplier> selectByCondition(String condition) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ArrayList<Supplier> selectByCondition(String condition) {
+        // Chưa cài đặt, để trống cho bây giờ
+        return null;
+    }
 
-	@Override
-	public int update(Supplier t, String condition) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int update(Supplier t, String condition) {
+        // Chưa cài đặt, để trống cho bây giờ
+        return 0;
+    }
 }

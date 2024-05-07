@@ -15,6 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -26,9 +28,15 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
+import java.sql.Timestamp;
+
+
 import ite.computer_management.controller.Imports_productController;
 import ite.computer_management.dao.ImportDAO;
+import ite.computer_management.dao.SupplierDAO;
 import ite.computer_management.database.ConnectDatabase;
+import ite.computer_management.model.ImportsForm;
+import ite.computer_management.model.Supplier;
 
 import javax.swing.JComboBox;
 import java.awt.Color;
@@ -48,6 +56,8 @@ public class ImportsProductView extends JPanel {
 	private ImportDAO Imports_DAO;
 	private JLabel bgLbl;
 	public JButton btn_accept;
+	DecimalFormat formatter = new DecimalFormat("###,###,###");
+	private static final ArrayList<Supplier> arrNcc = SupplierDAO.getInstance().selectAll();
 
 	/**
 	 * Launch the application.
@@ -285,6 +295,7 @@ public class ImportsProductView extends JPanel {
 	        try {
 	            int quantity = Integer.parseInt(TF_Quantity.getText().trim());
 	            if (quantity > 0) {
+	            	double price = Double.parseDouble(table_Product.getValueAt(row, 4).toString());
 	                String productCode = table_Product.getValueAt(row, 1).toString();
 	                String productName = table_Product.getValueAt(row, 2).toString();
 	                // Thực hiện truy vấn để lấy thông tin còn lại từ cơ sở dữ liệu
@@ -304,7 +315,7 @@ public class ImportsProductView extends JPanel {
 	                            }
 	                        }
 	                        if (!productExists) {
-	                            tableModelImports.addRow(new Object[] { productInfo[0], productCode, productName, quantity, productInfo[1], productInfo[2] });
+	                            tableModelImports.addRow(new Object[] { productInfo[0], productCode, productName, quantity, price});
 	                        }
 	                        // Xóa hàng đã chọn khỏi bảng table_Product
 	                        DefaultTableModel tableModelProduct = (DefaultTableModel) table_Product.getModel();
@@ -331,8 +342,9 @@ public class ImportsProductView extends JPanel {
 	                                break;
 	                            }
 	                        }
+	                        int number =0;
 	                        if (!productExists) {
-	                            tableModelImports.addRow(new Object[] { productInfo[0], productCode, productName, quantity, productInfo[1], productInfo[2] });
+	                            tableModelImports.addRow(new Object[] { number+1, productCode, productName, quantity, price});
 	                        }
 	                        // Cập nhật lại tổng số tiền
 	                        updateTotalAmount();
@@ -354,9 +366,6 @@ public class ImportsProductView extends JPanel {
 	        }
 	    }
 	}
-
-
-
 	private void updateTotalAmount() {
 	    DefaultTableModel modelImports = (DefaultTableModel) table_Imports.getModel();
 	    double totalAmount = 0;
@@ -367,8 +376,6 @@ public class ImportsProductView extends JPanel {
 	    }
 	    lblQuantity_1.setText(String.valueOf(totalAmount) + "Đ");
 	}
-
-	
 	 public void setRandomFormValue() {
 	        String randomFormValue = generateRandomCode();
 	        TF_Form.setText(randomFormValue);
@@ -397,17 +404,13 @@ public class ImportsProductView extends JPanel {
 	        } else {
 	            try {
 	            	DefaultTableModel tableModelProduct = (DefaultTableModel) table_Product.getModel();
-	            	DefaultTableModel tableModelImports = (DefaultTableModel) table_Imports.getModel();
-	            	
+	            	DefaultTableModel tableModelImports = (DefaultTableModel) table_Imports.getModel(); 	
 	            	int quantity = Integer.parseInt(tableModelImports.getValueAt(row, 3).toString());
 	                String productCode = table_Imports.getValueAt(row, 1).toString();
 	                String productName = table_Imports.getValueAt(row, 2).toString();
-	                
+	                double price = Double.parseDouble(table_Imports.getValueAt(row, 4).toString());
 	                // Thực hiện truy vấn để lấy thông tin còn lại từ cơ sở dữ liệu
 	                String[] productInfo = Imports_DAO.getProductInfo(productCode);
-	                  
-	                
-	                
 	                // Kiểm tra xem sản phẩm đã tồn tại trong bảng table_Product hay chưa
 	                boolean productExists = false;
 	                for (int i = 0; i < tableModelProduct.getRowCount(); i++) {
@@ -420,26 +423,36 @@ public class ImportsProductView extends JPanel {
 	                        break;
 	                    }
 	                }
-	                
 	                // Nếu sản phẩm không tồn tại, thêm sản phẩm mới vào bảng table_Product
 	                if (!productExists) {
-	                    tableModelProduct.addRow(new Object[] { productInfo[0], productCode, productName, quantity, productInfo[1], productInfo[2] });
+	                    tableModelProduct.addRow(new Object[] { productInfo[0], productCode, productName, quantity, price});
 	                }
-
 	                // Xóa hàng đã chọn khỏi bảng table_Imports
 	                tableModelImports.removeRow(row);
-	                
 	                // Cập nhật lại tổng số tiền
 	                updateTotalAmount();
-
 	                // Cập nhật số lượng trong cơ sở dữ liệu
 	                int newQuantity = Integer.parseInt(productInfo[1]) + quantity;
 	                Imports_DAO.updateProductQuantity(productCode, newQuantity);
-
 	            } catch (NumberFormatException e) {
 	                JOptionPane.showMessageDialog(this, "Please enter the quantity as an integer!");
 	            }
 	        }
+	    }
+	    
+	    public void btnNhapHang() {
+	    	DefaultTableModel model_table = (DefaultTableModel) table_Imports.getModel();
+	    	if(model_table == null) {
+	    		JOptionPane.showMessageDialog(this, "There are no products in the table");
+	    	} else {
+	    		int check = JOptionPane.showConfirmDialog(this, "are you sure??", "yes", JOptionPane.YES_NO_OPTION);
+	    		if(check == JOptionPane.YES_NO_OPTION) {
+	    			long now = System.currentTimeMillis();
+	    			Timestamp sqlTimeTamp = new Timestamp(now);
+	    			
+//	    			ImportsForm IM = new ImportsForm(arrNcc);
+	    		}
+	    	}
 	    }
 
 }

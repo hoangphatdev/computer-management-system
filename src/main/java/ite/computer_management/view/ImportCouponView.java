@@ -20,9 +20,12 @@ import javax.swing.table.TableRowSorter;
 
 import ite.computer_management.controller.ImportsCouponController;
 import ite.computer_management.controller.ProductController;
+import ite.computer_management.dao.AccountDAO;
 import ite.computer_management.dao.ImportCouponDAO;
 import ite.computer_management.dao.ProductDAO;
+import ite.computer_management.dao.SupplierDAO;
 import ite.computer_management.model.Computer;
+import ite.computer_management.model.ImportsForm;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -37,6 +40,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -54,7 +60,17 @@ public class ImportCouponView extends JPanel {
 	private JLabel borderLbl;
 	public Dashboard dashboard;
 	private JLabel bgLbl;
+	DecimalFormat formatter = new DecimalFormat("###,###,###");
+    SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm");
 	
+    public DecimalFormat getFormatter() {
+        return formatter;
+    }
+
+    public SimpleDateFormat getFormatDate() {
+        return formatDate;
+    }
+    
 	public ImportCouponView(Dashboard dashboard) {
 		this.dashboard = dashboard;
 		ImportsCouponController importsCouponController = new ImportsCouponController(this);
@@ -163,18 +179,21 @@ public class ImportCouponView extends JPanel {
 			
     }
 	public void clickEditBtn() {
-			
-		int check = table.getSelectedRowCount();
-		int selectedRowIndex = table.getSelectedRow();
-		if(check <1) { 
-			JOptionPane.showMessageDialog(null, "Please select row to edit >< ");
-		}else {
-			dashboard.setVisible(false);
-			Edit_ImportsCouponView edit_ImportsCouponView = new Edit_ImportsCouponView(this, dashboard);
-			// chưa xong
 	
-		}
 		
 	}
+	
+	  public void loadDataToTable() {
+	        try {
+	            ArrayList<ImportsForm> allPhieuNhap = ImportCouponDAO.getInstance().selectAll();
+	            model.setRowCount(0);
+	            for (int i = 0; i < allPhieuNhap.size(); i++) {
+	                model.addRow(new Object[]{
+	                    i + 1, allPhieuNhap.get(i).getForm_Code(), SupplierDAO.getInstance().selectById(allPhieuNhap.get(i).getSupplier()).getSupplier_Name(), AccountDAO.getInstance().selectById(allPhieuNhap.get(i).getCreator()).getFullName(), formatDate.format(allPhieuNhap.get(i).getTime_Start()), formatter.format(allPhieuNhap.get(i).getTotal_Amount()) + "đ"
+	                });
+	            }
+	        } catch (Exception e) {
+	        }
+	    }
 }
 
