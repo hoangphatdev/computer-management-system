@@ -16,7 +16,6 @@ public class Computer{
 	private double screenSize;
 	private String batteryCapacity;
 	private String origin;
-	
 	public String getComputerCode() {
 		return computerCode;
 	}
@@ -95,6 +94,7 @@ public class Computer{
 	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
+
 	public Computer(String computerCode, String computerName, int quantity, String cpuName, String ram, String screenCard,
 			BigDecimal price, String sourceCapacity, String machineType, String rom, double screenSize,
 			String batteryCapacity, String origin) {
@@ -114,6 +114,20 @@ public class Computer{
 		this.origin = origin;
 	}
 	public Computer() {}
+	public Computer(String computer_Code, String computer_Name, int quantity, BigDecimal price, String cpu_Name,
+			String ram, String origin, String screen_Card, String rom) {
+		super();
+		this.computerCode = computer_Code;
+		this.computerName = computer_Name;
+		this.quantity = quantity;
+		this.cpuName = cpu_Name;
+		this.ram = ram;
+		this.screenCard = screen_Card;
+		this.price = price;
+		this.rom = rom;
+		this.origin = origin;
+	}
+
 	@Override
 	public String toString() {
 		return "Computer [computerCode=" + computerCode + ", computerName=" + computerName + ", quantity=" + quantity

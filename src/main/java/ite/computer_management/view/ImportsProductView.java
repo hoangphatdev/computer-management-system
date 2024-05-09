@@ -32,11 +32,17 @@ import java.sql.Timestamp;
 
 
 import ite.computer_management.controller.Imports_productController;
+import ite.computer_management.controller.WirtePDF_File;
+import ite.computer_management.dao.Details_ImportDAO;
 import ite.computer_management.dao.ImportDAO;
 import ite.computer_management.dao.SupplierDAO;
+import ite.computer_management.dao.computerDAO;
 import ite.computer_management.database.ConnectDatabase;
+import ite.computer_management.model.Computer;
+import ite.computer_management.model.Details_Form;
 import ite.computer_management.model.ImportsForm;
 import ite.computer_management.model.Supplier;
+import lombok.var;
 
 import javax.swing.JComboBox;
 import java.awt.Color;
@@ -51,13 +57,19 @@ public class ImportsProductView extends JPanel {
 	public JTable table_Product;
 	public JTable table_Imports;
 	public JTextField TF_Quantity;
-	private JLabel lblQuantity_1;
+	private JLabel text_totalAmount;
 	public JButton btn_DeleteProduct;
 	private ImportDAO Imports_DAO;
 	private JLabel bgLbl;
 	public JButton btn_accept;
+	
 	DecimalFormat formatter = new DecimalFormat("###,###,###");
+	private JComboBox Combo_Supplier;
+	private String form_Code;
+	private JComboBox Combo_Creator;
 	private static final ArrayList<Supplier> arrNcc = SupplierDAO.getInstance().selectAll();
+	private ArrayList<Details_Form> Details_Form;
+	public JButton btn_ImportsProduct;
 
 	/**
 	 * Launch the application.
@@ -84,6 +96,9 @@ public class ImportsProductView extends JPanel {
 	
 		init();
 		this.setVisible(true);
+		Details_Form = new ArrayList<Details_Form>();
+		form_Code = createId(Imports_DAO.getInstance().selectAll());
+		TF_Form.setText(form_Code);
 	}
 	public void init() {
 		Imports_DAO = new ImportDAO(this);
@@ -185,7 +200,7 @@ public class ImportsProductView extends JPanel {
 		scrollPane_1.setBounds(512, 176, 700, 478);
 		add(scrollPane_1);
 		
-		JComboBox Combo_Supplier = new JComboBox();
+		 Combo_Supplier = new JComboBox();
 		Combo_Supplier.setBounds(600, 69, 349, 28);
 		add(Combo_Supplier);
 		
@@ -239,22 +254,23 @@ public class ImportsProductView extends JPanel {
 		lblTotalAmount.setBounds(518, 664, 181, 28);
 		add(lblTotalAmount);
 		
-		lblQuantity_1 = new JLabel("0Đ");
-		lblQuantity_1.setForeground(Color.RED);
-		lblQuantity_1.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblQuantity_1.setBounds(697, 657, 341, 41);
-		add(lblQuantity_1);
+		text_totalAmount = new JLabel("0Đ");
+		text_totalAmount.setForeground(Color.RED);
+		text_totalAmount.setFont(new Font("Tahoma", Font.BOLD, 25));
+		text_totalAmount.setBounds(697, 657, 341, 41);
+		add(text_totalAmount);
 		
-		JButton btn_ImportsProduct = new JButton("Imports product");
+		btn_ImportsProduct = new JButton("Imports product");
 		btn_ImportsProduct.setBackground(Color.LIGHT_GRAY);
 		btn_ImportsProduct.setForeground(new Color(0, 0, 0));
 		btn_ImportsProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_ImportsProduct.setBounds(1052, 682, 160, 41);
 		add(btn_ImportsProduct);
+		btn_ImportsProduct.addMouseListener(Imports_productController);
 		
 		Imports_DAO.display(table_Product);
 		
-		JComboBox Combo_Creator = new JComboBox();
+		Combo_Creator = new JComboBox();
 		Combo_Creator.setBounds(600, 108, 349, 28);
 		add(Combo_Creator);
 		
@@ -279,12 +295,11 @@ public class ImportsProductView extends JPanel {
 		}
 
 		// lấy dữ liệu từ bảng account trong database để hiện thị trong Jcombobox
-		List<String> userName = importDAO.getUserName();
-		for (String userNames : userName) {
-		    Combo_Creator.addItem(userNames);
+		List<String> fullname = importDAO.getFullName();
+		for (String FullName : fullname) {
+		    Combo_Creator.addItem(FullName);
 		}
-		
-		setRandomFormValue();
+	
 	}
 	public void addProductActionPerformed() {
 	    Imports_productController imports_productController;
@@ -352,6 +367,7 @@ public class ImportsProductView extends JPanel {
 	                        // Cập nhật số lượng trong cơ sở dữ liệu
 	                        int newQuantity = currentQuantity - quantity;
 	                        Imports_DAO.updateProductQuantity(productCode, newQuantity);
+	                        Details_Form.add(new ite.computer_management.model.Details_Form(productCode, productName, quantity, price));
 	                    } else {
 	                        JOptionPane.showMessageDialog(this, "Not enough quantity available for this product!");
 	                    }
@@ -374,28 +390,30 @@ public class ImportsProductView extends JPanel {
 	        int quantity = Integer.parseInt(modelImports.getValueAt(i, 3).toString());
 	        totalAmount += price * quantity;
 	    }
-	    lblQuantity_1.setText(String.valueOf(totalAmount) + "Đ");
+	    text_totalAmount.setText(String.valueOf(totalAmount) + "Đ");
 	}
-	 public void setRandomFormValue() {
-	        String randomFormValue = generateRandomCode();
-	        TF_Form.setText(randomFormValue);
-	    }
-
-	    // Phương thức để sinh mã ngẫu nhiên
-	    private String generateRandomCode() {
-	        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	        StringBuilder sb = new StringBuilder();
-	        Random random = new Random();
-	        for (int i = 0; i < 2; i++) {
-	            char randomChar = chars.charAt(random.nextInt(chars.length()));
-	            sb.append(randomChar);
-	        }
-	        for (int i = 0; i < 4; i++) {
-	            int randomDigit = random.nextInt(10);
-	            sb.append(randomDigit);
-	        }
-	        return sb.toString();
-	    }
+	public String createId(ArrayList<ImportsForm> arr) {
+        int id = arr.size() + 1;
+        String check = "";
+        for (ImportsForm form : arr) {
+            if (form.getForm_Code().equals("IF" + id)) {
+                check = form.getForm_Code();
+            }
+        }
+        while (check.length() != 0) {
+            String c = check;
+            id++;
+            for (int i = 0; i < arr.size(); i++) {
+                if (arr.get(i).getForm_Code().equals("IF" + id)) {
+                    check = arr.get(i).getForm_Code();
+                }
+            }
+            if (check.equals(c)) {
+                check = "";
+            }
+        }
+        return "IF" + id;
+    }
 	    
 	    public void delete_toTableImport() {
 	        int row = table_Imports.getSelectedRow();
@@ -434,13 +452,13 @@ public class ImportsProductView extends JPanel {
 	                // Cập nhật số lượng trong cơ sở dữ liệu
 	                int newQuantity = Integer.parseInt(productInfo[1]) + quantity;
 	                Imports_DAO.updateProductQuantity(productCode, newQuantity);
+	                Details_Form.remove(new ite.computer_management.model.Details_Form(productCode, productName, quantity, price));
 	            } catch (NumberFormatException e) {
 	                JOptionPane.showMessageDialog(this, "Please enter the quantity as an integer!");
 	            }
 	        }
 	    }
-	    
-	    public void btnNhapHang() {
+	    public void btn_ImportProduct() {
 	    	DefaultTableModel model_table = (DefaultTableModel) table_Imports.getModel();
 	    	if(model_table == null) {
 	    		JOptionPane.showMessageDialog(this, "There are no products in the table");
@@ -449,10 +467,42 @@ public class ImportsProductView extends JPanel {
 	    		if(check == JOptionPane.YES_NO_OPTION) {
 	    			long now = System.currentTimeMillis();
 	    			Timestamp sqlTimeTamp = new Timestamp(now);
-	    			
-//	    			ImportsForm IM = new ImportsForm(arrNcc);
+	    			String Creator = (String) Combo_Creator.getSelectedItem();
+	    			ImportsForm IM = new ImportsForm(arrNcc.get(Combo_Supplier.getSelectedIndex()).getSupplier_Code(), form_Code, sqlTimeTamp, Creator, Details_Form, total_Amount());
+	    			try {
+	    				ImportDAO.getInstance().insert(IM);
+	    				computerDAO CPTD = computerDAO.getInstance();
+	    				
+	    				for(ite.computer_management.model.Details_Form i : Details_Form) {
+	    					Details_ImportDAO.getInstance().insert(i);
+	    					CPTD.updateQuantity(i.getComputer_Code(),CPTD.selectById(i.getComputer_Code()).getQuantity() + i.getQuantity());
+	    				}
+	    				JOptionPane.showMessageDialog(this, "Imports product success");
+	    				int res = JOptionPane.showConfirmDialog(this, "do you want export file pdf?", "", JOptionPane.YES_NO_OPTION);
+	    					if(res == JOptionPane.YES_OPTION) {
+	    						  WirtePDF_File writepdf = new WirtePDF_File();
+	    	                      writepdf.writePhieuNhap(form_Code);
+	    					}
+	    					ArrayList<Computer> product = computerDAO.getInstance().selectAllExist();
+	    					
+	    					DefaultTableModel r = (DefaultTableModel) table_Imports.getModel();
+	    	                r.setRowCount(0);
+	    	                Details_Form = new ArrayList<>();
+	    	                text_totalAmount.setText("0");
+	    	                this.form_Code = createId(ImportDAO.getInstance().selectAll());
+	    	                TF_Form.setText(this.form_Code);
+	    			} catch (Exception e) {
+					
+					}    		
 	    		}
 	    	}
 	    }
+	    public double total_Amount() {
+			  double tt = 0;
+		        for (ite.computer_management.model.Details_Form i : Details_Form) {
+		            tt += i.getUnit_Price() * i.getQuantity();
+		        }
+		        return tt;
+		}
 
 }

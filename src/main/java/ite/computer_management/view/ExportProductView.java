@@ -257,6 +257,5 @@ public class ExportProductView extends JPanel {
 		}
 		ImportsProductView view = new ImportsProductView();
 
-		view.setRandomFormValue();
 	}
 }
