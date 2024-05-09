@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +14,11 @@ import javax.swing.table.DefaultTableModel;
 
 import ite.computer_management.database.ConnectDatabase;
 import ite.computer_management.model.Computer;
+import ite.computer_management.model.ImportsForm;
 import ite.computer_management.view.ExportProductView;
 import ite.computer_management.view.ImportsProductView;
 
-public class ImportDAO implements DAOInterface<Computer> {
+public class ImportDAO implements DAOInterface<ImportsForm> {
 	 private ImportsProductView ImportsView;
 	 private ExportProductView DeliveryView;
 	 public ImportDAO(ImportsProductView IPV) {
@@ -32,41 +34,6 @@ public class ImportDAO implements DAOInterface<Computer> {
 		DeliveryView = DPV;
 	}
 
-	@Override
-	public int insert(Computer t) {
-		
-		return 0;
-	}
-
-	@Override
-	public int delete(Computer t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int update(Computer t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public ArrayList<Computer> selectAll() {
-		return null;
-	}
-
-	@Override
-	public ArrayList<Computer> selectByCondition(String condition) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int update(Computer t, String condition) {
-		
-		return 0;
-	}
-	
 	public void display(JTable table) {
 		 try {
 		        ConnectDatabase.getInstance();
@@ -113,24 +80,24 @@ public class ImportDAO implements DAOInterface<Computer> {
 	        }
 	        return supplierNames;
 	    }
-	 public List<String> getUserName() {
-	        List<String> getUserName = new ArrayList<>();
+	 public List<String> getFullName() {
+	        List<String> getfullname = new ArrayList<>();
 	        try {
 	        	ConnectDatabase.getInstance();
 	            Connection connection = ConnectDatabase.getConnection();
-	            String sql = "SELECT userName FROM account";
+	            String sql = "SELECT fullName FROM account";
 	            try (PreparedStatement statement = connection.prepareStatement(sql)) {
 	                try (ResultSet resultSet = statement.executeQuery()) {
 	                    while (resultSet.next()) {
-	                        String name = resultSet.getString("userName");
-	                        getUserName.add(name);
+	                        String name = resultSet.getString("fullName");
+	                        getfullname.add(name);
 	                    }
 	                }
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
-	        return getUserName;
+	        return getfullname;
 	    }
 	 public String[] getProductInfo(String productCode) {
 		    String[] productInfo = new String[3]; 
@@ -156,10 +123,10 @@ public class ImportDAO implements DAOInterface<Computer> {
 	 public int updateProductQuantity(String productCode, int newQuantity) {
 		    int rowsAffected = 0;
 		    try {
-		        ConnectDatabase.getInstance();
-		        Connection connection = ConnectDatabase.getConnection();
+		    	ConnectDatabase.getInstance();
+		        Connection connec = ConnectDatabase.getConnection();
 		        String sql = "UPDATE computer SET quantity = ? WHERE computer_Code = ?";
-		        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+		        try (PreparedStatement statement = connec.prepareStatement(sql)) {
 		            statement.setInt(1, newQuantity);
 		            statement.setString(2, productCode);
 		            rowsAffected = statement.executeUpdate();
@@ -171,9 +138,98 @@ public class ImportDAO implements DAOInterface<Computer> {
 		}
 
 	@Override
-	public Computer selectById(String t) {
+	public int insert(ImportsForm t) {
+		 int ketQua = 0;
+	        try {
+	        	ConnectDatabase.getInstance();
+		        Connection connec = ConnectDatabase.getConnection();
+	            String sql = "INSERT INTO import_coupon (form_Code, time_Start, creator, Supplier_Code, total_Amount) VALUES (?,?,?,?,?)";
+	            PreparedStatement pst = connec.prepareStatement(sql);
+	            pst.setString(1, t.getForm_Code());
+	            pst.setTimestamp(2, t.getTime_Start());
+	            pst.setString(3, t.getCreator());
+	            pst.setString(4, t.getSupplier());
+	            pst.setDouble(5, t.getTotal_Amount());
+	            ketQua = pst.executeUpdate();
+	            connec.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return ketQua;
+	}
+
+	@Override
+	public int delete(ImportsForm t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int update(ImportsForm t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<ImportsForm> selectAll() {
+		 ArrayList<ImportsForm> ketQua = new ArrayList<ImportsForm>();
+	        try {
+	        	ConnectDatabase.getInstance();
+		        Connection connec = ConnectDatabase.getConnection();
+	            String sql = "SELECT * FROM import_coupon ORDER BY time_Start DESC";
+	            PreparedStatement pst = connec.prepareStatement(sql);
+	            ResultSet rs = pst.executeQuery();
+	            while (rs.next()) {
+	                String form_Code = rs.getString("form_Code");
+	                Timestamp time_Start = rs.getTimestamp("time_Start");
+	                String creator = rs.getString("creator");
+	                String supplier_Code = rs.getString("supplier_Code");
+	                double total_Amount = rs.getDouble("total_Amount");
+	                ImportsForm p = new ImportsForm(supplier_Code, form_Code, time_Start, creator, Details_ImportDAO.getInstance().selectAll(form_Code), total_Amount);
+	                ketQua.add(p);
+	            }
+	        } catch (Exception e) {
+	            // TODO: handle exception
+	            e.printStackTrace();
+	        }
+	        return ketQua;
+	}
+
+	@Override
+	public ImportsForm selectById(String t) {
+        ImportsForm ketQua = null;
+        try {
+        	ConnectDatabase.getInstance();
+	        Connection connec = ConnectDatabase.getConnection();
+            String sql = "SELECT * FROM import_coupon WHERE form_code=?";
+            PreparedStatement pst = connec.prepareStatement(sql);
+            pst.setString(1, t);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                String form_Code = rs.getString("form_Code");
+                Timestamp time_Start = rs.getTimestamp("time_Start");
+                String creator = rs.getString("creator");
+                String supplier_Code = rs.getString("supplier_Code");
+                double total_Amount = rs.getDouble("total_Amount");
+                ketQua = new ImportsForm(supplier_Code, form_Code, time_Start, creator, Details_ImportDAO.getInstance().selectAll(form_Code), total_Amount);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return ketQua;
+	}
+
+	@Override
+	public ArrayList<ImportsForm> selectByCondition(String condition) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int update(ImportsForm t, String condition) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

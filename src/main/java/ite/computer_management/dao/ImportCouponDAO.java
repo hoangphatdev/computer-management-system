@@ -96,7 +96,7 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
 		  ArrayList<ImportsForm> ketQua = new ArrayList<ImportsForm>();
 	        try {
 	        	Connection connect = ConnectDatabase.getInstance().getConnection();
-	            String sql = "SELECT * FROM import_coupon ORDER BY time_start DESC";
+	            String sql = "SELECT * FROM import_coupon ORDER BY time_Start DESC";
 	            PreparedStatement pst = connect.prepareStatement(sql);
 	            ResultSet rs = pst.executeQuery();
 	            while (rs.next()) {
@@ -104,8 +104,8 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
 	                Timestamp time_Start = rs.getTimestamp("time_Start");
 	                String creator = rs.getString("creator");
 	                String supplier_Code = rs.getString("supplier_Code");
-	                double total_Amout = rs.getDouble("total_Amout");
-	                ImportsForm p = new ImportsForm(supplier_Code, form_Code, time_Start, creator, Details_ImportDAO.getInstance().selectAll(supplier_Code), total_Amout);
+	                double total_Amount = rs.getDouble("total_Amount");
+	                ImportsForm p = new ImportsForm(supplier_Code, form_Code, time_Start, creator, Details_ImportDAO.getInstance().selectAll(supplier_Code), total_Amount);
 	                ketQua.add(p);
 	            }
 	        } catch (Exception e) {
