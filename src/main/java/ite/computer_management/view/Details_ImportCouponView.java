@@ -232,9 +232,9 @@ public class Details_ImportCouponView extends JFrame {
 		}
 
 		// lấy dữ liệu từ bảng account trong database để hiện thị trong Jcombobox
-		List<String> userName = importDAO.getUserName();
-		for (String userNames : userName) {
-		    Combo_Creator.addItem(userNames);
+		List<String> fullname = importDAO.getFullName();
+		for (String FN : fullname) {
+		    Combo_Creator.addItem(FN);
 		}
 	}
 

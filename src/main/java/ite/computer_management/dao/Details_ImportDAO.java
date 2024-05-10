@@ -24,8 +24,6 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 	    Connection con = null;
 	    try {
 	        con = ConnectDatabase.getConnection();
-	        // Kiểm tra xem form_Code có tồn tại trong bảng import_coupon không
-	        if (isFormCodeValid(con, t.getForm_Code())) {
 	            String sql = "INSERT INTO detail_imports_coupon (form_Code, computer_Code, quantity, unit_price) VALUES (?,?,?,?)";
 	            PreparedStatement pst = con.prepareStatement(sql);
 	            pst.setString(1, t.getForm_Code());
@@ -35,22 +33,10 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 	            ketQua = pst.executeUpdate();
 	            // In thông báo khi thêm dữ liệu thành công
 	            System.out.println("Insert into detail_imports_coupon successfully.");
-	        } else {
-	            // In thông báo khi form_Code không tồn tại trong bảng import_coupon
-	            System.out.println("Error: form_Code does not exist in import_coupon table.");
-	        }
+	            con.close();
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	    } finally {
-	        // Đảm bảo rằng kết nối được đóng ngay sau khi sử dụng
-	        if (con != null) {
-	            try {
-	                con.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    }
+	    } 
 	    return ketQua;
 	}
 
@@ -95,8 +81,8 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 	                String form_Code = rs.getString("form_Code");
 	                String computer_Code = rs.getString("computer_Code");
 	                int quantity = rs.getInt("quantity");
-	                double price = rs.getDouble("price");
-	                Details_Form ctp = new Details_Form(form_Code, computer_Code, quantity, price);
+	                double unit_price = rs.getDouble("unit_price");
+	                Details_Form ctp = new Details_Form(form_Code, computer_Code, quantity, unit_price);
 	                ketQua.add(ctp);
 	            }
 	        } catch (Exception e) {
@@ -131,8 +117,8 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
                 String form_Code = rs.getString("form_Code");
                 String computer_Code = rs.getString("computer_Code");
                 int quantity = rs.getInt("quantity");
-                double price = rs.getDouble("price");
-                Details_Form ctp = new Details_Form(form_Code, computer_Code, quantity, price);
+                double unit_price = rs.getDouble("unit_price");
+                Details_Form ctp = new Details_Form(form_Code, computer_Code, quantity, unit_price);
                 ketQua.add(ctp);
             }
             ConnectDatabase.closeConnection(con);

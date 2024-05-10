@@ -131,8 +131,25 @@ public class AccountDAO implements DAOInterface<Account> {
 	}
 	@Override
 	public Account selectById(String t) {
-		// TODO Auto-generated method stub
-		return null;
+		 Account acc = null;
+	        try {
+	        	Connection connect = ConnectDatabase.getConnection();
+	            String sql = "SELECT * FROM account WHERE fullName=?";
+	            PreparedStatement pst = connect.prepareStatement(sql);
+	            pst.setString(1, t);
+	            ResultSet rs = pst.executeQuery();
+	            while (rs.next()) {
+	                String fullName = rs.getString("fullName");
+	                String userName = rs.getString("userName");
+	                String password = rs.getString("password");
+	                String role = rs.getString("role");
+	                acc = new Account(fullName, userName, password, role);
+	            }
+	            connect.close();
+	        } catch (Exception e) {
+	            // TODO: handle exception           
+	        }
+	        return acc;
 	}
 
 	
