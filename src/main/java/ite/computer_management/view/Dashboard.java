@@ -76,7 +76,7 @@ public class Dashboard extends JFrame {
 		SupplierView supplierView = new SupplierView(this);
 		tabbedPane.addTab("Supplier manegement", supplierView );
 		
-		ImportCouponView importCouponView = new ImportCouponView(this);
+		ImportCouponView importCouponView = new ImportCouponView();
 		tabbedPane.addTab("Import coupon", importCouponView);
 		
 		

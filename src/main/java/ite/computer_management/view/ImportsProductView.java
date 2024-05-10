@@ -367,7 +367,8 @@ public class ImportsProductView extends JPanel {
 	                        // Cập nhật số lượng trong cơ sở dữ liệu
 	                        int newQuantity = currentQuantity - quantity;
 	                        Imports_DAO.updateProductQuantity(productCode, newQuantity);
-	                        Details_Form.add(new ite.computer_management.model.Details_Form(productCode, productName, quantity, price));
+	                        form_Code = TF_Form.getText();
+	                        Details_Form.add(new ite.computer_management.model.Details_Form(form_Code, productCode, quantity, price));
 	                    } else {
 	                        JOptionPane.showMessageDialog(this, "Not enough quantity available for this product!");
 	                    }
@@ -452,7 +453,8 @@ public class ImportsProductView extends JPanel {
 	                // Cập nhật số lượng trong cơ sở dữ liệu
 	                int newQuantity = Integer.parseInt(productInfo[1]) + quantity;
 	                Imports_DAO.updateProductQuantity(productCode, newQuantity);
-	                Details_Form.remove(new ite.computer_management.model.Details_Form(productCode, productName, quantity, price));
+	                form_Code = TF_Form.getText();
+	                Details_Form.remove(new ite.computer_management.model.Details_Form(form_Code, productCode, quantity, price));
 	            } catch (NumberFormatException e) {
 	                JOptionPane.showMessageDialog(this, "Please enter the quantity as an integer!");
 	            }

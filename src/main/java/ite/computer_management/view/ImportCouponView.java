@@ -51,7 +51,7 @@ public class ImportCouponView extends JPanel {
 	public JLabel seeDetailLbl;
 	public JLabel deleteLbl;
 	public JLabel editLbl;
-	public static DefaultTableModel model;
+
 	private static final long serialVersionUID = 1L;
 	public static JTable table;
 	public JTextField searchTxt;
@@ -70,9 +70,12 @@ public class ImportCouponView extends JPanel {
     public SimpleDateFormat getFormatDate() {
         return formatDate;
     }
+    public ImportCouponView() {
+    	init();
+    	loadDataToTable();
+    }
     
-	public ImportCouponView(Dashboard dashboard) {
-		this.dashboard = dashboard;
+	public void init() {
 		ImportsCouponController importsCouponController = new ImportsCouponController(this);
 		this.setSize(1250,800);
 		setLayout(null);
@@ -129,10 +132,9 @@ public class ImportCouponView extends JPanel {
 			new Object[][] {
 			},
 			new String[] {
-				"Number", "Form code", "Supplier", "Creator", "Creation time", "Total amount"
+				"Number", "Form code", "Supplier ", "Creator", "Time", "Total amount"
 			}
 		));
-		model = (DefaultTableModel) table.getModel();
 		ImportCouponDAO importCouponDAO = new ImportCouponDAO(this);
 		importCouponDAO.selectAll();
 		scrollPane.setViewportView(table);
@@ -167,6 +169,7 @@ public class ImportCouponView extends JPanel {
 		bgLbl.setBackground(new Color(191, 186, 166));
 		bgLbl.setOpaque(true);
 		add(bgLbl);
+		loadDataToTable();
 		
 	}
 	public void clickDeleteLbl() {
@@ -182,18 +185,23 @@ public class ImportCouponView extends JPanel {
 	
 		
 	}
-	
-	  public void loadDataToTable() {
-	        try {
-	            ArrayList<ImportsForm> allPhieuNhap = ImportCouponDAO.getInstance().selectAll();
-	            model.setRowCount(0);
-	            for (int i = 0; i < allPhieuNhap.size(); i++) {
-	                model.addRow(new Object[]{
-	                    i + 1, allPhieuNhap.get(i).getForm_Code(), SupplierDAO.getInstance().selectById(allPhieuNhap.get(i).getSupplier()).getSupplier_Name(), AccountDAO.getInstance().selectById(allPhieuNhap.get(i).getCreator()).getFullName(), formatDate.format(allPhieuNhap.get(i).getTime_Start()), formatter.format(allPhieuNhap.get(i).getTotal_Amount()) + "đ"
-	                });
-	            }
-	        } catch (Exception e) {
+	public void loadDataToTable() {
+	    try {
+	        DefaultTableModel table_model = (DefaultTableModel) table.getModel();
+	        ArrayList<ImportsForm> allPhieuNhap = ImportCouponDAO.getInstance().selectAll();
+	        table_model.setRowCount(0);
+	        int stt = 0;
+	        for (int i = 0; i < allPhieuNhap.size(); i++) {
+	            table_model.addRow(new Object[]{
+	                stt++, allPhieuNhap.get(i).getForm_Code(), SupplierDAO.getInstance().selectById(allPhieuNhap.get(i).getSupplier()).getSupplier_Name(), AccountDAO.getInstance().selectById(allPhieuNhap.get(i).getCreator()).getFullName(), formatDate.format(allPhieuNhap.get(i).getTime_Start()), formatter.format(allPhieuNhap.get(i).getTotal_Amount()) + "đ"
+	            });
 	        }
+	        System.out.println("Data loaded successfully!"); // Thêm dòng này để in ra thông báo khi dữ liệu được tải thành công
+	    } catch (Exception e) {
+	        System.out.println("Failed to load data: " + e.getMessage()); // In ra thông báo nếu có lỗi xảy ra
+	        e.printStackTrace(); // In ra stack trace của exception để kiểm tra và xử lý lỗi
 	    }
+	}
+
 }
 

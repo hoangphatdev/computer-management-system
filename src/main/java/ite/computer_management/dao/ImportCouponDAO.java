@@ -95,7 +95,8 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
 	public ArrayList<ImportsForm> selectAll() {
 		  ArrayList<ImportsForm> ketQua = new ArrayList<ImportsForm>();
 	        try {
-	        	Connection connect = ConnectDatabase.getInstance().getConnection();
+	        	ConnectDatabase.getInstance();
+				Connection connect = ConnectDatabase.getConnection();
 	            String sql = "SELECT * FROM import_coupon ORDER BY time_Start DESC";
 	            PreparedStatement pst = connect.prepareStatement(sql);
 	            ResultSet rs = pst.executeQuery();
