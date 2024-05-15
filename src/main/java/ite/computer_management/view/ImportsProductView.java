@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -60,16 +61,17 @@ public class ImportsProductView extends JPanel {
 	private JLabel text_totalAmount;
 	public JButton btn_DeleteProduct;
 	private ImportDAO Imports_DAO;
-	private JLabel bgLbl;
 	public JButton btn_accept;
 	
 	DecimalFormat formatter = new DecimalFormat("###,###,###");
+	SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm");
 	private JComboBox Combo_Supplier;
 	private String form_Code;
 	private JComboBox Combo_Creator;
 	private static final ArrayList<Supplier> arrNcc = SupplierDAO.getInstance().selectAll();
 	private ArrayList<Details_Form> Details_Form;
 	public JButton btn_ImportsProduct;
+	public JButton btn_Refresh;
 
 	/**
 	 * Launch the application.
@@ -90,7 +92,13 @@ public class ImportsProductView extends JPanel {
 //	/**
 //	 * Create the frame.
 //	 */
-	
+	  public DecimalFormat getFormatter() {
+	        return formatter;
+	    }
+
+	    public SimpleDateFormat getFormatDate() {
+	        return formatDate;
+	    }
 	
 	public ImportsProductView() {
 	
@@ -99,6 +107,14 @@ public class ImportsProductView extends JPanel {
 		Details_Form = new ArrayList<Details_Form>();
 		form_Code = createId(Imports_DAO.getInstance().selectAll());
 		TF_Form.setText(form_Code);
+		
+		
+		JLabel bgLbl_1 = new JLabel("");
+		bgLbl_1.setOpaque(true);
+		bgLbl_1.setBackground(new Color(224, 218, 218));
+		bgLbl_1.setBackground(new Color(191, 186, 166));
+		bgLbl_1.setBounds(-131, 0, 1395, 918);
+		add(bgLbl_1);
 	}
 	public void init() {
 		Imports_DAO = new ImportDAO(this);
@@ -112,6 +128,14 @@ public class ImportsProductView extends JPanel {
 		add(TF_Sreach);
 		TF_Sreach.setColumns(10);
 		
+		btn_Refresh = new JButton("Refresh");
+		btn_Refresh.setForeground(Color.BLACK);
+		btn_Refresh.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_Refresh.setBackground(Color.DARK_GRAY);
+		btn_Refresh.setBounds(348, 46, 85, 28);
+		add(btn_Refresh);
+		btn_Refresh.addMouseListener(Imports_productController);
+		
 		JLabel lblNewLabel = new JLabel("Sreach:");
 		lblNewLabel.setForeground(Color.BLACK);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -121,7 +145,7 @@ public class ImportsProductView extends JPanel {
 		Box verticalBox = Box.createVerticalBox();
 		verticalBox.setBackground(SystemColor.inactiveCaptionText);
 		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox.setBounds(22, 10, 317, 87);
+		verticalBox.setBounds(22, 10, 452, 87);
 		add(verticalBox);
 		
 		JLabel lblFrom = new JLabel("Form:");
@@ -279,13 +303,6 @@ public class ImportsProductView extends JPanel {
 		verticalBox_1.setBackground(SystemColor.desktop);
 		verticalBox_1.setBounds(512, 10, 461, 146);
 		add(verticalBox_1);
-		
-		bgLbl = new JLabel("");
-		bgLbl.setBounds(0, -27, 1250, 817);
-		bgLbl.setBackground(new Color(224, 218, 218));
-		bgLbl.setBackground(new Color(191, 186, 166));
-		bgLbl.setOpaque(true);
-		add(bgLbl);
 		
 		// lấy dữ liệu từ bảng supplier trong database để hiện thị trong Jcombobox
 		ImportDAO importDAO = new ImportDAO();
@@ -474,7 +491,6 @@ public class ImportsProductView extends JPanel {
 	    			try {
 	    				ImportDAO.getInstance().insert(IM);
 	    				computerDAO CPTD = computerDAO.getInstance();
-	    				
 	    				for(ite.computer_management.model.Details_Form i : Details_Form) {
 	    					Details_ImportDAO.getInstance().insert(i);
 	    					CPTD.updateQuantity(i.getComputer_Code(),CPTD.selectById(i.getComputer_Code()).getQuantity() + i.getQuantity());
@@ -485,14 +501,13 @@ public class ImportsProductView extends JPanel {
 	    						  WirtePDF_File writepdf = new WirtePDF_File();
 	    	                      writepdf.writePhieuNhap(form_Code);
 	    					}
-	    					ArrayList<Computer> product = computerDAO.getInstance().selectAllExist();
-	    					
-	    					DefaultTableModel r = (DefaultTableModel) table_Imports.getModel();
+         					DefaultTableModel r = (DefaultTableModel) table_Imports.getModel();
 	    	                r.setRowCount(0);
-	    	                Details_Form = new ArrayList<>();
 	    	                text_totalAmount.setText("0");
 	    	                this.form_Code = createId(ImportDAO.getInstance().selectAll());
 	    	                TF_Form.setText(this.form_Code);
+	    	                ImportCouponView view = new ImportCouponView();
+	    	                view.displayTable();
 	    			} catch (Exception e) {
 					
 					}    		
@@ -506,5 +521,8 @@ public class ImportsProductView extends JPanel {
 		        }
 		        return tt;
 		}
-
+	    public void displayTable() {
+	    	ImportDAO view = new ImportDAO();
+	    	view.display(table_Product);
+	    }
 }

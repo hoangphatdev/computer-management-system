@@ -46,7 +46,7 @@ public class computerDAO implements DAOInterface<Computer> {
 	        try {
 	        	ConnectDatabase.getInstance();
 	    		Connection connect = ConnectDatabase.getConnection();
-	            String sql = "SELECT computer_Code, computer_Name, quantity, price, cpu_Name, ram, origin, screen_Card, rom FROM computer WHERE computer_Code = ?";
+	            String sql = "SELECT * FROM computer WHERE computer_Code = ?";
 	            PreparedStatement pst = connect.prepareStatement(sql);
 	            pst.setString(1, t);
 
