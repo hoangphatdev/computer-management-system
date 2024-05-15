@@ -58,8 +58,20 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 
 	@Override
 	public int delete(Details_Form t) {
-		// TODO Auto-generated method stub
-		return 0;
+		 int ketQua = 0;
+	        try {
+	        	ConnectDatabase.getInstance();
+	  			Connection con = ConnectDatabase.getConnection();
+	            String sql = "DELETE FROM detail_imports_coupon WHERE form_Code=?";
+	            PreparedStatement pst = con.prepareStatement(sql);
+	            pst.setString(1, t.getForm_Code());
+	            ketQua = pst.executeUpdate();
+	            con.close();
+	        } catch (Exception e) {
+	            // TODO: handle exception
+	            e.printStackTrace();
+	        }
+	        return ketQua;
 	}
 
 	@Override
@@ -121,7 +133,7 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
                 Details_Form ctp = new Details_Form(form_Code, computer_Code, quantity, unit_price);
                 ketQua.add(ctp);
             }
-            ConnectDatabase.closeConnection(con);
+            con.close();
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();

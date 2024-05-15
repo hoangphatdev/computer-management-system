@@ -18,6 +18,15 @@ public class Edit_ImportsCoupon_Controller implements MouseListener, KeyListener
 	public Edit_ImportsCoupon_Controller(Edit_ImportsCouponView EICV) {
 		edit_ImportsCouponView = EICV;
 	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource() == edit_ImportsCouponView.btn_back) {
+			edit_ImportsCouponView.back();
+		}else if(e.getSource() == edit_ImportsCouponView.btn_accept) {
+			edit_ImportsCouponView.addProductActionPerformed();
+		}
+		
+	}
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -37,11 +46,6 @@ public class Edit_ImportsCoupon_Controller implements MouseListener, KeyListener
 		
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {

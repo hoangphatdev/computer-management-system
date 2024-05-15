@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import ite.computer_management.controller.ProductController;
+import ite.computer_management.dao.ImportDAO;
 import ite.computer_management.dao.ProductDAO;
 import ite.computer_management.model.Computer;
 import javax.swing.JScrollPane;
@@ -153,6 +154,7 @@ public class ProductView extends JPanel {
 	}
 	public void clickAddLbl() {
 		new AddProductView(this, dashboard);
+		ImportDAO view = new ImportDAO();
 	}
 	public void clickDeleteLbl() {
 		int check = table.getSelectedRowCount();

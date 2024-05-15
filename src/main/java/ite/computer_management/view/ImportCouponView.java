@@ -21,10 +21,14 @@ import javax.swing.table.TableRowSorter;
 import ite.computer_management.controller.ImportsCouponController;
 import ite.computer_management.controller.ProductController;
 import ite.computer_management.dao.AccountDAO;
+import ite.computer_management.dao.Details_ImportDAO;
 import ite.computer_management.dao.ImportCouponDAO;
+import ite.computer_management.dao.ImportDAO;
 import ite.computer_management.dao.ProductDAO;
 import ite.computer_management.dao.SupplierDAO;
+import ite.computer_management.dao.computerDAO;
 import ite.computer_management.model.Computer;
+import ite.computer_management.model.Details_Form;
 import ite.computer_management.model.ImportsForm;
 
 import javax.swing.JScrollPane;
@@ -51,7 +55,7 @@ public class ImportCouponView extends JPanel {
 	public JLabel seeDetailLbl;
 	public JLabel deleteLbl;
 	public JLabel editLbl;
-
+	public static DefaultTableModel model;
 	private static final long serialVersionUID = 1L;
 	public static JTable table;
 	public JTextField searchTxt;
@@ -62,6 +66,9 @@ public class ImportCouponView extends JPanel {
 	private JLabel bgLbl;
 	DecimalFormat formatter = new DecimalFormat("###,###,###");
     SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+    private ImportsProductView IF;
+    private Edit_ImportsCouponView EICV;
+    public JLabel btn_refresh;
 	
     public DecimalFormat getFormatter() {
         return formatter;
@@ -72,7 +79,8 @@ public class ImportCouponView extends JPanel {
     }
     public ImportCouponView() {
     	init();
-    	loadDataToTable();
+    	displayTable();
+ 
     }
     
 	public void init() {
@@ -90,6 +98,16 @@ public class ImportCouponView extends JPanel {
 		deleteLbl.setBorder(BorderFactory.createDashedBorder(Color.black) );
 		deleteLbl.setBackground(new Color(214, 210, 199));
 		deleteLbl.addMouseListener(importsCouponController);
+		
+		btn_refresh = new JLabel("Refresh");
+		btn_refresh.setOpaque(true);
+		btn_refresh.setHorizontalAlignment(SwingConstants.CENTER);
+		btn_refresh.setFont(new Font("Dialog", Font.BOLD, 12));
+		btn_refresh.setBorder(BorderFactory.createDashedBorder(Color.black));
+		btn_refresh.setBackground(Color.LIGHT_GRAY);
+		btn_refresh.setBounds(542, 152, 100, 40);
+		add(btn_refresh);
+		btn_refresh.addMouseListener(importsCouponController);
 		add(deleteLbl);
 		
 		editLbl = new JLabel("Edit");
@@ -160,21 +178,44 @@ public class ImportCouponView extends JPanel {
 		add(titleLbl);
 		
 		borderLbl = new JLabel("");
-		borderLbl.setBounds(35, 130, 488, 88);
+		borderLbl.setBounds(35, 130, 497, 88);
 		borderLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
 		add(borderLbl);
 		
 		bgLbl = new JLabel("");
-		bgLbl.setBounds(0, 114, 1250, 676);
+		bgLbl.setBounds(-199, 73, 1449, 717);
 		bgLbl.setBackground(new Color(191, 186, 166));
 		bgLbl.setOpaque(true);
 		add(bgLbl);
-		loadDataToTable();
 		
 	}
 	public void clickDeleteLbl() {
-	
+		 if (table.getSelectedRow() == -1) {
+	            JOptionPane.showMessageDialog(this, "Please select the row to delete");
+	        } else {
+	            deletePhieuNhap(getPhieuNhapSelect());
+	        }
 	}
+	public void deletePhieuNhap(ImportsForm pn) {
+	    int result = JOptionPane.showConfirmDialog(this, "are you sure to delete " + pn.getForm_Code(), "yes", JOptionPane.YES_NO_OPTION);
+	    if (result == JOptionPane.YES_OPTION) {
+	        try {  
+	            ArrayList<Details_Form> detailsForms = Details_ImportDAO.getInstance().selectAll(pn.getForm_Code());
+	      
+	            for (Details_Form detail : detailsForms) {
+	                Details_ImportDAO.getInstance().delete(detail);
+	            }     
+	            ImportCouponDAO.getInstance().delete(pn);       
+	            JOptionPane.showMessageDialog(this, "form successfully deleted" + pn.getForm_Code());  
+	            displayTable();
+	        } catch (Exception e) {
+	            JOptionPane.showMessageDialog(this, "fail" + e.getMessage());
+	            e.printStackTrace();
+	        }
+	    }
+	}
+
+
 	public void clickSearchBtn() {
 	
 	}
@@ -182,26 +223,38 @@ public class ImportCouponView extends JPanel {
 			
     }
 	public void clickEditBtn() {
-	
-		
+		int check = table.getSelectedRowCount();
+		int selectedRowIndex = table.getSelectedRow();
+		if(check <1) { 
+			JOptionPane.showMessageDialog(null, "Please select row to edit >< ");
+		}else {
+			Edit_ImportsCouponView view = new Edit_ImportsCouponView(this);
+			view.loadDataToTableProduct(this);
+			view.setVisible(true);
+		}
 	}
-	public void loadDataToTable() {
+	public void displayTable() {
 	    try {
 	        DefaultTableModel table_model = (DefaultTableModel) table.getModel();
 	        ArrayList<ImportsForm> allPhieuNhap = ImportCouponDAO.getInstance().selectAll();
 	        table_model.setRowCount(0);
-	        int stt = 0;
+	        int stt = 1;
 	        for (int i = 0; i < allPhieuNhap.size(); i++) {
 	            table_model.addRow(new Object[]{
 	                stt++, allPhieuNhap.get(i).getForm_Code(), SupplierDAO.getInstance().selectById(allPhieuNhap.get(i).getSupplier()).getSupplier_Name(), AccountDAO.getInstance().selectById(allPhieuNhap.get(i).getCreator()).getFullName(), formatDate.format(allPhieuNhap.get(i).getTime_Start()), formatter.format(allPhieuNhap.get(i).getTotal_Amount()) + "đ"
 	            });
 	        }
-	        System.out.println("Data loaded successfully!"); // Thêm dòng này để in ra thông báo khi dữ liệu được tải thành công
+	        System.out.println("Data loaded successfully!");
 	    } catch (Exception e) {
-	        System.out.println("Failed to load data: " + e.getMessage()); // In ra thông báo nếu có lỗi xảy ra
-	        e.printStackTrace(); // In ra stack trace của exception để kiểm tra và xử lý lỗi
+	        System.out.println("Failed to load data: " + e.getMessage());
+	        e.printStackTrace();
 	    }
 	}
-
+    public ImportsForm getPhieuNhapSelect() {
+    	DefaultTableModel table_model = (DefaultTableModel) table.getModel();
+        int i_row = table.getSelectedRow();
+        ImportsForm pn = ImportDAO.getInstance().selectById(table_model.getValueAt(i_row, 1).toString());
+        return pn;
+    }
 }
 

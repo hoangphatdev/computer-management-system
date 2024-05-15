@@ -24,8 +24,9 @@ public class ImportsCouponController implements MouseListener, KeyListener{
 			
 		}else if(e.getSource() == imporCouponView.excelBtn) {
 			imporCouponView.clickExportExcel();
-		}
-		
+		} else if(e.getSource() == imporCouponView.btn_refresh) {
+			imporCouponView.displayTable();
+		} 		
 	}
 
 	

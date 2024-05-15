@@ -27,7 +27,9 @@ public class Imports_productController implements MouseListener, KeyListener{
 			Imports.delete_toTableImport();
 		} else if(e.getSource() == Imports.btn_ImportsProduct) {
 			Imports.btn_ImportProduct();
-		} 
+		} else if(e.getSource() == Imports.btn_Refresh) {
+			Imports.displayTable();
+		}
 		
 	}
 	
