@@ -24,15 +24,13 @@ public class SupplierController implements MouseListener, KeyListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource() == supplierView.addLbl) {
+		if(e.getSource() == supplierView.btnadd) {
 			supplierView.clickAddLbl();
-		}else if(e.getSource() == supplierView.deleteLbl) {
+		}else if(e.getSource() == supplierView.btndelete) {
 			supplierView.clickDeleteLbl();
-		}else if(e.getSource() == supplierView.editLbl) {
+		}else if(e.getSource() == supplierView.btnUpdate) {
 			supplierView.clickEditBtn();
-		}else if(e.getSource() == supplierView.seeDetailLbl) {
-			
-		}else if(e.getSource() == supplierView.excelBtn) {
+		}else if(e.getSource() == supplierView.btnExcel) {
 			supplierView.clickExportExcel();
 		}
 	}

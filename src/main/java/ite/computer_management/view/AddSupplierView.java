@@ -4,6 +4,8 @@ package ite.computer_management.view;
 import java.awt.Color;
 import java.awt.EventQueue;
 
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -24,6 +26,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
  
 public class AddSupplierView extends JFrame {
 
@@ -38,106 +41,108 @@ public class AddSupplierView extends JFrame {
 	public JLabel cancelLbl;
 	public SupplierView supplierView;
 	public Dashboard dashboard;
+	public JButton btnadd;
+	public JComponent btnCancel;
+	public JButton btnRefresh;
 	
 	public AddSupplierView(SupplierView supplierView, Dashboard dashboard) {
 		this.supplierView = supplierView;
 		this.dashboard = dashboard;
 		AddSupplierController addSupplierController = new AddSupplierController(this);
+
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 450);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 0, 51));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel titleLbl = new JLabel("ADD SUPPLIER");
-		titleLbl.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLbl.setBounds(0, 0, 700, 139);
-		titleLbl.setBackground(Color.gray);
-		titleLbl.setOpaque(true);
-		contentPane.add(titleLbl);
-		
 		JLabel SupplierNameLbl = new JLabel("Supplier Name");
-		SupplierNameLbl.setBackground(Color.gray);
+		SupplierNameLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		SupplierNameLbl.setForeground(new Color(255, 255, 102));
+		SupplierNameLbl.setBackground(new Color(51, 51, 102));
 		SupplierNameLbl.setOpaque(true);
 		SupplierNameLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		SupplierNameLbl.setBounds(27, 162, 217, 41);
+		SupplierNameLbl.setBounds(84, 53, 217, 41);
 		contentPane.add(SupplierNameLbl);
 		
 		JLabel SupplierCodeLbl = new JLabel("Supplier Code");
+		SupplierCodeLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		SupplierCodeLbl.setForeground(new Color(255, 255, 102));
 		SupplierCodeLbl.setOpaque(true);
 		SupplierCodeLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		SupplierCodeLbl.setBackground(Color.gray);
-		SupplierCodeLbl.setBounds(281, 162, 217, 41);
+		SupplierCodeLbl.setBackground(new Color(51, 51, 102));
+		SupplierCodeLbl.setBounds(338, 53, 217, 41);
 		contentPane.add(SupplierCodeLbl);
 		
 		JLabel AddressLbl = new JLabel("Address");
+		AddressLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		AddressLbl.setForeground(new Color(255, 255, 102));
 		AddressLbl.setOpaque(true);
 		AddressLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		AddressLbl.setBackground(Color.gray);
-		AddressLbl.setBounds(27, 267, 217, 41);
+		AddressLbl.setBackground(new Color(51, 51, 102));
+		AddressLbl.setBounds(84, 170, 217, 41);
 		contentPane.add(AddressLbl);
 		
 		JLabel PhoneNumberLbl = new JLabel("Phone Number");
+		PhoneNumberLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		PhoneNumberLbl.setForeground(new Color(255, 255, 102));
 		PhoneNumberLbl.setOpaque(true);
 		PhoneNumberLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		PhoneNumberLbl.setBackground(Color.gray);
-		PhoneNumberLbl.setBounds(281, 267, 217, 41);
+		PhoneNumberLbl.setBackground(new Color(51, 51, 102));
+		PhoneNumberLbl.setBounds(338, 170, 217, 41);
 		contentPane.add(PhoneNumberLbl);
 		
 		SupplierNameTxt = new JTextField();
-		SupplierNameTxt.setBounds(27, 204, 217, 41);
+		SupplierNameTxt.setBounds(84, 95, 217, 41);
 		contentPane.add(SupplierNameTxt);
 		SupplierNameTxt.setColumns(10);
 		
 		SupplierCodeTxt = new JTextField();
 		SupplierCodeTxt.setColumns(10);
-		SupplierCodeTxt.setBounds(281, 204, 217, 41);
+		SupplierCodeTxt.setBounds(338, 95, 217, 41);
 		contentPane.add(SupplierCodeTxt);
 		
 		AddressTxt = new JTextField();
 		AddressTxt.setColumns(10);
-		AddressTxt.setBounds(27, 304, 217, 41);
+		AddressTxt.setBounds(84, 207, 217, 41);
 		contentPane.add(AddressTxt);
 		
 		PhoneTxt = new JTextField();
 		PhoneTxt.setColumns(10);
-		PhoneTxt.setBounds(281, 305, 217, 41);
+		PhoneTxt.setBounds(338, 208, 217, 41);
 		contentPane.add(PhoneTxt);
 		
-		addLbl = new JLabel("ADD PRODUCT");
-		addLbl.setBackground(Color.GREEN);
-		addLbl.setOpaque(true);
-		addLbl.setForeground(Color.white);
-		addLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		addLbl.setBounds(398, 380, 141, 41);
-		addLbl.addMouseListener(addSupplierController);
-		contentPane.add(addLbl);
+		btnadd = new JButton("Add");
+		btnadd.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\add 30.png"));
+		btnadd.setForeground(Color.YELLOW);
+		btnadd.setBackground(Color.GRAY);
+		btnadd.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnadd.setBounds(160, 300, 141, 41);
+		contentPane.add(btnadd);
+		btnadd.addMouseListener(addSupplierController);
 		
-		cancelLbl = new JLabel("Cancel");
-		cancelLbl.setBackground(Color.red);
-		cancelLbl.setOpaque(true);
-		cancelLbl.setForeground(Color.white);
-		cancelLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		cancelLbl.setBounds(549, 380, 141, 41);
-		cancelLbl.addMouseListener(addSupplierController);
-		contentPane.add(cancelLbl);
+		btnCancel = new JButton("Cancel");
+		btnCancel.setBackground(Color.RED);
+		btnCancel.setForeground(Color.BLACK);
+		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnCancel.setBounds(247, 351, 141, 41);
+		contentPane.add(btnCancel);
 		
-		refreshLbl = new JLabel("REFRESH");
-		refreshLbl.setOpaque(true);
-		refreshLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		refreshLbl.setForeground(Color.WHITE);
-		refreshLbl.setBackground(Color.GREEN);
-		refreshLbl.setBounds(528, 162, 141, 41);
-		refreshLbl.addMouseListener(addSupplierController);
-		contentPane.add(refreshLbl);
+		btnRefresh = new JButton("Refresh");
+		btnRefresh.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
+		btnRefresh.setForeground(Color.YELLOW);
+		btnRefresh.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnRefresh.setBackground(Color.GRAY);
+		btnRefresh.setBounds(338, 300, 141, 41);
+		contentPane.add(btnRefresh);
+		btnCancel.addMouseListener(addSupplierController);
 		
 		this.setLocationRelativeTo(null);
-		this.setUndecorated(true);
 		setVisible(true);
 	}
 	

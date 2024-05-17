@@ -9,14 +9,14 @@ import java.awt.Color;
 import java.awt.Desktop;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import ite.computer_management.controller.ProductController;
+
 import ite.computer_management.controller.SupplierController;
-import ite.computer_management.dao.ProductDAO;
+
 import ite.computer_management.dao.SupplierDAO;
-import ite.computer_management.model.Computer;
+
 import ite.computer_management.model.Supplier;
 
 import javax.swing.JScrollPane;
@@ -26,99 +26,38 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import java.awt.Font;
-import java.awt.print.PageFormat;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import javax.swing.BorderFactory;
+
 import javax.swing.ImageIcon;
+
+import javax.swing.Box;
+import javax.swing.border.BevelBorder;
 public class SupplierView extends JPanel {
-	public JLabel seeDetailLbl;
-	public JLabel deleteLbl;
-	public JLabel editLbl;
-	public JLabel addLbl;
 	public static DefaultTableModel model;
 	private static final long serialVersionUID = 1L;
 	public static JTable table;
 	public JTextField searchTxt;
-	public JButton excelBtn;
-	private JLabel titleLbl;
-	private JLabel borderLbl;
 	public Dashboard dashboard;
-	private JLabel bgLbl;
-	
-	public SupplierView() {
-		
-	}
+	public JButton btnExcel;
+	public JButton btnadd;
+	public JButton btnUpdate;
+	public JButton btndelete;
 	
 	public SupplierView(Dashboard dashboard) {
+		setBackground(new Color(72, 61, 139));
 		this.dashboard = dashboard;
 		SupplierController SupplierController = new SupplierController(this);
 		this.setSize(1250,800);
 		setLayout(null);
 		
-		addLbl = new JLabel("Add");
-		addLbl.setFont(new Font("Inter", Font.BOLD, 12));
-		addLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\add 20.png"));
-		addLbl.setBounds(553, 152, 100, 40);
-		
-		addLbl.setOpaque(true);
-		addLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		addLbl.addMouseListener(SupplierController);
-		addLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
-		addLbl.setBackground(new Color(214, 210, 199));
-		add(addLbl);
-		
-		deleteLbl = new JLabel("Delete");
-		deleteLbl.setFont(new Font("Inter", Font.BOLD, 12));
-		deleteLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\delete 20.png"));
-		deleteLbl.setOpaque(true);
-		deleteLbl.setHorizontalAlignment(SwingConstants.CENTER);
-	
-		deleteLbl.setBounds(670, 152, 100, 40);
-		deleteLbl.setBorder(BorderFactory.createDashedBorder(Color.black) );
-		deleteLbl.setBackground(new Color(214, 210, 199));
-		deleteLbl.addMouseListener(SupplierController);
-		add(deleteLbl);
-		
-		editLbl = new JLabel("Edit");
-		editLbl.setFont(new Font("Inter", Font.BOLD, 12));
-		editLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\edit 20 (1).png"));
-		editLbl.setOpaque(true);
-		editLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		editLbl.setBackground(new Color(214, 210, 199));
-		editLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
-		editLbl.setBounds(791, 152, 100, 40);
-		editLbl.addMouseListener(SupplierController);
-		add(editLbl);
-		
-		seeDetailLbl = new JLabel("See Detail");
-		seeDetailLbl.setFont(new Font("Inter", Font.BOLD, 12));
-		seeDetailLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\detail 20.png"));
-		seeDetailLbl.setOpaque(true);
-		seeDetailLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		seeDetailLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
-		seeDetailLbl.setBackground(new Color(214, 210, 199));
-		seeDetailLbl.setBounds(912, 152, 100, 40);
-		seeDetailLbl.addMouseListener(SupplierController);
-		add(seeDetailLbl);
-		
-		excelBtn = new JButton("Export Excel");
-		excelBtn.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\excel 20.png"));
-		excelBtn.setBounds(1032, 153, 190, 40);
-		excelBtn.setBounds(1032, 153, 167, 40);
-		excelBtn.setOpaque(true);
-		excelBtn.setBackground(new Color(214, 210, 199));
-		excelBtn.addMouseListener(SupplierController);
-		add(excelBtn);
-
-
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(36, 243, 1004, 466);
 		scrollPane.setBounds(36, 243, 1163, 466);
 		add(scrollPane);
-		//create table and fetch data from database
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -129,41 +68,68 @@ public class SupplierView extends JPanel {
 		));
 		model = (DefaultTableModel) table.getModel();
 		SupplierDAO supplierDAO = new SupplierDAO(this);
-		//hiển thị sup lên tabel
+
 		supplierDAO.display(table);
 		scrollPane.setViewportView(table);
-		
 		searchTxt = new JTextField();
 		searchTxt.addKeyListener(SupplierController);
-		searchTxt.setBounds(105, 154, 407, 40);
+		searchTxt.setBounds(792, 54, 385, 40);
 		add(searchTxt);
 		searchTxt.setColumns(10);
 		
 		JLabel searchLbl = new JLabel("Search:");
-		searchLbl.setFont(new Font("Inter", Font.BOLD, 13));
-		searchLbl.setBounds(47, 152, 48, 40);
+		searchLbl.setForeground(new Color(255, 255, 255));
+		searchLbl.setFont(new Font("Dialog", Font.BOLD, 17));
+		searchLbl.setBounds(793, 10, 134, 48);
 		add(searchLbl);
 		
-		titleLbl = new JLabel("PRODUCT MANAGEMENT");
-		titleLbl.setFont(new Font("Bakery", Font.PLAIN, 35));
-		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLbl.setBounds(0, 0, 1250, 110);
-		titleLbl.setOpaque(true);
-		titleLbl.setBackground(new Color(54, 51, 46));
-		titleLbl.setForeground(new Color(222, 173, 91));
-		add(titleLbl);
+		Box verticalBox = Box.createVerticalBox();
+		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		verticalBox.setBounds(772, 20, 427, 102);
+		add(verticalBox);
 		
-		borderLbl = new JLabel("");
-		borderLbl.setBounds(35, 130, 488, 88);
-		borderLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
-		add(borderLbl);
-
-		bgLbl = new JLabel("");
-		bgLbl.setBounds(0, 114, 1250, 676);
-		bgLbl.setBackground(new Color(224, 218, 218));
-		bgLbl.setBackground(new Color(191, 186, 166));
-		bgLbl.setOpaque(true);
-		add(bgLbl);
+		btnadd = new JButton("Add");
+		btnadd.setForeground(Color.WHITE);
+		btnadd.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\add 25.png"));
+		btnadd.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnadd.setBackground(new Color(51, 0, 102));
+		btnadd.setBounds(36, 50, 120, 40);
+		add(btnadd);
+		btnadd.addMouseListener(SupplierController);
+		
+		 btndelete = new JButton("Delete");
+		 btndelete.setForeground(Color.WHITE);
+		 btndelete.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\cancel 30.png"));
+		 btndelete.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btndelete.setBackground(new Color(51, 0, 102));
+		btndelete.setBounds(36, 100, 159, 40);
+		add(btndelete);
+		btndelete.addMouseListener(SupplierController);
+		
+		 btnUpdate = new JButton("Update");
+		 btnUpdate.setForeground(Color.WHITE);
+		 btnUpdate.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\edit 30.png"));
+		 btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnUpdate.setBackground(new Color(51, 0, 102));
+		btnUpdate.setBounds(36, 153, 190, 40);
+		add(btnUpdate);
+		btnUpdate.addMouseListener(SupplierController);
+		
+		btnExcel = new JButton("Export excel");
+		btnExcel.setForeground(Color.WHITE);
+		btnExcel.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
+		btnExcel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnExcel.setBackground(new Color(51, 0, 102));
+		btnExcel.setBounds(1018, 193, 181, 40);
+		add(btnExcel);
+		
+		JLabel searchLbl_1 = new JLabel("");
+		searchLbl_1.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\logo2.png"));
+		searchLbl_1.setForeground(Color.WHITE);
+		searchLbl_1.setFont(new Font("Dialog", Font.BOLD, 17));
+		searchLbl_1.setBounds(373, 10, 673, 424);
+		add(searchLbl_1);
+		btnExcel.addMouseListener(SupplierController);
 
 	}
 	public void clickAddLbl() {
@@ -230,7 +196,6 @@ public class SupplierView extends JPanel {
 					out.close();
 					}
 				JOptionPane.showMessageDialog(null, "Export successfully ><");
-//				JOptionPane.showMessageDialog(null, "Export successfully ><");
 				}catch(FileNotFoundException e) {
 					JOptionPane.showMessageDialog(null, e);
 				}catch(IOException e) {

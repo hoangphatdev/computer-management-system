@@ -12,9 +12,9 @@ public class EditProductController implements MouseListener {
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource() == editProductView.updateBtn) {
+		if(e.getSource() == editProductView.btnNewButton) {
 			editProductView.clickUpdateBtn();
-		}else if(e.getSource() == editProductView.cancelBtn) {
+		}else if(e.getSource() == editProductView.btnCancel_1) {
 			editProductView.clickCancelBtn();
 		}
 		

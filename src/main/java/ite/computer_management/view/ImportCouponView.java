@@ -15,60 +15,57 @@ import java.awt.Desktop;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
+
 
 import ite.computer_management.controller.ImportsCouponController;
-import ite.computer_management.controller.ProductController;
+
 import ite.computer_management.dao.AccountDAO;
 import ite.computer_management.dao.Details_ImportDAO;
 import ite.computer_management.dao.ImportCouponDAO;
 import ite.computer_management.dao.ImportDAO;
-import ite.computer_management.dao.ProductDAO;
+
 import ite.computer_management.dao.SupplierDAO;
-import ite.computer_management.dao.computerDAO;
-import ite.computer_management.model.Computer;
+
 import ite.computer_management.model.Details_Form;
 import ite.computer_management.model.ImportsForm;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.RowFilter;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
+
 
 import java.awt.Font;
-import java.awt.print.PageFormat;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 
 public class ImportCouponView extends JPanel {
-	public JLabel seeDetailLbl;
-	public JLabel deleteLbl;
-	public JLabel editLbl;
 	public static DefaultTableModel model;
 	private static final long serialVersionUID = 1L;
 	public static JTable table;
 	public JTextField searchTxt;
 	public JButton excelBtn;
-	private JLabel titleLbl;
-	private JLabel borderLbl;
+
 	public Dashboard dashboard;
-	private JLabel bgLbl;
+
+	public JButton btnExcel;
+	public JButton btnUpdate;
+	public JButton btndelete;
 	DecimalFormat formatter = new DecimalFormat("###,###,###");
     SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm");
     private ImportsProductView IF;
     private Edit_ImportsCouponView EICV;
-    public JLabel btn_refresh;
+    public JButton btnshowdetail;
+    public JButton btnRefresh;
 	
     public DecimalFormat getFormatter() {
         return formatter;
@@ -88,59 +85,7 @@ public class ImportCouponView extends JPanel {
 		this.setSize(1250,800);
 		setLayout(null);
 		
-		deleteLbl = new JLabel("Delete");
-		deleteLbl.setFont(new Font("Inter", Font.BOLD, 12));
-		deleteLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\delete 20.png"));
-		deleteLbl.setOpaque(true);
-		deleteLbl.setHorizontalAlignment(SwingConstants.CENTER);
-	
-		deleteLbl.setBounds(670, 152, 100, 40);
-		deleteLbl.setBorder(BorderFactory.createDashedBorder(Color.black) );
-		deleteLbl.setBackground(new Color(214, 210, 199));
-		deleteLbl.addMouseListener(importsCouponController);
-		
-		btn_refresh = new JLabel("Refresh");
-		btn_refresh.setOpaque(true);
-		btn_refresh.setHorizontalAlignment(SwingConstants.CENTER);
-		btn_refresh.setFont(new Font("Dialog", Font.BOLD, 12));
-		btn_refresh.setBorder(BorderFactory.createDashedBorder(Color.black));
-		btn_refresh.setBackground(Color.LIGHT_GRAY);
-		btn_refresh.setBounds(542, 152, 100, 40);
-		add(btn_refresh);
-		btn_refresh.addMouseListener(importsCouponController);
-		add(deleteLbl);
-		
-		editLbl = new JLabel("Edit");
-		editLbl.setFont(new Font("Inter", Font.BOLD, 12));
-		editLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\edit 20 (1).png"));
-		editLbl.setOpaque(true);
-		editLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		editLbl.setBackground(new Color(214, 210, 199));
-		editLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
-		editLbl.setBounds(791, 152, 100, 40);
-		editLbl.addMouseListener(importsCouponController);
-		add(editLbl);
-		
-		seeDetailLbl = new JLabel("See Detail");
-		seeDetailLbl.setFont(new Font("Inter", Font.BOLD, 12));
-		seeDetailLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\detail 20.png"));
-		seeDetailLbl.setOpaque(true);
-		seeDetailLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		seeDetailLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
-		seeDetailLbl.setBackground(new Color(214, 210, 199));
-		seeDetailLbl.setBounds(912, 152, 100, 40);
-		seeDetailLbl.addMouseListener(importsCouponController);
-		add(seeDetailLbl);
-		
-		excelBtn = new JButton("Export Excel");
-		excelBtn.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\excel 20.png"));
-		excelBtn.setBounds(1032, 153, 167, 40);
-		excelBtn.setOpaque(true);
-		excelBtn.setBackground(new Color(214, 210, 199));
-		excelBtn.addMouseListener(importsCouponController);
-		add(excelBtn);
-		
-		
+		setBackground(new Color(72, 61, 139));
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(36, 243, 1163, 466);
 		add(scrollPane);
@@ -156,37 +101,76 @@ public class ImportCouponView extends JPanel {
 		ImportCouponDAO importCouponDAO = new ImportCouponDAO(this);
 		importCouponDAO.selectAll();
 		scrollPane.setViewportView(table);
-		
+
+		scrollPane.setViewportView(table);
 		searchTxt = new JTextField();
 		searchTxt.addKeyListener(importsCouponController);
-		searchTxt.setBounds(105, 154, 407, 40);
+		searchTxt.setBounds(792, 54, 385, 40);
 		add(searchTxt);
 		searchTxt.setColumns(10);
 		
 		JLabel searchLbl = new JLabel("Search:");
-		searchLbl.setFont(new Font("Inter", Font.BOLD, 13));
-		searchLbl.setBounds(47, 152, 48, 40);
+		searchLbl.setForeground(new Color(255, 255, 255));
+		searchLbl.setFont(new Font("Dialog", Font.BOLD, 17));
+		searchLbl.setBounds(793, 10, 134, 48);
 		add(searchLbl);
 		
-		titleLbl = new JLabel("PRODUCT MANAGEMENT");
-		titleLbl.setFont(new Font("Bakery", Font.PLAIN, 35));
-		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLbl.setBounds(0, 0, 1250, 110);
-		titleLbl.setOpaque(true);
-		titleLbl.setBackground(new Color(54, 51, 46));
-		titleLbl.setForeground(new Color(222, 173, 91));
-		add(titleLbl);
+		Box verticalBox = Box.createVerticalBox();
+		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		verticalBox.setBounds(772, 20, 427, 102);
+		add(verticalBox);
 		
-		borderLbl = new JLabel("");
-		borderLbl.setBounds(35, 130, 497, 88);
-		borderLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
-		add(borderLbl);
+		 btndelete = new JButton("Delete");
+		 btndelete.setForeground(Color.WHITE);
+		 btndelete.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\cancel 30.png"));
+		 btndelete.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btndelete.setBackground(new Color(51, 0, 102));
+		btndelete.setBounds(36, 86, 159, 40);
+		add(btndelete);
+		btndelete.addMouseListener(importsCouponController);
 		
-		bgLbl = new JLabel("");
-		bgLbl.setBounds(-199, 73, 1449, 717);
-		bgLbl.setBackground(new Color(191, 186, 166));
-		bgLbl.setOpaque(true);
-		add(bgLbl);
+		 btnUpdate = new JButton("Update");
+		 btnUpdate.setForeground(Color.WHITE);
+		 btnUpdate.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\edit 30.png"));
+		 btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnUpdate.setBackground(new Color(51, 0, 102));
+		btnUpdate.setBounds(36, 136, 190, 40);
+		add(btnUpdate);
+		btnUpdate.addMouseListener(importsCouponController);
+		
+		btnExcel = new JButton("Export excel");
+		btnExcel.setForeground(Color.WHITE);
+		btnExcel.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
+		btnExcel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnExcel.setBackground(new Color(51, 0, 102));
+		btnExcel.setBounds(1018, 193, 181, 40);
+		add(btnExcel);
+		
+		JLabel searchLbl_1 = new JLabel("");
+		searchLbl_1.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\logo2.png"));
+		searchLbl_1.setForeground(Color.WHITE);
+		searchLbl_1.setFont(new Font("Dialog", Font.BOLD, 17));
+		searchLbl_1.setBounds(373, 10, 673, 424);
+		add(searchLbl_1);
+		
+		btnshowdetail = new JButton("display detail");
+		btnshowdetail.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\detail 20.png"));
+		btnshowdetail.setForeground(Color.WHITE);
+		btnshowdetail.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnshowdetail.setBackground(new Color(51, 0, 102));
+		btnshowdetail.setBounds(36, 186, 223, 40);
+		add(btnshowdetail);
+		
+		btnRefresh = new JButton("Refresh");
+		btnRefresh.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
+		btnRefresh.setForeground(Color.WHITE);
+		btnRefresh.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnRefresh.setBackground(new Color(51, 0, 102));
+		btnRefresh.setBounds(837, 193, 159, 40);
+		add(btnRefresh);
+		btnExcel.addMouseListener(importsCouponController);
+
+
 		
 	}
 	public void clickDeleteLbl() {

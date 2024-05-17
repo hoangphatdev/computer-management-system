@@ -1,29 +1,29 @@
 
 package ite.computer_management.view;
 
-import java.awt.EventQueue;
+
 
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Connection;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 
 import javax.swing.JButton;
 import javax.swing.Box;
-import java.awt.Component;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -38,12 +38,11 @@ import ite.computer_management.dao.Details_ImportDAO;
 import ite.computer_management.dao.ImportDAO;
 import ite.computer_management.dao.SupplierDAO;
 import ite.computer_management.dao.computerDAO;
-import ite.computer_management.database.ConnectDatabase;
-import ite.computer_management.model.Computer;
+
 import ite.computer_management.model.Details_Form;
 import ite.computer_management.model.ImportsForm;
 import ite.computer_management.model.Supplier;
-import lombok.var;
+
 
 import javax.swing.JComboBox;
 import java.awt.Color;
@@ -101,6 +100,7 @@ public class ImportsProductView extends JPanel {
 	    }
 	
 	public ImportsProductView() {
+		setBackground(new Color(72, 61, 139));
 	
 		init();
 		this.setVisible(true);
@@ -108,13 +108,15 @@ public class ImportsProductView extends JPanel {
 		form_Code = createId(Imports_DAO.getInstance().selectAll());
 		TF_Form.setText(form_Code);
 		
+		Box verticalBox = Box.createVerticalBox();
+		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		verticalBox.setBounds(22, 10, 446, 78);
+		add(verticalBox);
 		
-		JLabel bgLbl_1 = new JLabel("");
-		bgLbl_1.setOpaque(true);
-		bgLbl_1.setBackground(new Color(224, 218, 218));
-		bgLbl_1.setBackground(new Color(191, 186, 166));
-		bgLbl_1.setBounds(-131, 0, 1395, 918);
-		add(bgLbl_1);
+		Box verticalBox_1 = Box.createVerticalBox();
+		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		verticalBox_1.setBounds(503, 10, 722, 146);
+		add(verticalBox_1);
 	}
 	public void init() {
 		Imports_DAO = new ImportDAO(this);
@@ -128,47 +130,42 @@ public class ImportsProductView extends JPanel {
 		add(TF_Sreach);
 		TF_Sreach.setColumns(10);
 		
-		btn_Refresh = new JButton("Refresh");
-		btn_Refresh.setForeground(Color.BLACK);
-		btn_Refresh.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_Refresh.setBackground(Color.DARK_GRAY);
+		btn_Refresh = new JButton("");
+		btn_Refresh.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
 		btn_Refresh.setBounds(348, 46, 85, 28);
+		btn_Refresh.setForeground(Color.WHITE);
+		btn_Refresh.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_Refresh.setBackground(new Color(0, 0, 51));
 		add(btn_Refresh);
 		btn_Refresh.addMouseListener(Imports_productController);
 		
 		JLabel lblNewLabel = new JLabel("Sreach:");
-		lblNewLabel.setForeground(Color.BLACK);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setBounds(37, 26, 90, 13);
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		add(lblNewLabel);
 		
-		Box verticalBox = Box.createVerticalBox();
-		verticalBox.setBackground(SystemColor.inactiveCaptionText);
-		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox.setBounds(22, 10, 452, 87);
-		add(verticalBox);
-		
 		JLabel lblFrom = new JLabel("Form:");
-		lblFrom.setForeground(Color.BLACK);
-		lblFrom.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblFrom.setBounds(518, 26, 90, 13);
+		lblFrom.setForeground(Color.WHITE);
+		lblFrom.setFont(new Font("Tahoma", Font.BOLD, 14));
 		add(lblFrom);
 		
 		JLabel lblSupplier = new JLabel("Supplier:");
-		lblSupplier.setForeground(Color.BLACK);
-		lblSupplier.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblSupplier.setBounds(518, 75, 90, 13);
+		lblSupplier.setForeground(Color.WHITE);
+		lblSupplier.setFont(new Font("Tahoma", Font.BOLD, 14));
 		add(lblSupplier);
 		
 		JLabel lblCreator = new JLabel("Creator:");
-		lblCreator.setForeground(Color.BLACK);
-		lblCreator.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCreator.setBounds(518, 114, 90, 13);
+		lblCreator.setForeground(Color.WHITE);
+		lblCreator.setFont(new Font("Tahoma", Font.BOLD, 14));
 		add(lblCreator);
 		
 		TF_Form = new JTextField();
-		TF_Form.setColumns(10);
 		TF_Form.setBounds(600, 26, 349, 28);
+		TF_Form.setColumns(10);
 		TF_Form.setEditable(false);
 		add(TF_Form);
 		
@@ -205,6 +202,7 @@ public class ImportsProductView extends JPanel {
 		add(scrollPane);
 		
 		table_Imports = new JTable();
+		table_Imports.setBounds(1, 25, 698, 0);
 		table_Imports.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -217,78 +215,77 @@ public class ImportsProductView extends JPanel {
 		table_Imports.getColumnModel().getColumn(2).setPreferredWidth(185);
 		table_Imports.getColumnModel().getColumn(3).setPreferredWidth(50);
 		table_Imports.getColumnModel().getColumn(4).setPreferredWidth(37);
-		table_Imports.setBounds(553, 203, 1, 1);
 		add(table_Imports);
 		
 		JScrollPane scrollPane_1 = new JScrollPane(table_Imports);
-		scrollPane_1.setBounds(512, 176, 700, 478);
+		scrollPane_1.setBounds(503, 176, 722, 478);
 		add(scrollPane_1);
 		
 		 Combo_Supplier = new JComboBox();
-		Combo_Supplier.setBounds(600, 69, 349, 28);
+		 Combo_Supplier.setBounds(600, 69, 349, 28);
 		add(Combo_Supplier);
 		
 		JLabel lblQuantity = new JLabel("Quantity:");
-		lblQuantity.setForeground(SystemColor.inactiveCaptionText);
-		lblQuantity.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblQuantity.setBounds(26, 710, 90, 13);
+		lblQuantity.setForeground(Color.WHITE);
+		lblQuantity.setFont(new Font("Tahoma", Font.BOLD, 16));
 		add(lblQuantity);
 		
 		TF_Quantity = new JTextField();
-		TF_Quantity.setColumns(10);
 		TF_Quantity.setBounds(111, 705, 125, 28);
+		TF_Quantity.setColumns(10);
 		add(TF_Quantity);
 		
 		btn_accept = new JButton("Accept");
+		btn_accept.setBounds(246, 705, 85, 28);
 		btn_accept.setBackground(Color.LIGHT_GRAY);
 		btn_accept.setForeground(new Color(0, 0, 0));
 		btn_accept.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_accept.setBounds(246, 702, 85, 28);
 		add(btn_accept);
 		btn_accept.addMouseListener(Imports_productController);
 		
 		JButton btn_Excel = new JButton("Excel");
-		btn_Excel.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
-		btn_Excel.setBackground(Color.LIGHT_GRAY);
-		btn_Excel.setForeground(new Color(0, 0, 0));
-		btn_Excel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_Excel.setBounds(1024, 26, 188, 28);
+		btn_Excel.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
+		btn_Excel.setBackground(new Color(0, 0, 51));
+		btn_Excel.setForeground(Color.WHITE);
+		btn_Excel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(btn_Excel);
 		
 		JButton btn_ChangeQuantity = new JButton("Change quantity");
-		btn_ChangeQuantity.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 20.png"));
-		btn_ChangeQuantity.setBackground(Color.LIGHT_GRAY);
-		btn_ChangeQuantity.setForeground(new Color(0, 0, 0));
-		btn_ChangeQuantity.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_ChangeQuantity.setBounds(1024, 67, 188, 28);
+		btn_ChangeQuantity.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\edit 30.png"));
+		btn_ChangeQuantity.setBackground(new Color(0, 0, 51));
+		btn_ChangeQuantity.setForeground(Color.WHITE);
+		btn_ChangeQuantity.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(btn_ChangeQuantity);
 		
 		 btn_DeleteProduct = new JButton("Delete product");
+		 btn_DeleteProduct.setBounds(1024, 106, 188, 28);
 		 btn_DeleteProduct.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\delete 30.png"));
-		btn_DeleteProduct.setBackground(Color.LIGHT_GRAY);
-		btn_DeleteProduct.setForeground(new Color(0, 0, 0));
+		btn_DeleteProduct.setBackground(new Color(0, 0, 51));
+		btn_DeleteProduct.setForeground(Color.WHITE);
 		btn_DeleteProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_DeleteProduct.setBounds(1024, 106, 188, 28);
 		add(btn_DeleteProduct);
 		btn_DeleteProduct.addMouseListener(Imports_productController);
 		
 		JLabel lblTotalAmount = new JLabel("Total amount:");
-		lblTotalAmount.setForeground(Color.BLACK);
+		lblTotalAmount.setBounds(503, 670, 181, 28);
+		lblTotalAmount.setForeground(Color.WHITE);
 		lblTotalAmount.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblTotalAmount.setBounds(518, 664, 181, 28);
 		add(lblTotalAmount);
 		
 		text_totalAmount = new JLabel("0Đ");
+		text_totalAmount.setBounds(671, 663, 341, 41);
 		text_totalAmount.setForeground(Color.RED);
 		text_totalAmount.setFont(new Font("Tahoma", Font.BOLD, 25));
-		text_totalAmount.setBounds(697, 657, 341, 41);
 		add(text_totalAmount);
 		
 		btn_ImportsProduct = new JButton("Imports product");
-		btn_ImportsProduct.setBackground(Color.LIGHT_GRAY);
-		btn_ImportsProduct.setForeground(new Color(0, 0, 0));
-		btn_ImportsProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_ImportsProduct.setBounds(1052, 682, 160, 41);
+		btn_ImportsProduct.setBackground(new Color(0, 0, 51));
+		btn_ImportsProduct.setForeground(Color.WHITE);
+		btn_ImportsProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(btn_ImportsProduct);
 		btn_ImportsProduct.addMouseListener(Imports_productController);
 		
@@ -297,12 +294,6 @@ public class ImportsProductView extends JPanel {
 		Combo_Creator = new JComboBox();
 		Combo_Creator.setBounds(600, 108, 349, 28);
 		add(Combo_Creator);
-		
-		Box verticalBox_1 = Box.createVerticalBox();
-		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox_1.setBackground(SystemColor.desktop);
-		verticalBox_1.setBounds(512, 10, 461, 146);
-		add(verticalBox_1);
 		
 		// lấy dữ liệu từ bảng supplier trong database để hiện thị trong Jcombobox
 		ImportDAO importDAO = new ImportDAO();
