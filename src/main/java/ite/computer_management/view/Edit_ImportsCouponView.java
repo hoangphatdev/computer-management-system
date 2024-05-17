@@ -65,7 +65,6 @@ public class Edit_ImportsCouponView extends JFrame {
 	public JButton btn_DeleteProduct;
 	private ImportCouponDAO ImportCouponDAO;
 	private ImportDAO Imports_DAO;
-	private JLabel bgLbl;
 	public JButton btn_accept;
 	
 	DecimalFormat formatter = new DecimalFormat("###,###,###");
@@ -77,6 +76,7 @@ public class Edit_ImportsCouponView extends JFrame {
 	public JButton btn_ImportsProduct;
 	private ImportCouponView ICF;
 	public JButton btn_back;
+	private JButton btn_Refresh;
 
 	/**
 	 * Launch the application.
@@ -103,27 +103,31 @@ public class Edit_ImportsCouponView extends JFrame {
 	
 	
 	public Edit_ImportsCouponView(ImportCouponView ICF) {
+		getContentPane().setBackground(new Color(72, 61, 139));
 		init();
 		this.setVisible(true);
 		Details_Form = new ArrayList<Details_Form>();
 		form_Code = createId(Imports_DAO.getInstance().selectAll());
 		TF_Form.setText(form_Code);
-		
-		bgLbl = new JLabel("");
-		bgLbl.setBounds(0, -13, 1250, 817);
-		bgLbl.setBackground(new Color(224, 218, 218));
-		bgLbl.setBackground(new Color(191, 186, 166));
-		bgLbl.setOpaque(true);
-		getContentPane().add(bgLbl);
 		loadDataToTableProduct(ICF);
 		this.ICF = ICF;
+		
+		Box verticalBox = Box.createVerticalBox();
+		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		verticalBox.setBounds(22, 10, 446, 78);
+		getContentPane().add(verticalBox);
+		
+		Box verticalBox_1 = Box.createVerticalBox();
+		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		verticalBox_1.setBounds(503, 10, 722, 146);
+		getContentPane().add(verticalBox_1);
 	}
 	public void init() {
 		ImportCouponDAO = new ImportCouponDAO();
 		Edit_ImportsCoupon_Controller edit_ImportsCoupon_Controller = new Edit_ImportsCoupon_Controller(this);
 		Imports_DAO = new ImportDAO();
 		
-		this.setSize(1250,800);
+		this.setSize(1250,595);
 		getContentPane().setLayout(null);
 
 		TF_Sreach = new JTextField();
@@ -135,36 +139,30 @@ public class Edit_ImportsCouponView extends JFrame {
 		btn_back.setForeground(Color.BLACK);
 		btn_back.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_back.setBackground(Color.LIGHT_GRAY);
-		btn_back.setBounds(882, 682, 160, 41);
+		btn_back.setBounds(862, 488, 160, 41);
 		getContentPane().add(btn_back);
 		btn_back.addMouseListener(edit_ImportsCoupon_Controller);
 		
 		JLabel lblNewLabel = new JLabel("Sreach:");
-		lblNewLabel.setForeground(Color.BLACK);
+		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setBounds(37, 26, 90, 13);
 		getContentPane().add(lblNewLabel);
 		
-		Box verticalBox = Box.createVerticalBox();
-		verticalBox.setBackground(SystemColor.inactiveCaptionText);
-		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox.setBounds(22, 10, 317, 87);
-		getContentPane().add(verticalBox);
-		
 		JLabel lblFrom = new JLabel("Form:");
-		lblFrom.setForeground(Color.BLACK);
+		lblFrom.setForeground(Color.WHITE);
 		lblFrom.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblFrom.setBounds(518, 26, 90, 13);
 		getContentPane().add(lblFrom);
 		
 		JLabel lblSupplier = new JLabel("Supplier:");
-		lblSupplier.setForeground(Color.BLACK);
+		lblSupplier.setForeground(Color.WHITE);
 		lblSupplier.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblSupplier.setBounds(518, 75, 90, 13);
 		getContentPane().add(lblSupplier);
 		
 		JLabel lblCreator = new JLabel("Creator:");
-		lblCreator.setForeground(Color.BLACK);
+		lblCreator.setForeground(Color.WHITE);
 		lblCreator.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCreator.setBounds(518, 114, 90, 13);
 		getContentPane().add(lblCreator);
@@ -204,7 +202,7 @@ public class Edit_ImportsCouponView extends JFrame {
 		
 		
 		JScrollPane scrollPane = new JScrollPane(table_Product);
-		scrollPane.setBounds(22, 107, 452, 571);
+		scrollPane.setBounds(22, 107, 446, 385);
 		getContentPane().add(scrollPane);
 		
 		table_Imports = new JTable();
@@ -224,7 +222,7 @@ public class Edit_ImportsCouponView extends JFrame {
 		getContentPane().add(table_Imports);
 		
 		JScrollPane scrollPane_1 = new JScrollPane(table_Imports);
-		scrollPane_1.setBounds(512, 176, 700, 478);
+		scrollPane_1.setBounds(512, 176, 700, 274);
 		getContentPane().add(scrollPane_1);
 		
 		 Combo_Supplier = new JComboBox();
@@ -232,21 +230,21 @@ public class Edit_ImportsCouponView extends JFrame {
 		getContentPane().add(Combo_Supplier);
 		
 		JLabel lblQuantity = new JLabel("Quantity:");
-		lblQuantity.setForeground(SystemColor.inactiveCaptionText);
+		lblQuantity.setForeground(Color.WHITE);
 		lblQuantity.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblQuantity.setBounds(26, 710, 90, 13);
+		lblQuantity.setBounds(22, 516, 90, 13);
 		getContentPane().add(lblQuantity);
 		
 		TF_Quantity = new JTextField();
 		TF_Quantity.setColumns(10);
-		TF_Quantity.setBounds(111, 705, 125, 28);
+		TF_Quantity.setBounds(102, 511, 125, 28);
 		getContentPane().add(TF_Quantity);
 		
 		btn_accept = new JButton("Accept");
 		btn_accept.setBackground(Color.LIGHT_GRAY);
-		btn_accept.setForeground(new Color(0, 0, 0));
+		btn_accept.setForeground(Color.WHITE);
 		btn_accept.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_accept.setBounds(246, 702, 85, 28);
+		btn_accept.setBounds(237, 508, 85, 28);
 		getContentPane().add(btn_accept);
 		btn_accept.addMouseListener(edit_ImportsCoupon_Controller);
 		
@@ -276,36 +274,39 @@ public class Edit_ImportsCouponView extends JFrame {
 		btn_DeleteProduct.addMouseListener(edit_ImportsCoupon_Controller);
 		
 		JLabel lblTotalAmount = new JLabel("Total amount:");
-		lblTotalAmount.setForeground(Color.BLACK);
+		lblTotalAmount.setForeground(Color.WHITE);
 		lblTotalAmount.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblTotalAmount.setBounds(518, 664, 181, 28);
+		lblTotalAmount.setBounds(518, 460, 181, 28);
 		getContentPane().add(lblTotalAmount);
 		
 		text_totalAmount = new JLabel("0Đ");
 		text_totalAmount.setForeground(Color.RED);
 		text_totalAmount.setFont(new Font("Tahoma", Font.BOLD, 25));
-		text_totalAmount.setBounds(697, 657, 341, 41);
+		text_totalAmount.setBounds(682, 460, 341, 41);
 		getContentPane().add(text_totalAmount);
 		
 		btn_ImportsProduct = new JButton("Imports product");
 		btn_ImportsProduct.setBackground(Color.LIGHT_GRAY);
 		btn_ImportsProduct.setForeground(new Color(0, 0, 0));
 		btn_ImportsProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_ImportsProduct.setBounds(1052, 682, 160, 41);
+		btn_ImportsProduct.setBounds(1032, 488, 160, 41);
 		getContentPane().add(btn_ImportsProduct);
 		btn_ImportsProduct.addMouseListener(edit_ImportsCoupon_Controller);
+		
+		btn_Refresh = new JButton("");
+		btn_Refresh.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
+		btn_Refresh.setBounds(348, 46, 85, 28);
+		btn_Refresh.setForeground(Color.WHITE);
+		btn_Refresh.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_Refresh.setBackground(new Color(0, 0, 51));
+		getContentPane().add(btn_Refresh);
+		btn_Refresh.addMouseListener(edit_ImportsCoupon_Controller);		
 		
 		Imports_DAO.display(table_Product);
 		
 		Combo_Creator = new JComboBox();
 		Combo_Creator.setBounds(600, 108, 349, 28);
 		getContentPane().add(Combo_Creator);
-		
-		Box verticalBox_1 = Box.createVerticalBox();
-		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox_1.setBackground(SystemColor.desktop);
-		verticalBox_1.setBounds(512, 10, 461, 146);
-		getContentPane().add(verticalBox_1);
 		
 		// lấy dữ liệu từ bảng supplier trong database để hiện thị trong Jcombobox
 		ImportDAO importDAO = new ImportDAO();

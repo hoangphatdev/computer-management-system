@@ -13,9 +13,9 @@ public class EditSupplierController implements MouseListener {
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource() == editSupplierView.savebtn) {
+		if(e.getSource() == editSupplierView.btnSave) {
 			editSupplierView.clickUpdateBtn();
-		}else if(e.getSource() == editSupplierView.cancelbtn) {
+		}else if(e.getSource() == editSupplierView.btnCancel) {
 			editSupplierView.clickCancelBtn();
 		}
 		

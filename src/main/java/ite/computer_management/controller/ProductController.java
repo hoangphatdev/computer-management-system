@@ -24,15 +24,13 @@ public class ProductController implements MouseListener , KeyListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource() == productView.addLbl) {
+		if(e.getSource() == productView.btnadd) {
 			productView.clickAddLbl();
-		}else if(e.getSource() == productView.deleteLbl) {
+		}else if(e.getSource() == productView.btndelete) {
 		    productView.clickDeleteLbl();
-		}else if(e.getSource() == productView.editLbl) {
+		}else if(e.getSource() == productView.btnUpdate) {
 			productView.clickEditBtn();
-		}else if(e.getSource() == productView.seeDetailLbl) {
-			
-		}else if(e.getSource() == productView.excelBtn) {
+		}else if(e.getSource() == productView.btnExcel) {
 			productView.clickExportExcel();
 		}
 	}

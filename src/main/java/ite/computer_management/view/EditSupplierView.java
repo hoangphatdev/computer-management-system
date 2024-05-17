@@ -20,6 +20,7 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.math.BigDecimal;
+import javax.swing.ImageIcon;
 
 public class EditSupplierView extends JFrame {
 
@@ -35,9 +36,9 @@ public class EditSupplierView extends JFrame {
 	public JTextField SupplierCodeTxt;
 	public JTextField AddressTxt;
 	public JTextField PhoneTxt;
-	public JLabel savebtn;
-	public JLabel cancelbtn;
 	public Dashboard dashboard;
+	public JButton btnSave;
+	public JButton btnCancel;
 	
 	public EditSupplierView(SupplierView supplierView, Dashboard dashboard) {
 		this.supplierView = supplierView;
@@ -48,84 +49,84 @@ public class EditSupplierView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 450);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 0, 51));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel titleLbl = new JLabel("EDIT SUPPLIER");
-		titleLbl.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLbl.setBounds(0, 0, 700, 139);
-		titleLbl.setBackground(Color.gray);
-		titleLbl.setOpaque(true);
-		contentPane.add(titleLbl);
-		
 		JLabel SupplierNameLbl = new JLabel("Supplier Name");
-		SupplierNameLbl.setBackground(Color.gray);
+		SupplierNameLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		SupplierNameLbl.setForeground(new Color(255, 255, 102));
+		SupplierNameLbl.setBackground(new Color(51, 51, 102));
 		SupplierNameLbl.setOpaque(true);
 		SupplierNameLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		SupplierNameLbl.setBounds(27, 162, 217, 41);
+		SupplierNameLbl.setBounds(84, 53, 217, 41);
 		contentPane.add(SupplierNameLbl);
 		
 		JLabel SupplierCodeLbl = new JLabel("Supplier Code");
+		SupplierCodeLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		SupplierCodeLbl.setForeground(new Color(255, 255, 102));
 		SupplierCodeLbl.setOpaque(true);
 		SupplierCodeLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		SupplierCodeLbl.setBackground(Color.gray);
-		SupplierCodeLbl.setBounds(281, 162, 217, 41);
+		SupplierCodeLbl.setBackground(new Color(51, 51, 102));
+		SupplierCodeLbl.setBounds(338, 53, 217, 41);
 		contentPane.add(SupplierCodeLbl);
 		
 		JLabel AddressLbl = new JLabel("Address");
+		AddressLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		AddressLbl.setForeground(new Color(255, 255, 102));
 		AddressLbl.setOpaque(true);
 		AddressLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		AddressLbl.setBackground(Color.gray);
-		AddressLbl.setBounds(27, 267, 217, 41);
+		AddressLbl.setBackground(new Color(51, 51, 102));
+		AddressLbl.setBounds(84, 170, 217, 41);
 		contentPane.add(AddressLbl);
 		
 		JLabel PhoneNumberLbl = new JLabel("Phone Number");
+		PhoneNumberLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		PhoneNumberLbl.setForeground(new Color(255, 255, 102));
 		PhoneNumberLbl.setOpaque(true);
 		PhoneNumberLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		PhoneNumberLbl.setBackground(Color.gray);
-		PhoneNumberLbl.setBounds(281, 267, 217, 41);
+		PhoneNumberLbl.setBackground(new Color(51, 51, 102));
+		PhoneNumberLbl.setBounds(338, 170, 217, 41);
 		contentPane.add(PhoneNumberLbl);
 		
 		SupplierNameTxt = new JTextField();
-		SupplierNameTxt.setBounds(27, 204, 217, 41);
+		SupplierNameTxt.setBounds(84, 95, 217, 41);
 		contentPane.add(SupplierNameTxt);
 		SupplierNameTxt.setColumns(10);
 		
 		SupplierCodeTxt = new JTextField();
 		SupplierCodeTxt.setColumns(10);
-		SupplierCodeTxt.setBounds(281, 204, 217, 41);
+		SupplierCodeTxt.setBounds(338, 95, 217, 41);
 		contentPane.add(SupplierCodeTxt);
 		
 		AddressTxt = new JTextField();
 		AddressTxt.setColumns(10);
-		AddressTxt.setBounds(27, 304, 217, 41);
+		AddressTxt.setBounds(84, 207, 217, 41);
 		contentPane.add(AddressTxt);
 		
 		PhoneTxt = new JTextField();
 		PhoneTxt.setColumns(10);
-		PhoneTxt.setBounds(281, 305, 217, 41);
+		PhoneTxt.setBounds(338, 208, 217, 41);
 		contentPane.add(PhoneTxt);
 		
-		savebtn = new JLabel("SAVE");
-		savebtn.setBackground(Color.GREEN);
-		savebtn.setOpaque(true);
-		savebtn.setForeground(Color.white);
-		savebtn.setHorizontalAlignment(SwingConstants.CENTER);
-		savebtn.setBounds(357, 359, 141, 41);
-		savebtn.addMouseListener(editSupplierController);
-		contentPane.add(savebtn);
+		btnSave = new JButton("SAVE");
+		btnSave.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\save 30.png"));
+		btnSave.setBackground(Color.GRAY);
+		btnSave.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnSave.setBounds(160, 298, 141, 41);
+		contentPane.add(btnSave);
+		btnSave.addMouseListener(editSupplierController);
 		
-		cancelbtn = new JLabel("Cancel");
-		cancelbtn.setBackground(Color.red);
-		cancelbtn.setOpaque(true);
-		cancelbtn.setForeground(Color.white);
-		cancelbtn.setHorizontalAlignment(SwingConstants.CENTER);
-		cancelbtn.setBounds(528, 359, 141, 41);
-		cancelbtn.addMouseListener(editSupplierController);
-		contentPane.add(cancelbtn);
+		btnCancel = new JButton("Cancel");
+		btnCancel.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\cancel 30.png"));
+		btnCancel.setBackground(Color.RED);
+		btnCancel.setForeground(Color.BLACK);
+		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnCancel.setBounds(338, 298, 141, 41);
+		contentPane.add(btnCancel);
+		btnCancel.addMouseListener(editSupplierController);
 		
 		this.setLocationRelativeTo(null);
 		setVisible(true);
