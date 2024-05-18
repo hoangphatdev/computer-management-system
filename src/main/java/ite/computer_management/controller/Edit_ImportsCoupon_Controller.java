@@ -24,6 +24,8 @@ public class Edit_ImportsCoupon_Controller implements MouseListener, KeyListener
 			edit_ImportsCouponView.back();
 		}else if(e.getSource() == edit_ImportsCouponView.btn_accept) {
 			edit_ImportsCouponView.addProductActionPerformed();
+		}else if(e.getSource() == edit_ImportsCouponView.btn_save) {
+			edit_ImportsCouponView.btn_UpdateCoupon();
 		}
 		
 	}

@@ -35,6 +35,7 @@ import javax.swing.ImageIcon;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.border.BevelBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 public class ProductView extends JPanel {
 	public static DefaultTableModel model;
 	private static final long serialVersionUID = 1L;
@@ -168,43 +169,65 @@ public class ProductView extends JPanel {
 //		
 //	}
 	public void clickExportExcel() {
-			try {
-				JFileChooser jFileChooser = new JFileChooser();
-				jFileChooser.showSaveDialog(this);
-				File saveFile = jFileChooser.getSelectedFile();
-				
-				if(saveFile != null) {
-					saveFile = new File(saveFile.toString() + ".xlsx");
-					Workbook wb = new XSSFWorkbook();
-					Sheet sheet = wb.createSheet("product");
-					
-					Row rowCol = sheet.createRow(0);
-					for(int i=0; i<table.getColumnCount(); i++) {
-						Cell cell = rowCol.createCell(i);
-						cell.setCellValue(table.getColumnName(i));
-					}
-					for(int j=0; j<table.getRowCount(); j++) {
-						Row row = sheet.createRow(j);
-						for(int k=0; k<table.getColumnCount(); k++) {
-							Cell cell = row.createCell(k);
-							if(table.getValueAt(j, k) != null) {
-								cell.setCellValue(table.getValueAt(j, k).toString());
-							}
-						}
-					}
-					FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
-					wb.write(out);
-					wb.close();
-					out.close();
-					}
-				JOptionPane.showMessageDialog(null, "Export successfully ><");
-//				JOptionPane.showMessageDialog(null, "Export successfully ><");
-				}catch(FileNotFoundException e) {
-					JOptionPane.showMessageDialog(null, e);
-				}catch(IOException e) {
-					JOptionPane.showMessageDialog(null, e);
-				}
-    }
+	    try {
+	        // 1. Chọn nơi lưu file và kiểm tra định dạng
+	        JFileChooser fileChooser = new JFileChooser();
+	        fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
+	        int option = fileChooser.showSaveDialog(this);
+
+	        if (option == JFileChooser.APPROVE_OPTION) {
+	            File saveFile = fileChooser.getSelectedFile();
+	            if (!saveFile.toString().endsWith(".xlsx")) {  
+	                saveFile = new File(saveFile.toString() + ".xlsx");
+	            }
+
+	            // 2. Tạo workbook và sheet
+	            Workbook workbook = new XSSFWorkbook();
+	            Sheet sheet = workbook.createSheet("Import Coupons");
+
+	            // 3. Ghi tiêu đề cột
+	            Row headerRow = sheet.createRow(0);
+	            for (int i = 0; i < table.getColumnCount(); i++) {
+	                Cell cell = headerRow.createCell(i);
+	                cell.setCellValue(table.getColumnName(i));
+	            }
+
+	            // 4. Ghi dữ liệu từ bảng vào sheet
+	            for (int j = 0; j < table.getRowCount(); j++) {
+	                Row row = sheet.createRow(j + 1); // Bắt đầu từ dòng 1 (sau dòng tiêu đề)
+	                for (int k = 0; k < table.getColumnCount(); k++) {
+	                    Cell cell = row.createCell(k);
+	                    Object value = table.getValueAt(j, k);
+	                    if (value != null) {
+	                        if (value instanceof Number) {
+	                            cell.setCellValue(((Number) value).doubleValue()); // Định dạng số
+	                        } else {
+	                            cell.setCellValue(value.toString()); // Định dạng chuỗi
+	                        }
+	                    }
+	                }
+	            }
+
+	            // 5. Lưu file Excel
+	            try (FileOutputStream out = new FileOutputStream(saveFile)) {
+	                workbook.write(out);
+	            }
+
+	            // 6. Thông báo thành công
+	            JOptionPane.showMessageDialog(this, "successfull", "Notification", JOptionPane.INFORMATION_MESSAGE);
+	            
+	            // 7. (Tùy chọn) Mở file sau khi lưu
+	            if (Desktop.isDesktopSupported()) {
+	                Desktop.getDesktop().open(saveFile);
+	            }
+	        }
+	    } catch (FileNotFoundException e) {
+	        JOptionPane.showMessageDialog(this, "not found" + e.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
+	    } catch (IOException e) {
+	        JOptionPane.showMessageDialog(this, "fail" + e.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
+	    }
+	}
+
 	public void clickEditBtn() {
 		int check = table.getSelectedRowCount();
 		int selectedRowIndex = table.getSelectedRow();

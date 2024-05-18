@@ -132,4 +132,21 @@ public class computerDAO implements DAOInterface<Computer> {
         }
         return ketQua;
 	}
+
+	public int updateSoLuong(String computer_Code, int quantity) {
+		  int ketQua = 0;
+	        try {
+	        	ConnectDatabase.getInstance();
+	    		Connection connect = ConnectDatabase.getConnection();
+	            String sql = "UPDATE computer SET quantity=? WHERE computer_Code=? ";
+	            PreparedStatement pst = connect.prepareStatement(sql);
+	            pst.setInt(1, quantity);
+	            pst.setString(2, computer_Code);
+	            ketQua = pst.executeUpdate();
+	            connect.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return ketQua;
+	}
 }

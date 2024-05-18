@@ -54,7 +54,6 @@ public class ImportCouponView extends JPanel {
 	public static JTable table;
 	public JTextField searchTxt;
 	public JButton excelBtn;
-
 	public Dashboard dashboard;
 
 	public JButton btnExcel;
@@ -66,25 +65,44 @@ public class ImportCouponView extends JPanel {
     private Edit_ImportsCouponView EICV;
     public JButton btnshowdetail;
     public JButton btnRefresh;
-	
+    private ImportCouponView ICF;
+    private ArrayList<Details_Form> Details_Form;
+    
+    
+    
+    
     public DecimalFormat getFormatter() {
         return formatter;
     }
-
+    public ArrayList<Details_Form> getDetails_Form() {
+        return Details_Form;
+    }
+    public ImportCouponView getICF() {
+        return ICF;
+    }
     public SimpleDateFormat getFormatDate() {
         return formatDate;
     }
+    public String getSelectedFormCode() {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow >= 0) {
+     
+            return table.getValueAt(selectedRow, 1).toString(); 
+        } else {
+            return null;
+        }
+    }
     public ImportCouponView() {
+    	
     	init();
     	displayTable();
- 
+    	this.ICF = ICF;
     }
     
 	public void init() {
 		ImportsCouponController importsCouponController = new ImportsCouponController(this);
 		this.setSize(1250,800);
 		setLayout(null);
-		
 		setBackground(new Color(72, 61, 139));
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(36, 243, 1163, 466);
@@ -98,6 +116,7 @@ public class ImportCouponView extends JPanel {
 				"Number", "Form code", "Supplier ", "Creator", "Time", "Total amount"
 			}
 		));
+
 		ImportCouponDAO importCouponDAO = new ImportCouponDAO(this);
 		importCouponDAO.selectAll();
 		scrollPane.setViewportView(table);
@@ -150,7 +169,7 @@ public class ImportCouponView extends JPanel {
 		searchLbl_1.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\logo2.png"));
 		searchLbl_1.setForeground(Color.WHITE);
 		searchLbl_1.setFont(new Font("Dialog", Font.BOLD, 17));
-		searchLbl_1.setBounds(373, 10, 673, 424);
+		searchLbl_1.setBounds(179, 20, 673, 424);
 		add(searchLbl_1);
 		
 		btnshowdetail = new JButton("display detail");
@@ -160,6 +179,7 @@ public class ImportCouponView extends JPanel {
 		btnshowdetail.setBackground(new Color(51, 0, 102));
 		btnshowdetail.setBounds(36, 186, 223, 40);
 		add(btnshowdetail);
+		btnshowdetail.addMouseListener(importsCouponController);
 		
 		btnRefresh = new JButton("Refresh");
 		btnRefresh.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
@@ -168,7 +188,7 @@ public class ImportCouponView extends JPanel {
 		btnRefresh.setBackground(new Color(51, 0, 102));
 		btnRefresh.setBounds(837, 193, 159, 40);
 		add(btnRefresh);
-		btnExcel.addMouseListener(importsCouponController);
+		btnRefresh.addMouseListener(importsCouponController);
 
 
 		
@@ -208,26 +228,50 @@ public class ImportCouponView extends JPanel {
     }
 	public void clickEditBtn() {
 		int check = table.getSelectedRowCount();
-		int selectedRowIndex = table.getSelectedRow();
 		if(check <1) { 
 			JOptionPane.showMessageDialog(null, "Please select row to edit >< ");
 		}else {
-			Edit_ImportsCouponView view = new Edit_ImportsCouponView(this);
+			String selectedFormCode = getSelectedFormCode(); 
+			Edit_ImportsCouponView view = new Edit_ImportsCouponView(this, Details_Form,selectedFormCode);
 			view.loadDataToTableProduct(this);
 			view.setVisible(true);
 		}
 	}
+	public void btndetail() {
+		int check = table.getSelectedRowCount();
+		int selectedRowIndex = table.getSelectedRow();
+		if(check <1) { 
+			JOptionPane.showMessageDialog(null, "Please select row to edit >< ");
+		}else {
+			DefaultTableModel modell = (DefaultTableModel) table.getModel();
+			String selectedFormCode = getSelectedFormCode(); 
+			Details_ImportCouponView vieww = new Details_ImportCouponView(this, Details_Form,selectedFormCode);
+			vieww.loadDataToTableProduct(this);
+			vieww.form_text.setText( (String)modell.getValueAt(selectedRowIndex,1) );
+			vieww.supplier_text.setText( (String)modell.getValueAt(selectedRowIndex,2) );
+			vieww.creator_text.setText( (String)modell.getValueAt(selectedRowIndex,3) );
+			vieww.time_text.setText( (String)modell.getValueAt(selectedRowIndex,4) );
+			
+		}
+	}	
 	public void displayTable() {
 	    try {
 	        DefaultTableModel table_model = (DefaultTableModel) table.getModel();
 	        ArrayList<ImportsForm> allPhieuNhap = ImportCouponDAO.getInstance().selectAll();
 	        table_model.setRowCount(0);
 	        int stt = 1;
+	        Details_Form = new ArrayList<>();
 	        for (int i = 0; i < allPhieuNhap.size(); i++) {
 	            table_model.addRow(new Object[]{
 	                stt++, allPhieuNhap.get(i).getForm_Code(), SupplierDAO.getInstance().selectById(allPhieuNhap.get(i).getSupplier()).getSupplier_Name(), AccountDAO.getInstance().selectById(allPhieuNhap.get(i).getCreator()).getFullName(), formatDate.format(allPhieuNhap.get(i).getTime_Start()), formatter.format(allPhieuNhap.get(i).getTotal_Amount()) + "đ"
 	            });
+	            ImportsForm selectedImportsForm = ImportDAO.getInstance().selectById(allPhieuNhap.get(i).getForm_Code());
+
+	      	  
+		        Details_Form = Details_ImportDAO.getInstance().selectAll(selectedImportsForm.getForm_Code());
 	        }
+	      
+
 	        System.out.println("Data loaded successfully!");
 	    } catch (Exception e) {
 	        System.out.println("Failed to load data: " + e.getMessage());

@@ -20,13 +20,13 @@ public class ImportsCouponController implements MouseListener, KeyListener{
 			imporCouponView.clickDeleteLbl();
 		}else if(e.getSource() == imporCouponView.btnUpdate) {
 			imporCouponView.clickEditBtn();
-		}else if(e.getSource() == imporCouponView.btnshowdetail) {
-			
 		}else if(e.getSource() == imporCouponView.excelBtn) {
 			imporCouponView.clickExportExcel();
 		} else if(e.getSource() == imporCouponView.btnRefresh) {
 			imporCouponView.displayTable();
-		} 		
+		} else if(e.getSource() == imporCouponView.btnshowdetail) {
+			imporCouponView.btndetail();
+		}
 	}
 
 	
