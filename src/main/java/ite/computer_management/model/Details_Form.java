@@ -1,6 +1,8 @@
 
 package ite.computer_management.model;
 
+import java.util.Objects;
+
 public class Details_Form {
 	private String form_Code;
 	private String computer_Code;
@@ -50,6 +52,36 @@ public class Details_Form {
 	public void setUnit_Price(double unit_Price) {
 		this.unit_Price = unit_Price;
 	}
+	
+	   @Override
+	    public int hashCode() {
+	        int hash = 3;
+	        return hash;
+	    }
+
+	    @Override
+	    public boolean equals(Object obj) {
+	        if (this == obj) {
+	            return true;
+	        }
+	        if (obj == null) {
+	            return false;
+	        }
+	        if (getClass() != obj.getClass()) {
+	            return false;
+	        }
+	        final Details_Form other = (Details_Form) obj;
+	        if (this.quantity != other.quantity) {
+	            return false;
+	        }
+	        if (Double.doubleToLongBits(this.unit_Price) != Double.doubleToLongBits(other.unit_Price)) {
+	            return false;
+	        }
+	        if (!Objects.equals(this.form_Code, other.form_Code)) {
+	            return false;
+	        }
+	        return Objects.equals(this.computer_Code, other.computer_Code);
+	    }
 
 	@Override
 	public String toString() {

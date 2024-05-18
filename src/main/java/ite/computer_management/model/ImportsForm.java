@@ -23,10 +23,11 @@ public class ImportsForm extends Form{
 	      this.supplier = supplier;
 	   }
 
-	   private ImportsForm(String maPhieu, Timestamp thoiGianTao, String nguoiTao, ArrayList<Details_Form> Details_Form, double tongTien) {
-	      throw new UnsupportedOperationException("Not supported yet.");
-	   }
-	
+	public ImportsForm(String supplier_Code, String form_Code, Timestamp sqlTimestamp, int selectedIndex,
+			ArrayList<Details_Form> details_Form, double total_Amount) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getSupplier() {
 		return supplier;
 	}

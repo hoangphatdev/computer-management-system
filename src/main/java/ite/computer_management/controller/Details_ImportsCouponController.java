@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import com.itextpdf.text.DocumentException;
+
 import ite.computer_management.view.Details_ImportCouponView;
 
 public class Details_ImportsCouponController implements MouseListener, KeyListener{
@@ -14,7 +16,19 @@ public class Details_ImportsCouponController implements MouseListener, KeyListen
 		details_ImportCouponView = DTCV;
 	}
 	 
-	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource() == details_ImportCouponView.btn_cancel) {
+			details_ImportCouponView.cancel();
+		} else if(e.getSource() == details_ImportCouponView.btnExportFdf) {
+			try {
+				details_ImportCouponView.export_PDF();
+			} catch (DocumentException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -33,11 +47,6 @@ public class Details_ImportsCouponController implements MouseListener, KeyListen
 		
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {

@@ -66,18 +66,17 @@ public class Edit_ImportsCouponView extends JFrame {
 	private ImportCouponDAO ImportCouponDAO;
 	private ImportDAO Imports_DAO;
 	public JButton btn_accept;
-	
 	DecimalFormat formatter = new DecimalFormat("###,###,###");
-	private JComboBox Combo_Supplier;
+	public JComboBox Combo_Supplier;
 	private String form_Code;
-	private JComboBox Combo_Creator;
+	public JComboBox Combo_Creator;
 	private static final ArrayList<Supplier> arrNcc = SupplierDAO.getInstance().selectAll();
 	private ArrayList<Details_Form> Details_Form;
-	public JButton btn_ImportsProduct;
+	private ArrayList<Details_Form> Details_Form_old;
+	public JButton btn_save;
 	private ImportCouponView ICF;
 	public JButton btn_back;
-	private JButton btn_Refresh;
-
+	 private String formCode;
 	/**
 	 * Launch the application.
 	 * @param dashboard 
@@ -101,16 +100,26 @@ public class Edit_ImportsCouponView extends JFrame {
 //	 * Create the frame.
 //	 */
 	
-	
-	public Edit_ImportsCouponView(ImportCouponView ICF) {
-		getContentPane().setBackground(new Color(72, 61, 139));
+
+	public ImportsForm importform;
+	public Edit_ImportsCouponView(ImportCouponView ICF, ArrayList<Details_Form> Details_Form, String form_code) {
 		init();
-		this.setVisible(true);
-		Details_Form = new ArrayList<Details_Form>();
-		form_Code = createId(Imports_DAO.getInstance().selectAll());
+		this.form_Code = form_code;
 		TF_Form.setText(form_Code);
-		loadDataToTableProduct(ICF);
-		this.ICF = ICF;
+		loadDataToTableProduct(ICF);	
+		this.ICF = (ImportCouponView) ICF;
+		this.importform = this.ICF.getPhieuNhapSelect();
+		this.Details_Form = Details_ImportDAO.getInstance().selectAll(importform.getForm_Code());
+		this.Details_Form_old = Details_ImportDAO.getInstance().selectAll(importform.getForm_Code());
+	}
+	public void init() {
+		ImportCouponDAO = new ImportCouponDAO();
+		Edit_ImportsCoupon_Controller edit_ImportsCoupon_Controller = new Edit_ImportsCoupon_Controller(this);
+		Imports_DAO = new ImportDAO();
+		getContentPane().setBackground(new Color(72, 61, 139));
+		this.setSize(1250,595);
+		getContentPane().setLayout(null);
+
 		
 		Box verticalBox = Box.createVerticalBox();
 		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -119,17 +128,8 @@ public class Edit_ImportsCouponView extends JFrame {
 		
 		Box verticalBox_1 = Box.createVerticalBox();
 		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox_1.setBounds(503, 10, 722, 146);
+		verticalBox_1.setBounds(504, 20, 722, 146);
 		getContentPane().add(verticalBox_1);
-	}
-	public void init() {
-		ImportCouponDAO = new ImportCouponDAO();
-		Edit_ImportsCoupon_Controller edit_ImportsCoupon_Controller = new Edit_ImportsCoupon_Controller(this);
-		Imports_DAO = new ImportDAO();
-		
-		this.setSize(1250,595);
-		getContentPane().setLayout(null);
-
 		TF_Sreach = new JTextField();
 		TF_Sreach.setBounds(37, 49, 282, 28);
 		getContentPane().add(TF_Sreach);
@@ -285,22 +285,13 @@ public class Edit_ImportsCouponView extends JFrame {
 		text_totalAmount.setBounds(682, 460, 341, 41);
 		getContentPane().add(text_totalAmount);
 		
-		btn_ImportsProduct = new JButton("Imports product");
-		btn_ImportsProduct.setBackground(Color.LIGHT_GRAY);
-		btn_ImportsProduct.setForeground(new Color(0, 0, 0));
-		btn_ImportsProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_ImportsProduct.setBounds(1032, 488, 160, 41);
-		getContentPane().add(btn_ImportsProduct);
-		btn_ImportsProduct.addMouseListener(edit_ImportsCoupon_Controller);
-		
-		btn_Refresh = new JButton("");
-		btn_Refresh.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
-		btn_Refresh.setBounds(348, 46, 85, 28);
-		btn_Refresh.setForeground(Color.WHITE);
-		btn_Refresh.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_Refresh.setBackground(new Color(0, 0, 51));
-		getContentPane().add(btn_Refresh);
-		btn_Refresh.addMouseListener(edit_ImportsCoupon_Controller);		
+		btn_save = new JButton("Save");
+		btn_save.setBackground(Color.LIGHT_GRAY);
+		btn_save.setForeground(new Color(0, 0, 0));
+		btn_save.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_save.setBounds(1032, 488, 160, 41);
+		getContentPane().add(btn_save);
+		btn_save.addMouseListener(edit_ImportsCoupon_Controller);
 		
 		Imports_DAO.display(table_Product);
 		
@@ -353,10 +344,8 @@ public class Edit_ImportsCouponView extends JFrame {
 	                        if (!productExists) {
 	                            tableModelImports.addRow(new Object[] { productInfo[0], productCode, productName, quantity, price});
 	                        }
-	                        // Xóa hàng đã chọn khỏi bảng table_Product
 	                        DefaultTableModel tableModelProduct = (DefaultTableModel) table_Product.getModel();
 	                        tableModelProduct.removeRow(row);
-	                        // Cập nhật lại tổng số tiền
 	                        updateTotalAmount();
 
 	                        // Cập nhật số lượng trong cơ sở dữ liệu
@@ -381,14 +370,14 @@ public class Edit_ImportsCouponView extends JFrame {
 	                        int number =0;
 	                        if (!productExists) {
 	                            tableModelImports.addRow(new Object[] { number+1, productCode, productName, quantity, price});
-	                        }
-	                        // Cập nhật lại tổng số tiền
+	                        }                  
 	                        updateTotalAmount();
-
-	                        // Cập nhật số lượng trong cơ sở dữ liệu
 	                        int newQuantity = currentQuantity - quantity;
 	                        Imports_DAO.updateProductQuantity(productCode, newQuantity);
 	                        form_Code = TF_Form.getText();
+	                        if (Details_Form == null) {
+	                            Details_Form = new ArrayList<>();
+	                        }
 	                        Details_Form.add(new ite.computer_management.model.Details_Form(form_Code, productCode, quantity, price));
 	                    } else {
 	                        JOptionPane.showMessageDialog(this, "Not enough quantity available for this product!");
@@ -404,7 +393,7 @@ public class Edit_ImportsCouponView extends JFrame {
 	        }
 	    }
 	}
-	private void updateTotalAmount() {
+	public void updateTotalAmount() {
 	    DefaultTableModel modelImports = (DefaultTableModel) table_Imports.getModel();
 	    BigDecimal totalAmount = BigDecimal.ZERO;
 	    DecimalFormat formatter = new DecimalFormat("###,###,###");
@@ -423,37 +412,13 @@ public class Edit_ImportsCouponView extends JFrame {
 	        } catch (NumberFormatException e) {
 	            // Xử lý ngoại lệ nếu không thể chuyển đổi chuỗi thành số
 	            e.printStackTrace();
-	            JOptionPane.showMessageDialog(null, "Dữ liệu không hợp lệ!");
+	            JOptionPane.showMessageDialog(null, "fail");
 	        }
 	    }
 
 	    // Hiển thị tổng tiền đã tính được trên giao diện
 	    text_totalAmount.setText(formatter.format(totalAmount) + "Đ");
 	}
-
-	
-	public String createId(ArrayList<ImportsForm> arr) {
-        int id = arr.size() + 1;
-        String check = "";
-        for (ImportsForm form : arr) {
-            if (form.getForm_Code().equals("IF" + id)) {
-                check = form.getForm_Code();
-            }
-        }
-        while (check.length() != 0) {
-            String c = check;
-            id++;
-            for (int i = 0; i < arr.size(); i++) {
-                if (arr.get(i).getForm_Code().equals("IF" + id)) {
-                    check = arr.get(i).getForm_Code();
-                }
-            }
-            if (check.equals(c)) {
-                check = "";
-            }
-        }
-        return "IF" + id;
-    }
 	    
 	    public void delete_toTableImport() {
 	        int row = table_Imports.getSelectedRow();
@@ -499,44 +464,35 @@ public class Edit_ImportsCouponView extends JFrame {
 	            }
 	        }
 	    }
-	    public void btn_ImportProduct() {
-	    	DefaultTableModel model_table = (DefaultTableModel) table_Imports.getModel();
-	    	if(model_table == null) {
-	    		JOptionPane.showMessageDialog(this, "There are no products in the table");
-	    	} else {
-	    		int check = JOptionPane.showConfirmDialog(this, "are you sure??", "yes", JOptionPane.YES_NO_OPTION);
-	    		if(check == JOptionPane.YES_NO_OPTION) {
-	    			long now = System.currentTimeMillis();
-	    			Timestamp sqlTimeTamp = new Timestamp(now);
-	    			String Creator = (String) Combo_Creator.getSelectedItem();
-	    			ImportsForm IM = new ImportsForm(arrNcc.get(Combo_Supplier.getSelectedIndex()).getSupplier_Code(), form_Code, sqlTimeTamp, Creator, Details_Form, total_Amount());
-	    			try {
-	    				ImportDAO.getInstance().insert(IM);
-	    				computerDAO CPTD = computerDAO.getInstance();
-	    				
-	    				for(ite.computer_management.model.Details_Form i : Details_Form) {
-	    					Details_ImportDAO.getInstance().insert(i);
-	    					CPTD.updateQuantity(i.getComputer_Code(),CPTD.selectById(i.getComputer_Code()).getQuantity() + i.getQuantity());
-	    				}
-	    				JOptionPane.showMessageDialog(this, "Imports product success");
-	    				int res = JOptionPane.showConfirmDialog(this, "do you want export file pdf?", "", JOptionPane.YES_NO_OPTION);
-	    					if(res == JOptionPane.YES_OPTION) {
-	    						  WirtePDF_File writepdf = new WirtePDF_File();
-	    	                      writepdf.writePhieuNhap(form_Code);
-	    					}
-	    					ArrayList<Computer> product = computerDAO.getInstance().selectAllExist();
-	    					
-	    					DefaultTableModel r = (DefaultTableModel) table_Imports.getModel();
-	    	                r.setRowCount(0);
-	    	                Details_Form = new ArrayList<>();
-	    	                text_totalAmount.setText("0");
-	    	                this.form_Code = createId(ImportDAO.getInstance().selectAll());
-	    	                TF_Form.setText(this.form_Code);
-	    			} catch (Exception e) {
-					
-					}    		
-	    		}
-	    	}
+	    public void btn_UpdateCoupon() {
+	    	
+	 
+	    	if (Details_Form.isEmpty()) {
+	            JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm để nhập hàng !","Cảnh báo", JOptionPane.WARNING_MESSAGE);
+	        } else {
+	            for (ite.computer_management.model.Details_Form ct : Details_Form_old) {
+	                computerDAO.getInstance().updateSoLuong(ct.getComputer_Code(), computerDAO.getInstance().selectById(ct.getComputer_Code()).getQuantity() - ct.getQuantity());
+	            }
+	            for (ite.computer_management.model.Details_Form ct : Details_Form) {
+	            	computerDAO.getInstance().updateSoLuong(ct.getComputer_Code(), computerDAO.getInstance().selectById(ct.getComputer_Code()).getQuantity() + ct.getQuantity());
+	            }
+	            long now = System.currentTimeMillis();
+	            Timestamp sqlTimestamp = new Timestamp(now);
+	            ImportsForm pn = new ImportsForm(arrNcc.get(Combo_Supplier.getSelectedIndex()).getSupplier_Code(),formCode, sqlTimestamp, Combo_Creator.getSelectedIndex(), Details_Form, total_Amount());
+	            try {
+	                ImportDAO.getInstance().update(pn);
+	                Details_ImportDAO.getInstance().delete(Details_Form_old.get(Details_Form_old.size() - 1));
+	                for (ite.computer_management.model.Details_Form i : Details_Form) {
+	                    Details_ImportDAO.getInstance().insert(i);
+	                }
+	                JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
+	                this.ICF.displayTable();
+	                this.dispose();
+	            } catch (Exception e) {
+	            	e.printStackTrace();
+	                JOptionPane.showMessageDialog(this, "Cập nhật thất bại !","Lỗi", JOptionPane.ERROR_MESSAGE);
+	            }
+	        }
 	    }
 	    public double total_Amount() {
 			  double tt = 0;
@@ -561,6 +517,7 @@ public class Edit_ImportsCouponView extends JFrame {
 		                    ICF.getFormatter().format(CTPhieu.get(i).getUnit_Price()),
 		                });
 		            }
+		            this.Details_Form = CTPhieu; 
 		            updateTotalAmount();
 		        } catch (Exception e) {
 		        	 System.out.println("Failed to load data: " + e.getMessage());

@@ -166,8 +166,25 @@ public class ImportDAO implements DAOInterface<ImportsForm> {
 
 	@Override
 	public int update(ImportsForm t) {
-		// TODO Auto-generated method stub
-		return 0;
+		int ketQua = 0;
+        try {
+        	ConnectDatabase.getInstance();
+	        Connection connec = ConnectDatabase.getConnection();
+            String sql = "UPDATE import_coupon SET form_Code=?, time_Start=?, creator=?, supplier_Code=?, total_Amount = ? WHERE form_Code=?";
+            PreparedStatement pst = connec.prepareStatement(sql);
+            pst.setString(1, t.getForm_Code());
+            pst.setTimestamp(2, t.getTime_Start());
+            pst.setString(3, t.getCreator());
+            pst.setString(4, t.getSupplier());
+            pst.setDouble(5, t.getTotal_Amount());
+            pst.setString(6, t.getForm_Code());
+            ketQua = pst.executeUpdate();
+            connec.close();
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return ketQua;
 	}
 
 	@Override

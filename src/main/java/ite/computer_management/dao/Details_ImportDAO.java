@@ -31,7 +31,6 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 	            pst.setInt(3, t.getQuantity());
 	            pst.setDouble(4, t.getUnit_Price());
 	            ketQua = pst.executeUpdate();
-	            // In thông báo khi thêm dữ liệu thành công
 	            System.out.println("Insert into detail_imports_coupon successfully.");
 	            con.close();
 	    } catch (Exception e) {
@@ -76,8 +75,25 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 
 	@Override
 	public int update(Details_Form t) {
-		// TODO Auto-generated method stub
-		return 0;
+		 int ketQua = 0;
+	        try {
+	        	ConnectDatabase.getInstance();
+	  			Connection con = ConnectDatabase.getConnection();
+	            String sql = "UPDATE detail_imports_coupon SET form_Code=?, computer_Code=?, quantity=?, unit_price = ?  WHERE form_Code=? AND computer_Code=?";
+	            PreparedStatement pst = con.prepareStatement(sql);
+	            pst.setString(1, t.getForm_Code());
+	            pst.setString(2, t.getComputer_Code());
+	            pst.setInt(3, t.getQuantity());
+	            pst.setDouble(4, t.getUnit_Price());
+	            pst.setString(5, t.getForm_Code());
+	            pst.setString(6, t.getComputer_Code());
+	            ketQua = pst.executeUpdate();
+	            con.close();
+	        } catch (Exception e) {
+	            // TODO: handle exception
+	            e.printStackTrace();
+	        }
+	        return ketQua;
 	}
 
 	@Override
