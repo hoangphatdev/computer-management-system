@@ -84,6 +84,8 @@ public class Dashboard extends JFrame {
 		ImportCouponView importCouponView = new ImportCouponView();
 		tabbedPane.addTab("Import coupon", importCouponView);
 		
+		ExportCouponView exportCouponView = new ExportCouponView();
+		tabbedPane.addTab("Export coupon", exportCouponView);
 		
 		navPanel = new JPanel();
 		navPanel.setForeground(new Color(0, 0, 0));
@@ -298,7 +300,7 @@ public class Dashboard extends JFrame {
 		accountNavLbl.setForeground(new Color(242, 230, 87));
 	}
 	public void clickExportCouponNav() {
-	
+		this.tabbedPane.setSelectedIndex(6);
 		exportCouponNavLbl.setBackground(new Color(25, 25, 112));
 		exportCouponNavLbl.setForeground(Color.WHITE);
 		

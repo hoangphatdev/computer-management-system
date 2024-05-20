@@ -6,7 +6,7 @@ package ite.computer_management.view;
 import javax.swing.JPanel;
 
 import javax.swing.JTextField;
-
+import javax.swing.RowFilter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -28,6 +28,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import java.sql.Timestamp;
 
@@ -115,7 +116,7 @@ public class ImportsProductView extends JPanel {
 		
 		Box verticalBox_1 = Box.createVerticalBox();
 		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox_1.setBounds(503, 10, 722, 146);
+		verticalBox_1.setBounds(503, 0, 722, 146);
 		add(verticalBox_1);
 	}
 	public void init() {
@@ -129,6 +130,7 @@ public class ImportsProductView extends JPanel {
 		TF_Sreach.setBounds(37, 49, 282, 28);
 		add(TF_Sreach);
 		TF_Sreach.setColumns(10);
+		TF_Sreach.addKeyListener(Imports_productController);
 		
 		btn_Refresh = new JButton("");
 		btn_Refresh.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
@@ -244,24 +246,8 @@ public class ImportsProductView extends JPanel {
 		add(btn_accept);
 		btn_accept.addMouseListener(Imports_productController);
 		
-		JButton btn_Excel = new JButton("Excel");
-		btn_Excel.setBounds(1024, 26, 188, 28);
-		btn_Excel.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
-		btn_Excel.setBackground(new Color(0, 0, 51));
-		btn_Excel.setForeground(Color.WHITE);
-		btn_Excel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		add(btn_Excel);
-		
-		JButton btn_ChangeQuantity = new JButton("Change quantity");
-		btn_ChangeQuantity.setBounds(1024, 67, 188, 28);
-		btn_ChangeQuantity.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\edit 30.png"));
-		btn_ChangeQuantity.setBackground(new Color(0, 0, 51));
-		btn_ChangeQuantity.setForeground(Color.WHITE);
-		btn_ChangeQuantity.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		add(btn_ChangeQuantity);
-		
 		 btn_DeleteProduct = new JButton("Delete product");
-		 btn_DeleteProduct.setBounds(1024, 106, 188, 28);
+		 btn_DeleteProduct.setBounds(1006, 67, 188, 28);
 		 btn_DeleteProduct.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\delete 30.png"));
 		btn_DeleteProduct.setBackground(new Color(0, 0, 51));
 		btn_DeleteProduct.setForeground(Color.WHITE);
@@ -490,7 +476,7 @@ public class ImportsProductView extends JPanel {
 	    				int res = JOptionPane.showConfirmDialog(this, "do you want export file pdf?", "", JOptionPane.YES_NO_OPTION);
 	    					if(res == JOptionPane.YES_OPTION) {
 	    						  WirtePDF_File writepdf = new WirtePDF_File();
-	    	                      writepdf.writePhieuNhap(form_Code);
+	    	                      writepdf.writeImportCoupon(form_Code);
 	    					}
          					DefaultTableModel r = (DefaultTableModel) table_Imports.getModel();
 	    	                r.setRowCount(0);
@@ -516,4 +502,20 @@ public class ImportsProductView extends JPanel {
 	    	ImportDAO view = new ImportDAO();
 	    	view.display(table_Product);
 	    }
+
+		public void clicksearch() {
+			DefaultTableModel model = (DefaultTableModel) table_Product.getModel();
+
+		    TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+		    table_Product.setRowSorter(sorter);
+
+		    String searchText = TF_Sreach.getText();
+		    RowFilter<DefaultTableModel, Integer> rowFilter = new RowFilter<DefaultTableModel, Integer>() {
+		        public boolean include(Entry<? extends DefaultTableModel, ? extends Integer> entry) {
+		            String code = entry.getStringValue(1).toLowerCase();
+		            return code.contains(searchText.toLowerCase());
+		        }
+		    };
+		    sorter.setRowFilter(rowFilter);
+		}
 }

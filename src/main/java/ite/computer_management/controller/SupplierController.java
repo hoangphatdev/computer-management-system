@@ -49,7 +49,9 @@ public class SupplierController implements MouseListener, KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		 if(e.getSource() == supplierView.searchTxt) {
+			supplierView.clickSearchBtn();
+		}
 		
 	}
 

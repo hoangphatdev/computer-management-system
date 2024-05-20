@@ -14,13 +14,13 @@ public class AccountController implements MouseListener, KeyListener {
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource()  == accountView.addLbl ) {
+		if(e.getSource()  == accountView.btnadd ) {
 			accountView.clickAddLbl();
-		}else if(e.getSource() == accountView.deleteLbl){
+		}else if(e.getSource() == accountView.btndelete){
 			accountView.clickDeleteLbl();
-		}else if(e.getSource() == accountView.editLbl) {
+		}else if(e.getSource() == accountView.btnUpdate) {
 			accountView.clickEditLbl();
-		}else if(e.getSource() == accountView.exportExcelLbl) {
+		}else if(e.getSource() == accountView.btnExcel) {
 			accountView.clickExportExcel();
 		}
 		

@@ -15,12 +15,10 @@ import javax.swing.table.DefaultTableModel;
 import ite.computer_management.database.ConnectDatabase;
 import ite.computer_management.model.Computer;
 import ite.computer_management.model.ImportsForm;
-import ite.computer_management.view.ExportProductView;
 import ite.computer_management.view.ImportsProductView;
 
 public class ImportDAO implements DAOInterface<ImportsForm> {
 	 private ImportsProductView ImportsView;
-	 private ExportProductView DeliveryView;
 	 public ImportDAO(ImportsProductView IPV) {
 		 ImportsView = IPV;
 	   }
@@ -30,10 +28,6 @@ public class ImportDAO implements DAOInterface<ImportsForm> {
 	   }
 	   
 	   public ImportDAO() {};
-	public ImportDAO(ExportProductView DPV) {
-		DeliveryView = DPV;
-	}
-
 	public void display(JTable table) {
 		 try {
 		        ConnectDatabase.getInstance();

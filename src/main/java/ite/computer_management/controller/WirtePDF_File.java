@@ -14,12 +14,15 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import ite.computer_management.dao.AccountDAO;
+import ite.computer_management.dao.Details_ExportDAO;
 import ite.computer_management.dao.Details_ImportDAO;
+import ite.computer_management.dao.ExportsDAO;
 import ite.computer_management.dao.ImportDAO;
 import ite.computer_management.dao.SupplierDAO;
 import ite.computer_management.dao.computerDAO;
 import ite.computer_management.model.Computer;
 import ite.computer_management.model.Details_Form;
+import ite.computer_management.model.ExportForm;
 import ite.computer_management.model.ImportsForm;
 
 import javax.swing.*;
@@ -81,7 +84,7 @@ public class WirtePDF_File {
         return url;
     }
 
-    public void writePhieuNhap(String mapn) {
+    public void writeImportCoupon(String mapn) {
         String url = getFile(mapn);
         if (url == null) {
             return;
@@ -92,7 +95,7 @@ public class WirtePDF_File {
             document.open();
 
             setTitle("ENTRY FORM INFORMATION");
-
+            
             ImportsForm pn = ImportDAO.getInstance().selectById(mapn);
 
             Paragraph para1 = new Paragraph("Form code: " + pn.getForm_Code() + "\nTime: " + formatDate.format(pn.getTime_Start()), fontData);
@@ -115,6 +118,64 @@ public class WirtePDF_File {
 
             // Fill table with data
             for (Details_Form ctpn : Details_ImportDAO.getInstance().selectAll(mapn)) {
+                Computer mt = computerDAO.getInstance().selectById(ctpn.getComputer_Code());
+                pdfTable.addCell(new PdfPCell(new Phrase(ctpn.getComputer_Code(), fontData)));
+                pdfTable.addCell(new PdfPCell(new Phrase(mt.getComputerName(), fontData)));
+                pdfTable.addCell(new PdfPCell(new Phrase(formatter.format(mt.getPrice()) + "đ", fontData)));
+                pdfTable.addCell(new PdfPCell(new Phrase(String.valueOf(ctpn.getQuantity()), fontData)));
+                BigDecimal quantity = BigDecimal.valueOf(ctpn.getQuantity());
+                BigDecimal totalPrice = quantity.multiply(mt.getPrice());
+                pdfTable.addCell(new PdfPCell(new Phrase(formatter.format(totalPrice) + "đ", fontData)));
+            }
+
+            document.add(pdfTable);
+            document.add(Chunk.NEWLINE);
+
+            Paragraph paraTongThanhToan = new Paragraph("Total amount: " + formatter.format(pn.getTotal_Amount()) + "đ", fontData);
+            document.add(paraTongThanhToan);
+            document.close();
+            JOptionPane.showMessageDialog(null, "The PDF file has been created successfully: " + url);
+            openFile(url);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "There was an error creating the PDF file: " + url);
+        }
+    } 
+    public void writeExportCoupon(String mapn) {
+        String url = getFile(mapn);
+        if (url == null) {
+            return;
+        }
+        try {
+            document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(url));
+            document.open();
+
+            setTitle("ENTRY FORM INFORMATION");
+
+            ExportForm pn = ExportsDAO.getInstance().selectById(mapn);
+
+            Paragraph para1 = new Paragraph("Form code: " + pn.getForm_Code() + "\nTime: " + formatDate.format(pn.getTime_Start()), fontData);
+            Paragraph para2 = new Paragraph("Creator: " + AccountDAO.getInstance().selectById(pn.getCreator()).getFullName());
+            
+            document.add(para1);
+            document.add(para2);
+            document.add(Chunk.NEWLINE);
+
+            // Create table for details
+            PdfPTable pdfTable = new PdfPTable(5);
+            pdfTable.setWidths(new float[]{10f, 30f, 15f, 5f, 15f});
+
+            // Set headers for the table
+            pdfTable.addCell(new PdfPCell(new Phrase("Computer code", fontHeader)));
+            pdfTable.addCell(new PdfPCell(new Phrase("Computer name", fontHeader)));
+            pdfTable.addCell(new PdfPCell(new Phrase("Price", fontHeader)));
+            pdfTable.addCell(new PdfPCell(new Phrase("quantity", fontHeader)));
+            pdfTable.addCell(new PdfPCell(new Phrase("Total amount", fontHeader)));
+
+            // Fill table with data
+            for (Details_Form ctpn : Details_ExportDAO.getInstance().selectAll(mapn)) {
                 Computer mt = computerDAO.getInstance().selectById(ctpn.getComputer_Code());
                 pdfTable.addCell(new PdfPCell(new Phrase(ctpn.getComputer_Code(), fontData)));
                 pdfTable.addCell(new PdfPCell(new Phrase(mt.getComputerName(), fontData)));

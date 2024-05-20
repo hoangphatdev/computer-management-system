@@ -15,22 +15,23 @@ import java.awt.Desktop;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.RowFilter.Entry;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-import ite.computer_management.controller.ImportsCouponController;
+import ite.computer_management.controller.ExportsCouponController;
 
 import ite.computer_management.dao.AccountDAO;
-import ite.computer_management.dao.Details_ImportDAO;
-import ite.computer_management.dao.ImportCouponDAO;
-import ite.computer_management.dao.ImportDAO;
+import ite.computer_management.dao.Details_ExportDAO;
 
-import ite.computer_management.dao.SupplierDAO;
+import ite.computer_management.dao.ExportCouponDAO;
+import ite.computer_management.dao.ExportsDAO;
+
 
 import ite.computer_management.model.Details_Form;
-import ite.computer_management.model.ImportsForm;
+import ite.computer_management.model.ExportForm;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -53,7 +54,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 
-public class ImportCouponView extends JPanel {
+public class ExportCouponView extends JPanel {
 	public static DefaultTableModel model;
 	private static final long serialVersionUID = 1L;
 	public static JTable table;
@@ -65,11 +66,9 @@ public class ImportCouponView extends JPanel {
 	public JButton btndelete;
 	DecimalFormat formatter = new DecimalFormat("###,###,###");
     SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm");
-    private ImportsProductView IF;
-    private Edit_ImportsCouponView EICV;
     public JButton btnshowdetail;
     public JButton btnRefresh;
-    private ImportCouponView ICF;
+    private ExportCouponView ICF;
     private ArrayList<Details_Form> Details_Form;
     
     
@@ -81,7 +80,7 @@ public class ImportCouponView extends JPanel {
     public ArrayList<Details_Form> getDetails_Form() {
         return Details_Form;
     }
-    public ImportCouponView getICF() {
+    public ExportCouponView getICF() {
         return ICF;
     }
     public SimpleDateFormat getFormatDate() {
@@ -96,7 +95,7 @@ public class ImportCouponView extends JPanel {
             return null;
         }
     }
-    public ImportCouponView() {
+    public ExportCouponView() {
     	
     	init();
     	displayTable();
@@ -104,7 +103,7 @@ public class ImportCouponView extends JPanel {
     }
     
 	public void init() {
-		ImportsCouponController importsCouponController = new ImportsCouponController(this);
+		ExportsCouponController exportsCouponController = new ExportsCouponController(this);
 		this.setSize(1250,800);
 		setLayout(null);
 		setBackground(new Color(72, 61, 139));
@@ -117,17 +116,17 @@ public class ImportCouponView extends JPanel {
 			new Object[][] {
 			},
 			new String[] {
-				"Number", "Form code", "Supplier ", "Creator", "Time", "Total amount"
+				"Number", "Form code", "Creator", "Time", "Total amount"
 			}
 		));
 
-		ImportCouponDAO importCouponDAO = new ImportCouponDAO(this);
-		importCouponDAO.selectAll();
+		ExportCouponDAO exportCouponDAO = new ExportCouponDAO(this);
+		exportCouponDAO.selectAll();
 		scrollPane.setViewportView(table);
 
 		scrollPane.setViewportView(table);
 		searchTxt = new JTextField();
-		searchTxt.addKeyListener(importsCouponController);
+		searchTxt.addKeyListener(exportsCouponController);
 		searchTxt.setBounds(792, 54, 385, 40);
 		add(searchTxt);
 		searchTxt.setColumns(10);
@@ -150,7 +149,7 @@ public class ImportCouponView extends JPanel {
 		btndelete.setBackground(new Color(51, 0, 102));
 		btndelete.setBounds(36, 86, 159, 40);
 		add(btndelete);
-		btndelete.addMouseListener(importsCouponController);
+		btndelete.addMouseListener(exportsCouponController);
 		
 		 btnUpdate = new JButton("Update");
 		 btnUpdate.setForeground(Color.WHITE);
@@ -159,7 +158,7 @@ public class ImportCouponView extends JPanel {
 		btnUpdate.setBackground(new Color(51, 0, 102));
 		btnUpdate.setBounds(36, 136, 190, 40);
 		add(btnUpdate);
-		btnUpdate.addMouseListener(importsCouponController);
+		btnUpdate.addMouseListener(exportsCouponController);
 		
 		btnExcel = new JButton("Export excel");
 		btnExcel.setForeground(Color.WHITE);
@@ -168,7 +167,7 @@ public class ImportCouponView extends JPanel {
 		btnExcel.setBackground(new Color(51, 0, 102));
 		btnExcel.setBounds(1018, 193, 181, 40);
 		add(btnExcel);
-		btnExcel.addMouseListener(importsCouponController);
+		btnExcel.addMouseListener(exportsCouponController);
 		
 		JLabel searchLbl_1 = new JLabel("");
 		searchLbl_1.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\logo2.png"));
@@ -184,7 +183,7 @@ public class ImportCouponView extends JPanel {
 		btnshowdetail.setBackground(new Color(51, 0, 102));
 		btnshowdetail.setBounds(36, 186, 223, 40);
 		add(btnshowdetail);
-		btnshowdetail.addMouseListener(importsCouponController);
+		btnshowdetail.addMouseListener(exportsCouponController);
 		
 		btnRefresh = new JButton("Refresh");
 		btnRefresh.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
@@ -193,7 +192,7 @@ public class ImportCouponView extends JPanel {
 		btnRefresh.setBackground(new Color(51, 0, 102));
 		btnRefresh.setBounds(837, 193, 159, 40);
 		add(btnRefresh);
-		btnRefresh.addMouseListener(importsCouponController);
+		btnRefresh.addMouseListener(exportsCouponController);
 
 
 		
@@ -205,17 +204,17 @@ public class ImportCouponView extends JPanel {
 	            deletePhieuNhap(getPhieuNhapSelect());
 	        }
 	}
-	public void deletePhieuNhap(ImportsForm pn) {
-	    int result = JOptionPane.showConfirmDialog(this, "are you sure to delete " + pn.getForm_Code(), "yes", JOptionPane.YES_NO_OPTION);
+	public void deletePhieuNhap(ExportForm exportForm) {
+	    int result = JOptionPane.showConfirmDialog(this, "are you sure to delete " + exportForm.getForm_Code(), "yes", JOptionPane.YES_NO_OPTION);
 	    if (result == JOptionPane.YES_OPTION) {
 	        try {  
-	            ArrayList<Details_Form> detailsForms = Details_ImportDAO.getInstance().selectAll(pn.getForm_Code());
+	            ArrayList<Details_Form> detailsForms = Details_ExportDAO.getInstance().selectAll(exportForm.getForm_Code());
 	      
 	            for (Details_Form detail : detailsForms) {
-	                Details_ImportDAO.getInstance().delete(detail);
+	               Details_ExportDAO.getInstance().delete(detail);
 	            }     
-	            ImportCouponDAO.getInstance().delete(pn);       
-	            JOptionPane.showMessageDialog(this, "form successfully deleted" + pn.getForm_Code());  
+	            ExportCouponDAO.getInstance().delete(exportForm);       
+	            JOptionPane.showMessageDialog(this, "form successfully deleted" + exportForm.getForm_Code());  
 	            displayTable();
 	        } catch (Exception e) {
 	            JOptionPane.showMessageDialog(this, "fail" + e.getMessage());
@@ -246,7 +245,7 @@ public class ImportCouponView extends JPanel {
 			JOptionPane.showMessageDialog(null, "Please select row to edit >< ");
 		}else {
 			String selectedFormCode = getSelectedFormCode(); 
-			Edit_ImportsCouponView view = new Edit_ImportsCouponView(this, Details_Form,selectedFormCode);
+			Edit_ExportCouponView view = new Edit_ExportCouponView(this, Details_Form,selectedFormCode);
 			view.loadDataToTableProduct(this);
 			view.setVisible(true);
 		}
@@ -259,30 +258,30 @@ public class ImportCouponView extends JPanel {
 		}else {
 			DefaultTableModel modell = (DefaultTableModel) table.getModel();
 			String selectedFormCode = getSelectedFormCode(); 
-			Details_ImportCouponView vieww = new Details_ImportCouponView(this, Details_Form,selectedFormCode);
+			Details_ExportCouponView vieww = new Details_ExportCouponView(this, Details_Form,selectedFormCode);
 			vieww.loadDataToTableProduct(this);
 			vieww.form_text.setText( (String)modell.getValueAt(selectedRowIndex,1) );
-			vieww.supplier_text.setText( (String)modell.getValueAt(selectedRowIndex,2) );
-			vieww.creator_text.setText( (String)modell.getValueAt(selectedRowIndex,3) );
-			vieww.time_text.setText( (String)modell.getValueAt(selectedRowIndex,4) );
+			
+			vieww.creator_text.setText( (String)modell.getValueAt(selectedRowIndex,2) );
+			vieww.time_text.setText( (String)modell.getValueAt(selectedRowIndex,3) );
 			
 		}
 	}	
 	public void displayTable() {
 	    try {
 	        DefaultTableModel table_model = (DefaultTableModel) table.getModel();
-	        ArrayList<ImportsForm> allPhieuNhap = ImportCouponDAO.getInstance().selectAll();
+	        ArrayList<ExportForm> allPhieuNhap = ExportCouponDAO.getInstance().selectAll();
 	        table_model.setRowCount(0);
 	        int stt = 1;
 	        Details_Form = new ArrayList<>();
 	        for (int i = 0; i < allPhieuNhap.size(); i++) {
 	            table_model.addRow(new Object[]{
-	                stt++, allPhieuNhap.get(i).getForm_Code(), SupplierDAO.getInstance().selectById(allPhieuNhap.get(i).getSupplier()).getSupplier_Name(), AccountDAO.getInstance().selectById(allPhieuNhap.get(i).getCreator()).getFullName(), formatDate.format(allPhieuNhap.get(i).getTime_Start()), formatter.format(allPhieuNhap.get(i).getTotal_Amount()) + "đ"
+	                stt++, allPhieuNhap.get(i).getForm_Code(), AccountDAO.getInstance().selectById(allPhieuNhap.get(i).getCreator()).getFullName(), formatDate.format(allPhieuNhap.get(i).getTime_Start()), formatter.format(allPhieuNhap.get(i).getTotal_Amount()) + "đ"
 	            });
-	            ImportsForm selectedImportsForm = ImportDAO.getInstance().selectById(allPhieuNhap.get(i).getForm_Code());
+	            ExportForm selectedExportsForm = ExportsDAO.getInstance().selectById(allPhieuNhap.get(i).getForm_Code());
 
 	      	  
-		        Details_Form = Details_ImportDAO.getInstance().selectAll(selectedImportsForm.getForm_Code());
+		        Details_Form = Details_ExportDAO.getInstance().selectAll(selectedExportsForm.getForm_Code());
 	        }
 	      
 
@@ -292,10 +291,10 @@ public class ImportCouponView extends JPanel {
 	        e.printStackTrace();
 	    }
 	}
-    public ImportsForm getPhieuNhapSelect() {
+    public ExportForm getPhieuNhapSelect() {
     	DefaultTableModel table_model = (DefaultTableModel) table.getModel();
         int i_row = table.getSelectedRow();
-        ImportsForm pn = ImportDAO.getInstance().selectById(table_model.getValueAt(i_row, 1).toString());
+        ExportForm pn = ExportsDAO.getInstance().selectById(table_model.getValueAt(i_row, 1).toString());
         return pn;
     }
     
@@ -311,7 +310,7 @@ public class ImportCouponView extends JPanel {
 	                saveFile = new File(saveFile.toString() + ".xlsx");
 	            }
 	            Workbook workbook = new XSSFWorkbook();
-	            Sheet sheet = workbook.createSheet("Import Coupons");    
+	            Sheet sheet = workbook.createSheet("Export Coupons");    
 	            Row headerRow = sheet.createRow(0);
 	            for (int i = 0; i < table.getColumnCount(); i++) {
 	                Cell cell = headerRow.createCell(i);
