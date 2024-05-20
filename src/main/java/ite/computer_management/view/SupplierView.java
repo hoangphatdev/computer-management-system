@@ -159,10 +159,23 @@ public class SupplierView extends JPanel {
 		}
 	}
 	public void clickSearchBtn() {
-		DefaultTableModel demo = (DefaultTableModel) table.getModel();
-		TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(demo);
-		table.setRowSorter(trs);
-		trs.setRowFilter(RowFilter.regexFilter(searchTxt.getText()));
+		DefaultTableModel model =  (DefaultTableModel) table.getModel();
+		TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+		table.setRowSorter(sorter);
+		
+		String search = searchTxt.getText();
+		
+		RowFilter<DefaultTableModel, Integer> row = new RowFilter<DefaultTableModel, Integer>() {
+
+			@Override
+			public boolean include(Entry<? extends DefaultTableModel, ? extends Integer> entry) {
+				String code = entry.getStringValue(0).toLowerCase();
+				
+				return code.contains(search.toLowerCase());
+			}
+			
+		};
+		sorter.setRowFilter(row);
 	}
 
 	public void clickExportExcel() {

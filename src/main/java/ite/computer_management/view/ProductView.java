@@ -1,6 +1,9 @@
 
 package ite.computer_management.view;
 import org.apache.poi.ss.usermodel.Cell;
+import javax.swing.DefaultRowSorter;
+import javax.swing.RowFilter;
+import javax.swing.SortOrder;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -138,9 +141,9 @@ public class ProductView extends JPanel {
 		if(check <1) {
 			JOptionPane.showMessageDialog(null, "Please select row to delete.");
 		}else {
-			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?"); // yes:0, no:1
+			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?"); 
 			if(confirm == 0) {
-				String computerCode =  model.getValueAt(selectedRow, 1).toString(); // index cua gelValuAt bat dau tu 0
+				String computerCode =  model.getValueAt(selectedRow, 1).toString(); 
 				String computerName = model.getValueAt(selectedRow,0).toString();
 				Computer deleteProduct = new Computer();
 				deleteProduct.setComputerCode(computerCode);
@@ -154,23 +157,28 @@ public class ProductView extends JPanel {
 		}
 	}
 	public void clickSearchBtn() {
-		DefaultTableModel demo = (DefaultTableModel) table.getModel();
-		TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(demo);
-		table.setRowSorter(trs);
-		trs.setRowFilter(RowFilter.regexFilter(searchTxt.getText()));
+		DefaultTableModel model =  (DefaultTableModel) table.getModel();
+		
+		 TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+		 table.setRowSorter(sorter);
+		 
+		 String search = searchTxt.getText();
+		 
+		 RowFilter<DefaultTableModel, Integer> rowfilter = new RowFilter<DefaultTableModel, Integer>() {
+
+			@Override
+			public boolean include(Entry<? extends DefaultTableModel, ? extends Integer> entry) {
+				String code = entry.getStringValue(1).toLowerCase();
+				
+				return code.contains(search.toLowerCase());
+			}
+
+		 };
+		 sorter.setRowFilter(rowfilter);
 	}
-//	public void openFile(String file) {
-//		try {
-//			File path = new File(file);
-//			Desktop.getDesktop().open(path);
-//		} catch (IOException e) {
-//			JOptionPane.showMessageDialog(null,"Error: " + e);
-//		}
-//		
-//	}
+
 	public void clickExportExcel() {
 	    try {
-	        // 1. Chọn nơi lưu file và kiểm tra định dạng
 	        JFileChooser fileChooser = new JFileChooser();
 	        fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
 	        int option = fileChooser.showSaveDialog(this);
@@ -180,43 +188,31 @@ public class ProductView extends JPanel {
 	            if (!saveFile.toString().endsWith(".xlsx")) {  
 	                saveFile = new File(saveFile.toString() + ".xlsx");
 	            }
-
-	            // 2. Tạo workbook và sheet
 	            Workbook workbook = new XSSFWorkbook();
-	            Sheet sheet = workbook.createSheet("Import Coupons");
-
-	            // 3. Ghi tiêu đề cột
+	            Sheet sheet = workbook.createSheet("Product");    
 	            Row headerRow = sheet.createRow(0);
 	            for (int i = 0; i < table.getColumnCount(); i++) {
 	                Cell cell = headerRow.createCell(i);
 	                cell.setCellValue(table.getColumnName(i));
 	            }
-
-	            // 4. Ghi dữ liệu từ bảng vào sheet
 	            for (int j = 0; j < table.getRowCount(); j++) {
-	                Row row = sheet.createRow(j + 1); // Bắt đầu từ dòng 1 (sau dòng tiêu đề)
+	                Row row = sheet.createRow(j + 1);
 	                for (int k = 0; k < table.getColumnCount(); k++) {
 	                    Cell cell = row.createCell(k);
 	                    Object value = table.getValueAt(j, k);
 	                    if (value != null) {
 	                        if (value instanceof Number) {
-	                            cell.setCellValue(((Number) value).doubleValue()); // Định dạng số
+	                            cell.setCellValue(((Number) value).doubleValue()); 
 	                        } else {
-	                            cell.setCellValue(value.toString()); // Định dạng chuỗi
+	                            cell.setCellValue(value.toString()); 
 	                        }
 	                    }
 	                }
 	            }
-
-	            // 5. Lưu file Excel
 	            try (FileOutputStream out = new FileOutputStream(saveFile)) {
 	                workbook.write(out);
 	            }
-
-	            // 6. Thông báo thành công
 	            JOptionPane.showMessageDialog(this, "successfull", "Notification", JOptionPane.INFORMATION_MESSAGE);
-	            
-	            // 7. (Tùy chọn) Mở file sau khi lưu
 	            if (Desktop.isDesktopSupported()) {
 	                Desktop.getDesktop().open(saveFile);
 	            }

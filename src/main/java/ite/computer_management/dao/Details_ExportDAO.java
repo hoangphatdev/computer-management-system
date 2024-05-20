@@ -11,10 +11,10 @@ import javax.swing.JOptionPane;
 import ite.computer_management.database.ConnectDatabase;
 import ite.computer_management.model.Details_Form;
 
-public class Details_ImportDAO implements DAOInterface<Details_Form>{
+public class Details_ExportDAO implements DAOInterface<Details_Form>{
 
-	 public static Details_ImportDAO getInstance() {
-	        return new Details_ImportDAO();
+	 public static Details_ExportDAO getInstance() {
+	        return new Details_ExportDAO();
 	    }
 	
 	
@@ -23,7 +23,7 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 	    int ketQua = 0;
 	    try (Connection connect = ConnectDatabase.getInstance().getConnection();
 	         PreparedStatement pst = connect.prepareStatement(
-	             "INSERT INTO detail_imports_coupon (form_Code, computer_Code, quantity, unit_price) " + 
+	             "INSERT INTO details_exports_coupon (form_Code, computer_Code, quantity, unit_price) " + 
 	             "VALUES (?, ?, ?, ?) " +
 	             "ON DUPLICATE KEY UPDATE quantity = VALUES(quantity) + quantity, unit_price = VALUES(unit_price)")) {
 
@@ -33,17 +33,17 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 	        pst.setDouble(4, t.getUnit_Price());
 
 	        ketQua = pst.executeUpdate();
-	    } catch (SQLException e) {
+	    } catch (SQLException e) { 
 	        e.printStackTrace();
 	    }
 	    return ketQua;
 	}
 
-	
+	// check xem form_Code có tồn tại trong bảng import_coupon k
 	private boolean isFormCodeValid(Connection con, String formCode) {
 	    boolean isValid = false;
 	    try {
-	        String sql = "SELECT form_Code FROM import_coupon WHERE form_Code = ?";
+	        String sql = "SELECT form_Code FROM exports_coupon WHERE form_Code = ?";
 	        PreparedStatement pst = con.prepareStatement(sql);
 	        pst.setString(1, formCode);
 	        ResultSet rs = pst.executeQuery();
@@ -61,7 +61,7 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 	        try {
 	        	ConnectDatabase.getInstance();
 	  			Connection con = ConnectDatabase.getConnection();
-	            String sql = "DELETE FROM detail_imports_coupon WHERE form_Code=?";
+	            String sql = "DELETE FROM details_exports_coupon WHERE form_Code=?";
 	            PreparedStatement pst = con.prepareStatement(sql);
 	            pst.setString(1, t.getForm_Code());
 	            ketQua = pst.executeUpdate();
@@ -79,7 +79,7 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 	        try {
 	        	ConnectDatabase.getInstance();
 	  			Connection con = ConnectDatabase.getConnection();
-	            String sql = "UPDATE detail_imports_coupon SET form_Code=?, computer_Code=?, quantity=?, unit_price = ?  WHERE form_Code=? AND computer_Code=?";
+	            String sql = "UPDATE details_exports_coupon SET form_Code=?, computer_Code=?, quantity=?, unit_price = ?  WHERE form_Code=? AND computer_Code=?";
 	            PreparedStatement pst = con.prepareStatement(sql);
 	            pst.setString(1, t.getForm_Code());
 	            pst.setString(2, t.getComputer_Code());
@@ -102,7 +102,7 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 	        try {
 	        	ConnectDatabase.getInstance();
 	  			Connection con = ConnectDatabase.getConnection();
-	            String sql = "SELECT * FROM detail_imports_coupon";
+	            String sql = "SELECT * FROM details_exports_coupon";
 	            PreparedStatement pst = con.prepareStatement(sql);
 	            ResultSet rs = pst.executeQuery();
 	            while (rs.next()) {
@@ -137,7 +137,7 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
         try {
             ConnectDatabase.getInstance();
 			Connection con = ConnectDatabase.getConnection();
-            String sql = "SELECT * FROM detail_imports_coupon WHERE form_Code=?";
+            String sql = "SELECT * FROM details_exports_coupon WHERE form_Code=?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, t);
             ResultSet rs = pst.executeQuery();

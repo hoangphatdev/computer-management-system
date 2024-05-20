@@ -10,15 +10,11 @@ import ite.computer_management.view.ImportsProductView;
 
 public class Imports_productController implements MouseListener, KeyListener{
 	ImportsProductView Imports;
-	ExportProductView DeliveryView;
-	
+
 	public Imports_productController(ImportsProductView IPV) {
-		Imports = IPV;
+		this.Imports = IPV;
 	}
-	public Imports_productController(ExportProductView DPV) {
-		DeliveryView = DPV;
-	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource() == Imports.btn_accept) {
@@ -47,7 +43,9 @@ public class Imports_productController implements MouseListener, KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getSource() == Imports.TF_Sreach) {
+			Imports.clicksearch();
+		}
 		
 	}
 

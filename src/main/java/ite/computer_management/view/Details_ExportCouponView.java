@@ -27,50 +27,37 @@ import javax.swing.table.DefaultTableModel;
 
 import com.itextpdf.text.DocumentException;
 
+import ite.computer_management.controller.Details_ExportsCouponController;
 import ite.computer_management.controller.Details_ImportsCouponController;
 import ite.computer_management.controller.Imports_productController;
 import ite.computer_management.controller.WirtePDF_File;
-import ite.computer_management.dao.Details_ImportDAO;
+import ite.computer_management.dao.Details_ExportDAO;
+
 import ite.computer_management.dao.ImportDAO;
 import ite.computer_management.dao.computerDAO;
 import ite.computer_management.model.Details_Form;
-import ite.computer_management.model.ImportsForm;
+import ite.computer_management.model.ExportForm;
 
-public class Details_ImportCouponView extends JFrame {
+
+public class Details_ExportCouponView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	public JTable table_Imports;
-	public ImportDAO Import_Delivery_DAO;
+	public JTable table_Exports;
+
 	private JLabel lblQuantity_1;
 	public JButton btn_cancel;
 	public JButton btnExportFdf;
 	private DefaultTableModel model;
 	private String form_Code;
 	private ArrayList<Details_Form> Details_Form;
-	 private ImportCouponView ICF;
-	 public ImportsForm importform;
+	 private ExportCouponView ECF;
+	 public ExportForm exportform;
 	 public JLabel form_text;
-	/**
-	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Details_ImportCouponView frame = new Details_ImportCouponView(this);
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-	 public JLabel supplier_text;
 	 public JLabel creator_text;
 	public JLabel time_text;
-	public ImportCouponView getICF() {
-        return ICF;
+	public ExportCouponView getECF() {
+        return ECF;
     }
 	   public ArrayList<Details_Form> getDetails_Form() {
 	        return Details_Form;
@@ -79,18 +66,18 @@ public class Details_ImportCouponView extends JFrame {
 	 * Create the frame.
 	 */
 
-	public Details_ImportCouponView(ImportCouponView ICF, ArrayList<Details_Form> Details_Form, String form_code) {
+	public Details_ExportCouponView(ExportCouponView ECF, ArrayList<Details_Form> Details_Form, String form_code) {
 		init();
 		this.form_Code = form_code;
-		loadDataToTableProduct(ICF);	
-		this.ICF = (ImportCouponView) ICF;
-		this.importform = this.ICF.getPhieuNhapSelect();
-		this.Details_Form = Details_ImportDAO.getInstance().selectAll(importform.getForm_Code());
+		loadDataToTableProduct(ECF);	
+		this.ECF = (ExportCouponView) ECF;
+		this.exportform = this.ECF.getPhieuNhapSelect();
+		this.Details_Form = Details_ExportDAO.getInstance().selectAll(exportform.getForm_Code());
 
 	}
 	public void init() {
 		getContentPane().setBackground(new Color(72, 61, 139));
-		Details_ImportsCouponController details_ImportsCouponController = new Details_ImportsCouponController(this);
+		Details_ExportsCouponController details_ExportsCouponController = new Details_ExportsCouponController(this);
 		
 		this.setSize(875,587);
 		getContentPane().setLayout(null);
@@ -101,35 +88,29 @@ public class Details_ImportCouponView extends JFrame {
 		lblFrom.setBounds(33, 74, 90, 13);
 		getContentPane().add(lblFrom);
 		
-		JLabel lblSupplier = new JLabel("Supplier:");
-		lblSupplier.setForeground(Color.WHITE);
-		lblSupplier.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblSupplier.setBounds(33, 114, 90, 13);
-		getContentPane().add(lblSupplier);
-		
 		JLabel lblCreator = new JLabel("Creator:");
 		lblCreator.setForeground(Color.WHITE);
 		lblCreator.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCreator.setBounds(496, 74, 90, 13);
 		getContentPane().add(lblCreator);
 		
-		table_Imports = new JTable();
-		table_Imports.setModel(new DefaultTableModel(
+		table_Exports = new JTable();
+		table_Exports.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
 				"Number", "Code ", "Name", "Quantity", "Price"
 			}
 		));
-		table_Imports.getColumnModel().getColumn(0).setPreferredWidth(50);
-		table_Imports.getColumnModel().getColumn(1).setPreferredWidth(57);
-		table_Imports.getColumnModel().getColumn(2).setPreferredWidth(185);
-		table_Imports.getColumnModel().getColumn(3).setPreferredWidth(50);
-		table_Imports.getColumnModel().getColumn(4).setPreferredWidth(37);
-		table_Imports.setBounds(553, 203, 1, 1);
-		getContentPane().add(table_Imports);
+		table_Exports.getColumnModel().getColumn(0).setPreferredWidth(50);
+		table_Exports.getColumnModel().getColumn(1).setPreferredWidth(57);
+		table_Exports.getColumnModel().getColumn(2).setPreferredWidth(185);
+		table_Exports.getColumnModel().getColumn(3).setPreferredWidth(50);
+		table_Exports.getColumnModel().getColumn(4).setPreferredWidth(37);
+		table_Exports.setBounds(553, 203, 1, 1);
+		getContentPane().add(table_Exports);
 		
-		JScrollPane scrollPane_1 = new JScrollPane(table_Imports);
+		JScrollPane scrollPane_1 = new JScrollPane(table_Exports);
 		scrollPane_1.setBounds(23, 149, 828, 311);
 		getContentPane().add(scrollPane_1);
 		
@@ -145,7 +126,7 @@ public class Details_ImportCouponView extends JFrame {
 		lblQuantity_1.setBounds(192, 465, 341, 41);
 		getContentPane().add(lblQuantity_1);
 		
-		JLabel lblD = new JLabel("                                              Detail import coupon");
+		JLabel lblD = new JLabel("                                              Detail Export coupon");
 		lblD.setBackground(new Color(0, 0, 51));
 		lblD.setForeground(Color.WHITE);
 		lblD.setFont(new Font("Stencil", Font.BOLD, 25));
@@ -164,7 +145,7 @@ public class Details_ImportCouponView extends JFrame {
 		btn_cancel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btn_cancel.setBounds(526, 482, 157, 41);
 		getContentPane().add(btn_cancel);
-		btn_cancel.addMouseListener(details_ImportsCouponController);
+		btn_cancel.addMouseListener(details_ExportsCouponController);
 		
 		 btnExportFdf = new JButton("Export PDF");
 		btnExportFdf.setForeground(Color.WHITE);
@@ -179,12 +160,6 @@ public class Details_ImportCouponView extends JFrame {
 		form_text.setBounds(124, 74, 239, 13);
 		getContentPane().add(form_text);
 		
-		 supplier_text = new JLabel("3");
-		supplier_text.setForeground(Color.YELLOW);
-		supplier_text.setFont(new Font("Tahoma", Font.BOLD, 14));
-		supplier_text.setBounds(124, 116, 239, 13);
-		getContentPane().add(supplier_text);
-		
 		 creator_text = new JLabel("3");
 		creator_text.setForeground(Color.YELLOW);
 		creator_text.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -196,7 +171,7 @@ public class Details_ImportCouponView extends JFrame {
 		time_text.setFont(new Font("Tahoma", Font.BOLD, 14));
 		time_text.setBounds(565, 116, 239, 13);
 		getContentPane().add(time_text);
-		btnExportFdf.addMouseListener(details_ImportsCouponController);
+		btnExportFdf.addMouseListener(details_ExportsCouponController);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
@@ -207,12 +182,12 @@ public class Details_ImportCouponView extends JFrame {
 
 	public void export_PDF() throws DocumentException {
 		 WirtePDF_File writepdf = new WirtePDF_File();
-         writepdf.writeImportCoupon(form_Code);
+         writepdf.writeExportCoupon(form_Code);
 	}
-	public void loadDataToTableProduct(ImportCouponView ICF) {
+	public void loadDataToTableProduct(ExportCouponView ECF) {
    	 try {
-	            ArrayList<Details_Form> CTPhieu = Details_ImportDAO.getInstance().selectAll(ICF.getPhieuNhapSelect().getForm_Code().toString());
-	            DefaultTableModel table_model = (DefaultTableModel) table_Imports.getModel();
+	            ArrayList<Details_Form> CTPhieu = Details_ExportDAO.getInstance().selectAll(ECF.getPhieuNhapSelect().getForm_Code().toString());
+	            DefaultTableModel table_model = (DefaultTableModel) table_Exports.getModel();
 	            table_model.setRowCount(0);
 	            int stt=1;
 	            for (int i = 0; i < CTPhieu.size(); i++) {  
@@ -221,7 +196,7 @@ public class Details_ImportCouponView extends JFrame {
 	                    CTPhieu.get(i).getComputer_Code(),
 	                    computerDAO.getInstance().selectById(CTPhieu.get(i).getComputer_Code()).getComputerName(),
 	                    CTPhieu.get(i).getQuantity(),
-	                    ICF.getFormatter().format(CTPhieu.get(i).getUnit_Price()),
+	                    ECF.getFormatter().format(CTPhieu.get(i).getUnit_Price()),
 	                });
 	            }
 	            this.Details_Form = CTPhieu; 
@@ -232,19 +207,19 @@ public class Details_ImportCouponView extends JFrame {
 	        }
    }
 	public void updateTotalAmount() {
-	    DefaultTableModel modelImports = (DefaultTableModel) table_Imports.getModel();
+	    DefaultTableModel modelExports = (DefaultTableModel) table_Exports.getModel();
 	    BigDecimal totalAmount = BigDecimal.ZERO;
 	    DecimalFormat formatter = new DecimalFormat("###,###,###");
 
-	    for (int i = 0; i < modelImports.getRowCount(); i++) {
+	    for (int i = 0; i < modelExports.getRowCount(); i++) {
 	        try {
-	            String priceStr = modelImports.getValueAt(i, 4).toString().replace(",", "");
+	            String priceStr = modelExports.getValueAt(i, 4).toString().replace(",", "");
 	            double price = Double.parseDouble(priceStr);
-	            int quantity = Integer.parseInt(modelImports.getValueAt(i, 3).toString());
+	            int quantity = Integer.parseInt(modelExports.getValueAt(i, 3).toString());
 	            BigDecimal totalPrice = BigDecimal.valueOf(price * quantity);    
 	            totalAmount = totalAmount.add(totalPrice);
 	        } catch (NumberFormatException e) {
-	            // Xử lý ngoại lệ nếu không thể chuyển đổi chuỗi thành số
+
 	            e.printStackTrace();
 	            JOptionPane.showMessageDialog(null, "fail");
 	        }

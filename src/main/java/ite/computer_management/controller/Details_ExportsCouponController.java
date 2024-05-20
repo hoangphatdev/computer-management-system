@@ -5,32 +5,30 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import ite.computer_management.view.ImportCouponView;
+import com.itextpdf.text.DocumentException;
 
-public class ImportsCouponController implements MouseListener, KeyListener{
-	ImportCouponView imporCouponView;
+import ite.computer_management.view.Details_ExportCouponView;
+import ite.computer_management.view.Details_ImportCouponView;
+
+public class Details_ExportsCouponController implements MouseListener, KeyListener{
+	Details_ExportCouponView Details_ExportCouponView;
 	
-	public ImportsCouponController(ImportCouponView ICV) {
-		imporCouponView = ICV;
+	public Details_ExportsCouponController(Details_ExportCouponView Details_ExportCouponView) {
+		this.Details_ExportCouponView = Details_ExportCouponView;
 	}
-	
+	 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource() == imporCouponView.btndelete) {
-			imporCouponView.clickDeleteLbl();
-		}else if(e.getSource() == imporCouponView.btnUpdate) {
-			imporCouponView.clickEditBtn();
-		}else if(e.getSource() == imporCouponView.btnExcel) {
-			imporCouponView.clickExportExcel();
-		} else if(e.getSource() == imporCouponView.btnRefresh) {
-			imporCouponView.displayTable();
-		} else if(e.getSource() == imporCouponView.btnshowdetail) {
-			imporCouponView.btndetail();
+		if(e.getSource() == Details_ExportCouponView.btn_cancel) {
+			Details_ExportCouponView.cancel();
+		} else if(e.getSource() == Details_ExportCouponView.btnExportFdf) {
+			try {
+				Details_ExportCouponView.export_PDF();
+			} catch (DocumentException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
-
-	
-	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -45,10 +43,11 @@ public class ImportsCouponController implements MouseListener, KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getSource() == imporCouponView.searchTxt) {
-			imporCouponView.clickSearchBtn();
-		}
+		// TODO Auto-generated method stub
+		
 	}
+
+
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -72,5 +71,6 @@ public class ImportsCouponController implements MouseListener, KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }
