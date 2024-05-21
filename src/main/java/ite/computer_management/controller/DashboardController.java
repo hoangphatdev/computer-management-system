@@ -28,18 +28,7 @@ public class DashboardController implements MouseListener {
 			dashboard.clickExportCouponNav();
 		}else if(e.getSource() == dashboard.exportProductNavLbl) {
 			dashboard.clickExportProductNav();
-
-		}else if(e.getSource() == dashboard.accountNavLbl) {
-			dashboard.clickAccountNav();
-		} else if(e.getSource() == dashboard.statisticalNavLbl) {
-
-		}else if(e.getSource() == dashboard.accountNavLbl) {
-			dashboard.clickAccountNav();
-		}else if(e.getSource() == dashboard.statisticalNavLbl) {
-
-		} else if(e.getSource() == dashboard.statisticalNavLbl) {
-
-
+		} else if(e.getSource() == dashboard.statisticalchart) {
 			dashboard.clickStatisticalNav();
 		}else if(e.getSource() == dashboard.myInformationLbl) {
 			dashboard.clickMyInformation();

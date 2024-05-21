@@ -277,7 +277,7 @@ public class ImportCouponView extends JPanel {
 	        Details_Form = new ArrayList<>();
 	        for (int i = 0; i < allPhieuNhap.size(); i++) {
 	            table_model.addRow(new Object[]{
-	                stt++, allPhieuNhap.get(i).getForm_Code(), SupplierDAO.getInstance().selectById(allPhieuNhap.get(i).getSupplier()).getSupplier_Name(), AccountDAO.getInstance().selectById(allPhieuNhap.get(i).getCreator()).getFullName(), formatDate.format(allPhieuNhap.get(i).getTime_Start()), formatter.format(allPhieuNhap.get(i).getTotal_Amount()) + "đ"
+	                stt++, allPhieuNhap.get(i).getForm_Code(), SupplierDAO.getInstance().selectById(allPhieuNhap.get(i).getSupplier()).getSupplier_Name(), AccountDAO.getInstance().selectById(allPhieuNhap.get(i).getCreator()).getFullName(), formatDate.format(allPhieuNhap.get(i).getTime_Start()), allPhieuNhap.get(i).getTotal_Amount()
 	            });
 	            ImportsForm selectedImportsForm = ImportDAO.getInstance().selectById(allPhieuNhap.get(i).getForm_Code());
 

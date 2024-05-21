@@ -128,7 +128,7 @@ public class Edit_ImportsCouponView extends JFrame {
 		
 		Box verticalBox_1 = Box.createVerticalBox();
 		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox_1.setBounds(504, 20, 722, 146);
+		verticalBox_1.setBounds(504, 10, 722, 146);
 		getContentPane().add(verticalBox_1);
 		TF_Sreach = new JTextField();
 		TF_Sreach.setBounds(37, 49, 282, 28);
@@ -248,28 +248,12 @@ public class Edit_ImportsCouponView extends JFrame {
 		getContentPane().add(btn_accept);
 		btn_accept.addMouseListener(edit_ImportsCoupon_Controller);
 		
-		JButton btn_Excel = new JButton("Excel");
-		btn_Excel.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
-		btn_Excel.setBackground(Color.LIGHT_GRAY);
-		btn_Excel.setForeground(new Color(0, 0, 0));
-		btn_Excel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_Excel.setBounds(1024, 26, 188, 28);
-		getContentPane().add(btn_Excel);
-		
-		JButton btn_ChangeQuantity = new JButton("Change quantity");
-		btn_ChangeQuantity.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 20.png"));
-		btn_ChangeQuantity.setBackground(Color.LIGHT_GRAY);
-		btn_ChangeQuantity.setForeground(new Color(0, 0, 0));
-		btn_ChangeQuantity.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_ChangeQuantity.setBounds(1024, 67, 188, 28);
-		getContentPane().add(btn_ChangeQuantity);
-		
 		 btn_DeleteProduct = new JButton("Delete product");
 		 btn_DeleteProduct.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\delete 30.png"));
 		btn_DeleteProduct.setBackground(Color.LIGHT_GRAY);
 		btn_DeleteProduct.setForeground(new Color(0, 0, 0));
 		btn_DeleteProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_DeleteProduct.setBounds(1024, 106, 188, 28);
+		btn_DeleteProduct.setBounds(1024, 67, 188, 28);
 		getContentPane().add(btn_DeleteProduct);
 		btn_DeleteProduct.addMouseListener(edit_ImportsCoupon_Controller);
 		
@@ -514,7 +498,7 @@ public class Edit_ImportsCouponView extends JFrame {
 		                    CTPhieu.get(i).getComputer_Code(),
 		                    computerDAO.getInstance().selectById(CTPhieu.get(i).getComputer_Code()).getComputerName(),
 		                    CTPhieu.get(i).getQuantity(),
-		                    ICF.getFormatter().format(CTPhieu.get(i).getUnit_Price()),
+		                    CTPhieu.get(i).getUnit_Price(),
 		                });
 		            }
 		            this.Details_Form = CTPhieu; 

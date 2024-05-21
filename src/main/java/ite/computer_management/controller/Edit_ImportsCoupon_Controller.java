@@ -26,10 +26,12 @@ public class Edit_ImportsCoupon_Controller implements MouseListener, KeyListener
 			edit_ImportsCouponView.addProductActionPerformed();
 		}else if(e.getSource() == edit_ImportsCouponView.btn_save) {
 			edit_ImportsCouponView.btn_UpdateCoupon();
+		}else if(e.getSource() == edit_ImportsCouponView.btn_DeleteProduct) {
+			edit_ImportsCouponView.delete_toTableImport();
 		}
 		
 	}
-	
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
