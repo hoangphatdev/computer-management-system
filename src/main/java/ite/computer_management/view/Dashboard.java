@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import chart.Columnchart;
 import ite.computer_management.controller.DashboardController;
 import ite.computer_management.controller.ProductController;
 import ite.computer_management.dao.ImportDAO;
@@ -41,12 +42,12 @@ public class Dashboard extends JFrame {
 	public JLabel importCouponNavLbl;
 	public JLabel exportProductNavLbl;
 	public JLabel importProductNavLbl;
-	public JLabel statisticalNavLbl;
 	public JLabel supplierNavLbl;
 
 	public JLabel Imports_ProductNavLbl;
 	public JLabel Export_ProductNavLbl;
 	public JPanel navPanel;
+	public JLabel statisticalchart;
 
 	public Dashboard() {
 		init();
@@ -87,6 +88,10 @@ public class Dashboard extends JFrame {
 		ExportCouponView exportCouponView = new ExportCouponView();
 		tabbedPane.addTab("Export coupon", exportCouponView);
 		
+		Columnchart chart = new Columnchart(this);
+		tabbedPane.addTab("statistical chart", chart);
+		 
+		 
 		navPanel = new JPanel();
 		navPanel.setForeground(new Color(0, 0, 0));
 		navPanel.setLayout(null);
@@ -124,16 +129,6 @@ public class Dashboard extends JFrame {
 		supplierNavLbl.setBackground( new Color(51, 51, 102) );
 		supplierNavLbl.setForeground(new Color(242, 230, 87));
 		navPanel.add(supplierNavLbl);
-		
-		 statisticalNavLbl = new JLabel("Statistical");
-		 statisticalNavLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-analytics-30.png"));
-		 statisticalNavLbl.setOpaque(true);
-		 statisticalNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		 statisticalNavLbl.setBackground(new Color(51, 51, 102) );
-		 statisticalNavLbl.setBounds(1, 625, 250, 45);
-		 statisticalNavLbl.addMouseListener(dashboardController);
-		 statisticalNavLbl.setForeground(new Color(242, 230, 87));
-		 navPanel.add(statisticalNavLbl);
 		 
 		  importProductNavLbl = new JLabel("Import Product");
 		  importProductNavLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-import-goods-filled-outline\\icons8-import-goods-32.png"));
@@ -180,7 +175,7 @@ public class Dashboard extends JFrame {
 		   accountNavLbl.setOpaque(true);
 		   accountNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		   accountNavLbl.setBackground(new Color(51, 51, 102));
-		   accountNavLbl.setBounds(1, 580, 250, 45);
+		   accountNavLbl.setBounds(1, 624, 250, 45);
 		   accountNavLbl.addMouseListener(dashboardController);
 		   accountNavLbl.setForeground(new Color(242, 230, 87));
 		   navPanel.add(accountNavLbl);
@@ -204,7 +199,15 @@ public class Dashboard extends JFrame {
 		   logOutNavLbl.addMouseListener(dashboardController);
 		   logOutNavLbl.setForeground(new Color(242, 230, 87));
 		   navPanel.add(logOutNavLbl);
-		
+		   
+		    statisticalchart = new JLabel("Statistical chart");
+		   statisticalchart.setOpaque(true);
+		   statisticalchart.setForeground(new Color(242, 230, 87));
+		   statisticalchart.setFont(new Font("Dialog", Font.BOLD, 15));
+		   statisticalchart.setBackground(new Color(51, 51, 102));
+		   statisticalchart.setBounds(1, 424, 250, 50);
+		   navPanel.add(statisticalchart);
+		   statisticalchart.addMouseListener(dashboardController);
 	}
 	
 	public void clickSupplierNav() {
@@ -212,6 +215,8 @@ public class Dashboard extends JFrame {
 		supplierNavLbl.setBackground(new Color(25, 25, 112));
 		supplierNavLbl.setForeground(Color.WHITE);
 		
+		statisticalchart.setBackground(new Color(51, 51, 102));
+		statisticalchart.setForeground(new Color(242, 230, 87));	
 		productNavLbl.setBackground(new Color(51, 51, 102));
 		importProductNavLbl.setBackground(new Color(51, 51, 102));
 		importProductNavLbl.setForeground(new Color(242, 230, 87));		   
@@ -229,7 +234,8 @@ public class Dashboard extends JFrame {
 		productNavLbl.setBackground(new Color(25, 25, 112));
 		productNavLbl.setForeground(Color.WHITE);
 		
-		
+		statisticalchart.setBackground(new Color(51, 51, 102));
+		statisticalchart.setForeground(new Color(242, 230, 87));	
 		supplierNavLbl.setBackground(new Color(51, 51, 102));
 		supplierNavLbl.setForeground(new Color(242, 230, 87));
 		importProductNavLbl.setBackground(new Color(51, 51, 102));
@@ -252,7 +258,8 @@ public class Dashboard extends JFrame {
 		productNavLbl.setForeground(new Color(242, 230, 87));	
 		supplierNavLbl.setBackground(new Color(51, 51, 102));
 		supplierNavLbl.setForeground(new Color(242, 230, 87));
-	 
+		statisticalchart.setBackground(new Color(51, 51, 102));
+		statisticalchart.setForeground(new Color(242, 230, 87));	
 		importCouponNavLbl.setBackground(new Color(51, 51, 102));
 		importCouponNavLbl.setForeground(new Color(242, 230, 87));		   
 		exportProductNavLbl.setBackground(new Color(51, 51, 102));
@@ -273,7 +280,8 @@ public class Dashboard extends JFrame {
 		supplierNavLbl.setForeground(new Color(242, 230, 87));
 		importProductNavLbl.setBackground(new Color(51, 51, 102));
 		importProductNavLbl.setForeground(new Color(242, 230, 87));		   
-		   
+		statisticalchart.setBackground(new Color(51, 51, 102));
+		statisticalchart.setForeground(new Color(242, 230, 87));	
 		exportProductNavLbl.setBackground(new Color(51, 51, 102));
 		exportProductNavLbl.setForeground(new Color(242, 230, 87));		   
 		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
@@ -294,7 +302,8 @@ public class Dashboard extends JFrame {
 		importProductNavLbl.setForeground(new Color(242, 230, 87));		   
 		importCouponNavLbl.setBackground(new Color(51, 51, 102));
 		importCouponNavLbl.setForeground(new Color(242, 230, 87));		   
-		  
+		statisticalchart.setBackground(new Color(51, 51, 102));
+		statisticalchart.setForeground(new Color(242, 230, 87));	
 		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
 		exportCouponNavLbl.setForeground(new Color(242, 230, 87));		   
 		accountNavLbl.setBackground(new Color(51, 51, 102));
@@ -315,7 +324,8 @@ public class Dashboard extends JFrame {
 		importCouponNavLbl.setForeground(new Color(242, 230, 87));		   
 		exportProductNavLbl.setBackground(new Color(51, 51, 102));
 		exportProductNavLbl.setForeground(new Color(242, 230, 87));		   
-			   
+		statisticalchart.setBackground(new Color(51, 51, 102));
+		statisticalchart.setForeground(new Color(242, 230, 87));	
 		accountNavLbl.setBackground(new Color(51, 51, 102));
 		accountNavLbl.setForeground(new Color(242, 230, 87));
 	}
@@ -335,11 +345,14 @@ public class Dashboard extends JFrame {
 		exportProductNavLbl.setBackground(new Color(51, 51, 102));
 		exportProductNavLbl.setForeground(new Color(242, 230, 87));		   
 		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
-		exportCouponNavLbl.setForeground(new Color(242, 230, 87));		   
+		exportCouponNavLbl.setForeground(new Color(242, 230, 87));	
+		statisticalchart.setBackground(new Color(51, 51, 102));
+		statisticalchart.setForeground(new Color(242, 230, 87));	
 	}
 	public void clickStatisticalNav() {
-		statisticalNavLbl.setBackground( new Color(236, 237, 221) );
-		statisticalNavLbl.setForeground( new Color(217, 209, 72));
+		statisticalchart.setBackground(new Color(25, 25, 112));
+		statisticalchart.setForeground(Color.WHITE);
+		this.tabbedPane.setSelectedIndex(7);
 		
 		productNavLbl.setBackground(new Color(51, 51, 102));
 		productNavLbl.setForeground(new Color(242, 230, 87));	
@@ -352,9 +365,7 @@ public class Dashboard extends JFrame {
 		exportProductNavLbl.setBackground(new Color(51, 51, 102));
 		exportProductNavLbl.setForeground(new Color(242, 230, 87));		   
 		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
-		exportCouponNavLbl.setForeground(new Color(242, 230, 87));		   
-		accountNavLbl.setBackground(new Color(51, 51, 102));
-		accountNavLbl.setForeground(new Color(242, 230, 87));
+		exportCouponNavLbl.setForeground(new Color(242, 230, 87));	
 
 	}
 	public void clickMyInformation() {

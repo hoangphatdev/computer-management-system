@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -134,7 +135,7 @@ public class Edit_ExportCouponView extends JFrame {
 		
 		Box verticalBox_1 = Box.createVerticalBox();
 		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox_1.setBounds(512, 10, 722, 146);
+		verticalBox_1.setBounds(512, 20, 722, 146);
 		getContentPane().add(verticalBox_1);
 		TF_Sreach = new JTextField();
 		TF_Sreach.setBounds(37, 49, 282, 28);
@@ -244,28 +245,12 @@ public class Edit_ExportCouponView extends JFrame {
 		getContentPane().add(btn_accept);
 		btn_accept.addMouseListener(edit_exportsCoupon_Controller);
 		
-		JButton btn_Excel = new JButton("Excel");
-		btn_Excel.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
-		btn_Excel.setBackground(Color.LIGHT_GRAY);
-		btn_Excel.setForeground(new Color(0, 0, 0));
-		btn_Excel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_Excel.setBounds(1024, 26, 188, 28);
-		getContentPane().add(btn_Excel);
-		
-		JButton btn_ChangeQuantity = new JButton("Change quantity");
-		btn_ChangeQuantity.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 20.png"));
-		btn_ChangeQuantity.setBackground(Color.LIGHT_GRAY);
-		btn_ChangeQuantity.setForeground(new Color(0, 0, 0));
-		btn_ChangeQuantity.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_ChangeQuantity.setBounds(1024, 67, 188, 28);
-		getContentPane().add(btn_ChangeQuantity);
-		
 		 btn_DeleteProduct = new JButton("Delete product");
 		 btn_DeleteProduct.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\delete 30.png"));
 		btn_DeleteProduct.setBackground(Color.LIGHT_GRAY);
 		btn_DeleteProduct.setForeground(new Color(0, 0, 0));
 		btn_DeleteProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_DeleteProduct.setBounds(1024, 106, 188, 28);
+		btn_DeleteProduct.setBounds(1032, 67, 188, 28);
 		getContentPane().add(btn_DeleteProduct);
 		btn_DeleteProduct.addMouseListener(edit_exportsCoupon_Controller);
 		
@@ -411,15 +396,15 @@ public class Edit_ExportCouponView extends JFrame {
 	    text_totalAmount.setText(formatter.format(totalAmount) + "Đ");
 	}
 	    
-	    public void delete_toTableExport() {
-	        int row = table_Exports.getSelectedRow();
+	public void delete_toTableExport() {
+		  int row = table_Exports.getSelectedRow();
 	        if (row == -1) {
 	            JOptionPane.showMessageDialog(this, "Please choose the row you need!");
 	        } else {
 	            try {
 	            	DefaultTableModel tableModelProduct = (DefaultTableModel) table_Product.getModel();
-	            	DefaultTableModel tableModelExports = (DefaultTableModel) table_Exports.getModel(); 	
-	            	int quantity = Integer.parseInt(tableModelExports.getValueAt(row, 3).toString());
+	            	DefaultTableModel tableModelImports = (DefaultTableModel) table_Exports.getModel(); 	
+	            	int quantity = Integer.parseInt(tableModelImports.getValueAt(row, 3).toString());
 	                String productCode = table_Exports.getValueAt(row, 1).toString();
 	                String productName = table_Exports.getValueAt(row, 2).toString();
 	                double price = Double.parseDouble(table_Exports.getValueAt(row, 4).toString());
@@ -441,9 +426,8 @@ public class Edit_ExportCouponView extends JFrame {
 	                if (!productExists) {
 	                    tableModelProduct.addRow(new Object[] { productInfo[0], productCode, productName, quantity, price});
 	                }
-	                // Xóa hàng đã chọn khỏi bảng table
-	                
-	                tableModelExports.removeRow(row);
+	                // Xóa hàng đã chọn khỏi bảng table_Imports
+	                tableModelImports.removeRow(row);
 	                // Cập nhật lại tổng số tiền
 	                updateTotalAmount();
 	                // Cập nhật số lượng trong cơ sở dữ liệu
@@ -455,7 +439,8 @@ public class Edit_ExportCouponView extends JFrame {
 	                JOptionPane.showMessageDialog(this, "Please enter the quantity as an integer!");
 	            }
 	        }
-	    }
+	}
+
 	    public void btn_UpdateCoupon() {
 	    	
 	 
@@ -506,7 +491,7 @@ public class Edit_ExportCouponView extends JFrame {
 		                    CTPhieu.get(i).getComputer_Code(),
 		                    computerDAO.getInstance().selectById(CTPhieu.get(i).getComputer_Code()).getComputerName(),
 		                    CTPhieu.get(i).getQuantity(),
-		                    ECF.getFormatter().format(CTPhieu.get(i).getUnit_Price()),
+		                    CTPhieu.get(i).getUnit_Price(),
 		                });
 		            }
 		            this.Details_Form = CTPhieu; 

@@ -11,9 +11,9 @@ public class ConnectDatabase {
 	}
 	public static Connection getConnection(){
 		Connection connect = null;
-		String url = "jdbc:mysql://127.0.0.1:3306/computer_management"; 
+		String url = "jdbc:mysql://127.0.0.1:3306/computer_manegement"; 
 		String name = "root";
-		String password = "051205";
+		String password = "123456";
 		
 		try {
 			connect = DriverManager.getConnection(url,name,password);
