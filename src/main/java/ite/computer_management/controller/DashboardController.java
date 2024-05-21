@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import ite.computer_management.view.Dashboard;
+import ite.computer_management.view.DashboardForImportStaff;
 
 public class DashboardController implements MouseListener {
 	Dashboard dashboard;
@@ -40,8 +41,8 @@ public class DashboardController implements MouseListener {
 
 
 			dashboard.clickStatisticalNav();
-		}else if(e.getSource() == dashboard.userNavLbl) {
-			dashboard.clickUserNav();
+		}else if(e.getSource() == dashboard.myInformationLbl) {
+			dashboard.clickMyInformation();
 		}else if(e.getSource() == dashboard.logOutNavLbl) {
 			dashboard.clickLogoutNav();
 		}

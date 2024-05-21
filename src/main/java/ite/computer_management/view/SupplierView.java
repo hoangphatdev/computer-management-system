@@ -42,14 +42,26 @@ public class SupplierView extends JPanel {
 	public static JTable table;
 	public JTextField searchTxt;
 	public Dashboard dashboard;
+	public DashboardForManager dashboardForManager;
 	public JButton btnExcel;
 	public JButton btnadd;
 	public JButton btnUpdate;
 	public JButton btndelete;
 	
 	public SupplierView(Dashboard dashboard) {
-		setBackground(new Color(72, 61, 139));
 		this.dashboard = dashboard;
+		init();
+		this.setVisible(true);
+	}
+	public SupplierView(DashboardForManager dashboardForManager) {
+		this.dashboardForManager = dashboardForManager;
+		init();
+		this.setVisible(true);
+	}
+	
+	public void init() {
+		setBackground(new Color(72, 61, 139));
+		
 		SupplierController SupplierController = new SupplierController(this);
 		this.setSize(1250,800);
 		setLayout(null);
@@ -130,7 +142,6 @@ public class SupplierView extends JPanel {
 		searchLbl_1.setBounds(373, 10, 673, 424);
 		add(searchLbl_1);
 		btnExcel.addMouseListener(SupplierController);
-
 	}
 	public void clickAddLbl() {
 		new AddSupplierView(this, dashboard);

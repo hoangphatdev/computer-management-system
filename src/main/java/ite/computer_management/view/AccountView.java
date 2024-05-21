@@ -66,9 +66,9 @@ public class AccountView extends JPanel {
 	public AccountView(Dashboard dashboard) {
 		this.dashboard = dashboard;
 		init();
-		this.setVisible(true);
-		
+		this.setVisible(true);	
 	}
+	
 	public void init(){
 		AccountController accountController = new AccountController(this);
 		accountDAO = new AccountDAO(this);

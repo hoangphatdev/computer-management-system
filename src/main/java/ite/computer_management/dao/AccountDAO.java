@@ -151,6 +151,32 @@ public class AccountDAO implements DAOInterface<Account> {
 	        }
 	        return acc;
 	}
+	public String select1AccountAndReturnRole(Account t) {
+		String role = null;
+		String userNameForSearch = t.getUserName();
+		String passwordForSearch = t.getPassword();
+
+		try {
+			Connection connect = ConnectDatabase.getConnection();
+			String sql = "select * from account where userName=? AND password=?";
+			PreparedStatement ps = connect.prepareStatement(sql);
+			ps.setString(1, userNameForSearch);
+			ps.setString(2, passwordForSearch);
+			ps.executeQuery();
+			ResultSet rs = ps.getResultSet();
+
+			while(rs.next()) {
+				role = rs.getString("role");
+				return role;
+			}
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return role;
+		
+	}
+	
 
 	
 

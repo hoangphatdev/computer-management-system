@@ -35,7 +35,7 @@ public class Dashboard extends JFrame {
 	public JLabel productNavLbl;
 	public JTabbedPane tabbedPane;
 	public JLabel accountNavLbl;
-	public JLabel userNavLbl;
+	public JLabel myInformationLbl;
 	public JLabel logOutNavLbl;
 	public JLabel exportCouponNavLbl;
 	public JLabel importCouponNavLbl;
@@ -185,15 +185,15 @@ public class Dashboard extends JFrame {
 		   accountNavLbl.setForeground(new Color(242, 230, 87));
 		   navPanel.add(accountNavLbl);
 		   
-		   userNavLbl = new JLabel("User");
-		   userNavLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-user-office-m\\icons8-user-30.png"));
-		   userNavLbl.setOpaque(true);
-		   userNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		   userNavLbl.setBackground(new Color(51, 51, 102));
-		   userNavLbl.setBounds(0, 668, 250, 45);
-		   userNavLbl.addMouseListener(dashboardController);
-		   userNavLbl.setForeground(new Color(242, 230, 87));
-		   navPanel.add(userNavLbl);
+		   myInformationLbl = new JLabel("My Information");
+		   myInformationLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-user-office-m\\icons8-user-30.png"));
+		   myInformationLbl.setOpaque(true);
+		   myInformationLbl.setFont(new Font("Lato", Font.BOLD, 15));
+		   myInformationLbl.setBackground(new Color(51, 51, 102));
+		   myInformationLbl.setBounds(0, 668, 250, 45);
+		   myInformationLbl.addMouseListener(dashboardController);
+		   myInformationLbl.setForeground(new Color(242, 230, 87));
+		   navPanel.add(myInformationLbl);
 		   
 		   logOutNavLbl = new JLabel("Log out");
 		   logOutNavLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\log out\\icons8-log-out-32.png"));
@@ -212,6 +212,7 @@ public class Dashboard extends JFrame {
 		supplierNavLbl.setBackground(new Color(25, 25, 112));
 		supplierNavLbl.setForeground(Color.WHITE);
 		
+		productNavLbl.setBackground(new Color(51, 51, 102));
 		importProductNavLbl.setBackground(new Color(51, 51, 102));
 		importProductNavLbl.setForeground(new Color(242, 230, 87));		   
 		importCouponNavLbl.setBackground(new Color(51, 51, 102));
@@ -356,8 +357,8 @@ public class Dashboard extends JFrame {
 		accountNavLbl.setForeground(new Color(242, 230, 87));
 
 	}
-	public void clickUserNav() {
-		this.setVisible(false);
+	public void clickMyInformation() {
+		new MyInformationView();
 	}
 	public void clickLogoutNav() {
 		

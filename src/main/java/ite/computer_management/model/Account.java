@@ -36,6 +36,10 @@ public class Account {
 		this.password = password;
 		this.role = role;
 	}
+	public Account(String userName, String password) {
+		this.userName = userName;
+		this.password = password;
+	}
 	public Account() {};
 	@Override
 	public String toString() {
