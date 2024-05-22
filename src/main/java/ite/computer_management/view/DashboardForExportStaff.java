@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import ite.computer_management.controller.DashboardForExportStaffController;
+import main.Login;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -30,6 +31,7 @@ public class DashboardForExportStaff extends JFrame {
 	public JLabel statisticalNavLbl;
 	public JLabel supplierNavLbl;
 	public JPanel navPanel;
+	public JLabel ChatNavLbl_1;
 
 	public DashboardForExportStaff() {
 		init();
@@ -80,7 +82,7 @@ public class DashboardForExportStaff extends JFrame {
 		exportProductNavLbl.setOpaque(true);
 		exportProductNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		exportProductNavLbl.setBackground(new Color(51, 51, 102));
-		exportProductNavLbl.setBounds(1, 330, 250, 45);
+		exportProductNavLbl.setBounds(1, 168, 250, 45);
 		exportProductNavLbl.addMouseListener(dashboardForExportStaffController);
 		exportProductNavLbl.setForeground(new Color(242, 230, 87));
 		navPanel.add(exportProductNavLbl);
@@ -91,7 +93,7 @@ public class DashboardForExportStaff extends JFrame {
 		exportCouponNavLbl.setOpaque(true);
 		exportCouponNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
-		exportCouponNavLbl.setBounds(1, 374, 250, 50);
+		exportCouponNavLbl.setBounds(1, 214, 250, 50);
 		exportCouponNavLbl.addMouseListener(dashboardForExportStaffController);
 		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
 		navPanel.add(exportCouponNavLbl);
@@ -117,14 +119,23 @@ public class DashboardForExportStaff extends JFrame {
 		logOutNavLbl.addMouseListener(dashboardForExportStaffController);
 		logOutNavLbl.setForeground(new Color(242, 230, 87));
 		navPanel.add(logOutNavLbl);
-
+		
+		ChatNavLbl_1 = new JLabel("Chat");
+		ChatNavLbl_1.setOpaque(true);
+		ChatNavLbl_1.setForeground(new Color(242, 230, 87));
+		ChatNavLbl_1.setFont(new Font("Dialog", Font.BOLD, 15));
+		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
+		ChatNavLbl_1.setBounds(1, 264, 250, 50);
+		navPanel.add(ChatNavLbl_1);
+		ChatNavLbl_1.addMouseListener(dashboardForExportStaffController);
 	}
 
 	public void clickExportProductNav() {
 		this.tabbedPane.setSelectedIndex(0);
 		exportProductNavLbl.setBackground(new Color(25, 25, 112));
 		exportProductNavLbl.setForeground(Color.WHITE);
-
+		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
+		ChatNavLbl_1.setForeground(new Color(242, 230, 87));		
 		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
 		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
 	}
@@ -136,9 +147,23 @@ public class DashboardForExportStaff extends JFrame {
 
 		exportProductNavLbl.setBackground(new Color(51, 51, 102));
 		exportProductNavLbl.setForeground(new Color(242, 230, 87));
+		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
+		ChatNavLbl_1.setForeground(new Color(242, 230, 87));		
+	}
+	public void clickChatNav() {
+
+		ChatNavLbl_1.setBackground(new Color(25, 25, 112));
+		ChatNavLbl_1.setForeground(Color.WHITE);
+		Login view = new Login();
+		view.setVisible(true);
+		
+		
+		exportProductNavLbl.setBackground(new Color(51, 51, 102));
+		exportProductNavLbl.setForeground(new Color(242, 230, 87));		   
+		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
+		exportCouponNavLbl.setForeground(new Color(242, 230, 87));	
 		
 	}
-
 	public void clickUserNav() {
 		this.setVisible(false);
 	}

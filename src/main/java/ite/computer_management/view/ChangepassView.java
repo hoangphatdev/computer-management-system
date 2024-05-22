@@ -115,7 +115,7 @@ public class ChangepassView extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	 String TC_danhap = textcode.getText().trim();
                  String TC_dagui = MailCode.laymaTeenCode();
-
+ 
                  if (TC_danhap.equals(TC_dagui)) {
                      try {
                          String newPassword = new String(mk_text.getPassword());
