@@ -115,26 +115,26 @@ public class ChangepassView extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	 String TC_danhap = textcode.getText().trim();
                  String TC_dagui = MailCode.laymaTeenCode();
-
+ 
                  if (TC_danhap.equals(TC_dagui)) {
                      try {
                          String newPassword = new String(mk_text.getPassword());
                          String username = gmailtext.getText(); 
 
                          if (changePasswordInDatabase(username, newPassword)) {
-                             JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công!");
+                             JOptionPane.showMessageDialog(null, "Password changed successfully!");
 
                       
                          } else {
-                             JOptionPane.showMessageDialog(null, "Lỗi khi đổi mật khẩu!");
+                             JOptionPane.showMessageDialog(null, "fail");
                          }
                      } catch (SQLException e1) {
                          e1.printStackTrace();
-                         JOptionPane.showMessageDialog(null, "Lỗi khi truy vấn cơ sở dữ liệu: " + e1.getMessage());
+                         JOptionPane.showMessageDialog(null, "Error when querying the database: " + e1.getMessage());
                      }
                  } else {
                      // Mã xác nhận không khớp
-                     JOptionPane.showMessageDialog(null, "Mã xác nhận không đúng. Vui lòng thử lại!");
+                     JOptionPane.showMessageDialog(null, "Incorrect code. Please try again!");
                  }
             }
         }
@@ -163,7 +163,7 @@ public class ChangepassView extends JFrame {
 					Connection c = ConnectDatabase.getConnection();
 					ResultSet rs;
 					if (gmailtext.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(null, "vui lòng nhập gmail");
+						JOptionPane.showMessageDialog(null, "please enter gmail");
 					}
 					String sql = "select * from account where userName=?";
 					PreparedStatement ps = c.prepareStatement(sql);
@@ -173,9 +173,9 @@ public class ChangepassView extends JFrame {
 					
 					if(rs.next()) {
 						MailCode.guiTeenCodequa_gmail(gmailtext.getText());
-						JOptionPane.showMessageDialog(null, "gửi thành công đến " + gmailtext.getText());
+						JOptionPane.showMessageDialog(null, "sent successfully" + gmailtext.getText());
 					} else {
-						JOptionPane.showMessageDialog(null, "Gmail không tồn tại");
+						JOptionPane.showMessageDialog(null, "Gmail doesn't exist");
 					}
 					
 				} catch (SQLException e1) {

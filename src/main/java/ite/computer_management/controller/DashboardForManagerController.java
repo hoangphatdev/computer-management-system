@@ -27,6 +27,8 @@ public class DashboardForManagerController implements MouseListener {
 			dashboardForManager.clickExportCouponNav();
 		}else if(e.getSource() == dashboardForManager.statisticalNavLbl) {
 			dashboardForManager.clickStatisticalNav();
+		}else if(e.getSource() == dashboardForManager.ChatNavLbl_1) {
+			dashboardForManager.clickChatNav();
 		}
 	}
 

@@ -34,10 +34,12 @@ public class DashboardController implements MouseListener {
 			dashboard.clickMyInformation();
 		}else if(e.getSource() == dashboard.logOutNavLbl) {
 			dashboard.clickLogoutNav();
+		}else if(e.getSource() == dashboard.Chatlb1) {
+			dashboard.clickChatlb1();
 		}
 		
 	}
-
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub

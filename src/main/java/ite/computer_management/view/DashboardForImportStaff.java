@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import ite.computer_management.controller.DashboardForImportStaffController;
+import main.Login;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -25,6 +26,7 @@ public class DashboardForImportStaff extends JFrame {
 	public JLabel Imports_ProductNavLbl;
 	public JLabel Export_ProductNavLbl;
 	public JPanel navPanel;
+	private JLabel chatNavLbl_1;
 
 	public DashboardForImportStaff() {
 		init();
@@ -73,7 +75,7 @@ public class DashboardForImportStaff extends JFrame {
 		importProductNavLbl.setOpaque(true);
 		importProductNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		importProductNavLbl.setBackground(new Color(51, 51, 102));
-		importProductNavLbl.setBounds(1, 244, 250, 45);
+		importProductNavLbl.setBounds(1, 181, 250, 45);
 		importProductNavLbl.addMouseListener(dashboardController);
 		importProductNavLbl.setForeground(new Color(242, 230, 87));
 		navPanel.add(importProductNavLbl);
@@ -84,7 +86,7 @@ public class DashboardForImportStaff extends JFrame {
 		importCouponNavLbl.setOpaque(true);
 		importCouponNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		importCouponNavLbl.setBackground(new Color(51, 51, 102));
-		importCouponNavLbl.setBounds(1, 287, 250, 45);
+		importCouponNavLbl.setBounds(1, 227, 250, 45);
 		importCouponNavLbl.addMouseListener(dashboardController);
 		importCouponNavLbl.setForeground(new Color(242, 230, 87));
 		navPanel.add(importCouponNavLbl);
@@ -109,6 +111,15 @@ public class DashboardForImportStaff extends JFrame {
 		logOutNavLbl.addMouseListener(dashboardController);
 		logOutNavLbl.setForeground(new Color(242, 230, 87));
 		navPanel.add(logOutNavLbl);
+		
+		chatNavLbl_1 = new JLabel("Chat");
+		chatNavLbl_1.setOpaque(true);
+		chatNavLbl_1.setForeground(new Color(242, 230, 87));
+		chatNavLbl_1.setFont(new Font("Dialog", Font.BOLD, 15));
+		chatNavLbl_1.setBackground(new Color(51, 51, 102));
+		chatNavLbl_1.setBounds(1, 272, 250, 45);
+		navPanel.add(chatNavLbl_1);
+		chatNavLbl_1.addMouseListener(dashboardController);
 	}
 
 	public void clickImportProductNav() {
@@ -117,6 +128,8 @@ public class DashboardForImportStaff extends JFrame {
 		this.tabbedPane.setSelectedIndex(0);
 		importCouponNavLbl.setBackground(new Color(51, 51, 102));
 		importCouponNavLbl.setForeground(new Color(242, 230, 87));
+		chatNavLbl_1.setBackground(new Color(51, 51, 102));
+		chatNavLbl_1.setForeground(new Color(242, 230, 87));
 	}
 
 	public void clickImportCouponNav() {
@@ -125,8 +138,20 @@ public class DashboardForImportStaff extends JFrame {
 		importCouponNavLbl.setForeground(Color.WHITE);
 		importProductNavLbl.setBackground(new Color(51, 51, 102));
 		importProductNavLbl.setForeground(new Color(242, 230, 87));
+		chatNavLbl_1.setBackground(new Color(51, 51, 102));
+		chatNavLbl_1.setForeground(new Color(242, 230, 87));
 	}
-
+	
+	public void clickChatNav() {
+		chatNavLbl_1.setBackground(new Color(25, 25, 112));
+		chatNavLbl_1.setForeground(Color.WHITE);
+		Login view = new Login();
+		view.setVisible(true);
+		
+	 
+		importProductNavLbl.setBackground(new Color(51, 51, 102));
+		importProductNavLbl.setForeground(new Color(242, 230, 87));
+	}
 	public void clickUserNav() {
 		this.setVisible(false);
 	}
