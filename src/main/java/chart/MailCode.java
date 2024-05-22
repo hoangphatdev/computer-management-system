@@ -43,16 +43,16 @@ private static String luutru_teencode;
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(fromEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-            message.setSubject("Xác nhận mã");
+            message.setSubject("Confirm code");
 
             // Nội dung email
-            String emailContent = "Mã xác nhận của bạn là: " + maTeenCode;
+            String emailContent = "Your confirmation code is: " + maTeenCode;
             message.setText(emailContent);
 
             // Gửi email
             Transport.send(message);
 
-            System.out.println("Đã gửi mã xác nhận đến " + toEmail);
+            System.out.println("Confirmation code sent " + toEmail);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
