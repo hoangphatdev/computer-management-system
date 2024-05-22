@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import chart.MailCode;
+import ite.computer_management.database.ConnectDatabase;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -22,19 +26,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
-public class SignUpView extends JFrame {
+public class ChangepassView extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private JTextField taikhoan_text;
+    private JTextField gmailtext;
     private JPasswordField mk_text;
-    private JTextField textField;
+    private JTextField textcode;
 
     /**
      * Launch the application.
@@ -43,7 +48,7 @@ public class SignUpView extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    SignUpView frame = new SignUpView();
+                    ChangepassView frame = new ChangepassView();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -55,7 +60,7 @@ public class SignUpView extends JFrame {
     /**
      * Create the frame.
      */
-    public SignUpView() {
+    public ChangepassView() {
         setTitle("Computer mangement");
         setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\lgo - Copy - Copy.png"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,21 +72,21 @@ public class SignUpView extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
         
-        JLabel taikhoan = new JLabel("User name:");
-        taikhoan.setForeground(SystemColor.window);
-        taikhoan.setFont(new Font("Arial", Font.BOLD, 17));
-        taikhoan.setBounds(331, 159, 115, 29);
-        contentPane.add(taikhoan);
+        JLabel gmail = new JLabel("Gmail:");
+        gmail.setForeground(SystemColor.window);
+        gmail.setFont(new Font("Arial", Font.BOLD, 17));
+        gmail.setBounds(331, 159, 115, 29);
+        contentPane.add(gmail);
         
-        taikhoan_text = new JTextField();
-        taikhoan_text.setBounds(331, 194, 232, 29);
-        contentPane.add(taikhoan_text);
-        taikhoan_text.setColumns(10);
+        gmailtext = new JTextField();
+        gmailtext.setBounds(331, 194, 232, 29);
+        contentPane.add(gmailtext);
+        gmailtext.setColumns(10);
         
-        JLabel mk = new JLabel("Password:");
+        JLabel mk = new JLabel("New Password:");
         mk.setForeground(SystemColor.window);
         mk.setFont(new Font("Arial", Font.BOLD, 17));
-        mk.setBounds(331, 278, 115, 29);
+        mk.setBounds(331, 278, 147, 29);
         contentPane.add(mk);
         
         mk_text = new JPasswordField();
@@ -99,52 +104,43 @@ public class SignUpView extends JFrame {
         });
         
         Nut_Dangki.setFont(new Font("Arial", Font.BOLD, 14));
-        Nut_Dangki.setBounds(331, 345, 103, 29);
+        Nut_Dangki.setBounds(331, 345, 88, 29);
         contentPane.add(Nut_Dangki);
         
-        String drive = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mySQL://localhost:3306/qlktx";
-        String user = "root";
-        String pas = "";
-        
-        JButton Nut_Dangnhap = new JButton("SIGN UP");
+        JButton Nut_Dangnhap = new JButton("CHANGE PASS");
         Nut_Dangnhap.setBackground(SystemColor.activeCaptionBorder);
         Nut_Dangnhap.addActionListener(new ActionListener() {
             ResultSet rs;
             @SuppressWarnings("deprecation")
             public void actionPerformed(ActionEvent e) {
-                try {     
-                    Connection c = DriverManager.getConnection(url, user, pas);
-                    // Kiểm tra nếu không nhập dữ liệu tài khoản và mật khẩu
-                    if (taikhoan_text.getText().isEmpty() || mk_text.getText().isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Vui lòng nhập tài khoản và mật khẩu");
-                        return;
-                    }
+            	 String TC_danhap = textcode.getText().trim();
+                 String TC_dagui = MailCode.laymaTeenCode();
 
-                    String sql = "select * from dangnhap where (taikhoan=? or gmail=?) and matkhau=?";
-                    PreparedStatement ps = c.prepareStatement(sql);
+                 if (TC_danhap.equals(TC_dagui)) {
+                     try {
+                         String newPassword = new String(mk_text.getPassword());
+                         String username = gmailtext.getText(); 
 
-                    ps.setString(1, taikhoan_text.getText());
-                    ps.setString(2, taikhoan_text.getText());
-                    ps.setString(3, mk_text.getText());
+                         if (changePasswordInDatabase(username, newPassword)) {
+                             JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công!");
 
-                    rs = ps.executeQuery();
-
-                    if (rs.next()) {
-                    		JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
-                           
-                         
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản và mật khẩu");
-                    }
-                } catch (Exception e2) {
-                    e2.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi đăng nhập");
-                }
+                      
+                         } else {
+                             JOptionPane.showMessageDialog(null, "Lỗi khi đổi mật khẩu!");
+                         }
+                     } catch (SQLException e1) {
+                         e1.printStackTrace();
+                         JOptionPane.showMessageDialog(null, "Lỗi khi truy vấn cơ sở dữ liệu: " + e1.getMessage());
+                     }
+                 } else {
+                     // Mã xác nhận không khớp
+                     JOptionPane.showMessageDialog(null, "Mã xác nhận không đúng. Vui lòng thử lại!");
+                 }
             }
-        });
-        Nut_Dangnhap.setFont(new Font("Arial", Font.BOLD, 14));
-        Nut_Dangnhap.setBounds(435, 345, 128, 29);
+        }
+        );
+        Nut_Dangnhap.setFont(new Font("Arial", Font.BOLD, 13));
+        Nut_Dangnhap.setBounds(416, 345, 147, 29);
         contentPane.add(Nut_Dangnhap);
         
         JButton Nut_thoat = new JButton("Cancel");
@@ -159,11 +155,33 @@ public class SignUpView extends JFrame {
         Nut_thoat.setBounds(484, 376, 79, 29);
         contentPane.add(Nut_thoat);
         
-        JButton Nut_DoiMk = new JButton("CHANGE PASS");
+        JButton Nut_DoiMk = new JButton("get code");
         Nut_DoiMk.setBackground(SystemColor.activeCaptionBorder);
         Nut_DoiMk.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose();
+            	try {
+					Connection c = ConnectDatabase.getConnection();
+					ResultSet rs;
+					if (gmailtext.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "vui lòng nhập gmail");
+					}
+					String sql = "select * from account where userName=?";
+					PreparedStatement ps = c.prepareStatement(sql);
+					
+					ps.setString(1, gmailtext.getText());
+					rs = ps.executeQuery();
+					
+					if(rs.next()) {
+						MailCode.guiTeenCodequa_gmail(gmailtext.getText());
+						JOptionPane.showMessageDialog(null, "gửi thành công đến " + gmailtext.getText());
+					} else {
+						JOptionPane.showMessageDialog(null, "Gmail không tồn tại");
+					}
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
               
             }
         });
@@ -207,12 +225,12 @@ public class SignUpView extends JFrame {
         lblLogIn.setBounds(648, 105, 341, 177);
         contentPane.add(lblLogIn);
         
-        textField = new JTextField();
-        textField.setColumns(10);
-        textField.setBounds(331, 253, 232, 29);
-        contentPane.add(textField);
+        textcode = new JTextField();
+        textcode.setColumns(10);
+        textcode.setBounds(331, 253, 232, 29);
+        contentPane.add(textcode);
         
-        JLabel lblGmail = new JLabel("Gmail:");
+        JLabel lblGmail = new JLabel("Code:");
         lblGmail.setForeground(SystemColor.window);
         lblGmail.setFont(new Font("Arial", Font.BOLD, 17));
         lblGmail.setBounds(331, 227, 115, 29);
@@ -234,4 +252,14 @@ public class SignUpView extends JFrame {
         đ.setBounds(-10, -13, 929, 542);
         contentPane.add(đ);
     }  
+    private boolean changePasswordInDatabase(String username, String newPassword) throws SQLException {
+        try (Connection conn = ConnectDatabase.getConnection()) {
+            String sql = "UPDATE account SET password = ? WHERE userName = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, newPassword);
+            pstmt.setString(2, username);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
 }
