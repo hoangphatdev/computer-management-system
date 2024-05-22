@@ -95,21 +95,21 @@ public class LogInView extends JFrame {
 		passwordTxt.setBounds(331, 265, 232, 27);
 		contentPane.add(passwordTxt);
 
-		JButton Nut_Dangki = new JButton("SIGN UP");
-		Nut_Dangki.setBackground(SystemColor.activeCaptionBorder);
+		JButton btn_changepass = new JButton("CHANGE PASS");
+		btn_changepass.setBackground(SystemColor.activeCaptionBorder);
 
-		Nut_Dangki.addActionListener(new ActionListener() {
+		btn_changepass.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SignUpView view = new SignUpView();
+				ChangepassView view = new ChangepassView();
 				view.setVisible(true);
 				dispose();
 
 			}
 		});
 
-		Nut_Dangki.setFont(new Font("Arial", Font.BOLD, 14));
-		Nut_Dangki.setBounds(331, 308, 103, 29);
-		contentPane.add(Nut_Dangki);
+		btn_changepass.setFont(new Font("Arial", Font.BOLD, 14));
+		btn_changepass.setBounds(331, 346, 143, 29);
+		contentPane.add(btn_changepass);
 
 		logInBtn = new JButton("LOG IN");
 		logInBtn.setBackground(SystemColor.activeCaptionBorder);
@@ -164,18 +164,6 @@ public class LogInView extends JFrame {
 		Nut_thoat.setBounds(484, 347, 79, 29);
 		contentPane.add(Nut_thoat);
 
-		JButton Nut_DoiMk = new JButton("CHANGE PASS");
-		Nut_DoiMk.setBackground(SystemColor.activeCaptionBorder);
-		Nut_DoiMk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-
-			}
-		});
-		Nut_DoiMk.setFont(new Font("Arial", Font.BOLD, 12));
-		Nut_DoiMk.setBounds(331, 346, 147, 29);
-		contentPane.add(Nut_DoiMk);
-
 		JToggleButton Nut_hienMK = new JToggleButton("");
 		Nut_hienMK.setIcon(new ImageIcon("C:\\Users\\LENOVO\\Desktop\\anhhhhhhhhh\\Screenshot 2023-12-23 194914.png"));
 		Nut_hienMK.addActionListener(new ActionListener() {
@@ -209,14 +197,14 @@ public class LogInView extends JFrame {
 
 		Box verticalBox = Box.createVerticalBox();
 		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox.setBounds(275, 124, 335, 303);
+		verticalBox.setBounds(269, 117, 335, 303);
 		contentPane.add(verticalBox);
-
-		JLabel dangnhap_1_2 = new JLabel("");
-		verticalBox.add(dangnhap_1_2);
-		dangnhap_1_2.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\backkkkkkkê.jpg"));
-		dangnhap_1_2.setFont(new Font("Arial", Font.BOLD, 27));
+		
+				JLabel dangnhap_1_2 = new JLabel("");
+				verticalBox.add(dangnhap_1_2);
+				dangnhap_1_2.setIcon(new ImageIcon(
+						"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\backkkkkkkê.jpg"));
+				dangnhap_1_2.setFont(new Font("Arial", Font.BOLD, 27));
 
 		JLabel lblLogIn = new JLabel("LOG IN ");
 		lblLogIn.setForeground(SystemColor.window);
@@ -228,7 +216,7 @@ public class LogInView extends JFrame {
 		đ.setIcon(new ImageIcon(
 				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\backkkkkkkê.jpg"));
 		đ.setFont(new Font("Arial", Font.BOLD, 27));
-		đ.setBounds(-10, -13, 929, 542);
+		đ.setBounds(0, 0, 929, 542);
 		contentPane.add(đ);
 
 		this.setLocationRelativeTo(null);
