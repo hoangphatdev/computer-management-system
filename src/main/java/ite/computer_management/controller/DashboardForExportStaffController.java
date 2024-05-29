@@ -19,9 +19,11 @@ public class DashboardForExportStaffController implements MouseListener {
 			dashboardForExportStaff.clickExportProductNav();
 		}else if(e.getSource() == dashboardForExportStaff.ChatNavLbl_1) {
 			dashboardForExportStaff.clickChatNav();
+		}else if(e.getSource() == dashboardForExportStaff.logOutNavLbl) {
+			dashboardForExportStaff.clickLogoutNav();
 		}
 	}
-
+	 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
