@@ -1,6 +1,6 @@
 package chart;
 
-import java.awt.BorderLayout;
+import java.awt.BorderLayout; 
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.geom.Point2D;
@@ -31,6 +31,7 @@ import org.jfree.chart.plot.PlotOrientation;
 
 import ite.computer_management.database.ConnectDatabase;
 import ite.computer_management.view.Dashboard;
+import ite.computer_management.view.DashboardForManager;
 
 import javax.swing.JLabel;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
@@ -41,6 +42,7 @@ public class Columnchart extends JPanel {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
 	private Dashboard dashboard;
+	private DashboardForManager dashboardForManager;
 
 //    public static void main(String[] args) {
 //        EventQueue.invokeLater(() -> {
@@ -58,7 +60,12 @@ public class Columnchart extends JPanel {
 	        init();
 	    }
 
-	    public void init() {
+	    public Columnchart(DashboardForManager dashboardForManager) {
+	    	this.dashboardForManager = dashboardForManager;
+	    	init();
+	}
+
+		public void init() {
 	        setLayout(null); 
 
 	        createPieChartFromDatabase1();

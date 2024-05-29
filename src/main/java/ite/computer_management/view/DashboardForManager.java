@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import chart.Columnchart;
 import ite.computer_management.controller.DashboardForManagerController;
 import ite.computer_management.model.Account;
 import main.Login;
@@ -70,14 +71,12 @@ public class DashboardForManager extends JFrame {
 		ProductView productView = new ProductView(this);
 		tabbedPane.addTab("Product Management", productView);
 
-SupplierView supplierView = new SupplierView(this);
+		SupplierView supplierView = new SupplierView(this);
 		tabbedPane.addTab("Supplier manegement", supplierView);
-		
-		
 
 		ImportsProductView ImportsProductView = new ImportsProductView();
 		tabbedPane.addTab("Imports Product", ImportsProductView);
-		
+
 		ImportCouponView importCouponView = new ImportCouponView();
 		tabbedPane.addTab("Import coupon", importCouponView);
 
@@ -86,22 +85,27 @@ SupplierView supplierView = new SupplierView(this);
 
 		ExportCouponView exportCouponView = new ExportCouponView();
 		tabbedPane.addTab("Export coupon", exportCouponView);
+		
+		Columnchart chart = new Columnchart(this);
+		tabbedPane.addTab("statistical chart", chart);
 
 		navPanel = new JPanel();
 		navPanel.setForeground(new Color(0, 0, 0));
 		navPanel.setLayout(null);
 		navPanel.setBounds(0, 0, 250, 800);
-		navPanel.setBackground(new Color(0, 0, 51));
+		navPanel.setBackground(new Color(70, 163, 100));
 		contentPane.add(navPanel);
 
-		JLabel greetingLbl = new JLabel("");
-		greetingLbl.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\lgo.png"));
+		String xinchao = "Hello  " + accountReturn.getFullName() + " <3";
+		JLabel greetingLbl = new JLabel(xinchao);
+		greetingLbl.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 19));
+//		greetingLbl.setIcon(new ImageIcon(
+//				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\lgo.png"));
 		greetingLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		greetingLbl.setBounds(1, 0, 250, 158);
-		greetingLbl.setBackground(new Color(0, 0, 51));
+		greetingLbl.setBounds(0, 0, 250, 158);
 		greetingLbl.setOpaque(true);
-		greetingLbl.setForeground(Color.black);
+		greetingLbl.setBackground(new Color(70, 163, 100));
+		greetingLbl.setForeground(new Color(219, 219, 219));
 		navPanel.add(greetingLbl);
 
 		productNavLbl = new JLabel("Product");
@@ -122,8 +126,8 @@ SupplierView supplierView = new SupplierView(this);
 		supplierNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		supplierNavLbl.setBounds(1, 201, 250, 45);
 		supplierNavLbl.addMouseListener(dashboardForManagerController);
-		supplierNavLbl.setBackground(new Color(51, 51, 102));
-		supplierNavLbl.setForeground(new Color(242, 230, 87));
+		supplierNavLbl.setBackground(new Color(70, 163, 100));
+		supplierNavLbl.setForeground(new Color(219, 219, 219));
 		navPanel.add(supplierNavLbl);
 
 		statisticalNavLbl = new JLabel("Statistical");
@@ -131,10 +135,10 @@ SupplierView supplierView = new SupplierView(this);
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-analytics-30.png"));
 		statisticalNavLbl.setOpaque(true);
 		statisticalNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		statisticalNavLbl.setBackground(new Color(51, 51, 102));
 		statisticalNavLbl.setBounds(1, 625, 250, 45);
 		statisticalNavLbl.addMouseListener(dashboardForManagerController);
-		statisticalNavLbl.setForeground(new Color(242, 230, 87));
+		statisticalNavLbl.setBackground(new Color(70, 163, 100));
+		statisticalNavLbl.setForeground(new Color(219, 219, 219));
 		navPanel.add(statisticalNavLbl);
 
 		importProductNavLbl = new JLabel("Import Product");
@@ -142,10 +146,10 @@ SupplierView supplierView = new SupplierView(this);
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-import-goods-filled-outline\\icons8-import-goods-32.png"));
 		importProductNavLbl.setOpaque(true);
 		importProductNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		importProductNavLbl.setBackground(new Color(51, 51, 102));
 		importProductNavLbl.setBounds(1, 244, 250, 45);
 		importProductNavLbl.addMouseListener(dashboardForManagerController);
-		importProductNavLbl.setForeground(new Color(242, 230, 87));
+		importProductNavLbl.setBackground(new Color(70, 163, 100));
+		importProductNavLbl.setForeground(new Color(219, 219, 219));
 		navPanel.add(importProductNavLbl);
 
 		exportProductNavLbl = new JLabel("Export Product");
@@ -153,10 +157,10 @@ SupplierView supplierView = new SupplierView(this);
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-import-goods-filled-outline\\icons8-import-goods-32.png"));
 		exportProductNavLbl.setOpaque(true);
 		exportProductNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		exportProductNavLbl.setBackground(new Color(51, 51, 102));
 		exportProductNavLbl.setBounds(1, 330, 250, 45);
 		exportProductNavLbl.addMouseListener(dashboardForManagerController);
-		exportProductNavLbl.setForeground(new Color(242, 230, 87));
+		exportProductNavLbl.setBackground(new Color(70, 163, 100));
+		exportProductNavLbl.setForeground(new Color(219, 219, 219));
 		navPanel.add(exportProductNavLbl);
 
 		importCouponNavLbl = new JLabel("Import Coupon");
@@ -164,10 +168,10 @@ SupplierView supplierView = new SupplierView(this);
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-note-30.png"));
 		importCouponNavLbl.setOpaque(true);
 		importCouponNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		importCouponNavLbl.setBackground(new Color(51, 51, 102));
 		importCouponNavLbl.setBounds(1, 287, 250, 45);
 		importCouponNavLbl.addMouseListener(dashboardForManagerController);
-		importCouponNavLbl.setForeground(new Color(242, 230, 87));
+		importCouponNavLbl.setBackground(new Color(70, 163, 100));
+		importCouponNavLbl.setForeground(new Color(219, 219, 219));
 		navPanel.add(importCouponNavLbl);
 
 		exportCouponNavLbl = new JLabel("Export Coupon");
@@ -175,10 +179,10 @@ SupplierView supplierView = new SupplierView(this);
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-note-30.png"));
 		exportCouponNavLbl.setOpaque(true);
 		exportCouponNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
 		exportCouponNavLbl.setBounds(1, 374, 250, 50);
 		exportCouponNavLbl.addMouseListener(dashboardForManagerController);
-		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
+		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
+		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
 		navPanel.add(exportCouponNavLbl);
 
 		myInformationLbl = new JLabel("My Information");
@@ -186,10 +190,10 @@ SupplierView supplierView = new SupplierView(this);
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-user-office-m\\icons8-user-30.png"));
 		myInformationLbl.setOpaque(true);
 		myInformationLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		myInformationLbl.setBackground(new Color(51, 51, 102));
 		myInformationLbl.setBounds(0, 668, 250, 45);
 		myInformationLbl.addMouseListener(dashboardForManagerController);
-		myInformationLbl.setForeground(new Color(242, 230, 87));
+		myInformationLbl.setBackground(new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219, 219, 219));
 		navPanel.add(myInformationLbl);
 
 		logOutNavLbl = new JLabel("Log out");
@@ -197,44 +201,51 @@ SupplierView supplierView = new SupplierView(this);
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\log out\\icons8-log-out-32.png"));
 		logOutNavLbl.setOpaque(true);
 		logOutNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		logOutNavLbl.setBackground(new Color(51, 51, 102));
 		logOutNavLbl.setBounds(0, 712, 250, 50);
 		logOutNavLbl.addMouseListener(dashboardForManagerController);
-		logOutNavLbl.setForeground(new Color(242, 230, 87));
+		logOutNavLbl.setBackground(new Color(70, 163, 100));
+		logOutNavLbl.setForeground(new Color(219, 219, 219));
 		navPanel.add(logOutNavLbl);
-		
+
 		ChatNavLbl_1 = new JLabel("Chat");
 		ChatNavLbl_1.setOpaque(true);
-		ChatNavLbl_1.setForeground(new Color(242, 230, 87));
 		ChatNavLbl_1.setFont(new Font("Dialog", Font.BOLD, 15));
-		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
 		ChatNavLbl_1.setBounds(1, 422, 250, 50);
+		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
+		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
 		navPanel.add(ChatNavLbl_1);
 		ChatNavLbl_1.addMouseListener(dashboardForManagerController);
 	}
 
 	public void clickSupplierNav() {
 		this.tabbedPane.setSelectedIndex(1);
-		supplierNavLbl.setBackground(new Color(25, 25, 112));
-		supplierNavLbl.setForeground(Color.WHITE);
+		supplierNavLbl.setBackground(new Color(220, 242, 227));
+		supplierNavLbl.setForeground(new Color(59, 59, 59));
 
-		productNavLbl.setBackground(new Color(51, 51, 102));
-		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
-		ChatNavLbl_1.setForeground(new Color(242, 230, 87));	
-		importProductNavLbl.setBackground(new Color(51, 51, 102));
-		importProductNavLbl.setForeground(new Color(242, 230, 87));
-		importCouponNavLbl.setBackground(new Color(51, 51, 102));
-		importCouponNavLbl.setForeground(new Color(242, 230, 87));
-		exportProductNavLbl.setBackground(new Color(51, 51, 102));
-		exportProductNavLbl.setForeground(new Color(242, 230, 87));
-		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
-		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
+		statisticalNavLbl.setBackground(new Color(70, 163, 100));
+		statisticalNavLbl.setForeground(new Color(219, 219, 219));
+		productNavLbl.setBackground(new Color(70, 163, 100));
+		productNavLbl.setForeground(new Color(219, 219, 219));
+		importProductNavLbl.setBackground(new Color(70, 163, 100));
+		importProductNavLbl.setForeground(new Color(219, 219, 219));
+		importCouponNavLbl.setBackground(new Color(70, 163, 100));
+		importCouponNavLbl.setForeground(new Color(219, 219, 219));
+		exportProductNavLbl.setBackground(new Color(70, 163, 100));
+		exportProductNavLbl.setForeground(new Color(219, 219, 219));
+		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
+		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
+		accountNavLbl.setBackground(new Color(70, 163, 100));
+		accountNavLbl.setForeground(new Color(219, 219, 219));
+		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
+		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
+		myInformationLbl.setBackground(new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219, 219, 219));
 	}
 
 	public void clickProductNav() {
 		this.tabbedPane.setSelectedIndex(0);
-		productNavLbl.setBackground(new Color(25, 25, 112));
-		productNavLbl.setForeground(Color.WHITE);
+		productNavLbl.setBackground(new Color(220, 242, 227));
+		productNavLbl.setForeground(new Color(0, 125, 40));
 
 		statisticalNavLbl.setBackground(new Color(70, 163, 100));
 		statisticalNavLbl.setForeground(new Color(219, 219, 219));
@@ -252,13 +263,13 @@ SupplierView supplierView = new SupplierView(this);
 		accountNavLbl.setForeground(new Color(219, 219, 219));
 		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
 		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
-		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setBackground(new Color(70, 163, 100));
 		myInformationLbl.setForeground(new Color(219, 219, 219));
 	}
 
 	public void clickImportProductNav() {
-		importProductNavLbl.setBackground(new Color(25, 25, 112));
-		importProductNavLbl.setForeground(Color.WHITE);
+		importProductNavLbl.setBackground(new Color(220, 242, 227));
+		importProductNavLbl.setForeground(new Color(0, 125, 40));
 		this.tabbedPane.setSelectedIndex(2);
 
 		productNavLbl.setBackground(new Color(70, 163, 100));
@@ -277,7 +288,7 @@ SupplierView supplierView = new SupplierView(this);
 		accountNavLbl.setForeground(new Color(219, 219, 219));
 		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
 		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
-		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setBackground(new Color(70, 163, 100));
 		myInformationLbl.setForeground(new Color(219, 219, 219));
 	}
 
@@ -302,7 +313,7 @@ SupplierView supplierView = new SupplierView(this);
 		accountNavLbl.setForeground(new Color(219, 219, 219));
 		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
 		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
-		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setBackground(new Color(70, 163, 100));
 		myInformationLbl.setForeground(new Color(219, 219, 219));
 	}
 
@@ -328,12 +339,13 @@ SupplierView supplierView = new SupplierView(this);
 		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
 		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
 		myInformationLbl.setBackground( new Color(70, 163, 100));
-		myInformationLbl.setForeground(new Color(219, 219, 219));	}
+		myInformationLbl.setForeground(new Color(219, 219, 219));
+	}
 
 	public void clickExportCouponNav() {
 		this.tabbedPane.setSelectedIndex(5);
 		exportCouponNavLbl.setBackground(new Color(220, 242, 227));
-		exportCouponNavLbl.setForeground( new Color(0, 125, 40));
+		exportCouponNavLbl.setForeground(new Color(0, 125, 40));
 
 		productNavLbl.setBackground(new Color(70, 163, 100));
 		productNavLbl.setForeground(new Color(219, 219, 219));
@@ -351,12 +363,13 @@ SupplierView supplierView = new SupplierView(this);
 		accountNavLbl.setForeground(new Color(219, 219, 219));
 		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
 		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
-		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setBackground(new Color(70, 163, 100));
 		myInformationLbl.setForeground(new Color(219, 219, 219));
 
 	}
 
 	public void clickStatisticalNav() {
+		this.tabbedPane.setSelectedIndex(6);
 		statisticalNavLbl.setBackground(new Color(220, 242, 227));
 		statisticalNavLbl.setForeground(new Color(0, 125, 40));
 
@@ -374,21 +387,22 @@ SupplierView supplierView = new SupplierView(this);
 		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
 		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
 		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
-		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setBackground(new Color(70, 163, 100));
 		myInformationLbl.setForeground(new Color(219, 219, 219));
 		accountNavLbl.setBackground(new Color(70, 163, 100));
-		accountNavLbl.setForeground(new Color(219, 219, 219));;
+		accountNavLbl.setForeground(new Color(219, 219, 219));
 
 	}
+
 	public void clickChatNav() {
-		ChatNavLbl_1.setBackground( new Color(220, 242, 227) );
-		ChatNavLbl_1.setForeground( new Color(0, 125, 40) );
+
 		Login view = new Login();
 		view.setUserName("Manager");
 		view.setVisible(true);
-		
-				
-		
+
+		ChatNavLbl_1.setBackground(new Color(220, 242, 227));
+		ChatNavLbl_1.setForeground(new Color(0, 125, 40));
+
 		productNavLbl.setBackground(new Color(70, 163, 100));
 		productNavLbl.setForeground(new Color(219, 219, 219));
 		statisticalNavLbl.setBackground(new Color(70, 163, 100));
@@ -403,10 +417,11 @@ SupplierView supplierView = new SupplierView(this);
 		exportProductNavLbl.setForeground(new Color(219, 219, 219));
 		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
 		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
-		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setBackground(new Color(70, 163, 100));
 		myInformationLbl.setForeground(new Color(219, 219, 219));
 
 	}
+
 	public void clickMyInformationNav() {
 		new MyInformationView(accountReturn);
 	}
