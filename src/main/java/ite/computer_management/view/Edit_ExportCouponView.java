@@ -123,7 +123,7 @@ public class Edit_ExportCouponView extends JFrame {
 		ExportCouponDAO = new ExportCouponDAO();
 		Edit_ExportsCoupon_Controller edit_exportsCoupon_Controller = new Edit_ExportsCoupon_Controller(this);
 		Exports_DAO = new ExportsDAO();
-		getContentPane().setBackground(new Color(72, 61, 139));
+		getContentPane().setBackground(new Color(70, 163, 100));
 		this.setSize(1250,595);
 		getContentPane().setLayout(null);
 

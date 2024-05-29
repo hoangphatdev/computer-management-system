@@ -55,7 +55,7 @@ public class AddSupplierView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 450);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 0, 51));
+//		contentPane.setBackground(new Color(70, 163, 100));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -63,8 +63,8 @@ public class AddSupplierView extends JFrame {
 		
 		JLabel SupplierNameLbl = new JLabel("Supplier Name");
 		SupplierNameLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
-		SupplierNameLbl.setForeground(new Color(255, 255, 102));
-		SupplierNameLbl.setBackground(new Color(51, 51, 102));
+		SupplierNameLbl.setForeground(new Color(219, 219, 219));
+		SupplierNameLbl.setBackground(new Color(70, 163, 100));
 		SupplierNameLbl.setOpaque(true);
 		SupplierNameLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		SupplierNameLbl.setBounds(84, 53, 217, 41);
@@ -72,28 +72,28 @@ public class AddSupplierView extends JFrame {
 		
 		JLabel SupplierCodeLbl = new JLabel("Supplier Code");
 		SupplierCodeLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
-		SupplierCodeLbl.setForeground(new Color(255, 255, 102));
+		SupplierCodeLbl.setForeground(new Color(219, 219, 219));
 		SupplierCodeLbl.setOpaque(true);
 		SupplierCodeLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		SupplierCodeLbl.setBackground(new Color(51, 51, 102));
+		SupplierCodeLbl.setBackground(new Color(70, 163, 100));
 		SupplierCodeLbl.setBounds(338, 53, 217, 41);
 		contentPane.add(SupplierCodeLbl);
 		
 		JLabel AddressLbl = new JLabel("Address");
 		AddressLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
-		AddressLbl.setForeground(new Color(255, 255, 102));
+		AddressLbl.setForeground(new Color(219, 219, 219));
 		AddressLbl.setOpaque(true);
 		AddressLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		AddressLbl.setBackground(new Color(51, 51, 102));
+		AddressLbl.setBackground(new Color(70, 163, 100));
 		AddressLbl.setBounds(84, 170, 217, 41);
 		contentPane.add(AddressLbl);
 		
 		JLabel PhoneNumberLbl = new JLabel("Phone Number");
 		PhoneNumberLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
-		PhoneNumberLbl.setForeground(new Color(255, 255, 102));
+		PhoneNumberLbl.setForeground(new Color(219, 219, 219));
 		PhoneNumberLbl.setOpaque(true);
 		PhoneNumberLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		PhoneNumberLbl.setBackground(new Color(51, 51, 102));
+		PhoneNumberLbl.setBackground(new Color(70, 163, 100));
 		PhoneNumberLbl.setBounds(338, 170, 217, 41);
 		contentPane.add(PhoneNumberLbl);
 		
@@ -119,25 +119,25 @@ public class AddSupplierView extends JFrame {
 		
 		btnadd = new JButton("Add");
 		btnadd.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\add 30.png"));
-		btnadd.setForeground(Color.YELLOW);
-		btnadd.setBackground(Color.GRAY);
+		btnadd.setForeground(new Color(70, 163, 100));
+		btnadd.setBackground(new Color(219,219,219));
 		btnadd.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnadd.setBounds(160, 300, 141, 41);
 		contentPane.add(btnadd);
 		btnadd.addMouseListener(addSupplierController);
 		
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBackground(Color.RED);
-		btnCancel.setForeground(Color.BLACK);
+		btnCancel.setBackground(new Color(219,219,219));
+		btnCancel.setForeground(new Color(235, 64, 21));
 		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCancel.setBounds(247, 351, 141, 41);
 		contentPane.add(btnCancel);
 		
 		btnRefresh = new JButton("Refresh");
 		btnRefresh.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
-		btnRefresh.setForeground(Color.YELLOW);
+		btnRefresh.setForeground(new Color(70, 163, 100));
 		btnRefresh.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnRefresh.setBackground(Color.GRAY);
+		btnRefresh.setBackground(new Color(219,219,219));
 		btnRefresh.setBounds(338, 300, 141, 41);
 		contentPane.add(btnRefresh);
 		btnCancel.addMouseListener(addSupplierController);

@@ -76,7 +76,7 @@ public class Details_ExportCouponView extends JFrame {
 
 	}
 	public void init() {
-		getContentPane().setBackground(new Color(72, 61, 139));
+		getContentPane().setBackground(new Color(70, 163, 100));
 		Details_ExportsCouponController details_ExportsCouponController = new Details_ExportsCouponController(this);
 		
 		this.setSize(875,587);
@@ -126,7 +126,7 @@ public class Details_ExportCouponView extends JFrame {
 		lblQuantity_1.setBounds(192, 465, 341, 41);
 		getContentPane().add(lblQuantity_1);
 		
-		JLabel lblD = new JLabel("                                              Detail Export coupon");
+		JLabel lblD = new JLabel("Detail Export coupon");
 		lblD.setBackground(new Color(0, 0, 51));
 		lblD.setForeground(Color.WHITE);
 		lblD.setFont(new Font("Stencil", Font.BOLD, 25));

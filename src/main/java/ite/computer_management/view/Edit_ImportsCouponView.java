@@ -116,7 +116,7 @@ public class Edit_ImportsCouponView extends JFrame {
 		ImportCouponDAO = new ImportCouponDAO();
 		Edit_ImportsCoupon_Controller edit_ImportsCoupon_Controller = new Edit_ImportsCoupon_Controller(this);
 		Imports_DAO = new ImportDAO();
-		getContentPane().setBackground(new Color(72, 61, 139));
+		getContentPane().setBackground(new Color(70, 163, 100));
 		this.setSize(1250,595);
 		getContentPane().setLayout(null);
 

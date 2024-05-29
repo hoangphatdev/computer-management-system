@@ -75,7 +75,7 @@ public class AccountView extends JPanel {
 		
 		this.setSize(1250,800);
 		setLayout(null);
-		setBackground(new Color(72, 61, 139));
+		setBackground(new Color(70, 163, 100));
 		this.dashboard = dashboard;
 
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -140,13 +140,6 @@ public class AccountView extends JPanel {
 		btnExcel.setBackground(new Color(51, 0, 102));
 		btnExcel.setBounds(1018, 193, 181, 40);
 		add(btnExcel);
-		
-		JLabel searchLbl_1 = new JLabel("");
-		searchLbl_1.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\logo2.png"));
-		searchLbl_1.setForeground(Color.WHITE);
-		searchLbl_1.setFont(new Font("Dialog", Font.BOLD, 17));
-		searchLbl_1.setBounds(373, 10, 673, 424);
-		add(searchLbl_1);
 		btnExcel.addMouseListener(accountController);
 	}
 	public void clickAddLbl() {

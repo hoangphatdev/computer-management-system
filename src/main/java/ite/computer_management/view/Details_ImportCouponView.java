@@ -89,7 +89,7 @@ public class Details_ImportCouponView extends JFrame {
 
 	}
 	public void init() {
-		getContentPane().setBackground(new Color(72, 61, 139));
+		getContentPane().setBackground(new Color(70, 163, 100));
 		Details_ImportsCouponController details_ImportsCouponController = new Details_ImportsCouponController(this);
 		
 		this.setSize(875,587);
