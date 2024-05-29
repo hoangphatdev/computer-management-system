@@ -14,10 +14,12 @@ import ite.computer_management.model.Account;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.ImageIcon;
+import javax.swing.JPasswordField;
 
 public class AddAccountView extends JFrame {
 
@@ -25,13 +27,13 @@ public class AddAccountView extends JFrame {
 	private JPanel contentPane;
 	private JTextField fullNameTxt;
 	private JTextField userNameTxt;
-	private JTextField passwordTxt;
 	private JTextField roleTxt;
 	public JButton addBtn;
 	public JButton cancelBtn;
 	public JButton refreshBtn;
 	public AccountView accountView;
 	public Dashboard dashboard;
+	private JPasswordField passwordTxt;
 
 	public AddAccountView(AccountView accountView, Dashboard dashboard) {
 		this.accountView = accountView;
@@ -118,12 +120,6 @@ public class AddAccountView extends JFrame {
 		userNameTxt.setBounds(242, 194, 258, 35);
 		contentPane.add(userNameTxt);
 		
-		passwordTxt = new JTextField();
-		passwordTxt.setFont(new Font("Roboto", Font.PLAIN, 15));
-		passwordTxt.setColumns(10);
-		passwordTxt.setBounds(242, 251, 258, 35);
-		contentPane.add(passwordTxt);
-		
 		roleTxt = new JTextField();
 		roleTxt.setFont(new Font("Roboto", Font.PLAIN, 15));
 		roleTxt.setColumns(10);
@@ -138,20 +134,44 @@ public class AddAccountView extends JFrame {
 		titleLbl.setForeground(new Color(222, 173, 91));
 		titleLbl.setOpaque(true);
 		contentPane.add(titleLbl);
+		
+		passwordTxt = new JPasswordField();
+		passwordTxt.setBounds(241, 251, 259, 35);
+		contentPane.add(passwordTxt);
 	}
 	public void clickAddBtn() {
 		String fullName = fullNameTxt.getText();
 		String userName = userNameTxt.getText();
-		String password = passwordTxt.getText();
+		char[] passwordChars = passwordTxt.getPassword();
+	    String password = new String(passwordChars); 
 		String role = roleTxt.getText();
-		//back-end
+		  if (!isValidPassword(password)) {
+		        JOptionPane.showMessageDialog(this,"Mật khẩu phải có ít nhất 1 chữ hoa, 1 ký tự đặc biệt và tối đa 20 ký tự!");
+		        return;	
+		    }
+
 		Account account = new Account(fullName, userName, password, role);
 		int check = AccountDAO.getInstance().insert(account);
+		
 		if(check ==1) {
-			//front-end
 			String data[] = {fullName, userName, password, role};
 			accountView.model.addRow(data);
 		}
+	}
+	private boolean isValidPassword(String password) {
+	    if (password.length() > 20) {
+	        return false;
+	    }
+	    boolean hasUpperCase = false;
+	    boolean hasSpecialChar = false;
+	    for (char c : password.toCharArray()) {
+	        if (Character.isUpperCase(c)) {
+	            hasUpperCase = true;
+	        } else if (!Character.isLetterOrDigit(c)) {
+	            hasSpecialChar = true;
+	        }
+	    }
+	    return hasUpperCase && hasSpecialChar;
 	}
 	public void clickCancelBtn() {
 		this.dispose();

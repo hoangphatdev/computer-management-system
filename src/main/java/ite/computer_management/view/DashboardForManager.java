@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 
 import java.awt.Window.Type;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTabbedPane;
@@ -23,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.Window;
 
 public class DashboardForManager extends JFrame {
 
@@ -346,6 +349,7 @@ SupplierView supplierView = new SupplierView(this);
 		ChatNavLbl_1.setBackground(new Color(25, 25, 112));
 		ChatNavLbl_1.setForeground(Color.WHITE);
 		Login view = new Login();
+		view.setUserName("Manager");
 		view.setVisible(true);
 		
 		productNavLbl.setBackground(new Color(51, 51, 102));
@@ -367,6 +371,9 @@ SupplierView supplierView = new SupplierView(this);
 	}
 
 	public void clickLogoutNav() {
-
+		Window window = SwingUtilities.getWindowAncestor(logOutNavLbl); 
+        if (window != null) {
+            window.dispose();
+        }
 	}
 }

@@ -16,8 +16,12 @@ public class DashboardForImportStaffController implements MouseListener {
 			dashboardForImportStaff.clickImportCouponNav();
 		}else if(e.getSource() == dashboardForImportStaff.importProductNavLbl) {
 			dashboardForImportStaff.clickImportProductNav();
+		}else if(e.getSource() == dashboardForImportStaff.chatNavLbl_1) {
+			dashboardForImportStaff.clickChatNav();
+		}else if(e.getSource() == dashboardForImportStaff.logOutNavLbl) {
+			dashboardForImportStaff.clickLogoutNav();
 		}
-	}
+	}  
 
 	@Override
 	public void mousePressed(MouseEvent e) {
