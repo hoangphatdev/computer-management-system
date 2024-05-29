@@ -193,49 +193,57 @@ public class ProductView extends JPanel {
 
 	public void clickExportExcel() {
 		try {
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
-			int option = fileChooser.showSaveDialog(this);
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
+            int option = fileChooser.showSaveDialog(null);
 
-			if (option == JFileChooser.APPROVE_OPTION) {
-				File saveFile = fileChooser.getSelectedFile();
-				if (!saveFile.toString().endsWith(".xlsx")) {
-					saveFile = new File(saveFile.toString() + ".xlsx");
-				}
-				Workbook workbook = new XSSFWorkbook();
-				Sheet sheet = workbook.createSheet("Product");
-				Row headerRow = sheet.createRow(0);
-				for (int i = 0; i < table.getColumnCount(); i++) {
-					Cell cell = headerRow.createCell(i);
-					cell.setCellValue(table.getColumnName(i));
-				}
-				for (int j = 0; j < table.getRowCount(); j++) {
-					Row row = sheet.createRow(j + 1);
-					for (int k = 0; k < table.getColumnCount(); k++) {
-						Cell cell = row.createCell(k);
-						Object value = table.getValueAt(j, k);
-						if (value != null) {
-							if (value instanceof Number) {
-								cell.setCellValue(((Number) value).doubleValue());
-							} else {
-								cell.setCellValue(value.toString());
-							}
-						}
-					}
-				}
-				try (FileOutputStream out = new FileOutputStream(saveFile)) {
-					workbook.write(out);
-				}
-				JOptionPane.showMessageDialog(this, "successfull", "Notification", JOptionPane.INFORMATION_MESSAGE);
-				if (Desktop.isDesktopSupported()) {
-					Desktop.getDesktop().open(saveFile);
-				}
-			}
-		} catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(this, "not found" + e.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(this, "fail" + e.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
-		}
+            if (option == JFileChooser.APPROVE_OPTION) {
+                File saveFile = fileChooser.getSelectedFile();
+                if (!saveFile.toString().endsWith(".xlsx")) {
+                    saveFile = new File(saveFile.toString() + ".xlsx");
+                }
+
+                Workbook workbook = new XSSFWorkbook();
+                Sheet sheet = workbook.createSheet("Product");
+
+                // Tạo hàng tiêu đề
+                Row headerRow = sheet.createRow(0);
+                for (int i = 0; i < table.getColumnCount(); i++) {
+                    Cell cell = headerRow.createCell(i);
+                    cell.setCellValue(table.getColumnName(i));
+                }
+
+                // Tạo các hàng dữ liệu
+                for (int j = 0; j < table.getRowCount(); j++) {
+                    Row row = sheet.createRow(j + 1);
+                    for (int k = 0; k < table.getColumnCount(); k++) {
+                        Cell cell = row.createCell(k);
+                        Object value = table.getValueAt(j, k);
+                        if (value != null) {
+                            if (value instanceof Number) {
+                                cell.setCellValue(((Number) value).doubleValue());
+                            } else {
+                                cell.setCellValue(value.toString());
+                            }
+                        }
+                    }
+                }
+
+                // Ghi dữ liệu ra tệp
+                try (FileOutputStream out = new FileOutputStream(saveFile)) {
+                    workbook.write(out);
+                }
+                workbook.close();
+                JOptionPane.showMessageDialog(null, "Export successful!", "Notification", JOptionPane.INFORMATION_MESSAGE);
+
+                // Mở tệp nếu hệ điều hành hỗ trợ Desktop API
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(saveFile);
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Export failed: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
 	}
 
 	public void clickEditBtn() {
