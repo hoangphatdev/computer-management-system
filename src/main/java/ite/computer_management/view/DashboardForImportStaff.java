@@ -30,7 +30,7 @@ public class DashboardForImportStaff extends JFrame {
 	public JLabel Export_ProductNavLbl;
 	public JPanel navPanel;
 
-	private JLabel chatNavLbl_1;
+	public JLabel chatNavLbl_1;
 	private Account accountReturn;
 
 
