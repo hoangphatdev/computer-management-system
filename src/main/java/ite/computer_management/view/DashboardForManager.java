@@ -35,7 +35,6 @@ public class DashboardForManager extends JFrame {
 	private JPanel contentPane;
 	public JLabel productNavLbl;
 	public JTabbedPane tabbedPane;
-	public JLabel accountNavLbl;
 	public JLabel myInformationLbl;
 	public JLabel logOutNavLbl;
 	public JLabel exportCouponNavLbl;
@@ -234,8 +233,6 @@ public class DashboardForManager extends JFrame {
 		exportProductNavLbl.setForeground(new Color(219, 219, 219));
 		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
 		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
-		accountNavLbl.setBackground(new Color(70, 163, 100));
-		accountNavLbl.setForeground(new Color(219, 219, 219));
 		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
 		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
 		myInformationLbl.setBackground(new Color(70, 163, 100));
@@ -259,8 +256,6 @@ public class DashboardForManager extends JFrame {
 		exportProductNavLbl.setForeground(new Color(219, 219, 219));
 		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
 		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
-		accountNavLbl.setBackground(new Color(70, 163, 100));
-		accountNavLbl.setForeground(new Color(219, 219, 219));
 		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
 		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
 		myInformationLbl.setBackground(new Color(70, 163, 100));
@@ -284,8 +279,6 @@ public class DashboardForManager extends JFrame {
 		exportProductNavLbl.setForeground(new Color(219, 219, 219));
 		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
 		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
-		accountNavLbl.setBackground(new Color(70, 163, 100));
-		accountNavLbl.setForeground(new Color(219, 219, 219));
 		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
 		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
 		myInformationLbl.setBackground(new Color(70, 163, 100));
@@ -309,8 +302,6 @@ public class DashboardForManager extends JFrame {
 		exportProductNavLbl.setForeground(new Color(219, 219, 219));
 		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
 		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
-		accountNavLbl.setBackground(new Color(70, 163, 100));
-		accountNavLbl.setForeground(new Color(219, 219, 219));
 		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
 		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
 		myInformationLbl.setBackground(new Color(70, 163, 100));
@@ -334,8 +325,6 @@ public class DashboardForManager extends JFrame {
 		statisticalNavLbl.setForeground(new Color(219, 219, 219));
 		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
 		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
-		accountNavLbl.setBackground(new Color(70, 163, 100));
-		accountNavLbl.setForeground(new Color(219, 219, 219));
 		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
 		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
 		myInformationLbl.setBackground( new Color(70, 163, 100));
@@ -359,8 +348,6 @@ public class DashboardForManager extends JFrame {
 		exportProductNavLbl.setForeground(new Color(219, 219, 219));
 		statisticalNavLbl.setBackground(new Color(70, 163, 100));
 		statisticalNavLbl.setForeground(new Color(219, 219, 219));
-		accountNavLbl.setBackground(new Color(70, 163, 100));
-		accountNavLbl.setForeground(new Color(219, 219, 219));
 		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
 		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
 		myInformationLbl.setBackground(new Color(70, 163, 100));
@@ -389,17 +376,10 @@ public class DashboardForManager extends JFrame {
 		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
 		myInformationLbl.setBackground(new Color(70, 163, 100));
 		myInformationLbl.setForeground(new Color(219, 219, 219));
-		accountNavLbl.setBackground(new Color(70, 163, 100));
-		accountNavLbl.setForeground(new Color(219, 219, 219));
 
 	}
 
 	public void clickChatNav() {
-
-		Login view = new Login();
-		view.setUserName("Manager");
-		view.setVisible(true);
-
 		ChatNavLbl_1.setBackground(new Color(220, 242, 227));
 		ChatNavLbl_1.setForeground(new Color(0, 125, 40));
 
@@ -419,10 +399,35 @@ public class DashboardForManager extends JFrame {
 		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
 		myInformationLbl.setBackground(new Color(70, 163, 100));
 		myInformationLbl.setForeground(new Color(219, 219, 219));
+		
+		Login view = new Login();
+		view.setUserName("Manager");
+		view.setVisible(true);
+
 
 	}
 
 	public void clickMyInformationNav() {
+		myInformationLbl.setBackground(new Color(220, 242, 227));
+		myInformationLbl.setForeground(new Color(0, 125, 40));
+		
+		productNavLbl.setBackground(new Color(70, 163, 100));
+		productNavLbl.setForeground(new Color(219, 219, 219));
+		statisticalNavLbl.setBackground(new Color(70, 163, 100));
+		statisticalNavLbl.setForeground(new Color(219, 219, 219));
+		supplierNavLbl.setBackground(new Color(70, 163, 100));
+		supplierNavLbl.setForeground(new Color(219, 219, 219));
+		importProductNavLbl.setBackground(new Color(70, 163, 100));
+		importProductNavLbl.setForeground(new Color(219, 219, 219));
+		importCouponNavLbl.setBackground(new Color(70, 163, 100));
+		importCouponNavLbl.setForeground(new Color(219, 219, 219));
+		exportProductNavLbl.setBackground(new Color(70, 163, 100));
+		exportProductNavLbl.setForeground(new Color(219, 219, 219));
+		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
+		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
+		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
+		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
+		
 		new MyInformationView(accountReturn);
 	}
 

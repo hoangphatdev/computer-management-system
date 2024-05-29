@@ -36,6 +36,8 @@ import javax.swing.ImageIcon;
 
 import javax.swing.Box;
 import javax.swing.border.BevelBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 public class SupplierView extends JPanel {
 	public static DefaultTableModel model;
 	private static final long serialVersionUID = 1L;
@@ -63,8 +65,6 @@ public class SupplierView extends JPanel {
 	}
 	
 	public void init() {
-		setBackground(new Color(70, 163, 100));
-		
 		SupplierController SupplierController = new SupplierController(this);
 		this.setSize(1250,800);
 		setLayout(null);
@@ -88,27 +88,26 @@ public class SupplierView extends JPanel {
 		scrollPane.setViewportView(table);
 		searchTxt = new JTextField();
 		searchTxt.addKeyListener(SupplierController);
-		searchTxt.setBounds(792, 54, 385, 40);
+		searchTxt.setBounds(792, 72, 385, 40);
 		add(searchTxt);
 		searchTxt.setColumns(10);
 		
-		JLabel searchLbl = new JLabel("Search:");
-		searchLbl.setForeground(new Color(255, 255, 255));
-		searchLbl.setFont(new Font("Dialog", Font.BOLD, 17));
-		searchLbl.setBounds(793, 10, 134, 48);
-		add(searchLbl);
-		
 		Box verticalBox = Box.createVerticalBox();
 		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox.setBounds(772, 20, 427, 102);
+		verticalBox.setBounds(772, 38, 427, 102);
 		add(verticalBox);
+		
+		JLabel searchLbl = new JLabel("Search:");
+		verticalBox.add(searchLbl);
+		searchLbl.setForeground(new Color(6, 191, 33));
+		searchLbl.setFont(new Font("Dialog", Font.BOLD, 17));
 		
 		btnadd = new JButton("Add");
 		btnadd.setForeground(new Color(6, 191, 33));
 		btnadd.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\add 25.png"));
 		btnadd.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnadd.setBackground(new Color(171, 214, 177));
-		btnadd.setBounds(36, 50, 120, 40);
+		btnadd.setBounds(36, 50, 190, 40);
 		add(btnadd);
 		btnadd.addMouseListener(SupplierController);
 		
@@ -117,7 +116,7 @@ public class SupplierView extends JPanel {
 		 btndelete.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\cancel 30.png"));
 		 btndelete.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btndelete.setBackground(new Color(171, 214, 177));
-		btndelete.setBounds(36, 100, 159, 40);
+		btndelete.setBounds(36, 112, 190, 40);
 		add(btndelete);
 		btndelete.addMouseListener(SupplierController);
 		
@@ -126,7 +125,7 @@ public class SupplierView extends JPanel {
 		 btnUpdate.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\edit 30.png"));
 		 btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnUpdate.setBackground(new Color(171, 214, 177));
-		btnUpdate.setBounds(36, 153, 190, 40);
+		btnUpdate.setBounds(36, 167, 190, 40);
 		add(btnUpdate);
 		btnUpdate.addMouseListener(SupplierController);
 		
@@ -135,15 +134,8 @@ public class SupplierView extends JPanel {
 		btnExcel.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
 		btnExcel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnExcel.setBackground(new Color(171, 214, 177));
-		btnExcel.setBounds(1018, 193, 181, 40);
+		btnExcel.setBounds(1018, 167, 181, 40);
 		add(btnExcel);
-		
-		JLabel searchLbl_1 = new JLabel("");
-		searchLbl_1.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\logo2.png"));
-		searchLbl_1.setForeground(new Color(6, 191, 33));
-		searchLbl_1.setFont(new Font("Dialog", Font.BOLD, 17));
-		searchLbl_1.setBounds(373, 10, 673, 424);
-		add(searchLbl_1);
 		btnExcel.addMouseListener(SupplierController);
 	}
 	public void clickAddLbl() {

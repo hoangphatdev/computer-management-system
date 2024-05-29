@@ -52,6 +52,8 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ImportCouponView extends JPanel {
 	public static DefaultTableModel model;
@@ -99,7 +101,6 @@ public class ImportCouponView extends JPanel {
 	}
 
 	public ImportCouponView() {
-
 		init();
 		displayTable();
 		this.ICF = ICF;
@@ -109,7 +110,6 @@ public class ImportCouponView extends JPanel {
 		ImportsCouponController importsCouponController = new ImportsCouponController(this);
 		this.setSize(1250, 800);
 		setLayout(null);
-		setBackground(new Color(70, 163, 100));
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(36, 243, 1163, 466);
@@ -126,20 +126,19 @@ public class ImportCouponView extends JPanel {
 		scrollPane.setViewportView(table);
 		searchTxt = new JTextField();
 		searchTxt.addKeyListener(importsCouponController);
-		searchTxt.setBounds(792, 54, 385, 40);
+		searchTxt.setBounds(790, 83, 385, 40);
 		add(searchTxt);
 		searchTxt.setColumns(10);
 
-		JLabel searchLbl = new JLabel("Search:");
-		searchLbl.setForeground(new Color(255, 255, 255));
-		searchLbl.setFont(new Font("Dialog", Font.BOLD, 17));
-		searchLbl.setBounds(793, 10, 134, 48);
-		add(searchLbl);
-
 		Box verticalBox = Box.createVerticalBox();
 		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox.setBounds(772, 20, 427, 102);
+		verticalBox.setBounds(770, 49, 427, 102);
 		add(verticalBox);
+
+		JLabel searchLbl = new JLabel("Search:");
+		verticalBox.add(searchLbl);
+		searchLbl.setForeground(new Color(6, 191, 33));
+		searchLbl.setFont(new Font("Dialog", Font.BOLD, 17));
 
 		btndelete = new JButton("Delete");
 		btndelete.setForeground(new Color(6, 191, 33));
@@ -147,7 +146,7 @@ public class ImportCouponView extends JPanel {
 				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\cancel 30.png"));
 		btndelete.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btndelete.setBackground(new Color(171, 214, 177));
-		btndelete.setBounds(36, 86, 159, 40);
+		btndelete.setBounds(36, 49, 223, 40);
 		add(btndelete);
 		btndelete.addMouseListener(importsCouponController);
 
@@ -157,7 +156,7 @@ public class ImportCouponView extends JPanel {
 				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\edit 30.png"));
 		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnUpdate.setBackground(new Color(171, 214, 177));
-		btnUpdate.setBounds(36, 136, 190, 40);
+		btnUpdate.setBounds(36, 114, 223, 40);
 		add(btnUpdate);
 		btnUpdate.addMouseListener(importsCouponController);
 
@@ -167,7 +166,7 @@ public class ImportCouponView extends JPanel {
 				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
 		btnExcel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnExcel.setBackground(new Color(171, 214, 177));
-		btnExcel.setBounds(1018, 193, 181, 40);
+		btnExcel.setBounds(1012, 176, 181, 40);
 		add(btnExcel);
 		btnExcel.addMouseListener(importsCouponController);
 
@@ -177,7 +176,7 @@ public class ImportCouponView extends JPanel {
 		btnshowdetail.setForeground(new Color(6, 191, 33));
 		btnshowdetail.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnshowdetail.setBackground(new Color(171, 214, 177));
-		btnshowdetail.setBounds(36, 186, 223, 40);
+		btnshowdetail.setBounds(36, 176, 223, 40);
 		add(btnshowdetail);
 		btnshowdetail.addMouseListener(importsCouponController);
 
@@ -187,7 +186,7 @@ public class ImportCouponView extends JPanel {
 		btnRefresh.setForeground(new Color(6, 191, 33));
 		btnRefresh.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnRefresh.setBackground(new Color(171, 214, 177));
-		btnRefresh.setBounds(837, 193, 159, 40);
+		btnRefresh.setBounds(819, 176, 181, 40);
 		add(btnRefresh);
 		btnRefresh.addMouseListener(importsCouponController);
 

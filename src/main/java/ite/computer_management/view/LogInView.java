@@ -116,40 +116,6 @@ public class LogInView extends JFrame {
 
 		logInBtn = new JButton("LOG IN");
 		logInBtn.setBackground(SystemColor.activeCaptionBorder);
-//        Nut_Dangnhap.addActionListener(new ActionListener() {
-//            ResultSet rs;
-//            @SuppressWarnings("deprecation")
-//            public void actionPerformed(ActionEvent e) {
-//                try {     
-//                    Connection c = DriverManager.getConnection(url, user, pas);
-//                    // Kiểm tra nếu không nhập dữ liệu tài khoản và mật khẩu
-//                    if (taikhoan_text.getText().isEmpty() || mk_text.getText().isEmpty()) {
-//                        JOptionPane.showMessageDialog(null, "Vui lòng nhập tài khoản và mật khẩu");
-//                        return;
-//                    }
-//
-//                    String sql = "select * from dangnhap where (taikhoan=? or gmail=?) and matkhau=?";
-//                    PreparedStatement ps = c.prepareStatement(sql);
-//
-//                    ps.setString(1, taikhoan_text.getText());
-//                    ps.setString(2, taikhoan_text.getText());
-//                    ps.setString(3, mk_text.getText());
-//
-//                    rs = ps.executeQuery();
-//
-//                    if (rs.next()) {
-//                    		JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
-//                           
-//                         
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản và mật khẩu");
-//                    }
-//                } catch (Exception e2) {
-//                    e2.printStackTrace();
-//                    JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi đăng nhập");
-//                }
-//            }
-//        });
 		logInBtn.setFont(new Font("Arial", Font.BOLD, 14));
 		logInBtn.setBounds(435, 308, 128, 29);
 		logInBtn.addMouseListener(logInController);
@@ -234,17 +200,17 @@ public class LogInView extends JFrame {
 
 		Account accountReturn = AccountDAO.getInstance().select1AccountAndReturnRole(account);
 		if (accountReturn.getRole().equalsIgnoreCase("manager")) {
-			this.dispose();
 			new DashboardForManager(accountReturn);
-		} else if (accountReturn.getRole().equalsIgnoreCase("importStaff")) {
 			this.dispose();
+		} else if (accountReturn.getRole().equalsIgnoreCase("importStaff")) {
 			new DashboardForImportStaff(accountReturn);
+			this.dispose();
 		} else if (accountReturn.getRole().equalsIgnoreCase("exportStaff")) {
 			new DashboardForExportStaff(accountReturn);
 			this.dispose();
 		} else if (accountReturn.getRole().equalsIgnoreCase("admin")) {
-			this.dispose();
 			new Dashboard(accountReturn);
+			this.dispose();
 		} else {
 			JOptionPane.showMessageDialog(null, "Account doesn't exist :(");
 		}
