@@ -16,10 +16,15 @@ public class DashboardForImportStaffController implements MouseListener {
 			dashboardForImportStaff.clickImportCouponNav();
 		}else if(e.getSource() == dashboardForImportStaff.importProductNavLbl) {
 			dashboardForImportStaff.clickImportProductNav();
+
+		}else if(e.getSource() == dashboardForImportStaff.myInformationLbl) {
+			dashboardForImportStaff.clickMyInformationNav();
+
 		}else if(e.getSource() == dashboardForImportStaff.chatNavLbl_1) {
 			dashboardForImportStaff.clickChatNav();
 		}else if(e.getSource() == dashboardForImportStaff.logOutNavLbl) {
 			dashboardForImportStaff.clickLogoutNav();
+
 		}
 	}  
 

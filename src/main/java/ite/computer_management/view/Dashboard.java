@@ -11,6 +11,7 @@ import chart.Columnchart;
 import ite.computer_management.controller.DashboardController;
 import ite.computer_management.controller.ProductController;
 import ite.computer_management.dao.ImportDAO;
+import ite.computer_management.model.Account;
 import main.Login;
 
 import java.awt.Color;
@@ -54,12 +55,15 @@ public class Dashboard extends JFrame {
 	public JLabel statisticalchart;
 	public JLabel Chatlb1;
 	public LogInView loginview;
-	public Dashboard() {
-		init();
+	Account accountReturn;
+	public Dashboard(Account accountReturn) {
+		this.accountReturn = accountReturn;
+		init();  
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 	public void init() {
+		Account account = accountReturn;
 		DashboardController dashboardController = new DashboardController(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1500, 800);
@@ -67,7 +71,7 @@ public class Dashboard extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(254, -20, 1250, 800);
 		contentPane.add(tabbedPane);
@@ -221,6 +225,12 @@ public class Dashboard extends JFrame {
 		   Chatlb1.setBackground(new Color(51, 51, 102));
 		   Chatlb1.setBounds(1, 578, 250, 50);
 		   navPanel.add(Chatlb1);
+		   
+		   String xinchao = "xin chao  " + accountReturn.getFullName();
+		   JLabel xinchaoLbl = new JLabel(xinchao);
+		   xinchaoLbl.setFont(new Font("JetBrainsMono Nerd Font", Font.BOLD, 17));
+		   xinchaoLbl.setBounds(11, 474, 208, 86);
+		   navPanel.add(xinchaoLbl);
 		   Chatlb1.addMouseListener(dashboardController);
 	}
 	
@@ -421,7 +431,7 @@ public class Dashboard extends JFrame {
 
 	}
 	public void clickMyInformation() {
-		new MyInformationView();
+		new MyInformationView(accountReturn);
 	}
 	public void clickLogoutNav() {
 		Window window = SwingUtilities.getWindowAncestor(logOutNavLbl); 

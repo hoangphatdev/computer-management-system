@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import ite.computer_management.model.Account;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -21,6 +24,7 @@ public class MyInformationView extends JFrame {
 	private JPanel contentPane;
 	public JLabel changePasswordBtn;
 	public JLabel informationBtn; 
+	static Account account;
 
 	/**
 	 * Launch the application.
@@ -29,7 +33,7 @@ public class MyInformationView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MyInformationView frame = new MyInformationView();
+					MyInformationView frame = new MyInformationView(account);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +45,8 @@ public class MyInformationView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MyInformationView() {
+	public MyInformationView(Account account) {
+		this.account = account;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 696, 563);
 		contentPane = new JPanel();
@@ -61,11 +66,11 @@ public class MyInformationView extends JFrame {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 228, 696, 289);
-		Sub1MyInformation sub1MyInformation = new Sub1MyInformation();
+		Sub1MyInformation sub1MyInformation = new Sub1MyInformation(account);
 		tabbedPane.add(sub1MyInformation);
 		contentPane.add(tabbedPane);
 		
-		Sub2MyInformation sub2MyInformation = new Sub2MyInformation();
+		Sub2MyInformation sub2MyInformation = new Sub2MyInformation(account);
 		tabbedPane.add(sub2MyInformation);
 		
 		informationBtn = new JLabel("Information");
