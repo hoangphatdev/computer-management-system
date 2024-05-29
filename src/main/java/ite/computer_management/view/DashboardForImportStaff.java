@@ -168,7 +168,7 @@ public class DashboardForImportStaff extends JFrame {
 		importCouponNavLbl.setForeground(new Color(219, 219, 219));
 		
 		Login view = new Login();
-		view.setUserName("Import Staff");
+		
 		view.setVisible(true);
 		
 	}

@@ -401,7 +401,7 @@ public class DashboardForManager extends JFrame {
 		myInformationLbl.setForeground(new Color(219, 219, 219));
 		
 		Login view = new Login();
-		view.setUserName("Manager");
+		
 		view.setVisible(true);
 
 

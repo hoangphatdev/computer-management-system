@@ -63,15 +63,12 @@ public class Login extends JFrame {
 
     private void open() {
         setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\Chat-room.png"));
-       
+        Method.setTextFieldSyle(txtUser, "User Name");
         Method.setTextFieldSyle(txtIP, "IP Address");
         showStatus(ms);
         
     }
-    public void setUserName(String userName) {
-        txtUser.setText(userName);
-        
-    }
+
 
    
     @SuppressWarnings("unchecked")
@@ -81,7 +78,7 @@ public class Login extends JFrame {
         jPanel1 = new JPanel();
         txtIP = new JTextField();
         txtUser = new JTextField();
-        txtUser.setEditable(false);
+       
 
         cmdLogin = new Button();
         jLayeredPane1 = new JLayeredPane();
@@ -111,7 +108,11 @@ public class Login extends JFrame {
         txtUser.setHorizontalAlignment( JTextField.CENTER);
         txtUser.setBorder( BorderFactory.createEmptyBorder(1, 10, 1, 10));
         txtUser.setSelectionColor(new Color(131, 188, 227));
-  
+        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUserKeyTyped(evt);
+            }
+        });
 
         cmdLogin.setBackground(new java.awt.Color(101, 167, 232));
         cmdLogin.setForeground(new java.awt.Color(255, 255, 255));
