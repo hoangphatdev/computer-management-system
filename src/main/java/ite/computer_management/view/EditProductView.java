@@ -19,6 +19,8 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.math.BigDecimal;
 import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EditProductView extends JFrame {
 
@@ -73,7 +75,7 @@ public class EditProductView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 500);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 0, 51));
+//		contentPane.setBackground(new Color(0, 0, 51));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -84,16 +86,16 @@ public class EditProductView extends JFrame {
 		computerNameLbl.setOpaque(true);
 		computerNameLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		computerNameLbl.setBounds(22, 35, 190, 41);
-		computerNameLbl.setForeground(new Color(222, 173, 91));
-		computerNameLbl.setBackground(new Color(51, 51, 102));
+		computerNameLbl.setBackground(new Color(70, 163, 100));
+		computerNameLbl.setForeground(new Color(219, 219, 219));
 		contentPane.add(computerNameLbl);
 		
 		JLabel computerCodeLbl = new JLabel("Computer Code");
 		computerCodeLbl.setFont(new Font("Dialog", Font.BOLD, 14));
 		computerCodeLbl.setOpaque(true);
 		computerCodeLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		computerCodeLbl.setBackground(new Color(51, 51, 102));
-		computerCodeLbl.setForeground(new Color(222, 173, 91));
+		computerCodeLbl.setBackground(new Color(70, 163, 100));
+		computerCodeLbl.setForeground(new Color(219, 219, 219));
 		computerCodeLbl.setBounds(237, 35, 190, 41);
 		contentPane.add(computerCodeLbl);
 		
@@ -102,16 +104,16 @@ public class EditProductView extends JFrame {
 		cpuLbl.setOpaque(true);
 		cpuLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		cpuLbl.setBounds(237, 136, 190, 41);
-		cpuLbl.setBackground(new Color(51, 51, 102));
-		cpuLbl.setForeground(new Color(222, 173, 91));
+		cpuLbl.setBackground(new Color(70, 163, 100));
+		cpuLbl.setForeground(new Color(219, 219, 219));
 		contentPane.add(cpuLbl);
 		
 		JLabel ramLbl = new JLabel("RAM");
 		ramLbl.setFont(new Font("Dialog", Font.BOLD, 14));
 		ramLbl.setOpaque(true);
 		ramLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		ramLbl.setForeground(new Color(222, 173, 91));
-		ramLbl.setBackground(new Color(51, 51, 102));
+		ramLbl.setBackground(new Color(70, 163, 100));
+		ramLbl.setForeground(new Color(219, 219, 219));
 		ramLbl.setBounds(22, 240, 190, 41);
 		contentPane.add(ramLbl);
 		
@@ -119,8 +121,8 @@ public class EditProductView extends JFrame {
 		screenCardLbl.setFont(new Font("Dialog", Font.BOLD, 14));
 		screenCardLbl.setOpaque(true);
 		screenCardLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		screenCardLbl.setBackground(new Color(51, 51, 102));
-		screenCardLbl.setForeground(new Color(222, 173, 91));
+		screenCardLbl.setBackground(new Color(70, 163, 100));
+		screenCardLbl.setForeground(new Color(219, 219, 219));
 		screenCardLbl.setBounds(237, 240, 190, 41);
 		contentPane.add(screenCardLbl);
 		
@@ -128,8 +130,8 @@ public class EditProductView extends JFrame {
 		screenSizeLbl.setFont(new Font("Dialog", Font.BOLD, 14));
 		screenSizeLbl.setOpaque(true);
 		screenSizeLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		screenSizeLbl.setForeground(new Color(222, 173, 91));
-		screenSizeLbl.setBackground(new Color(51, 51, 102));
+		screenSizeLbl.setBackground(new Color(70, 163, 100));
+		screenSizeLbl.setForeground(new Color(219, 219, 219));
 		screenSizeLbl.setBounds(237, 348, 190, 41);
 		contentPane.add(screenSizeLbl);
 		
@@ -137,8 +139,8 @@ public class EditProductView extends JFrame {
 		priceLbl.setFont(new Font("Dialog", Font.BOLD, 14));
 		priceLbl.setOpaque(true);
 		priceLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		priceLbl.setForeground(new Color(222, 173, 91));
-		priceLbl.setBackground(new Color(51, 51, 102));
+		priceLbl.setBackground(new Color(70, 163, 100));
+		priceLbl.setForeground(new Color(219, 219, 219));
 		priceLbl.setBounds(669, 35, 190, 41);
 		contentPane.add(priceLbl);
 		
@@ -146,8 +148,8 @@ public class EditProductView extends JFrame {
 		sourceCapacityLbl.setFont(new Font("Dialog", Font.BOLD, 14));
 		sourceCapacityLbl.setOpaque(true);
 		sourceCapacityLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		sourceCapacityLbl.setForeground(new Color(222, 173, 91));
-		sourceCapacityLbl.setBackground(new Color(51, 51, 102));
+		sourceCapacityLbl.setBackground(new Color(70, 163, 100));
+		sourceCapacityLbl.setForeground(new Color(219, 219, 219));
 		sourceCapacityLbl.setBounds(22, 348, 190, 41);
 		contentPane.add(sourceCapacityLbl);
 		
@@ -155,8 +157,8 @@ public class EditProductView extends JFrame {
 		romLbl.setFont(new Font("Dialog", Font.BOLD, 14));
 		romLbl.setOpaque(true);
 		romLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		romLbl.setForeground(new Color(222, 173, 91));
-		romLbl.setBackground(new Color(51, 51, 102));
+		romLbl.setBackground(new Color(70, 163, 100));
+		romLbl.setForeground(new Color(219, 219, 219));
 		romLbl.setBounds(22, 136, 190, 41);
 		contentPane.add(romLbl);
 		
@@ -164,8 +166,8 @@ public class EditProductView extends JFrame {
 		quantityLbl.setFont(new Font("Dialog", Font.BOLD, 14));
 		quantityLbl.setOpaque(true);
 		quantityLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		quantityLbl.setBackground(new Color(51, 51, 102));
-		quantityLbl.setForeground(new Color(222, 173, 91));
+		quantityLbl.setBackground(new Color(70, 163, 100));
+		quantityLbl.setForeground(new Color(219, 219, 219));
 		quantityLbl.setBounds(450, 35, 190, 41);
 		contentPane.add(quantityLbl);
 		
@@ -174,8 +176,8 @@ public class EditProductView extends JFrame {
 		originLbl.setFont(new Font("Dialog", Font.BOLD, 14));
 		originLbl.setOpaque(true);
 		originLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		originLbl.setForeground(new Color(222, 173, 91));
-		originLbl.setBackground(new Color(51, 51, 102));
+		originLbl.setBackground(new Color(70, 163, 100));
+		originLbl.setForeground(new Color(219, 219, 219));
 		originLbl.setBounds(450, 136, 190, 41);
 		contentPane.add(originLbl);
 		
@@ -183,8 +185,8 @@ public class EditProductView extends JFrame {
 		machineTypeLbl.setFont(new Font("Dialog", Font.BOLD, 14));
 		machineTypeLbl.setOpaque(true);
 		machineTypeLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		machineTypeLbl.setBackground(new Color(51, 51, 102));
-		machineTypeLbl.setForeground(new Color(222, 173, 91));
+		machineTypeLbl.setBackground(new Color(70, 163, 100));
+		machineTypeLbl.setForeground(new Color(219, 219, 219));
 		machineTypeLbl.setBounds(450, 240, 190, 41);
 		contentPane.add(machineTypeLbl);
 		
@@ -192,8 +194,8 @@ public class EditProductView extends JFrame {
 		batteryCapacityLbl.setFont(new Font("Dialog", Font.BOLD, 14));
 		batteryCapacityLbl.setOpaque(true);
 		batteryCapacityLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		batteryCapacityLbl.setBackground(new Color(51, 51, 102));
-		batteryCapacityLbl.setForeground(new Color(222, 173, 91));
+		batteryCapacityLbl.setBackground(new Color(70, 163, 100));
+		batteryCapacityLbl.setForeground(new Color(219, 219, 219));
 		batteryCapacityLbl.setBounds(450, 348, 190, 41);
 		contentPane.add(batteryCapacityLbl);
 		
@@ -277,18 +279,18 @@ public class EditProductView extends JFrame {
 		contentPane.add(romTxt);
 		
 		btnNewButton = new JButton("Save");
-		btnNewButton.setForeground(UIManager.getColor("Button.background"));
-		btnNewButton.setBackground(new Color(102, 0, 102));
+		btnNewButton.setForeground(new Color(70, 163, 100));
+		btnNewButton.setBackground(new Color(219, 219, 219));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnNewButton.setBounds(669, 178, 190, 41);
+		btnNewButton.setBounds(669, 175, 190, 41);
 		contentPane.add(btnNewButton);
 		btnNewButton.addMouseListener(editProductController);
 		
 		btnCancel_1 = new JButton("Cancel");
-		btnCancel_1.setBackground(Color.RED);
-		btnCancel_1.setForeground(Color.BLACK);
+		btnCancel_1.setBackground(new Color(219, 219, 219));
+		btnCancel_1.setForeground(new Color(235, 64, 21));
 		btnCancel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnCancel_1.setBounds(710, 390, 166, 41);
+		btnCancel_1.setBounds(669, 280, 190, 41);
 		contentPane.add(btnCancel_1);
 		btnCancel_1.addMouseListener(editProductController);
 		

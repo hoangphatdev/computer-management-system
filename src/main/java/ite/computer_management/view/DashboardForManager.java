@@ -109,8 +109,8 @@ SupplierView supplierView = new SupplierView(this);
 		productNavLbl.setIcon(new ImageIcon(
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-product-color\\icons8-product-30.png"));
 		productNavLbl.setBounds(1, 157, 250, 45);
-		productNavLbl.setBackground(new Color(51, 51, 102));
-		productNavLbl.setForeground(new Color(255, 255, 0));
+		productNavLbl.setBackground(new Color(220, 242, 227));
+		productNavLbl.setForeground(new Color(0, 125, 40));
 		productNavLbl.setOpaque(true);
 		productNavLbl.addMouseListener(dashboardForManagerController);
 		navPanel.add(productNavLbl);
@@ -236,18 +236,24 @@ SupplierView supplierView = new SupplierView(this);
 		productNavLbl.setBackground(new Color(25, 25, 112));
 		productNavLbl.setForeground(Color.WHITE);
 
-		supplierNavLbl.setBackground(new Color(51, 51, 102));
-		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
-		ChatNavLbl_1.setForeground(new Color(242, 230, 87));	
-		supplierNavLbl.setForeground(new Color(242, 230, 87));
-		importProductNavLbl.setBackground(new Color(51, 51, 102));
-		importProductNavLbl.setForeground(new Color(242, 230, 87));
-		importCouponNavLbl.setBackground(new Color(51, 51, 102));
-		importCouponNavLbl.setForeground(new Color(242, 230, 87));
-		exportProductNavLbl.setBackground(new Color(51, 51, 102));
-		exportProductNavLbl.setForeground(new Color(242, 230, 87));
-		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
-		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
+		statisticalNavLbl.setBackground(new Color(70, 163, 100));
+		statisticalNavLbl.setForeground(new Color(219, 219, 219));
+		supplierNavLbl.setBackground(new Color(70, 163, 100));
+		supplierNavLbl.setForeground(new Color(219, 219, 219));
+		importProductNavLbl.setBackground(new Color(70, 163, 100));
+		importProductNavLbl.setForeground(new Color(219, 219, 219));
+		importCouponNavLbl.setBackground(new Color(70, 163, 100));
+		importCouponNavLbl.setForeground(new Color(219, 219, 219));
+		exportProductNavLbl.setBackground(new Color(70, 163, 100));
+		exportProductNavLbl.setForeground(new Color(219, 219, 219));
+		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
+		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
+		accountNavLbl.setBackground(new Color(70, 163, 100));
+		accountNavLbl.setForeground(new Color(219, 219, 219));
+		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
+		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
+		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219, 219, 219));
 	}
 
 	public void clickImportProductNav() {
@@ -255,117 +261,150 @@ SupplierView supplierView = new SupplierView(this);
 		importProductNavLbl.setForeground(Color.WHITE);
 		this.tabbedPane.setSelectedIndex(2);
 
-		productNavLbl.setBackground(new Color(51, 51, 102));
-		productNavLbl.setForeground(new Color(242, 230, 87));
-		supplierNavLbl.setBackground(new Color(51, 51, 102));
-		supplierNavLbl.setForeground(new Color(242, 230, 87));
-		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
-		ChatNavLbl_1.setForeground(new Color(242, 230, 87));	
-		importCouponNavLbl.setBackground(new Color(51, 51, 102));
-		importCouponNavLbl.setForeground(new Color(242, 230, 87));
-		exportProductNavLbl.setBackground(new Color(51, 51, 102));
-		exportProductNavLbl.setForeground(new Color(242, 230, 87));
-		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
-		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
+		productNavLbl.setBackground(new Color(70, 163, 100));
+		productNavLbl.setForeground(new Color(219, 219, 219));
+		supplierNavLbl.setBackground(new Color(70, 163, 100));
+		supplierNavLbl.setForeground(new Color(219, 219, 219));
+		statisticalNavLbl.setBackground(new Color(70, 163, 100));
+		statisticalNavLbl.setForeground(new Color(219, 219, 219));
+		importCouponNavLbl.setBackground(new Color(70, 163, 100));
+		importCouponNavLbl.setForeground(new Color(219, 219, 219));
+		exportProductNavLbl.setBackground(new Color(70, 163, 100));
+		exportProductNavLbl.setForeground(new Color(219, 219, 219));
+		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
+		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
+		accountNavLbl.setBackground(new Color(70, 163, 100));
+		accountNavLbl.setForeground(new Color(219, 219, 219));
+		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
+		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
+		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219, 219, 219));
 	}
 
 	public void clickImportCouponNav() {
 		this.tabbedPane.setSelectedIndex(3);
-		importCouponNavLbl.setBackground(new Color(25, 25, 112));
-		importCouponNavLbl.setForeground(Color.WHITE);
+		importCouponNavLbl.setBackground(new Color(220, 242, 227));
+		importCouponNavLbl.setForeground(new Color(0, 125, 40));
 
-		productNavLbl.setBackground(new Color(51, 51, 102));
-		productNavLbl.setForeground(new Color(242, 230, 87));
-		supplierNavLbl.setBackground(new Color(51, 51, 102));
-		supplierNavLbl.setForeground(new Color(242, 230, 87));
-		importProductNavLbl.setBackground(new Color(51, 51, 102));
-		importProductNavLbl.setForeground(new Color(242, 230, 87));
-		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
-		ChatNavLbl_1.setForeground(new Color(242, 230, 87));	
-		exportProductNavLbl.setBackground(new Color(51, 51, 102));
-		exportProductNavLbl.setForeground(new Color(242, 230, 87));
-		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
-		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
+		productNavLbl.setBackground(new Color(70, 163, 100));
+		productNavLbl.setForeground(new Color(219, 219, 219));
+		supplierNavLbl.setBackground(new Color(70, 163, 100));
+		supplierNavLbl.setForeground(new Color(219, 219, 219));
+		importProductNavLbl.setBackground(new Color(70, 163, 100));
+		importProductNavLbl.setForeground(new Color(219, 219, 219));
+		statisticalNavLbl.setBackground(new Color(70, 163, 100));
+		statisticalNavLbl.setForeground(new Color(219, 219, 219));
+		exportProductNavLbl.setBackground(new Color(70, 163, 100));
+		exportProductNavLbl.setForeground(new Color(219, 219, 219));
+		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
+		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
+		accountNavLbl.setBackground(new Color(70, 163, 100));
+		accountNavLbl.setForeground(new Color(219, 219, 219));
+		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
+		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
+		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219, 219, 219));
 	}
 
 	public void clickExportProductNav() {
 		this.tabbedPane.setSelectedIndex(4);
-		exportProductNavLbl.setBackground(new Color(25, 25, 112));
-		exportProductNavLbl.setForeground(Color.WHITE);
+		exportProductNavLbl.setBackground(new Color(220, 242, 227));
+		exportProductNavLbl.setForeground(new Color(0, 125, 40));
 
-		productNavLbl.setBackground(new Color(51, 51, 102));
-		productNavLbl.setForeground(new Color(242, 230, 87));
-		supplierNavLbl.setBackground(new Color(51, 51, 102));
-		supplierNavLbl.setForeground(new Color(242, 230, 87));
-		importProductNavLbl.setBackground(new Color(51, 51, 102));
-		importProductNavLbl.setForeground(new Color(242, 230, 87));
-		importCouponNavLbl.setBackground(new Color(51, 51, 102));
-		importCouponNavLbl.setForeground(new Color(242, 230, 87));
-		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
-		ChatNavLbl_1.setForeground(new Color(242, 230, 87));	
-		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
-		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
-	}
+		productNavLbl.setBackground(new Color(70, 163, 100));
+		productNavLbl.setForeground(new Color(219, 219, 219));
+		supplierNavLbl.setBackground(new Color(70, 163, 100));
+		supplierNavLbl.setForeground(new Color(219, 219, 219));
+		importProductNavLbl.setBackground(new Color(70, 163, 100));
+		importProductNavLbl.setForeground(new Color(219, 219, 219));
+		importCouponNavLbl.setBackground(new Color(70, 163, 100));
+		importCouponNavLbl.setForeground(new Color(219, 219, 219));
+		statisticalNavLbl.setBackground(new Color(70, 163, 100));
+		statisticalNavLbl.setForeground(new Color(219, 219, 219));
+		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
+		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
+		accountNavLbl.setBackground(new Color(70, 163, 100));
+		accountNavLbl.setForeground(new Color(219, 219, 219));
+		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
+		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
+		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219, 219, 219));	}
 
 	public void clickExportCouponNav() {
 		this.tabbedPane.setSelectedIndex(5);
-		exportCouponNavLbl.setBackground(new Color(25, 25, 112));
-		exportCouponNavLbl.setForeground(Color.WHITE);
+		exportCouponNavLbl.setBackground(new Color(220, 242, 227));
+		exportCouponNavLbl.setForeground( new Color(0, 125, 40));
 
-		productNavLbl.setBackground(new Color(51, 51, 102));
-		productNavLbl.setForeground(new Color(242, 230, 87));
-		supplierNavLbl.setBackground(new Color(51, 51, 102));
-		supplierNavLbl.setForeground(new Color(242, 230, 87));
-		importProductNavLbl.setBackground(new Color(51, 51, 102));
-		importProductNavLbl.setForeground(new Color(242, 230, 87));
-		importCouponNavLbl.setBackground(new Color(51, 51, 102));
-		importCouponNavLbl.setForeground(new Color(242, 230, 87));
-		exportProductNavLbl.setBackground(new Color(51, 51, 102));
-		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
-		ChatNavLbl_1.setForeground(new Color(242, 230, 87));	
-		exportProductNavLbl.setForeground(new Color(242, 230, 87));
+		productNavLbl.setBackground(new Color(70, 163, 100));
+		productNavLbl.setForeground(new Color(219, 219, 219));
+		supplierNavLbl.setBackground(new Color(70, 163, 100));
+		supplierNavLbl.setForeground(new Color(219, 219, 219));
+		importProductNavLbl.setBackground(new Color(70, 163, 100));
+		importProductNavLbl.setForeground(new Color(219, 219, 219));
+		importCouponNavLbl.setBackground(new Color(70, 163, 100));
+		importCouponNavLbl.setForeground(new Color(219, 219, 219));
+		exportProductNavLbl.setBackground(new Color(70, 163, 100));
+		exportProductNavLbl.setForeground(new Color(219, 219, 219));
+		statisticalNavLbl.setBackground(new Color(70, 163, 100));
+		statisticalNavLbl.setForeground(new Color(219, 219, 219));
+		accountNavLbl.setBackground(new Color(70, 163, 100));
+		accountNavLbl.setForeground(new Color(219, 219, 219));
+		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
+		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
+		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219, 219, 219));
 
 	}
 
 	public void clickStatisticalNav() {
-		statisticalNavLbl.setBackground(new Color(236, 237, 221));
-		statisticalNavLbl.setForeground(new Color(217, 209, 72));
+		statisticalNavLbl.setBackground(new Color(220, 242, 227));
+		statisticalNavLbl.setForeground(new Color(0, 125, 40));
 
-		productNavLbl.setBackground(new Color(51, 51, 102));
-		productNavLbl.setForeground(new Color(242, 230, 87));
-		supplierNavLbl.setBackground(new Color(51, 51, 102));
-		supplierNavLbl.setForeground(new Color(242, 230, 87));
-		importProductNavLbl.setBackground(new Color(51, 51, 102));
-		importProductNavLbl.setForeground(new Color(242, 230, 87));
-		importCouponNavLbl.setBackground(new Color(51, 51, 102));
-		importCouponNavLbl.setForeground(new Color(242, 230, 87));
-		exportProductNavLbl.setBackground(new Color(51, 51, 102));
-		exportProductNavLbl.setForeground(new Color(242, 230, 87));
-		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
-		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
-		ChatNavLbl_1.setForeground(new Color(242, 230, 87));	
-		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
+		productNavLbl.setBackground(new Color(70, 163, 100));
+		productNavLbl.setForeground(new Color(219, 219, 219));
+		supplierNavLbl.setBackground(new Color(70, 163, 100));
+		supplierNavLbl.setForeground(new Color(219, 219, 219));
+		importProductNavLbl.setBackground(new Color(70, 163, 100));
+		importProductNavLbl.setForeground(new Color(219, 219, 219));
+		importCouponNavLbl.setBackground(new Color(70, 163, 100));
+		importCouponNavLbl.setForeground(new Color(219, 219, 219));
+		exportProductNavLbl.setBackground(new Color(70, 163, 100));
+		exportProductNavLbl.setForeground(new Color(219, 219, 219));
+		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
+		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
+		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
+		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
+		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219, 219, 219));
+		accountNavLbl.setBackground(new Color(70, 163, 100));
+		accountNavLbl.setForeground(new Color(219, 219, 219));;
 
 	}
 	public void clickChatNav() {
-		ChatNavLbl_1.setBackground(new Color(25, 25, 112));
-		ChatNavLbl_1.setForeground(Color.WHITE);
+		ChatNavLbl_1.setBackground( new Color(220, 242, 227) );
+		ChatNavLbl_1.setForeground( new Color(0, 125, 40) );
 		Login view = new Login();
 		view.setUserName("Manager");
 		view.setVisible(true);
 		
-		productNavLbl.setBackground(new Color(51, 51, 102));
-		productNavLbl.setForeground(new Color(242, 230, 87));
-		supplierNavLbl.setBackground(new Color(51, 51, 102));
-		supplierNavLbl.setForeground(new Color(242, 230, 87));
-		importProductNavLbl.setBackground(new Color(51, 51, 102));
-		importProductNavLbl.setForeground(new Color(242, 230, 87));
-		importCouponNavLbl.setBackground(new Color(51, 51, 102));
-		importCouponNavLbl.setForeground(new Color(242, 230, 87));
-		exportProductNavLbl.setBackground(new Color(51, 51, 102));
-		exportProductNavLbl.setForeground(new Color(242, 230, 87));
-		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
-		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
+				
+		
+		productNavLbl.setBackground(new Color(70, 163, 100));
+		productNavLbl.setForeground(new Color(219, 219, 219));
+		statisticalNavLbl.setBackground(new Color(70, 163, 100));
+		statisticalNavLbl.setForeground(new Color(219, 219, 219));
+		supplierNavLbl.setBackground(new Color(70, 163, 100));
+		supplierNavLbl.setForeground(new Color(219, 219, 219));
+		importProductNavLbl.setBackground(new Color(70, 163, 100));
+		importProductNavLbl.setForeground(new Color(219, 219, 219));
+		importCouponNavLbl.setBackground(new Color(70, 163, 100));
+		importCouponNavLbl.setForeground(new Color(219, 219, 219));
+		exportProductNavLbl.setBackground(new Color(70, 163, 100));
+		exportProductNavLbl.setForeground(new Color(219, 219, 219));
+		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
+		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
+		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219, 219, 219));
 
 	}
 	public void clickMyInformationNav() {

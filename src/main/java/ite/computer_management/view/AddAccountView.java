@@ -76,8 +76,8 @@ public class AddAccountView extends JFrame {
 		fullNameLbl.setFont(new Font("Inter", Font.BOLD, 13));
 		fullNameLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		fullNameLbl.setBounds(105, 141, 138, 35);
-		fullNameLbl.setBackground(new Color(54, 51, 46));
-		fullNameLbl.setForeground(new Color(222, 173, 91));
+		fullNameLbl.setBackground(new Color(70, 163, 100));
+		fullNameLbl.setForeground(new Color(219, 219, 219));
 		fullNameLbl.setOpaque(true);
 		contentPane.add(fullNameLbl);
 		
@@ -85,8 +85,8 @@ public class AddAccountView extends JFrame {
 		userNameLbl.setFont(new Font("Inter", Font.BOLD, 13));
 		userNameLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		userNameLbl.setBounds(105, 194, 138, 35);
-		userNameLbl.setBackground(new Color(54, 51, 46));
-		userNameLbl.setForeground(new Color(222, 173, 91));
+		userNameLbl.setBackground(new Color(70, 163, 100));
+		userNameLbl.setForeground(new Color(219, 219, 219));
 		userNameLbl.setOpaque(true);
 		contentPane.add(userNameLbl);
 		
@@ -94,8 +94,8 @@ public class AddAccountView extends JFrame {
 		passwordLbl.setFont(new Font("Inter", Font.BOLD, 13));
 		passwordLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		passwordLbl.setBounds(105, 251, 138, 35);
-		passwordLbl.setBackground(new Color(54, 51, 46));
-		passwordLbl.setForeground(new Color(222, 173, 91));
+		passwordLbl.setBackground(new Color(70, 163, 100));
+		passwordLbl.setForeground(new Color(219, 219, 219));
 		passwordLbl.setOpaque(true);
 		contentPane.add(passwordLbl);
 		
@@ -103,8 +103,8 @@ public class AddAccountView extends JFrame {
 		roleLbl.setFont(new Font("Inter", Font.BOLD, 13));
 		roleLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		roleLbl.setBounds(105, 306, 138, 35);
-		roleLbl.setBackground(new Color(54, 51, 46));
-		roleLbl.setForeground(new Color(222, 173, 91));
+		roleLbl.setBackground(new Color(70, 163, 100));
+		roleLbl.setForeground(new Color(219, 219, 219));
 		roleLbl.setOpaque(true);
 		contentPane.add(roleLbl);
 		
@@ -130,8 +130,8 @@ public class AddAccountView extends JFrame {
 		titleLbl.setFont(new Font("Bakery", Font.PLAIN, 28));
 		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLbl.setBounds(0, 0, 621, 109);
-		titleLbl.setBackground(new Color(54, 51, 46));
-		titleLbl.setForeground(new Color(222, 173, 91));
+		titleLbl.setBackground(new Color(70, 163, 100));
+		titleLbl.setForeground(new Color(219, 219, 219));
 		titleLbl.setOpaque(true);
 		contentPane.add(titleLbl);
 		

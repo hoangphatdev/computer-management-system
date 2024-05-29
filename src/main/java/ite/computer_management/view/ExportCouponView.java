@@ -106,7 +106,7 @@ public class ExportCouponView extends JPanel {
 		ExportsCouponController exportsCouponController = new ExportsCouponController(this);
 		this.setSize(1250,800);
 		setLayout(null);
-		setBackground(new Color(72, 61, 139));
+		setBackground(new Color(70, 163, 100));
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(36, 243, 1163, 466);
 		add(scrollPane);
@@ -143,53 +143,46 @@ public class ExportCouponView extends JPanel {
 		add(verticalBox);
 		
 		 btndelete = new JButton("Delete");
-		 btndelete.setForeground(Color.WHITE);
+		 btndelete.setForeground(new Color(6, 191, 33));
 		 btndelete.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\cancel 30.png"));
 		 btndelete.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btndelete.setBackground(new Color(51, 0, 102));
+		btndelete.setBackground(new Color(171, 214, 177));
 		btndelete.setBounds(36, 86, 159, 40);
 		add(btndelete);
 		btndelete.addMouseListener(exportsCouponController);
 		
 		 btnUpdate = new JButton("Update");
-		 btnUpdate.setForeground(Color.WHITE);
+		 btnUpdate.setForeground(new Color(6, 191, 33));
 		 btnUpdate.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\edit 30.png"));
 		 btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnUpdate.setBackground(new Color(51, 0, 102));
+		btnUpdate.setBackground(new Color(171, 214, 177));
 		btnUpdate.setBounds(36, 136, 190, 40);
 		add(btnUpdate);
 		btnUpdate.addMouseListener(exportsCouponController);
 		
 		btnExcel = new JButton("Export excel");
-		btnExcel.setForeground(Color.WHITE);
+		btnExcel.setForeground(new Color(6, 191, 33));
 		btnExcel.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
 		btnExcel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnExcel.setBackground(new Color(51, 0, 102));
+		btnExcel.setBackground(new Color(171, 214, 177));
 		btnExcel.setBounds(1018, 193, 181, 40);
 		add(btnExcel);
 		btnExcel.addMouseListener(exportsCouponController);
 		
-		JLabel searchLbl_1 = new JLabel("");
-		searchLbl_1.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\logo2.png"));
-		searchLbl_1.setForeground(Color.WHITE);
-		searchLbl_1.setFont(new Font("Dialog", Font.BOLD, 17));
-		searchLbl_1.setBounds(179, 20, 673, 424);
-		add(searchLbl_1);
-		
 		btnshowdetail = new JButton("display detail");
 		btnshowdetail.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\detail 20.png"));
-		btnshowdetail.setForeground(Color.WHITE);
+		btnshowdetail.setForeground(new Color(6, 191, 33));
 		btnshowdetail.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnshowdetail.setBackground(new Color(51, 0, 102));
+		btnshowdetail.setBackground(new Color(171, 214, 177));
 		btnshowdetail.setBounds(36, 186, 223, 40);
 		add(btnshowdetail);
 		btnshowdetail.addMouseListener(exportsCouponController);
 		
 		btnRefresh = new JButton("Refresh");
 		btnRefresh.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
-		btnRefresh.setForeground(Color.WHITE);
+		btnRefresh.setForeground(new Color(6, 191, 33));
 		btnRefresh.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnRefresh.setBackground(new Color(51, 0, 102));
+		btnRefresh.setBackground(new Color(171, 214, 177));
 		btnRefresh.setBounds(837, 193, 159, 40);
 		add(btnRefresh);
 		btnRefresh.addMouseListener(exportsCouponController);

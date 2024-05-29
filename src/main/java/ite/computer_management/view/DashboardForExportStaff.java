@@ -20,7 +20,7 @@ import java.awt.Window;
 
 public class DashboardForExportStaff extends JFrame {
 
-	private static final long serialVersionUID = 1L;<<<<<< myInformation
+	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
 	public JLabel productNavLbl;
@@ -65,20 +65,22 @@ public class DashboardForExportStaff extends JFrame {
 		tabbedPane.addTab("Export coupon", exportCouponView);
 
 		navPanel = new JPanel();
-		navPanel.setForeground(new Color(0, 0, 0));
 		navPanel.setLayout(null);
 		navPanel.setBounds(0, 0, 250, 800);
-		navPanel.setBackground(new Color(0, 0, 51));
+		navPanel.setBackground(new Color(70, 163, 100));
+		navPanel.setForeground(new Color(0, 0, 0));
 		contentPane.add(navPanel);
 
-		JLabel greetingLbl = new JLabel("");
-		greetingLbl.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\lgo.png"));
+		String xinchao = "Hello  " + accountReturn.getFullName() +" <3";
+		JLabel greetingLbl = new JLabel(xinchao);
+		greetingLbl.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 19));
+//		greetingLbl.setIcon(new ImageIcon(
+//				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\lgo.png"));
 		greetingLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		greetingLbl.setBounds(1, 0, 250, 158);
-		greetingLbl.setBackground(new Color(0, 0, 51));
+		greetingLbl.setBounds(0, 0, 250, 158);
 		greetingLbl.setOpaque(true);
-		greetingLbl.setForeground(Color.black);
+		greetingLbl.setBackground(new Color(70, 163, 100));
+		greetingLbl.setForeground(new Color(219, 219, 219));
 		navPanel.add(greetingLbl);
 
 		exportProductNavLbl = new JLabel("Export Product");
@@ -86,21 +88,21 @@ public class DashboardForExportStaff extends JFrame {
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-import-goods-filled-outline\\icons8-import-goods-32.png"));
 		exportProductNavLbl.setOpaque(true);
 		exportProductNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		exportProductNavLbl.setBackground(new Color(51, 51, 102));
 		exportProductNavLbl.setBounds(1, 168, 250, 45);
 		exportProductNavLbl.addMouseListener(dashboardForExportStaffController);
-		exportProductNavLbl.setForeground(new Color(242, 230, 87));
+		exportProductNavLbl.setBackground(new Color(220, 242, 227));
+		exportProductNavLbl.setForeground(new Color(0, 125, 40));
 		navPanel.add(exportProductNavLbl);
-
+				      
 		exportCouponNavLbl = new JLabel("Export Coupon");
 		exportCouponNavLbl.setIcon(new ImageIcon(
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-note-30.png"));
 		exportCouponNavLbl.setOpaque(true);
 		exportCouponNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
 		exportCouponNavLbl.setBounds(1, 213, 250, 50);
 		exportCouponNavLbl.addMouseListener(dashboardForExportStaffController);
-		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
+		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
+		exportCouponNavLbl.setForeground(new Color(219,219,219));
 		navPanel.add(exportCouponNavLbl);
 
 		myInformationLbl = new JLabel("My Information");
@@ -108,10 +110,10 @@ public class DashboardForExportStaff extends JFrame {
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-user-office-m\\icons8-user-30.png"));
 		myInformationLbl.setOpaque(true);
 		myInformationLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		myInformationLbl.setBackground(new Color(51, 51, 102));
 		myInformationLbl.setBounds(0, 668, 250, 45);
 		myInformationLbl.addMouseListener(dashboardForExportStaffController);
-		myInformationLbl.setForeground(new Color(242, 230, 87));
+		myInformationLbl.setBackground(new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219,219,219));
 		navPanel.add(myInformationLbl);
 
 		logOutNavLbl = new JLabel("Log out");
@@ -119,17 +121,17 @@ public class DashboardForExportStaff extends JFrame {
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\log out\\icons8-log-out-32.png"));
 		logOutNavLbl.setOpaque(true);
 		logOutNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		logOutNavLbl.setBackground(new Color(51, 51, 102));
 		logOutNavLbl.setBounds(0, 712, 250, 50);
 		logOutNavLbl.addMouseListener(dashboardForExportStaffController);
-		logOutNavLbl.setForeground(new Color(242, 230, 87));
+		logOutNavLbl.setBackground(new Color(70, 163, 100));
+		logOutNavLbl.setForeground(new Color(219,219,219));
 		navPanel.add(logOutNavLbl);
 		
 		ChatNavLbl_1 = new JLabel("Chat");
 		ChatNavLbl_1.setOpaque(true);
-		ChatNavLbl_1.setForeground(new Color(242, 230, 87));
 		ChatNavLbl_1.setFont(new Font("Dialog", Font.BOLD, 15));
-		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
+		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
+		ChatNavLbl_1.setForeground(new Color(219,219,219));
 		ChatNavLbl_1.setBounds(1, 257, 250, 56);
 		navPanel.add(ChatNavLbl_1);
 		ChatNavLbl_1.addMouseListener(dashboardForExportStaffController);
@@ -137,37 +139,38 @@ public class DashboardForExportStaff extends JFrame {
 
 	public void clickExportProductNav() {
 		this.tabbedPane.setSelectedIndex(0);
-		exportProductNavLbl.setBackground(new Color(25, 25, 112));
-		exportProductNavLbl.setForeground(Color.WHITE);
-		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
-		ChatNavLbl_1.setForeground(new Color(242, 230, 87));		
-		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
-		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
+		exportProductNavLbl.setBackground(new Color(220, 242, 227));
+		exportProductNavLbl.setForeground(new Color(0, 125, 40));
+		
+		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
+		ChatNavLbl_1.setForeground(new Color(219, 219, 219));	
+		exportProductNavLbl.setBackground(new Color(70, 163, 100));
+		exportProductNavLbl.setForeground(new Color(219, 219, 219));
 	}
 
 	public void clickExportCouponNav() {
 		this.tabbedPane.setSelectedIndex(1);
-		exportCouponNavLbl.setBackground(new Color(25, 25, 112));
-		exportCouponNavLbl.setForeground(Color.WHITE);
+		exportCouponNavLbl.setBackground(new Color(220, 242, 227));
+		exportCouponNavLbl.setForeground(new Color(0, 125, 40));
 
-		exportProductNavLbl.setBackground(new Color(51, 51, 102));
-		exportProductNavLbl.setForeground(new Color(242, 230, 87));
-		ChatNavLbl_1.setBackground(new Color(51, 51, 102));
-		ChatNavLbl_1.setForeground(new Color(242, 230, 87));		
+		exportProductNavLbl.setBackground(new Color(70, 163, 100));
+		exportProductNavLbl.setForeground(new Color(219, 219, 219));
+		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
+		ChatNavLbl_1.setForeground(new Color(219, 219, 219));		
 	}
 	public void clickChatNav() {
 
-		ChatNavLbl_1.setBackground(new Color(25, 25, 112));
-		ChatNavLbl_1.setForeground(Color.WHITE);
+		ChatNavLbl_1.setBackground(new Color(220, 242, 227));
+		ChatNavLbl_1.setForeground( new Color(0, 125, 40) );
 		Login view = new Login();
 		view.setUserName("Export Staff");
 		view.setVisible(true);
 		
 		
-		exportProductNavLbl.setBackground(new Color(51, 51, 102));
-		exportProductNavLbl.setForeground(new Color(242, 230, 87));		   
-		exportCouponNavLbl.setBackground(new Color(51, 51, 102));
-		exportCouponNavLbl.setForeground(new Color(242, 230, 87));	
+		exportProductNavLbl.setBackground(new Color(70, 163, 100));
+		exportProductNavLbl.setForeground(new Color(219, 219, 219));
+		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
+		exportCouponNavLbl.setForeground(new Color(219, 219, 219));	
 		
 	}
 	public void clickMyInformationNav() {

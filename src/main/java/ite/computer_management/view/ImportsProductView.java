@@ -101,7 +101,7 @@ public class ImportsProductView extends JPanel {
 	    }
 	
 	public ImportsProductView() {
-		setBackground(new Color(72, 61, 139));
+		setBackground(new Color(70, 163, 100));
 	
 		init();
 		this.setVisible(true);

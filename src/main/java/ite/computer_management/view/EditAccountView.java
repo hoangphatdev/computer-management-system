@@ -10,9 +10,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.xmlbeans.impl.util.LongUTFDataInputStream;
+
 import ite.computer_management.controller.EditAccountController;
 import ite.computer_management.dao.AccountDAO;
-import ite.computer_management.model.Account; 
+import ite.computer_management.model.Account;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent; 
 public class EditAccountView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -36,7 +40,7 @@ public class EditAccountView extends JFrame {
 		EditAccountController editAccountController = new EditAccountController(this);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 938, 590);
+		setBounds(100, 100, 567, 495);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -44,53 +48,74 @@ public class EditAccountView extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel fullNameLbl = new JLabel("Full Name");
-		fullNameLbl.setBounds(71, 52, 131, 24);
+		fullNameLbl.setBounds(65, 27, 102, 36);
+		fullNameLbl.setOpaque(true);
+		fullNameLbl.setBackground(new Color(70, 163, 100));
+		fullNameLbl.setForeground(new Color(219, 219, 219));
 		contentPane.add(fullNameLbl);
 		
 		JLabel userNameLbl = new JLabel("User Name");
-		userNameLbl.setBounds(232, 52, 131, 24);
+		userNameLbl.setBounds(65, 113, 102, 36);
+		userNameLbl.setOpaque(true);
+		userNameLbl.setBackground(new Color(70, 163, 100));
+		userNameLbl.setForeground(new Color(219, 219, 219));
 		contentPane.add(userNameLbl);
 		
 		JLabel passwordLbl = new JLabel("Password");
-		passwordLbl.setBounds(415, 52, 131, 24);
+		passwordLbl.setBounds(65, 194,102, 36);
+		passwordLbl.setOpaque(true);
+		passwordLbl.setBackground(new Color(70, 163, 100));
+		passwordLbl.setForeground(new Color(219, 219, 219));
 		contentPane.add(passwordLbl);
 		
 		JLabel roleLbl = new JLabel("Role");
-		roleLbl.setBounds(606, 52, 131, 24);
+		roleLbl.setBounds(65, 277,102, 36);
+		roleLbl.setOpaque(true);
+		roleLbl.setBackground(new Color(70, 163, 100));
+		roleLbl.setForeground(new Color(219, 219, 219));
 		contentPane.add(roleLbl);
 		
 		fullNameTxt = new JTextField();
-		fullNameTxt.setBounds(65, 86, 147, 24);
+		fullNameTxt.setBounds(168, 29, 336, 36);
 		contentPane.add(fullNameTxt);
 		fullNameTxt.setColumns(10);
 		
 		userNameTxt = new JTextField();
 		userNameTxt.setColumns(10);
-		userNameTxt.setBounds(216, 86, 147, 24);
+		userNameTxt.setBounds(168, 114, 336, 36);
 		contentPane.add(userNameTxt);
 		
 		passwordTxt = new JTextField();
 		passwordTxt.setColumns(10);
-		passwordTxt.setBounds(373, 86, 147, 24);
+		passwordTxt.setBounds(168, 194, 336, 36);
 		contentPane.add(passwordTxt);
 		
 		roleTxt = new JTextField();
 		roleTxt.setColumns(10);
-		roleTxt.setBounds(541, 86, 147, 24);
+		roleTxt.setBounds(168, 277, 336, 36);
 		contentPane.add(roleTxt);
 		
 		updateBtn = new JButton("UPDATE");
-		updateBtn.setBounds(71, 390, 110, 30);
+		updateBtn.setBounds(65, 354, 110, 30);
+		updateBtn.setOpaque(true);
+		updateBtn.setBackground(new Color(219, 219, 219));
+		updateBtn.setForeground(new Color(70, 163, 100));
 		updateBtn.addMouseListener(editAccountController);
 		contentPane.add(updateBtn);
 		
 		cancelBtn = new JButton("CANCEL");
-		cancelBtn.setBounds(246, 395, 110, 30);
+		cancelBtn.setBounds(227, 354, 110, 30);
+		cancelBtn.setOpaque(true);
+		cancelBtn.setBackground(new Color(219, 219, 219));
+		cancelBtn.setForeground(new Color(70, 163, 100));
 		cancelBtn.addMouseListener(editAccountController);
 		contentPane.add(cancelBtn);
 		
 		refreshBtn = new JButton("REFRESH");
-		refreshBtn.setBounds(436, 390, 110, 30);
+		refreshBtn.setBounds(390, 354, 110, 30);
+		refreshBtn.setOpaque(true);
+		refreshBtn.setBackground(new Color(219, 219, 219));
+		refreshBtn.setForeground(new Color(70, 163, 100));
 		refreshBtn.addMouseListener(editAccountController);
 		contentPane.add(refreshBtn);
 	}
