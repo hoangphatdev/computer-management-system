@@ -60,6 +60,9 @@ public class LogInView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public String getUserName() {
+		return userNameTxt.getText();
+    }
 	public LogInView() {
 		LogInController logInController = new LogInController(this);
 		setTitle("Computer manegement");

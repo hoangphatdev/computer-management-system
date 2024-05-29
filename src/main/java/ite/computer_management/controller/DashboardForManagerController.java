@@ -29,11 +29,16 @@ public class DashboardForManagerController implements MouseListener {
 			dashboardForManager.clickStatisticalNav();
 		}else if(e.getSource() == dashboardForManager.ChatNavLbl_1) {
 			dashboardForManager.clickChatNav();
+
 		}else if(e.getSource() == dashboardForManager.myInformationLbl) {
 			dashboardForManager.clickMyInformationNav();
+
+		}else if(e.getSource() == dashboardForManager.logOutNavLbl) {
+			dashboardForManager.clickLogoutNav();
+
 		}
 	}
-
+	 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
