@@ -174,7 +174,7 @@ public class DashboardForExportStaff extends JFrame {
 		exportCouponNavLbl.setForeground(new Color(219, 219, 219));	
 
 		Login view = new Login();
-		view.setUserName("Export Staff");
+		
 		view.setVisible(true);
 	}
 	public void clickMyInformationNav() {

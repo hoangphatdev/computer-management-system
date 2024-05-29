@@ -66,7 +66,7 @@ public class ChangepassView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 935, 568);
         contentPane = 	new JPanel();
-        contentPane.setBackground(Color.LIGHT_GRAY);
+        contentPane.setBackground(new Color(144, 238, 144));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setLocationRelativeTo(null);
         setContentPane(contentPane);
@@ -220,7 +220,7 @@ public class ChangepassView extends JFrame {
         contentPane.add(dangnhap_1_1);
         
         JLabel lblLogIn = new JLabel("SISN UP");
-        lblLogIn.setForeground(SystemColor.window);
+        lblLogIn.setForeground(new Color(0, 0, 0));
         lblLogIn.setFont(new Font("Freestyle Script", Font.BOLD, 74));
         lblLogIn.setBounds(648, 105, 341, 177);
         contentPane.add(lblLogIn);
@@ -245,12 +245,6 @@ public class ChangepassView extends JFrame {
         verticalBox.add(dangnhap_1_2);
         dangnhap_1_2.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\backkkkkkkê.jpg"));
         dangnhap_1_2.setFont(new Font("Arial", Font.BOLD, 27));
-        
-        JLabel đ = new JLabel("");
-        đ.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\backkkkkkkê.jpg"));
-        đ.setFont(new Font("Arial", Font.BOLD, 27));
-        đ.setBounds(-10, -13, 929, 542);
-        contentPane.add(đ);
     }  
     private boolean changePasswordInDatabase(String username, String newPassword) throws SQLException {
         try (Connection conn = ConnectDatabase.getConnection()) {

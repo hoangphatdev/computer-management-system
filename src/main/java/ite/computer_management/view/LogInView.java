@@ -71,7 +71,7 @@ public class LogInView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 935, 568);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.LIGHT_GRAY);
+		contentPane.setBackground(new Color(152, 251, 152));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLocationRelativeTo(null);
 		setContentPane(contentPane);
@@ -176,17 +176,10 @@ public class LogInView extends JFrame {
 				dangnhap_1_2.setFont(new Font("Arial", Font.BOLD, 27));
 
 		JLabel lblLogIn = new JLabel("LOG IN ");
-		lblLogIn.setForeground(SystemColor.window);
+		lblLogIn.setForeground(new Color(0, 0, 0));
 		lblLogIn.setFont(new Font("Freestyle Script", Font.BOLD, 74));
 		lblLogIn.setBounds(32, 115, 341, 177);
 		contentPane.add(lblLogIn);
-
-		JLabel đ = new JLabel("");
-		đ.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\backkkkkkkê.jpg"));
-		đ.setFont(new Font("Arial", Font.BOLD, 27));
-		đ.setBounds(0, 0, 929, 542);
-		contentPane.add(đ);
 
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
@@ -194,26 +187,49 @@ public class LogInView extends JFrame {
 
 	public void clickLogInBtn() {
 		String userNameEnter = userNameTxt.getText();
-		String passwordEnter = passwordTxt.getText();
+		 char[] passwordChars = passwordTxt.getPassword(); 
+		    String passwordEnter = new String(passwordChars);
 		Account account = new Account(userNameEnter, passwordEnter);
 		System.out.print(passwordEnter);
 
 		Account accountReturn = AccountDAO.getInstance().select1AccountAndReturnRole(account);
-		if (accountReturn.getRole().equalsIgnoreCase("manager")) {
-			new DashboardForManager(accountReturn);
-			this.dispose();
-		} else if (accountReturn.getRole().equalsIgnoreCase("importStaff")) {
-			new DashboardForImportStaff(accountReturn);
-			this.dispose();
-		} else if (accountReturn.getRole().equalsIgnoreCase("exportStaff")) {
-			new DashboardForExportStaff(accountReturn);
-			this.dispose();
-		} else if (accountReturn.getRole().equalsIgnoreCase("admin")) {
-			new Dashboard(accountReturn);
-			this.dispose();
-		} else {
-			JOptionPane.showMessageDialog(null, "Account doesn't exist :(");
-		}
-
+		
+		 if (accountReturn != null && accountReturn.getPassword() != null) { 
+		        if (accountReturn.getPassword().equals(passwordEnter)) {       
+		            String role = accountReturn.getRole(); 
+		            if (role != null && role.equalsIgnoreCase("manager")) {
+		            	JOptionPane.showMessageDialog(null, "Welcome to IEC");
+		                new DashboardForManager(accountReturn);
+		                this.dispose();
+		            } else if (role != null && role.equalsIgnoreCase("importStaff")) {
+		            	JOptionPane.showMessageDialog(null, "Welcome to IEC");
+		                new DashboardForImportStaff(accountReturn);
+		                this.dispose();
+		            } else if (role != null && role.equalsIgnoreCase("exportStaff")) {
+		            	JOptionPane.showMessageDialog(null, "Welcome to IEC");
+		                new DashboardForExportStaff(accountReturn);
+		                this.dispose();
+		            } else if (role != null && role.equalsIgnoreCase("admin")) {
+		            	JOptionPane.showMessageDialog(null, "Welcome to IEC");
+		                new Dashboard(accountReturn);
+		                this.dispose();
+		            } else {
+		       
+		                JOptionPane.showMessageDialog(null, "The account does not have role.");
+		            }
+		        } else {
+		            // Mật khẩu sai
+		            JOptionPane.showMessageDialog(null, "Username or password is incorrect.");
+		            passwordTxt.setText("");
+		            for (int i = 0; i < passwordChars.length; i++) {
+		                passwordChars[i] = 0;
+		            }
+		        }
+		    } else {
+		        // Tên người dùng sai hoặc tài khoản không tồn tại
+		        JOptionPane.showMessageDialog(null, "Username or password is incorrect.");
+		        passwordTxt.setText("");
+		    }
+		
 	}
 }
