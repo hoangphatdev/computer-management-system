@@ -4,6 +4,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import ite.computer_management.model.Account;
+
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,11 +17,13 @@ public class Sub2MyInformation extends JPanel {
 	private JTextField currentPasswordTxt;
 	private JTextField newPasswordTxt;
 	private JTextField reEnterPasswordTxt;
+	private Account account;
 
 	/**
 	 * Create the panel.
 	 */
-	public Sub2MyInformation() {
+	public Sub2MyInformation(Account account){
+		this.account = account;
 		this.setSize(684,290);
 		setLayout(null);
 		
@@ -27,10 +32,11 @@ public class Sub2MyInformation extends JPanel {
 		currentPasswordLbl.setFont(new Font("Roboto Medium", Font.PLAIN, 16));
 		add(currentPasswordLbl);
 		
-		currentPasswordTxt = new JTextField();
+		currentPasswordTxt = new JTextField(account.getPassword());
 		currentPasswordTxt.setBounds(326, 25, 302, 40);
 		currentPasswordTxt.setFont(new Font("Roboto", Font.PLAIN, 16));
 		currentPasswordTxt.setColumns(10);
+		currentPasswordTxt.setEditable(false);
 		add(currentPasswordTxt);
 		
 		JLabel newPasswordLbl = new JLabel("New Password");

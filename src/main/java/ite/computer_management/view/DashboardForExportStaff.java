@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import ite.computer_management.controller.DashboardForExportStaffController;
+import ite.computer_management.model.Account;
 import main.Login;
 
 import java.awt.Color;
@@ -22,7 +23,7 @@ public class DashboardForExportStaff extends JFrame {
 	public JLabel productNavLbl;
 	public JTabbedPane tabbedPane;
 	public JLabel accountNavLbl;
-	public JLabel userNavLbl;
+	public JLabel myInformationLbl;
 	public JLabel logOutNavLbl;
 	public JLabel exportCouponNavLbl;
 	public JLabel importCouponNavLbl;
@@ -32,16 +33,17 @@ public class DashboardForExportStaff extends JFrame {
 	public JLabel supplierNavLbl;
 	public JPanel navPanel;
 	public JLabel ChatNavLbl_1;
+	private Account accountReturn;
 
-	public DashboardForExportStaff() {
+	public DashboardForExportStaff(Account accountReturn) {
+		this.accountReturn = accountReturn;
 		init();
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 
 	public void init() {
-		DashboardForExportStaffController dashboardForExportStaffController = new DashboardForExportStaffController(
-				this);
+		DashboardForExportStaffController dashboardForExportStaffController = new DashboardForExportStaffController(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1500, 800);
 		contentPane = new JPanel();
@@ -98,16 +100,16 @@ public class DashboardForExportStaff extends JFrame {
 		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
 		navPanel.add(exportCouponNavLbl);
 
-		userNavLbl = new JLabel("User");
-		userNavLbl.setIcon(new ImageIcon(
+		myInformationLbl = new JLabel("My Information");
+		myInformationLbl.setIcon(new ImageIcon(
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-user-office-m\\icons8-user-30.png"));
-		userNavLbl.setOpaque(true);
-		userNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		userNavLbl.setBackground(new Color(51, 51, 102));
-		userNavLbl.setBounds(0, 668, 250, 45);
-		userNavLbl.addMouseListener(dashboardForExportStaffController);
-		userNavLbl.setForeground(new Color(242, 230, 87));
-		navPanel.add(userNavLbl);
+		myInformationLbl.setOpaque(true);
+		myInformationLbl.setFont(new Font("Lato", Font.BOLD, 15));
+		myInformationLbl.setBackground(new Color(51, 51, 102));
+		myInformationLbl.setBounds(0, 668, 250, 45);
+		myInformationLbl.addMouseListener(dashboardForExportStaffController);
+		myInformationLbl.setForeground(new Color(242, 230, 87));
+		navPanel.add(myInformationLbl);
 
 		logOutNavLbl = new JLabel("Log out");
 		logOutNavLbl.setIcon(new ImageIcon(
@@ -164,11 +166,11 @@ public class DashboardForExportStaff extends JFrame {
 		exportCouponNavLbl.setForeground(new Color(242, 230, 87));	
 		
 	}
-	public void clickUserNav() {
-		this.setVisible(false);
+	public void clickMyInformationNav() {
+		new MyInformationView(accountReturn);
 	}
 
 	public void clickLogoutNav() {
-
+		this.dispose();
 	}
 }

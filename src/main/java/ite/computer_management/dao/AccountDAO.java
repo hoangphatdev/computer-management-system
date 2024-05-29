@@ -151,8 +151,9 @@ public class AccountDAO implements DAOInterface<Account> {
 	        }
 	        return acc;
 	}
-	public String select1AccountAndReturnRole(Account t) {
-		String role = null;
+	public Account select1AccountAndReturnRole(Account t) {
+		Account accountReturn = new Account();
+		
 		String userNameForSearch = t.getUserName();
 		String passwordForSearch = t.getPassword();
 
@@ -166,14 +167,16 @@ public class AccountDAO implements DAOInterface<Account> {
 			ResultSet rs = ps.getResultSet();
 
 			while(rs.next()) {
-				role = rs.getString("role");
-				return role;
+				accountReturn.setFullName(rs.getString("fullName")); 
+				accountReturn.setUserName(rs.getString("userName")); 
+				accountReturn.setPassword(rs.getString("password")); 
+				accountReturn.setRole(rs.getString("role")); 
 			}
 		
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return role;
+		return accountReturn;
 		
 	}
 	

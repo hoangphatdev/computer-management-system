@@ -19,6 +19,8 @@ public class DashboardForExportStaffController implements MouseListener {
 			dashboardForExportStaff.clickExportProductNav();
 		}else if(e.getSource() == dashboardForExportStaff.ChatNavLbl_1) {
 			dashboardForExportStaff.clickChatNav();
+		}else if(e.getSource() == dashboardForExportStaff.myInformationLbl) {
+			dashboardForExportStaff.clickMyInformationNav();
 		}
 	}
 

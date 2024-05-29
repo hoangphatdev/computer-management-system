@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import ite.computer_management.controller.DashboardForManagerController;
+import ite.computer_management.model.Account;
 import main.Login;
 
 import java.awt.Color;
@@ -31,7 +32,7 @@ public class DashboardForManager extends JFrame {
 	public JLabel productNavLbl;
 	public JTabbedPane tabbedPane;
 	public JLabel accountNavLbl;
-	public JLabel userNavLbl;
+	public JLabel myInformationLbl;
 	public JLabel logOutNavLbl;
 	public JLabel exportCouponNavLbl;
 	public JLabel importCouponNavLbl;
@@ -39,11 +40,12 @@ public class DashboardForManager extends JFrame {
 	public JLabel importProductNavLbl;
 	public JLabel statisticalNavLbl;
 	public JLabel supplierNavLbl;
-
 	public JPanel navPanel;
 	public JLabel ChatNavLbl_1;
+	private Account accountReturn;
 
-	public DashboardForManager() {
+	public DashboardForManager(Account accountReturn) {
+		this.accountReturn = accountReturn;
 		init();
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
@@ -176,16 +178,16 @@ SupplierView supplierView = new SupplierView(this);
 		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
 		navPanel.add(exportCouponNavLbl);
 
-		userNavLbl = new JLabel("User");
-		userNavLbl.setIcon(new ImageIcon(
+		myInformationLbl = new JLabel("My Information");
+		myInformationLbl.setIcon(new ImageIcon(
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-user-office-m\\icons8-user-30.png"));
-		userNavLbl.setOpaque(true);
-		userNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		userNavLbl.setBackground(new Color(51, 51, 102));
-		userNavLbl.setBounds(0, 668, 250, 45);
-		userNavLbl.addMouseListener(dashboardForManagerController);
-		userNavLbl.setForeground(new Color(242, 230, 87));
-		navPanel.add(userNavLbl);
+		myInformationLbl.setOpaque(true);
+		myInformationLbl.setFont(new Font("Lato", Font.BOLD, 15));
+		myInformationLbl.setBackground(new Color(51, 51, 102));
+		myInformationLbl.setBounds(0, 668, 250, 45);
+		myInformationLbl.addMouseListener(dashboardForManagerController);
+		myInformationLbl.setForeground(new Color(242, 230, 87));
+		navPanel.add(myInformationLbl);
 
 		logOutNavLbl = new JLabel("Log out");
 		logOutNavLbl.setIcon(new ImageIcon(
@@ -362,11 +364,11 @@ SupplierView supplierView = new SupplierView(this);
 		exportCouponNavLbl.setForeground(new Color(242, 230, 87));
 
 	}
-	public void clickUserNav() {
-		this.setVisible(false);
+	public void clickMyInformationNav() {
+		new MyInformationView(accountReturn);
 	}
 
 	public void clickLogoutNav() {
-
+		this.dispose();
 	}
 }

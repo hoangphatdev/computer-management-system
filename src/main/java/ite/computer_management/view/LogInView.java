@@ -229,19 +229,19 @@ public class LogInView extends JFrame {
 		Account account = new Account(userNameEnter, passwordEnter);
 		System.out.print(passwordEnter);
 
-		String role = AccountDAO.getInstance().select1AccountAndReturnRole(account);
-		if (role.equalsIgnoreCase("manager")) {
+		Account accountReturn = AccountDAO.getInstance().select1AccountAndReturnRole(account);
+		if (accountReturn.getRole().equalsIgnoreCase("manager")) {
 			this.dispose();
-			new DashboardForManager();
-		} else if (role.equalsIgnoreCase("importStaff")) {
+			new DashboardForManager(accountReturn);
+		} else if (accountReturn.getRole().equalsIgnoreCase("importStaff")) {
 			this.dispose();
-			new DashboardForImportStaff();
-		} else if (role.equalsIgnoreCase("exportStaff")) {
-			new DashboardForExportStaff();
+			new DashboardForImportStaff(accountReturn);
+		} else if (accountReturn.getRole().equalsIgnoreCase("exportStaff")) {
+			new DashboardForExportStaff(accountReturn);
 			this.dispose();
-		} else if (role.equalsIgnoreCase("admin")) {
+		} else if (accountReturn.getRole().equalsIgnoreCase("admin")) {
 			this.dispose();
-			new Dashboard();
+			new Dashboard(accountReturn);
 		} else {
 			JOptionPane.showMessageDialog(null, "Account doesn't exist :(");
 		}
