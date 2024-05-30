@@ -141,7 +141,7 @@ public class Dashboard extends JFrame {
 		supplierNavLbl.setBackground(new Color(70, 163, 100));
 		supplierNavLbl.setForeground(new Color(219, 219, 219));
 		navPanel.add(supplierNavLbl);
-
+ 
 		importProductNavLbl = new JLabel("Import Product");
 		importProductNavLbl.setIcon(new ImageIcon(
 				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-import-goods-filled-outline\\icons8-import-goods-32.png"));
@@ -459,6 +459,10 @@ public class Dashboard extends JFrame {
 		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
 		myInformationLbl.setBackground( new Color(70, 163, 100));
 		myInformationLbl.setForeground(new Color(219, 219, 219));
+		accountNavLbl.setBackground(new Color(70, 163, 100));
+		accountNavLbl.setForeground(new Color(219, 219, 219));
+		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219, 219, 219));
 		
 		Login view = new Login();
 		view.setUserName("Admin");
@@ -485,6 +489,9 @@ public class Dashboard extends JFrame {
 		exportCouponNavLbl.setForeground(new Color(219, 219, 219));
 		Chatlb1.setBackground(new Color(70, 163, 100));
 		Chatlb1.setForeground(new Color(219, 219, 219));
+		accountNavLbl.setBackground(new Color(70, 163, 100));
+		accountNavLbl.setForeground(new Color(219, 219, 219));
+		
 		
 		new MyInformationView(accountReturn);
 	}

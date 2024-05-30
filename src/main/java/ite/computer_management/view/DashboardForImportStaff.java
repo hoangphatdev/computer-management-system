@@ -25,14 +25,11 @@ public class DashboardForImportStaff extends JFrame {
 	public JLabel logOutNavLbl;
 	public JLabel importCouponNavLbl;
 	public JLabel importProductNavLbl;
-
 	public JLabel Imports_ProductNavLbl;
 	public JLabel Export_ProductNavLbl;
 	public JPanel navPanel;
-
 	public JLabel chatNavLbl_1;
 	private Account accountReturn;
-
 
 	public DashboardForImportStaff(Account accountReturn) {
 		this.accountReturn = accountReturn;
@@ -142,6 +139,8 @@ public class DashboardForImportStaff extends JFrame {
 		importCouponNavLbl.setForeground(new Color(219, 219, 219));
 		chatNavLbl_1.setBackground(new Color(70, 163, 100));
 		chatNavLbl_1.setForeground(new Color(219, 219, 219));
+		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219, 219, 219));
 	}
 
 	public void clickImportCouponNav() {
@@ -153,20 +152,37 @@ public class DashboardForImportStaff extends JFrame {
 		importProductNavLbl.setForeground(new Color(219, 219, 219));
 		chatNavLbl_1.setBackground(new Color(70, 163, 100));
 		chatNavLbl_1.setForeground(new Color(219, 219, 219));
+		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219, 219, 219));
 	}
 	
 	public void clickChatNav() {
 		chatNavLbl_1.setBackground(new Color(220, 242, 227));
 		chatNavLbl_1.setForeground(new Color(0, 125, 40));
+		
+		importProductNavLbl.setBackground(new Color(70, 163, 100));
+		importProductNavLbl.setForeground(new Color(219, 219, 219));
+		myInformationLbl.setBackground( new Color(70, 163, 100));
+		myInformationLbl.setForeground(new Color(219, 219, 219));
+		importCouponNavLbl.setBackground(new Color(70, 163, 100));
+		importCouponNavLbl.setForeground(new Color(219, 219, 219));
+		
 		Login view = new Login();
 		view.setUserName("Import Staff");
 		view.setVisible(true);
 		
-	 
-		importProductNavLbl.setBackground(new Color(70, 163, 100));
-		importProductNavLbl.setForeground(new Color(219, 219, 219));
 	}
 	public void clickMyInformationNav() {
+		myInformationLbl.setBackground( new Color(220, 242, 227));
+		myInformationLbl.setForeground(new Color(0, 125, 40));
+		
+		importCouponNavLbl.setBackground(new Color(70, 163, 100));
+		importCouponNavLbl.setForeground(new Color(219, 219, 219));
+		importProductNavLbl.setBackground(new Color(70, 163, 100));
+		importProductNavLbl.setForeground(new Color(219, 219, 219));
+		chatNavLbl_1.setBackground(new Color(70, 163, 100));
+		chatNavLbl_1.setForeground(new Color(219, 219, 219));
+		
 		new MyInformationView(accountReturn);
 	}
 

@@ -2,9 +2,13 @@ package ite.computer_management.view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
 
+import ite.computer_management.dao.AccountDAO;
 import ite.computer_management.model.Account;
 
 import javax.swing.JButton;
@@ -53,7 +57,7 @@ public class Sub2MyInformation extends JPanel {
 		newPasswordTxt.setFont(new Font("Roboto", Font.PLAIN, 16));
 		newPasswordTxt.setColumns(10);
 		newPasswordTxt.setBounds(326, 92, 302, 40);
-		add(newPasswordTxt);
+		add(newPasswordTxt); 
 		
 		reEnterPasswordTxt = new JTextField();
 		reEnterPasswordTxt.setFont(new Font("Roboto", Font.PLAIN, 16));
@@ -68,10 +72,21 @@ public class Sub2MyInformation extends JPanel {
 				String newPassword = newPasswordTxt.getText();
 				String currentPassword = currentPasswordTxt.getText();
 				String reEnterPassword = reEnterPasswordTxt.getText();
+				String userName = account.getUserName();
+				System.out.println(userName);
+				if(newPassword.equalsIgnoreCase(reEnterPassword)) {
+					AccountDAO.getInstance().updatePassword(currentPassword, newPassword, userName);
+					JOptionPane.showMessageDialog(null, "Update password successfully");
+				}else {
+					JOptionPane.showMessageDialog(submitBtn, "The re-entered password does not match the new password :(");
+				}
 			}
 		});
 		submitBtn.setFont(new Font("Roboto", Font.BOLD, 16));
 		submitBtn.setBounds(253, 211, 153, 47);
+		submitBtn.setOpaque(true);
+		submitBtn.setBackground(new Color(70, 163, 100));
+		submitBtn.setForeground(new Color(255,255,255));
 		add(submitBtn);	
 		this.setVisible(true);
 		

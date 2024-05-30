@@ -41,6 +41,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AccountView extends JPanel {
 
@@ -72,11 +74,8 @@ public class AccountView extends JPanel {
 	public void init(){
 		AccountController accountController = new AccountController(this);
 		accountDAO = new AccountDAO(this);
-		
 		this.setSize(1250,800);
 		setLayout(null);
-		setBackground(new Color(70, 163, 100));
-		this.dashboard = dashboard;
 
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(-223, 243, 1163, 531);
@@ -91,54 +90,53 @@ public class AccountView extends JPanel {
 		
 		searchTxt = new JTextField();
 		searchTxt.addKeyListener(accountController);
-		searchTxt.setBounds(792, 54, 385, 40);
+		searchTxt.setBounds(792, 72, 385, 40);
 		add(searchTxt);
 		searchTxt.setColumns(10);
 		
-		JLabel searchLbl = new JLabel("Search:");
-		searchLbl.setForeground(new Color(255, 255, 255));
-		searchLbl.setFont(new Font("Dialog", Font.BOLD, 17));
-		searchLbl.setBounds(793, 10, 134, 48);
-		add(searchLbl);
-		
 		Box verticalBox = Box.createVerticalBox();
 		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox.setBounds(772, 20, 427, 102);
+		verticalBox.setBounds(772, 38, 427, 102);
 		add(verticalBox);
 		
+		JLabel searchLbl = new JLabel("Search:");
+		verticalBox.add(searchLbl);
+		searchLbl.setForeground(new Color(6, 191, 33));
+		searchLbl.setFont(new Font("Dialog", Font.BOLD, 17));
+		
 		btnadd = new JButton("Add");
-		btnadd.setForeground(Color.WHITE);
+		btnadd.setForeground(new Color(6, 191, 33));
 		btnadd.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\add 25.png"));
 		btnadd.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnadd.setBackground(new Color(51, 0, 102));
-		btnadd.setBounds(36, 50, 120, 40);
+		btnadd.setBackground(new Color(171, 214, 177));
+		btnadd.setBounds(36, 38, 190, 40);
 		add(btnadd);
 		btnadd.addMouseListener(accountController);
 		
 		 btndelete = new JButton("Delete");
-		 btndelete.setForeground(Color.WHITE);
+		 btndelete.setForeground(new Color(6, 191, 33));
 		 btndelete.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\cancel 30.png"));
 		 btndelete.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btndelete.setBackground(new Color(51, 0, 102));
-		btndelete.setBounds(36, 100, 159, 40);
+		btndelete.setBackground(new Color(171, 214, 177));
+		btndelete.setBounds(36, 100, 190, 40);
 		add(btndelete);
 		btndelete.addMouseListener(accountController);
 		
 		 btnUpdate = new JButton("Update");
-		 btnUpdate.setForeground(Color.WHITE);
+		 btnUpdate.setForeground(new Color(6, 191, 33));
 		 btnUpdate.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\edit 30.png"));
 		 btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnUpdate.setBackground(new Color(51, 0, 102));
-		btnUpdate.setBounds(36, 153, 190, 40);
+		btnUpdate.setBackground(new Color(171, 214, 177));
+		btnUpdate.setBounds(36, 168, 190, 40);
 		add(btnUpdate);
 		btnUpdate.addMouseListener(accountController);
 		
 		btnExcel = new JButton("Export excel");
-		btnExcel.setForeground(Color.WHITE);
+		btnExcel.setForeground(new Color(6, 191, 33));
 		btnExcel.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
 		btnExcel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnExcel.setBackground(new Color(51, 0, 102));
-		btnExcel.setBounds(1018, 193, 181, 40);
+		btnExcel.setBackground(new Color(171, 214, 177));
+		btnExcel.setBounds(1018, 168, 181, 40);
 		add(btnExcel);
 		btnExcel.addMouseListener(accountController);
 	}

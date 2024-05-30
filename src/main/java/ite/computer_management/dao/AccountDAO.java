@@ -177,7 +177,23 @@ public class AccountDAO implements DAOInterface<Account> {
 			e.printStackTrace();
 		}
 		return accountReturn;
-		
+		 
+	}
+	
+	public void updatePassword(String currentPassword, String newPassword, String userName ) {
+		try {
+			Connection connect = ConnectDatabase.getConnection();
+			String sql = "UPDATE account SET password=? WHERE password=? AND userName=?";
+			PreparedStatement ps = connect.prepareStatement(sql);
+			ps.setString(1, newPassword);
+			ps.setString(2,currentPassword);
+			ps.setString(3,userName );
+			
+			int result = ps.executeUpdate();
+		}catch(Exception e) {
+			JOptionPane.showMessageDialog(null, e);
+			e.printStackTrace();
+		}
 	}
 	
 

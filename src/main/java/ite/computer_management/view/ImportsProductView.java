@@ -73,25 +73,6 @@ public class ImportsProductView extends JPanel {
 	public JButton btn_ImportsProduct;
 	public JButton btn_Refresh;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ImportsProductView frame = new ImportsProductView();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-//
-//	/**
-//	 * Create the frame.
-//	 */
 	  public DecimalFormat getFormatter() {
 	        return formatter;
 	    }
@@ -101,8 +82,6 @@ public class ImportsProductView extends JPanel {
 	    }
 	
 	public ImportsProductView() {
-		setBackground(new Color(70, 163, 100));
-	
 		init();
 		this.setVisible(true);
 		Details_Form = new ArrayList<Details_Form>();
@@ -141,27 +120,27 @@ public class ImportsProductView extends JPanel {
 		add(btn_Refresh);
 		btn_Refresh.addMouseListener(Imports_productController);
 		
-		JLabel lblNewLabel = new JLabel("Sreach:");
+		JLabel lblNewLabel = new JLabel("Search");
 		lblNewLabel.setBounds(37, 26, 90, 13);
-		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setForeground(new Color(6, 191, 33));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		add(lblNewLabel);
 		
 		JLabel lblFrom = new JLabel("Form:");
-		lblFrom.setBounds(518, 26, 90, 13);
-		lblFrom.setForeground(Color.WHITE);
+		lblFrom.setBounds(518, 26, 90, 28);
+		lblFrom.setForeground(new Color(6, 191, 33));
 		lblFrom.setFont(new Font("Tahoma", Font.BOLD, 14));
 		add(lblFrom);
 		
 		JLabel lblSupplier = new JLabel("Supplier:");
 		lblSupplier.setBounds(518, 75, 90, 13);
-		lblSupplier.setForeground(Color.WHITE);
+		lblSupplier.setForeground(new Color(6, 191, 33));
 		lblSupplier.setFont(new Font("Tahoma", Font.BOLD, 14));
 		add(lblSupplier);
 		
 		JLabel lblCreator = new JLabel("Creator:");
 		lblCreator.setBounds(518, 114, 90, 13);
-		lblCreator.setForeground(Color.WHITE);
+		lblCreator.setForeground(new Color(6, 191, 33));
 		lblCreator.setFont(new Font("Tahoma", Font.BOLD, 14));
 		add(lblCreator);
 		
@@ -228,8 +207,8 @@ public class ImportsProductView extends JPanel {
 		add(Combo_Supplier);
 		
 		JLabel lblQuantity = new JLabel("Quantity:");
-		lblQuantity.setBounds(26, 710, 90, 13);
-		lblQuantity.setForeground(Color.WHITE);
+		lblQuantity.setBounds(22, 705, 90, 23);
+		lblQuantity.setForeground(new Color(6, 191, 33));
 		lblQuantity.setFont(new Font("Tahoma", Font.BOLD, 16));
 		add(lblQuantity);
 		
@@ -240,8 +219,8 @@ public class ImportsProductView extends JPanel {
 		
 		btn_accept = new JButton("Accept");
 		btn_accept.setBounds(246, 705, 85, 28);
-		btn_accept.setBackground(Color.LIGHT_GRAY);
-		btn_accept.setForeground(new Color(0, 0, 0));
+		btn_accept.setBackground(new Color(6, 191, 33));
+		btn_accept.setForeground(new Color(255,255,255));
 		btn_accept.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(btn_accept);
 		btn_accept.addMouseListener(Imports_productController);
@@ -249,15 +228,15 @@ public class ImportsProductView extends JPanel {
 		 btn_DeleteProduct = new JButton("Delete product");
 		 btn_DeleteProduct.setBounds(1006, 67, 188, 28);
 		 btn_DeleteProduct.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\delete 30.png"));
-		btn_DeleteProduct.setBackground(new Color(0, 0, 51));
-		btn_DeleteProduct.setForeground(Color.WHITE);
+		btn_DeleteProduct.setBackground(new Color(6, 191, 33));
+		btn_DeleteProduct.setForeground(new Color(255,255,255));
 		btn_DeleteProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(btn_DeleteProduct);
 		btn_DeleteProduct.addMouseListener(Imports_productController);
 		
 		JLabel lblTotalAmount = new JLabel("Total amount:");
 		lblTotalAmount.setBounds(503, 670, 181, 28);
-		lblTotalAmount.setForeground(Color.WHITE);
+		lblTotalAmount.setForeground(new Color(6, 191, 33));
 		lblTotalAmount.setFont(new Font("Tahoma", Font.BOLD, 22));
 		add(lblTotalAmount);
 		
@@ -269,8 +248,8 @@ public class ImportsProductView extends JPanel {
 		
 		btn_ImportsProduct = new JButton("Imports product");
 		btn_ImportsProduct.setBounds(1052, 682, 160, 41);
-		btn_ImportsProduct.setBackground(new Color(0, 0, 51));
-		btn_ImportsProduct.setForeground(Color.WHITE);
+		btn_ImportsProduct.setBackground(new Color(6, 191, 33));
+		btn_ImportsProduct.setForeground(new Color(255,255,255));
 		btn_ImportsProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		add(btn_ImportsProduct);
 		btn_ImportsProduct.addMouseListener(Imports_productController);
