@@ -69,7 +69,7 @@ public class LogInView extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\lgo - Copy - Copy.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 935, 568);
+		setBounds(100, 100, 795, 568);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(152, 251, 152));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -80,26 +80,26 @@ public class LogInView extends JFrame {
 		JLabel taikhoan = new JLabel("User name:");
 		taikhoan.setForeground(SystemColor.window);
 		taikhoan.setFont(new Font("Arial", Font.BOLD, 17));
-		taikhoan.setBounds(331, 159, 115, 29);
+		taikhoan.setBounds(457, 164, 115, 29);
 		contentPane.add(taikhoan);
 
 		userNameTxt = new JTextField();
-		userNameTxt.setBounds(331, 194, 232, 29);
+		userNameTxt.setBounds(457, 192, 232, 29);
 		contentPane.add(userNameTxt);
 		userNameTxt.setColumns(10);
 
 		JLabel mk = new JLabel("Password:");
 		mk.setForeground(SystemColor.window);
 		mk.setFont(new Font("Arial", Font.BOLD, 17));
-		mk.setBounds(331, 233, 115, 29);
+		mk.setBounds(457, 233, 115, 29);
 		contentPane.add(mk);
 
 		passwordTxt = new JPasswordField();
-		passwordTxt.setBounds(331, 265, 232, 27);
+		passwordTxt.setBounds(457, 270, 232, 27);
 		contentPane.add(passwordTxt);
 
 		JButton btn_changepass = new JButton("CHANGE PASS");
-		btn_changepass.setBackground(SystemColor.activeCaptionBorder);
+		btn_changepass.setBackground(Color.WHITE);
 
 		btn_changepass.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -111,13 +111,13 @@ public class LogInView extends JFrame {
 		});
 
 		btn_changepass.setFont(new Font("Arial", Font.BOLD, 14));
-		btn_changepass.setBounds(331, 346, 143, 29);
+		btn_changepass.setBounds(457, 346, 143, 29);
 		contentPane.add(btn_changepass);
 
 		logInBtn = new JButton("LOG IN");
-		logInBtn.setBackground(SystemColor.activeCaptionBorder);
+		logInBtn.setBackground(Color.WHITE);
 		logInBtn.setFont(new Font("Arial", Font.BOLD, 14));
-		logInBtn.setBounds(435, 308, 128, 29);
+		logInBtn.setBounds(561, 307, 128, 29);
 		logInBtn.addMouseListener(logInController);
 		contentPane.add(logInBtn);
 
@@ -128,13 +128,13 @@ public class LogInView extends JFrame {
 				System.exit(0);
 			}
 		});
-		Nut_thoat.setBackground(SystemColor.activeCaptionBorder);
+		Nut_thoat.setBackground(Color.WHITE);
 		Nut_thoat.setFont(new Font("Arial", Font.BOLD, 12));
-		Nut_thoat.setBounds(484, 347, 79, 29);
+		Nut_thoat.setBounds(610, 347, 79, 29);
 		contentPane.add(Nut_thoat);
 
 		JToggleButton Nut_hienMK = new JToggleButton("");
-		Nut_hienMK.setIcon(new ImageIcon("C:\\Users\\LENOVO\\Desktop\\anhhhhhhhhh\\Screenshot 2023-12-23 194914.png"));
+		Nut_hienMK.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\mắt 2.png"));
 		Nut_hienMK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Nut_hienMK.isSelected()) {
@@ -146,40 +146,34 @@ public class LogInView extends JFrame {
 			}
 		});
 		Nut_hienMK.setFont(new Font("Arial", Font.BOLD, 18));
-		Nut_hienMK.setBackground(Color.LIGHT_GRAY);
+		Nut_hienMK.setBackground(Color.BLACK);
 		Nut_hienMK.setForeground(Color.BLACK);
-		Nut_hienMK.setBounds(510, 232, 53, 22);
+		Nut_hienMK.setBounds(636, 240, 53, 22);
 		contentPane.add(Nut_hienMK);
 
 		JLabel dangnhap_1 = new JLabel("");
-		dangnhap_1.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\lgo - Copy - Copy.png"));
+		dangnhap_1.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\logo2 - Copy.png"));
 		dangnhap_1.setFont(new Font("Arial", Font.BOLD, 27));
-		dangnhap_1.setBounds(450, 39, 154, 114);
+		dangnhap_1.setBounds(-46, 43, 450, 407);
 		contentPane.add(dangnhap_1);
-
-		JLabel dangnhap_1_1 = new JLabel("");
-		dangnhap_1_1.setIcon(new ImageIcon("D:\\C++ Tren lop\\chap7\\Screenshot 2023-12-06 202316.png"));
-		dangnhap_1_1.setFont(new Font("Arial", Font.BOLD, 27));
-		dangnhap_1_1.setBounds(275, 39, 184, 114);
-		contentPane.add(dangnhap_1_1);
 
 		Box verticalBox = Box.createVerticalBox();
 		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox.setBounds(269, 117, 335, 303);
+		verticalBox.setBounds(371, 0, 408, 529);
 		contentPane.add(verticalBox);
-		
-				JLabel dangnhap_1_2 = new JLabel("");
-				verticalBox.add(dangnhap_1_2);
-				dangnhap_1_2.setIcon(new ImageIcon(
-						"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\backkkkkkkê.jpg"));
-				dangnhap_1_2.setFont(new Font("Arial", Font.BOLD, 27));
 
 		JLabel lblLogIn = new JLabel("LOG IN ");
 		lblLogIn.setForeground(new Color(0, 0, 0));
 		lblLogIn.setFont(new Font("Freestyle Script", Font.BOLD, 74));
-		lblLogIn.setBounds(32, 115, 341, 177);
+		lblLogIn.setBounds(480, 11, 238, 142);
 		contentPane.add(lblLogIn);
+		
+		JLabel taikhoan_1 = new JLabel("");
+		taikhoan_1.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\anh.jpg"));
+		taikhoan_1.setForeground(SystemColor.window);
+		taikhoan_1.setFont(new Font("Arial", Font.BOLD, 17));
+		taikhoan_1.setBounds(-128, 0, 1029, 554);
+		contentPane.add(taikhoan_1);
 
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
