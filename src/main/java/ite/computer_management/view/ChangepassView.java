@@ -40,6 +40,7 @@ public class ChangepassView extends JFrame {
     private JTextField gmailtext;
     private JPasswordField mk_text;
     private JTextField textcode;
+    public String codeGenerateFromServer;
 
     /**
      * Launch the application.
@@ -113,18 +114,16 @@ public class ChangepassView extends JFrame {
             ResultSet rs;
             @SuppressWarnings("deprecation")
             public void actionPerformed(ActionEvent e) {
-            	 String TC_danhap = textcode.getText().trim();
-                 String TC_dagui = MailCode.laymaTeenCode();
+            	 String code_enter = textcode.getText().trim();
+                 String code_sent = MailCode.laymaTeenCode();
  
-                 if (TC_danhap.equals(TC_dagui)) {
+                 if (code_enter.equals(code_sent)) {
                      try {
                          String newPassword = new String(mk_text.getPassword());
-                         String username = gmailtext.getText(); 
+                         String gmail = gmailtext.getText(); 
 
-                         if (changePasswordInDatabase(username, newPassword)) {
+                         if (changePasswordInDatabase(gmail, newPassword)) {
                              JOptionPane.showMessageDialog(null, "Password changed successfully!");
-
-                      
                          } else {
                              JOptionPane.showMessageDialog(null, "fail");
                          }
@@ -165,21 +164,20 @@ public class ChangepassView extends JFrame {
 					if (gmailtext.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "please enter gmail");
 					}
-					String sql = "select * from account where userName=?";
+					String sql = "select * from account where gmail=?";
 					PreparedStatement ps = c.prepareStatement(sql);
 					
 					ps.setString(1, gmailtext.getText());
 					rs = ps.executeQuery();
 					
 					if(rs.next()) {
-						MailCode.guiTeenCodequa_gmail(gmailtext.getText());
+					  MailCode.guiTeenCodequa_gmail(gmailtext.getText());
 						JOptionPane.showMessageDialog(null, "sent successfully" + gmailtext.getText());
 					} else {
 						JOptionPane.showMessageDialog(null, "Gmail doesn't exist");
 					}
 					
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
               
@@ -207,12 +205,6 @@ public class ChangepassView extends JFrame {
         Nut_hienMK.setBounds(268, 258, 53, 22);
         contentPane.add(Nut_hienMK);
         
-        JLabel lblLogIn = new JLabel("CHANGE PASS");
-        lblLogIn.setForeground(new Color(0, 0, 0));
-        lblLogIn.setFont(new Font("Freestyle Script", Font.BOLD, 74));
-        lblLogIn.setBounds(10, 0, 409, 137);
-        contentPane.add(lblLogIn);
-        
         textcode = new JTextField();
         textcode.setColumns(10);
         textcode.setBounds(89, 223, 232, 29);
@@ -229,24 +221,29 @@ public class ChangepassView extends JFrame {
         verticalBox.setBounds(0, 0, 459, 529);
         contentPane.add(verticalBox);
         
+        JLabel lblLogIn = new JLabel("CHANGE PASS");
+        verticalBox.add(lblLogIn);
+        lblLogIn.setForeground(new Color(0, 0, 0));
+        lblLogIn.setFont(new Font("Freestyle Script", Font.BOLD, 50));
+        
         JLabel dangnhap_1 = new JLabel("");
         dangnhap_1.setBounds(454, 28, 455, 458);
         contentPane.add(dangnhap_1);
-        dangnhap_1.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\logo2 - Copy.png"));
+        dangnhap_1.setIcon(new ImageIcon(ChangepassView.class.getResource("/ite/computer_management/img/logo2 - Copy.png")));
         dangnhap_1.setFont(new Font("Arial", Font.BOLD, 27));
         
         JLabel dangnhap_1_1 = new JLabel("");
-        dangnhap_1_1.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\anh.jpg"));
+        dangnhap_1_1.setIcon(new ImageIcon(ChangepassView.class.getResource("/ite/computer_management/img/anh.jpg")));
         dangnhap_1_1.setFont(new Font("Arial", Font.BOLD, 27));
         dangnhap_1_1.setBounds(-92, -47, 1032, 592);
         contentPane.add(dangnhap_1_1);
     }  
-    private boolean changePasswordInDatabase(String username, String newPassword) throws SQLException {
+    private boolean changePasswordInDatabase(String gmail, String newPassword) throws SQLException {
         try (Connection conn = ConnectDatabase.getConnection()) {
-            String sql = "UPDATE account SET password = ? WHERE userName = ?";
+            String sql = "UPDATE account SET password = ? WHERE gmail = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, newPassword);
-            pstmt.setString(2, username);
+            pstmt.setString(2, gmail);
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
         }

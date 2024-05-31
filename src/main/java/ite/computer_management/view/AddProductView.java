@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AddProductView extends JFrame {
 
@@ -48,9 +50,9 @@ public class AddProductView extends JFrame {
 	public JLabel addLbl1;
 	public ProductView productView;
 	public Dashboard dashboard;
-	public JButton addLbl;
-	public JButton btnCancel;
-	public JButton btnRefresh;
+	public JButton addBtn;
+	public JButton cancelBtn;
+	public JButton refreshBtn;
 	
 	public AddProductView(ProductView productView, Dashboard dashboard) {
 		this.dashboard = dashboard;
@@ -63,17 +65,28 @@ public class AddProductView extends JFrame {
 	public void init() {
 		AddProductController addProductController = new AddProductController(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 500);
+		setBounds(100, 100, 1090, 700);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(213, 232, 219));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JLabel titleLbl = new JLabel("ADD PRODUCT");
+		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLbl.setBounds(0, 0, 1090, 122);
+		titleLbl.setFont(new Font("Hack", Font.BOLD, 28));
+		titleLbl.setForeground(new Color(219, 219, 219));
+		titleLbl.setBackground(new Color(70, 163, 100));
+		titleLbl.setOpaque(true);
+		contentPane.add(titleLbl);
+		refreshBtn.addMouseListener(addProductController);
 		
 		JLabel computerNameLbl = new JLabel("Computer Name");
 		computerNameLbl.setFont(new Font("Inter", Font.BOLD, 12));
 		computerNameLbl.setOpaque(true);
 		computerNameLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		computerNameLbl.setBounds(22, 35, 190, 41);
+		computerNameLbl.setBounds(46, 220, 190, 41);
 		computerNameLbl.setForeground(new Color(219, 219, 219));
 		computerNameLbl.setBackground(new Color(70, 163, 100));
 		contentPane.add(computerNameLbl);
@@ -84,14 +97,14 @@ public class AddProductView extends JFrame {
 		computerCodeLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		computerCodeLbl.setBackground(new Color(70, 163, 100));
 		computerCodeLbl.setForeground(new Color(219, 219, 219));
-		computerCodeLbl.setBounds(237, 35, 190, 41);
+		computerCodeLbl.setBounds(46, 161, 190, 41);
 		contentPane.add(computerCodeLbl);
 		
 		JLabel cpuLbl = new JLabel("CPU");
 		cpuLbl.setFont(new Font("Inter", Font.BOLD, 12));
 		cpuLbl.setOpaque(true);
 		cpuLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		cpuLbl.setBounds(237, 136, 190, 41);
+		cpuLbl.setBounds(561, 273, 190, 41);
 		cpuLbl.setBackground(new Color(70, 163, 100));
 		cpuLbl.setForeground(new Color(219, 219, 219));
 		contentPane.add(cpuLbl);
@@ -102,7 +115,7 @@ public class AddProductView extends JFrame {
 		ramLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		ramLbl.setForeground(new Color(219, 219, 219));
 		ramLbl.setBackground(new Color(70, 163, 100));
-		ramLbl.setBounds(22, 240, 190, 41);
+		ramLbl.setBounds(46, 378, 190, 41);
 		contentPane.add(ramLbl);
 		
 		JLabel screenCardLbl = new JLabel("Screen Card");
@@ -111,7 +124,7 @@ public class AddProductView extends JFrame {
 		screenCardLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		screenCardLbl.setBackground(new Color(70, 163, 100));
 		screenCardLbl.setForeground(new Color(219, 219, 219));
-		screenCardLbl.setBounds(237, 240, 190, 41);
+		screenCardLbl.setBounds(561, 378, 190, 41);
 		contentPane.add(screenCardLbl);
 		
 		JLabel screenSizeLbl = new JLabel("Screen Size");
@@ -120,7 +133,7 @@ public class AddProductView extends JFrame {
 		screenSizeLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		screenSizeLbl.setForeground(new Color(219, 219, 219));
 		screenSizeLbl.setBackground(new Color(70, 163, 100));
-		screenSizeLbl.setBounds(237, 348, 190, 41);
+		screenSizeLbl.setBounds(46, 492, 190, 41);
 		contentPane.add(screenSizeLbl);
 		
 		JLabel priceLbl = new JLabel("Price");
@@ -129,7 +142,7 @@ public class AddProductView extends JFrame {
 		priceLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		priceLbl.setForeground(new Color(219, 219, 219));
 		priceLbl.setBackground(new Color(70, 163, 100));
-		priceLbl.setBounds(669, 35, 190, 41);
+		priceLbl.setBounds(46, 273, 190, 41);
 		contentPane.add(priceLbl);
 		
 		JLabel sourceCapacityLbl = new JLabel("Souce Capacity");
@@ -138,7 +151,7 @@ public class AddProductView extends JFrame {
 		sourceCapacityLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		sourceCapacityLbl.setForeground(new Color(219, 219, 219));
 		sourceCapacityLbl.setBackground(new Color(70, 163, 100));
-		sourceCapacityLbl.setBounds(22, 348, 190, 41);
+		sourceCapacityLbl.setBounds(561, 431, 190, 41);
 		contentPane.add(sourceCapacityLbl);
 		
 		JLabel romLbl = new JLabel("Rom");
@@ -147,7 +160,7 @@ public class AddProductView extends JFrame {
 		romLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		romLbl.setForeground(new Color(219, 219, 219));
 		romLbl.setBackground(new Color(70, 163, 100));
-		romLbl.setBounds(22, 136, 190, 41);
+		romLbl.setBounds(46, 326, 190, 41);
 		contentPane.add(romLbl);
 		
 		JLabel quantityLbl = new JLabel("Quantity");
@@ -156,7 +169,7 @@ public class AddProductView extends JFrame {
 		quantityLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		quantityLbl.setBackground(new Color(70, 163, 100));
 		quantityLbl.setForeground(new Color(219, 219, 219));
-		quantityLbl.setBounds(450, 35, 190, 41);
+		quantityLbl.setBounds(563, 220, 188, 41);
 		contentPane.add(quantityLbl);
 		
 
@@ -166,7 +179,7 @@ public class AddProductView extends JFrame {
 		originLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		originLbl.setForeground(new Color(219, 219, 219));
 		originLbl.setBackground(new Color(70, 163, 100));
-		originLbl.setBounds(450, 136, 190, 41);
+		originLbl.setBounds(561, 326, 190, 41);
 		contentPane.add(originLbl);
 		
 		machineTypeLbl = new JLabel("Machine Type");
@@ -175,7 +188,7 @@ public class AddProductView extends JFrame {
 		machineTypeLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		machineTypeLbl.setBackground(new Color(70, 163, 100));
 		machineTypeLbl.setForeground(new Color(219, 219, 219));
-		machineTypeLbl.setBounds(450, 240, 190, 41);
+		machineTypeLbl.setBounds(46, 431, 190, 41);
 		contentPane.add(machineTypeLbl);
 		
 		batteryCapacityLbl = new JLabel("Battery Capacity");
@@ -184,111 +197,113 @@ public class AddProductView extends JFrame {
 		batteryCapacityLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		batteryCapacityLbl.setBackground(new Color(70, 163, 100));
 		batteryCapacityLbl.setForeground(new Color(219, 219, 219));
-		batteryCapacityLbl.setBounds(450, 348, 190, 41);
+		batteryCapacityLbl.setBounds(561, 492, 190, 41);
 		contentPane.add(batteryCapacityLbl);
 		
 		
 		computerNameTxt = new JTextField();
 		computerNameTxt.setFont(new Font("Roboto", Font.PLAIN, 13));
-		computerNameTxt.setBounds(22, 76, 190, 41);
+		computerNameTxt.setBounds(236, 220, 309, 41);
 		contentPane.add(computerNameTxt);
 		computerNameTxt.setColumns(10);
 		
 		computerCodeTxt = new JTextField();
 		computerCodeTxt.setFont(new Font("Roboto", Font.PLAIN, 13));
 		computerCodeTxt.setColumns(10);
-		computerCodeTxt.setBounds(237, 76, 190, 41);
+		computerCodeTxt.setBounds(236, 161, 823, 41);
 		contentPane.add(computerCodeTxt);
 		
 		cpuTxt = new JTextField();
 		cpuTxt.setFont(new Font("Roboto", Font.PLAIN, 13));
 		cpuTxt.setColumns(10);
-		cpuTxt.setBounds(237, 177, 190, 41);
+		cpuTxt.setBounds(750, 273, 309, 41);
 		contentPane.add(cpuTxt);
 		
 		ramTxt = new JTextField();
 		ramTxt.setFont(new Font("Roboto", Font.PLAIN, 13));
 		ramTxt.setColumns(10);
-		ramTxt.setBounds(22, 282, 190, 41);
+		ramTxt.setBounds(236, 378, 307, 41);
 		contentPane.add(ramTxt);
 		
 		screenCardTxt = new JTextField();
 		screenCardTxt.setFont(new Font("Roboto", Font.PLAIN, 13));
 		screenCardTxt.setColumns(10);
-		screenCardTxt.setBounds(237, 282, 190, 41);
+		screenCardTxt.setBounds(750, 378, 309, 41);
 		contentPane.add(screenCardTxt);
 		
 		screenSizeTxt = new JTextField();
 		screenSizeTxt.setFont(new Font("Roboto", Font.PLAIN, 13));
 		screenSizeTxt.setColumns(10);
-		screenSizeTxt.setBounds(237, 390, 190, 41);
+		screenSizeTxt.setBounds(236, 492, 307, 41);
 		contentPane.add(screenSizeTxt);
 		
 		priceTxt = new JTextField();
 		priceTxt.setFont(new Font("Roboto", Font.PLAIN, 13));
 		priceTxt.setColumns(10);
-		priceTxt.setBounds(669, 76, 190, 41);
+		priceTxt.setBounds(236, 273, 309, 41);
 		contentPane.add(priceTxt);
 		
 		quantityTxt = new JTextField();
 		quantityTxt.setFont(new Font("Roboto", Font.PLAIN, 13));
 		quantityTxt.setColumns(10);
-		quantityTxt.setBounds(450, 76, 190, 41);
+		quantityTxt.setBounds(750, 220, 309, 41);
 		contentPane.add(quantityTxt);
 		
 		machineTypeTxt = new JTextField();
 		machineTypeTxt.setFont(new Font("Roboto", Font.PLAIN, 13));
 		machineTypeTxt.setColumns(10);
-		machineTypeTxt.setBounds(450, 282, 190, 41);
+		machineTypeTxt.setBounds(236, 431, 307, 41);
 		contentPane.add(machineTypeTxt);
 		
 		batteryCapacityTxt = new JTextField();
 		batteryCapacityTxt.setFont(new Font("Roboto", Font.PLAIN, 13));
 		batteryCapacityTxt.setColumns(10);
-		batteryCapacityTxt.setBounds(450, 390, 190, 41);
+		batteryCapacityTxt.setBounds(750, 492, 309, 41);
 		contentPane.add(batteryCapacityTxt);
 		
 		originTxt = new JTextField();
 		originTxt.setFont(new Font("Roboto", Font.PLAIN, 13));
 		originTxt.setColumns(10);
-		originTxt.setBounds(450, 177, 190, 41);
+		originTxt.setBounds(750, 326, 309, 41);
 		contentPane.add(originTxt);
 		
 		sourceCapacityTxt = new JTextField();
 		sourceCapacityTxt.setFont(new Font("Roboto", Font.PLAIN, 13));
 		sourceCapacityTxt.setColumns(10);
-		sourceCapacityTxt.setBounds(22, 390, 190, 41);
+		sourceCapacityTxt.setBounds(750, 431, 309, 41);
 		contentPane.add(sourceCapacityTxt);
 		
 		romTxt = new JTextField();
 		romTxt.setFont(new Font("Roboto", Font.PLAIN, 13));
 		romTxt.setColumns(10);
-		romTxt.setBounds(22, 177, 190, 41);
+		romTxt.setBounds(236, 326, 307, 41);
 		contentPane.add(romTxt);
 		
-		 addLbl = new JButton("ADD PRODUCT");
-		addLbl.setBackground(new Color(219,219,219));
-		addLbl.setForeground(new Color(70, 163, 100));
-		addLbl.setFont(new Font("Tahoma", Font.BOLD, 17));
-		addLbl.setBounds(669, 164, 190, 41);
-		contentPane.add(addLbl);
-		addLbl.addMouseListener(addProductController);
+		 addBtn = new JButton("Add Product");
+		 addBtn.setIcon(new ImageIcon(AddProductView.class.getResource("/ite/computer_management/img/add 30.png")));
+		addBtn.setBackground(new Color(219,219,219));
+		addBtn.setForeground(new Color(70, 163, 100));
+		addBtn.setFont(new Font("Dialog", Font.BOLD, 15));
+		addBtn.setBounds(456, 594, 190, 41);
+		contentPane.add(addBtn);
+		addBtn.addMouseListener(addProductController);
 		
-		btnCancel = new JButton("Cancel");
-		btnCancel.setForeground(Color.BLACK);
-		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnCancel.setBackground(new Color(219,219,219));
-		btnCancel.setBounds(669, 270, 190, 41);
-		contentPane.add(btnCancel);
-		btnCancel.addMouseListener(addProductController);
+		cancelBtn = new JButton("Cancel");
+		cancelBtn.setIcon(new ImageIcon(AddProductView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
+		cancelBtn.setForeground(new Color(70, 163, 100));
+		cancelBtn.setBackground(new Color(219,219,219));
+		cancelBtn.setFont(new Font("Dialog", Font.BOLD, 15));
+		cancelBtn.setBounds(120, 594, 190, 41);
+		contentPane.add(cancelBtn);
+		cancelBtn.addMouseListener(addProductController);
 		
-		btnRefresh = new JButton("REFRESH");
-		btnRefresh.setForeground(new Color(70, 163, 100));
-		btnRefresh.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnRefresh.setBackground(new Color(219,219,219));
-		btnRefresh.setBounds(669, 217, 190, 41);
-		contentPane.add(btnRefresh);
-		btnRefresh.addMouseListener(addProductController);
+		refreshBtn = new JButton("Refresh");
+		refreshBtn.setIcon(new ImageIcon(AddProductView.class.getResource("/ite/computer_management/img/icons8-refresh-30.png")));
+		refreshBtn.setForeground(new Color(70, 163, 100));
+		refreshBtn.setFont(new Font("Dialog", Font.BOLD, 15));
+		refreshBtn.setBackground(new Color(219,219,219));
+		refreshBtn.setBounds(790, 594, 190, 41);
+		contentPane.add(refreshBtn);
 	}
 	
 	public void clickAddLbl() {

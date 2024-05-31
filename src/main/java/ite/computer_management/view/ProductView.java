@@ -12,10 +12,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 import ite.computer_management.controller.ProductController;
 import ite.computer_management.dao.ImportDAO;
@@ -42,7 +46,11 @@ import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class ProductView extends JPanel {
-	public static DefaultTableModel model;
+	 public static DefaultTableModel model = new DefaultTableModel(){
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 	private static final long serialVersionUID = 1L;
 	public static JTable table;
 	public JTextField searchTxt;
@@ -70,19 +78,59 @@ public class ProductView extends JPanel {
 	}
 
 	public void init() {
+		
 		ProductController productController = new ProductController(this);
 		this.setSize(1250, 800);
 		setLayout(null);
-		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBounds(-223, 243, 1163, 531);
 		scrollPane.setBounds(36, 243, 1163, 466);
 		add(scrollPane);
+		
 		// create table and fetch data from database
 		table = new JTable();
 		model = (DefaultTableModel) table.getModel();
+		
+		
+        
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.setFillsViewportHeight(true);
+		table.setFont(new Font("JetBrains MonoMono", Font.BOLD, 16));
+		table.setBackground(new Color(255, 255, 255));
+		table.getTableHeader().setFont(new Font("JetBrains Mono", Font.BOLD, 17));
+		table.getTableHeader().setBackground(new Color(70, 163, 100));
+		table.getTableHeader().setForeground(new Color(255, 255, 255));
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setResizingAllowed(false);
+		table.setRowHeight(30);
+		table.setGridColor(new Color(64, 82, 69));
+		table.setShowHorizontalLines(true);
+		table.setBackground(new Color(197, 227, 206));
+		table.setForeground(new Color(47, 97, 62));
+
 		ProductDAO productDAO = new ProductDAO(this);
 		productDAO.selectAll();
+		
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(JLabel.CENTER); // Căn giữa nội dung của ô
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer); // Gán renderer cho mỗi cột
+        }
+        
+		table.getColumnModel().getColumn(0).setPreferredWidth(300);
+        table.getColumnModel().getColumn(1).setPreferredWidth(200);
+        table.getColumnModel().getColumn(2).setPreferredWidth(100);
+        table.getColumnModel().getColumn(3).setPreferredWidth(200);
+        table.getColumnModel().getColumn(4).setPreferredWidth(100);
+        table.getColumnModel().getColumn(5).setPreferredWidth(200);
+        table.getColumnModel().getColumn(6).setPreferredWidth(200);
+        table.getColumnModel().getColumn(7).setPreferredWidth(200);
+        table.getColumnModel().getColumn(8).setPreferredWidth(200);
+        table.getColumnModel().getColumn(9).setPreferredWidth(150);
+        table.getColumnModel().getColumn(10).setPreferredWidth(150);
+        table.getColumnModel().getColumn(11).setPreferredWidth(160);
+        table.getColumnModel().getColumn(12).setPreferredWidth(150);
 		scrollPane.setViewportView(table);
 
 		searchTxt = new JTextField();
@@ -103,7 +151,7 @@ public class ProductView extends JPanel {
 
 		btnadd = new JButton("Add");
 		btnadd.setForeground(new Color(6, 191, 33));
-		btnadd.setIcon(new ImageIcon(ProductView.class.getResource("/ite/computer_management/img/add/icons8-add-35.png")));
+		btnadd.setIcon(new ImageIcon(ProductView.class.getResource("/ite/computer_management/img/add 30.png")));
 		btnadd.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnadd.setBackground(new Color(171, 214, 177));
 		btnadd.setBounds(36, 39, 190, 40);
@@ -112,7 +160,7 @@ public class ProductView extends JPanel {
 
 		btndelete = new JButton("Delete");
 		btndelete.setForeground(new Color(6, 191, 33));
-		btndelete.setIcon(new ImageIcon(ProductView.class.getResource("/ite/computer_management/img/delete/icons8-remove-30.png")));
+		btndelete.setIcon(new ImageIcon(ProductView.class.getResource("/ite/computer_management/img/cancel 30.png")));
 		btndelete.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btndelete.setBackground(new Color(171, 214, 177));
 		btndelete.setBounds(36, 101, 190, 40);
@@ -121,7 +169,7 @@ public class ProductView extends JPanel {
 
 		btnUpdate = new JButton("Update");
 		btnUpdate.setForeground(new Color(6, 191, 33));
-		btnUpdate.setIcon(new ImageIcon(ProductView.class.getResource("/ite/computer_management/img/edit/icons8-edit-35.png")));
+		btnUpdate.setIcon(new ImageIcon(ProductView.class.getResource("/ite/computer_management/img/edit 30.png")));
 		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnUpdate.setBackground(new Color(171, 214, 177));
 		btnUpdate.setBounds(36, 166, 190, 40);
@@ -130,8 +178,7 @@ public class ProductView extends JPanel {
 
 		btnExcel = new JButton("Export excel");
 		btnExcel.setForeground(new Color(6, 191, 33));
-		btnExcel.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
+		btnExcel.setIcon(new ImageIcon(ProductView.class.getResource("/ite/computer_management/img/excel 30.png")));
 		btnExcel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnExcel.setBackground(new Color(171, 214, 177));
 		btnExcel.setBounds(1018, 166, 181, 40);

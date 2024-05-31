@@ -54,20 +54,29 @@ public class AddAccountView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		addBtn = new JButton("ADD");
-		addBtn.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\add 20.png"));
-		addBtn.setBounds(241, 389, 121, 37);
+		addBtn = new JButton("Add Product");
+		 addBtn.setIcon(new ImageIcon(AddProductView.class.getResource("/ite/computer_management/img/add 30.png")));
+		 addBtn.setBackground(new Color(219,219,219));
+		addBtn.setForeground(new Color(70, 163, 100));
+		addBtn.setFont(new Font("Dialog", Font.BOLD, 12));
+		addBtn.setBounds(226, 389, 154, 37);
 		addBtn.addMouseListener(addAccountController);
 		contentPane.add(addBtn);
 		
-		cancelBtn = new JButton("CANCEL");
-		cancelBtn.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\cancel 20.png"));
+		cancelBtn = new JButton("Cancel");
+		cancelBtn.setIcon(new ImageIcon(AddProductView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
+		cancelBtn.setForeground(new Color(70, 163, 100));
+		cancelBtn.setBackground(new Color(219,219,219));
+		cancelBtn.setFont(new Font("Dialog", Font.BOLD, 12));
 		cancelBtn.setBounds(463, 389, 121, 37);
 		cancelBtn.addMouseListener(addAccountController);
 		contentPane.add(cancelBtn);
 		
-		refreshBtn = new JButton("REFRESH");
-		refreshBtn.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\reload 20.png"));
+		refreshBtn = new JButton("Refresh");
+		refreshBtn.setIcon(new ImageIcon(AddProductView.class.getResource("/ite/computer_management/img/icons8-refresh-30.png")));
+		refreshBtn.setForeground(new Color(70, 163, 100));
+		refreshBtn.setFont(new Font("Dialog", Font.BOLD, 12));
+		refreshBtn.setBackground(new Color(219,219,219));
 		refreshBtn.setBounds(22, 389, 121, 37);
 		refreshBtn.addMouseListener(addAccountController);
 		contentPane.add(refreshBtn);
@@ -127,7 +136,7 @@ public class AddAccountView extends JFrame {
 		contentPane.add(roleTxt);
 		
 		JLabel titleLbl = new JLabel("ADD ACCOUNT");
-		titleLbl.setFont(new Font("Bakery", Font.PLAIN, 28));
+		titleLbl.setFont(new Font("Hack", Font.PLAIN, 28));
 		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLbl.setBounds(0, 0, 621, 109);
 		titleLbl.setBackground(new Color(70, 163, 100));

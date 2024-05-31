@@ -39,12 +39,13 @@ public class EditSupplierView extends JFrame {
 	public Dashboard dashboard;
 	public JButton btnSave;
 	public JButton btnCancel;
+	private JLabel titleLbl;
 	
 	public EditSupplierView(SupplierView supplierView, Dashboard dashboard) {
 		this.supplierView = supplierView;
 		EditSupplierController editSupplierController = new EditSupplierController(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 814, 380);
+		setBounds(100, 100, 730, 484);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -56,7 +57,7 @@ public class EditSupplierView extends JFrame {
 		SupplierNameLbl.setBackground(new Color(70, 163, 100));
 		SupplierNameLbl.setOpaque(true);
 		SupplierNameLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		SupplierNameLbl.setBounds(28, 60, 217, 41);
+		SupplierNameLbl.setBounds(64, 132, 217, 41);
 		contentPane.add(SupplierNameLbl);
 		
 		JLabel AddressLbl = new JLabel("Address");
@@ -65,7 +66,7 @@ public class EditSupplierView extends JFrame {
 		AddressLbl.setOpaque(true);
 		AddressLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		AddressLbl.setBackground(new Color(70, 163, 100));
-		AddressLbl.setBounds(281, 65, 217, 41);
+		AddressLbl.setBounds(64, 275, 217, 41);
 		contentPane.add(AddressLbl);
 		
 		JLabel PhoneNumberLbl = new JLabel("Phone Number");
@@ -74,40 +75,49 @@ public class EditSupplierView extends JFrame {
 		PhoneNumberLbl.setOpaque(true);
 		PhoneNumberLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		PhoneNumberLbl.setBackground(new Color(70, 163, 100));
-		PhoneNumberLbl.setBounds(553, 65, 217, 41);
+		PhoneNumberLbl.setBounds(64, 202, 217, 41);
 		contentPane.add(PhoneNumberLbl);
 		
 		SupplierNameTxt = new JTextField();
-		SupplierNameTxt.setBounds(28, 102, 217, 41);
+		SupplierNameTxt.setBounds(280, 132, 379, 41);
 		contentPane.add(SupplierNameTxt);
 		SupplierNameTxt.setColumns(10);
 		
 		AddressTxt = new JTextField();
 		AddressTxt.setColumns(10);
-		AddressTxt.setBounds(281, 102, 217, 41);
+		AddressTxt.setBounds(280, 275, 379, 41);
 		contentPane.add(AddressTxt);
 		
 		PhoneTxt = new JTextField();
 		PhoneTxt.setColumns(10);
-		PhoneTxt.setBounds(553, 103, 217, 41);
+		PhoneTxt.setBounds(280, 202, 379, 41);
 		contentPane.add(PhoneTxt);
 		
 		btnSave = new JButton("SAVE");
-		btnSave.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\save 30.png"));
+		btnSave.setIcon(new ImageIcon(EditSupplierView.class.getResource("/ite/computer_management/img/icons8-update-30.png")));
 		btnSave.setBackground(new Color(227, 227, 227));
 		btnSave.setForeground(new Color(70, 163, 100));
 		btnSave.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnSave.setBounds(230, 222, 141, 41);
+		btnSave.setBounds(140, 369, 141, 41);
 		contentPane.add(btnSave);
 		btnSave.addMouseListener(editSupplierController);
 		
 		btnCancel = new JButton("Cancel");
-		btnCancel.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\cancel 30.png"));
+		btnCancel.setIcon(new ImageIcon(EditSupplierView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
 		btnCancel.setBackground(new Color(227, 227, 227));
-		btnCancel.setForeground(new Color(214, 46, 9));
+		btnCancel.setForeground(new Color(70, 163, 100));
 		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnCancel.setBounds(408, 222, 141, 41);
+		btnCancel.setBounds(443, 369, 141, 41);
 		contentPane.add(btnCancel);
+		
+		titleLbl = new JLabel("EDIT SUPPLIER");
+		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLbl.setFont(new Font("Hack", Font.BOLD, 24));
+		titleLbl.setForeground(new Color(219, 219, 219));
+		titleLbl.setBackground(new Color(70, 163, 100));
+		titleLbl.setOpaque(true);
+		titleLbl.setBounds(0, 0, 720, 106);
+		contentPane.add(titleLbl);
 		btnCancel.addMouseListener(editSupplierController);
 		
 		this.setLocationRelativeTo(null);

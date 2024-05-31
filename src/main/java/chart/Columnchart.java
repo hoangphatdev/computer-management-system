@@ -1,6 +1,6 @@
 package chart;
 
-import java.awt.BorderLayout; 
+import java.awt.BorderLayout;  
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.geom.Point2D;
@@ -43,18 +43,6 @@ public class Columnchart extends JPanel {
     private JPanel contentPane;
 	private Dashboard dashboard;
 	private DashboardForManager dashboardForManager;
-
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(() -> {
-//            try {
-//                Columnchart frame = new Columnchart(null);
-//                frame.setVisible(true);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        });
-//    }
-
 	 public Columnchart(Dashboard dashboard) {
 	        this.dashboard = dashboard;
 	        init();

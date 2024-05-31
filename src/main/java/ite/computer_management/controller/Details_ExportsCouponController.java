@@ -19,9 +19,9 @@ public class Details_ExportsCouponController implements MouseListener, KeyListen
 	 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource() == Details_ExportCouponView.btn_cancel) {
+		if(e.getSource() == Details_ExportCouponView.cancelBtn) {
 			Details_ExportCouponView.cancel();
-		} else if(e.getSource() == Details_ExportCouponView.btnExportFdf) {
+		} else if(e.getSource() == Details_ExportCouponView.exportPdfBtn) {
 			try {
 				Details_ExportCouponView.export_PDF();
 			} catch (DocumentException e1) {

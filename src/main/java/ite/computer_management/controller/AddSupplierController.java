@@ -18,11 +18,11 @@ public class AddSupplierController implements MouseListener {
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource() == addSupplierView.btnadd) {
+		if(e.getSource() == addSupplierView.addBtn) {
 			addSupplierView.clickAddLbl();
-		}else if(e.getSource() == addSupplierView.btnCancel) {
+		}else if(e.getSource() == addSupplierView.cancelBtn) {
 			addSupplierView.clickCancelLbl();
-		}else if(e.getSource() == addSupplierView.btnRefresh) {
+		}else if(e.getSource() == addSupplierView.refreshBtn) {
 			addSupplierView.clickRefreshLbl();
 		}
 	}

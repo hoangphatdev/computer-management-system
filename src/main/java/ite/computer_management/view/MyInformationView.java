@@ -17,6 +17,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 public class MyInformationView extends JFrame {
 
@@ -114,6 +115,10 @@ public class MyInformationView extends JFrame {
 		contentPane.add(changePasswordBtn);
 
 		JButton cancelBtn = new JButton("Cancel");
+		cancelBtn.setIcon(new ImageIcon(MyInformationView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
+		cancelBtn.setOpaque(true);
+		cancelBtn.setBackground(new Color(70, 163, 100));
+		cancelBtn.setForeground(new Color(255, 255, 255));
 		cancelBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

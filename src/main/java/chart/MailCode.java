@@ -116,7 +116,7 @@ private static String luutru_teencode;
     	return luutru_teencode;
     }
     
-    private static String taoteenCode() {
+    private static  String taoteenCode() {
         // Tạo mã xác nhận ngẫu nhiên 4 chữ số
         Random random = new Random();
         int code = 1000 + random.nextInt(9000);

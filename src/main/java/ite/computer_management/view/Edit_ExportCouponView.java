@@ -123,6 +123,7 @@ public class Edit_ExportCouponView extends JFrame {
 		
 		btn_back = new JButton("Back");
 		btn_back.setForeground(Color.BLACK);
+		btn_back.setIcon(new ImageIcon(Edit_ImportsCouponView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
 		btn_back.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_back.setBackground(Color.LIGHT_GRAY);
 		btn_back.setBounds(862, 488, 160, 41);
@@ -217,18 +218,18 @@ public class Edit_ExportCouponView extends JFrame {
 		getContentPane().add(TF_Quantity);
 		
 		btn_accept = new JButton("Accept");
-		btn_accept.setBackground(Color.LIGHT_GRAY);
-		btn_accept.setForeground(Color.WHITE);
+		btn_accept.setBackground(new Color(6, 191, 33));
+		btn_accept.setForeground(new Color(255,255,255));
 		btn_accept.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_accept.setBounds(237, 508, 85, 28);
 		getContentPane().add(btn_accept);
 		btn_accept.addMouseListener(edit_exportsCoupon_Controller);
 		
 		 btn_DeleteProduct = new JButton("Delete product");
-		 btn_DeleteProduct.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\delete 30.png"));
-		btn_DeleteProduct.setBackground(Color.LIGHT_GRAY);
-		btn_DeleteProduct.setForeground(new Color(0, 0, 0));
-		btn_DeleteProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		 btn_DeleteProduct.setIcon(new ImageIcon(Edit_ExportCouponView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
+		 btn_DeleteProduct.setBackground(new Color(6, 191, 33));
+			btn_DeleteProduct.setForeground(new Color(255,255,255));
+			btn_DeleteProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_DeleteProduct.setBounds(1032, 67, 188, 28);
 		getContentPane().add(btn_DeleteProduct);
 		btn_DeleteProduct.addMouseListener(edit_exportsCoupon_Controller);
@@ -246,6 +247,7 @@ public class Edit_ExportCouponView extends JFrame {
 		getContentPane().add(text_totalAmount);
 		
 		btn_save = new JButton("Save");
+		btn_save.setIcon(new ImageIcon(Edit_ExportCouponView.class.getResource("/ite/computer_management/img/icons8-update-30.png")));
 		btn_save.setBackground(Color.LIGHT_GRAY);
 		btn_save.setForeground(new Color(0, 0, 0));
 		btn_save.setFont(new Font("Tahoma", Font.PLAIN, 15));
