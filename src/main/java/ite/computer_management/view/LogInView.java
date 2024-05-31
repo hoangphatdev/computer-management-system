@@ -154,8 +154,7 @@ public class LogInView extends JFrame {
 		contentPane.add(Nut_hienMK);
 
 		JLabel dangnhap_1 = new JLabel("");
-		dangnhap_1.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\logo2 - Copy.png"));
+		dangnhap_1.setIcon(new ImageIcon(LogInView.class.getResource("/ite/computer_management/img/logo2 - Copy.png")));
 		dangnhap_1.setFont(new Font("Arial", Font.BOLD, 27));
 		dangnhap_1.setBounds(-46, 43, 450, 407);
 		contentPane.add(dangnhap_1);
@@ -167,13 +166,12 @@ public class LogInView extends JFrame {
 
 		JLabel lblLogIn = new JLabel("LOG IN ");
 		lblLogIn.setForeground(new Color(0, 0, 0));
-		lblLogIn.setFont(new Font("Freestyle Script", Font.BOLD, 74));
+		lblLogIn.setFont(new Font("Freestyle Script", Font.BOLD, 50));
 		lblLogIn.setBounds(480, 11, 238, 142);
 		contentPane.add(lblLogIn);
 
 		JLabel taikhoan_1 = new JLabel("");
-		taikhoan_1.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\anh.jpg"));
+		taikhoan_1.setIcon(new ImageIcon(LogInView.class.getResource("/ite/computer_management/img/anh.jpg")));
 		taikhoan_1.setForeground(SystemColor.window);
 		taikhoan_1.setFont(new Font("Arial", Font.BOLD, 17));
 		taikhoan_1.setBounds(-128, 0, 1029, 554);

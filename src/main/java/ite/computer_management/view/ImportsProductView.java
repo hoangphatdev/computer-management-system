@@ -108,8 +108,7 @@ public class ImportsProductView extends JPanel {
 		TF_Sreach.addKeyListener(Imports_productController);
 
 		btn_Refresh = new JButton("");
-		btn_Refresh.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
+		btn_Refresh.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
 		btn_Refresh.setBounds(348, 46, 85, 28);
 		btn_Refresh.setForeground(Color.WHITE);
 		btn_Refresh.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -150,11 +149,26 @@ public class ImportsProductView extends JPanel {
 		table_Product = new JTable();
 		table_Product.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Number", "Code", "Name", "Quantity", "Price" }));
-		table_Product.getColumnModel().getColumn(0).setPreferredWidth(54);
-		table_Product.getColumnModel().getColumn(1).setPreferredWidth(42);
-		table_Product.getColumnModel().getColumn(2).setPreferredWidth(168);
-		table_Product.getColumnModel().getColumn(3).setPreferredWidth(53);
-		table_Product.getColumnModel().getColumn(4).setPreferredWidth(43);
+		table_Product.getColumnModel().getColumn(0).setPreferredWidth(150);
+		table_Product.getColumnModel().getColumn(1).setPreferredWidth(150);
+		table_Product.getColumnModel().getColumn(2).setPreferredWidth(150);
+		table_Product.getColumnModel().getColumn(3).setPreferredWidth(150);
+		table_Product.getColumnModel().getColumn(4).setPreferredWidth(150);
+		
+		table_Product.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table_Product.setFillsViewportHeight(true);
+		table_Product.setFont(new Font("JetBrains MonoMono", Font.BOLD, 16));
+		table_Product.setBackground(new Color(255, 255, 255));
+		table_Product.getTableHeader().setFont(new Font("JetBrains Mono", Font.BOLD, 17));
+		table_Product.getTableHeader().setBackground(new Color(70, 163, 100));
+		table_Product.getTableHeader().setForeground(new Color(255, 255, 255));
+		table_Product.getTableHeader().setReorderingAllowed(false);
+		table_Product.getTableHeader().setResizingAllowed(false);
+		table_Product.setRowHeight(30);
+		table_Product.setGridColor(new Color(64, 82, 69));
+		table_Product.setShowHorizontalLines(true);
+		table_Product.setBackground(new Color(197, 227, 206));
+		table_Product.setForeground(new Color(47, 97, 62));
 
 		table_Product.addMouseListener(new MouseAdapter() {
 			public int r;
@@ -170,18 +184,36 @@ public class ImportsProductView extends JPanel {
 		});
 
 		JScrollPane scrollPane = new JScrollPane(table_Product);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBounds(22, 107, 452, 571);
 		add(scrollPane);
+		
 
 		table_Imports = new JTable();
 		table_Imports.setBounds(1, 25, 698, 0);
 		table_Imports.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Number", "Code ", "Name", "Quantity", "Price" }));
-		table_Imports.getColumnModel().getColumn(0).setPreferredWidth(50);
-		table_Imports.getColumnModel().getColumn(1).setPreferredWidth(57);
-		table_Imports.getColumnModel().getColumn(2).setPreferredWidth(185);
-		table_Imports.getColumnModel().getColumn(3).setPreferredWidth(50);
-		table_Imports.getColumnModel().getColumn(4).setPreferredWidth(37);
+		table_Imports.getColumnModel().getColumn(0).setPreferredWidth(150);
+		table_Imports.getColumnModel().getColumn(1).setPreferredWidth(150);
+		table_Imports.getColumnModel().getColumn(2).setPreferredWidth(150);
+		table_Imports.getColumnModel().getColumn(3).setPreferredWidth(150);
+		table_Imports.getColumnModel().getColumn(4).setPreferredWidth(150);
+
+		table_Imports.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table_Imports.setFillsViewportHeight(true);
+		table_Imports.setFont(new Font("JetBrains MonoMono", Font.BOLD, 16));
+		table_Imports.setBackground(new Color(255, 255, 255));
+		table_Imports.getTableHeader().setFont(new Font("JetBrains Mono", Font.BOLD, 17));
+		table_Imports.getTableHeader().setBackground(new Color(70, 163, 100));
+		table_Imports.getTableHeader().setForeground(new Color(255, 255, 255));
+		table_Imports.getTableHeader().setReorderingAllowed(false);
+		table_Imports.getTableHeader().setResizingAllowed(false);
+		table_Imports.setRowHeight(30);
+		table_Imports.setGridColor(new Color(64, 82, 69));
+		table_Imports.setShowHorizontalLines(true);
+		table_Imports.setBackground(new Color(197, 227, 206));
+		table_Imports.setForeground(new Color(47, 97, 62));
+
 		add(table_Imports);
 
 		JScrollPane scrollPane_1 = new JScrollPane(table_Imports);
@@ -213,8 +245,7 @@ public class ImportsProductView extends JPanel {
 
 		btn_DeleteProduct = new JButton("Delete product");
 		btn_DeleteProduct.setBounds(1006, 67, 188, 28);
-		btn_DeleteProduct.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\delete 30.png"));
+		 btn_DeleteProduct.setIcon(new ImageIcon(ExportProductView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
 		btn_DeleteProduct.setBackground(new Color(6, 191, 33));
 		btn_DeleteProduct.setForeground(new Color(255, 255, 255));
 		btn_DeleteProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -234,10 +265,11 @@ public class ImportsProductView extends JPanel {
 		add(text_totalAmount);
 
 		btn_ImportsProduct = new JButton("Imports product");
-		btn_ImportsProduct.setBounds(1052, 682, 160, 41);
+		btn_ImportsProduct.setIcon(new ImageIcon(ExportProductView.class.getResource("/ite/computer_management/img/icons8-pdf-30.png")));
+		btn_ImportsProduct.setBounds(1030, 682, 182, 41);
 		btn_ImportsProduct.setBackground(new Color(6, 191, 33));
 		btn_ImportsProduct.setForeground(new Color(255, 255, 255));
-		btn_ImportsProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_ImportsProduct.setFont(new Font("Dialog", Font.PLAIN, 14));
 		add(btn_ImportsProduct);
 		btn_ImportsProduct.addMouseListener(Imports_productController);
 

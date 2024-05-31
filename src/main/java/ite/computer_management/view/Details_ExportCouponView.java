@@ -37,6 +37,8 @@ import ite.computer_management.dao.ImportDAO;
 import ite.computer_management.dao.computerDAO;
 import ite.computer_management.model.Details_Form;
 import ite.computer_management.model.ExportForm;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 
 public class Details_ExportCouponView extends JFrame {
@@ -46,8 +48,8 @@ public class Details_ExportCouponView extends JFrame {
 	public JTable table_Exports;
 
 	private JLabel lblQuantity_1;
-	public JButton btn_cancel;
-	public JButton btnExportFdf;
+	public JButton cancelBtn;
+	public JButton exportPdfBtn;
 	private DefaultTableModel model;
 	private String form_Code;
 	private ArrayList<Details_Form> Details_Form;
@@ -127,6 +129,7 @@ public class Details_ExportCouponView extends JFrame {
 		getContentPane().add(lblQuantity_1);
 		
 		JLabel lblD = new JLabel("Detail Export coupon");
+		lblD.setHorizontalAlignment(SwingConstants.CENTER);
 		lblD.setBackground(new Color(0, 0, 51));
 		lblD.setForeground(Color.WHITE);
 		lblD.setFont(new Font("Stencil", Font.BOLD, 25));
@@ -139,20 +142,22 @@ public class Details_ExportCouponView extends JFrame {
 		lblTime.setBounds(496, 116, 90, 13);
 		getContentPane().add(lblTime);
 		
-		 btn_cancel = new JButton("Cancel");
-		btn_cancel.setBackground(Color.RED);
-		btn_cancel.setForeground(Color.BLACK);
-		btn_cancel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btn_cancel.setBounds(526, 482, 157, 41);
-		getContentPane().add(btn_cancel);
-		btn_cancel.addMouseListener(details_ExportsCouponController);
+		 cancelBtn = new JButton("Cancel");
+		 cancelBtn.setIcon(new ImageIcon(AddProductView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
+			cancelBtn.setForeground(new Color(70, 163, 100));
+			cancelBtn.setBackground(new Color(219,219,219));
+		cancelBtn.setFont(new Font("Dialog", Font.BOLD, 16));
+		cancelBtn.setBounds(526, 482, 157, 41);
+		getContentPane().add(cancelBtn);
+		cancelBtn.addMouseListener(details_ExportsCouponController);
 		
-		 btnExportFdf = new JButton("Export PDF");
-		btnExportFdf.setForeground(Color.WHITE);
-		btnExportFdf.setBackground(Color.DARK_GRAY);
-		btnExportFdf.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnExportFdf.setBounds(694, 482, 157, 41);
-		getContentPane().add(btnExportFdf);
+		 exportPdfBtn = new JButton("Export PDF");
+		 exportPdfBtn.setIcon(new ImageIcon(Details_ExportCouponView.class.getResource("/ite/computer_management/img/icons8-pdf-30.png")));
+		 exportPdfBtn.setForeground(new Color(70, 163, 100));
+		 exportPdfBtn.setBackground(new Color(219,219,219));
+		exportPdfBtn.setFont(new Font("Dialog", Font.BOLD, 16));
+		exportPdfBtn.setBounds(694, 482, 157, 41);
+		getContentPane().add(exportPdfBtn);
 		
 		 form_text = new JLabel("3");
 		form_text.setForeground(Color.YELLOW);
@@ -171,7 +176,7 @@ public class Details_ExportCouponView extends JFrame {
 		time_text.setFont(new Font("Tahoma", Font.BOLD, 14));
 		time_text.setBounds(565, 116, 239, 13);
 		getContentPane().add(time_text);
-		btnExportFdf.addMouseListener(details_ExportsCouponController);
+		exportPdfBtn.addMouseListener(details_ExportsCouponController);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}

@@ -59,6 +59,7 @@ public class DashboardForExportStaff extends JFrame {
 		contentPane.add(tabbedPane);
 
 		ExportProductView ExportProductView = new ExportProductView();
+		ExportProductView.table_Product.setLocation(23, 142);
 		tabbedPane.addTab("Export Product", ExportProductView);
 
 		ExportCouponView exportCouponView = new ExportCouponView();
@@ -74,8 +75,6 @@ public class DashboardForExportStaff extends JFrame {
 		String xinchao = "Hello  " + accountReturn.getFullName() +" <3";
 		JLabel greetingLbl = new JLabel(xinchao);
 		greetingLbl.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 17));
-//		greetingLbl.setIcon(new ImageIcon(
-//				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\lgo.png"));
 		greetingLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		greetingLbl.setBounds(0, 0, 250, 158);
 		greetingLbl.setOpaque(true);
@@ -84,8 +83,7 @@ public class DashboardForExportStaff extends JFrame {
 		navPanel.add(greetingLbl);
 
 		exportProductNavLbl = new JLabel("Export Product");
-		exportProductNavLbl.setIcon(new ImageIcon(
-				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-import-goods-filled-outline\\icons8-import-goods-32.png"));
+		exportProductNavLbl.setIcon(new ImageIcon(DashboardForExportStaff.class.getResource("/ite/computer_management/img/exportProductt-30.png")));
 		exportProductNavLbl.setOpaque(true);
 		exportProductNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		exportProductNavLbl.setBounds(1, 168, 250, 45);
@@ -95,8 +93,7 @@ public class DashboardForExportStaff extends JFrame {
 		navPanel.add(exportProductNavLbl);
 				      
 		exportCouponNavLbl = new JLabel("Export Coupon");
-		exportCouponNavLbl.setIcon(new ImageIcon(
-				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-note-30.png"));
+		exportCouponNavLbl.setIcon(new ImageIcon(DashboardForExportStaff.class.getResource("/ite/computer_management/img/bill-30.png")));
 		exportCouponNavLbl.setOpaque(true);
 		exportCouponNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		exportCouponNavLbl.setBounds(1, 213, 250, 50);
@@ -106,8 +103,7 @@ public class DashboardForExportStaff extends JFrame {
 		navPanel.add(exportCouponNavLbl);
 
 		myInformationLbl = new JLabel("My Information");
-		myInformationLbl.setIcon(new ImageIcon(
-				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-user-office-m\\icons8-user-30.png"));
+		myInformationLbl.setIcon(new ImageIcon(DashboardForExportStaff.class.getResource("/ite/computer_management/img/myinfor-30.png")));
 		myInformationLbl.setOpaque(true);
 		myInformationLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		myInformationLbl.setBounds(0, 668, 250, 45);
@@ -117,8 +113,7 @@ public class DashboardForExportStaff extends JFrame {
 		navPanel.add(myInformationLbl);
 
 		logOutNavLbl = new JLabel("Log out");
-		logOutNavLbl.setIcon(new ImageIcon(
-				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\log out\\icons8-log-out-32.png"));
+		logOutNavLbl.setIcon(new ImageIcon(DashboardForExportStaff.class.getResource("/ite/computer_management/img/exit30.png")));
 		logOutNavLbl.setOpaque(true);
 		logOutNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		logOutNavLbl.setBounds(0, 712, 250, 50);
@@ -128,6 +123,7 @@ public class DashboardForExportStaff extends JFrame {
 		navPanel.add(logOutNavLbl);
 		
 		ChatNavLbl_1 = new JLabel("Chat");
+		ChatNavLbl_1.setIcon(new ImageIcon(DashboardForExportStaff.class.getResource("/ite/computer_management/img/chat.png")));
 		ChatNavLbl_1.setOpaque(true);
 		ChatNavLbl_1.setFont(new Font("Dialog", Font.BOLD, 15));
 		ChatNavLbl_1.setBackground(new Color(70, 163, 100));

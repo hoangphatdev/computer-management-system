@@ -84,6 +84,20 @@ public class AccountView extends JPanel {
 		//create table and fetch data from database
 		table = new JTable();
 		model = (DefaultTableModel) table.getModel();
+
+		table.setFillsViewportHeight(true);
+		table.setFont(new Font("JetBrains MonoMono", Font.BOLD, 16));
+		table.setBackground(new Color(255, 255, 255));
+		table.setRowHeight(30);
+		table.setGridColor(new Color(64, 82, 69));
+		table.setShowHorizontalLines(true);
+		table.setBackground(new Color(197, 227, 206));
+		table.setForeground(new Color(47, 97, 62));
+		table.getTableHeader().setFont(new Font("JetBrains Mono", Font.BOLD, 17));
+		table.getTableHeader().setBackground(new Color(70, 163, 100));
+		table.getTableHeader().setForeground(new Color(255, 255, 255));
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setResizingAllowed(false);
 		AccountDAO AccountDAO = new AccountDAO(this);
 		AccountDAO.selectAll();
 		scrollPane.setViewportView(table);

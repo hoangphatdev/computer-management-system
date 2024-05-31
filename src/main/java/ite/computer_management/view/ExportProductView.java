@@ -153,11 +153,26 @@ public class ExportProductView extends JPanel {
 				"Number", "Code", "Name", "Quantity", "Price"
 			}
 		));
-		table_Product.getColumnModel().getColumn(0).setPreferredWidth(54);
-		table_Product.getColumnModel().getColumn(1).setPreferredWidth(42);
-		table_Product.getColumnModel().getColumn(2).setPreferredWidth(168);
-		table_Product.getColumnModel().getColumn(3).setPreferredWidth(53);
-		table_Product.getColumnModel().getColumn(4).setPreferredWidth(43);
+		table_Product.getColumnModel().getColumn(0).setPreferredWidth(150);
+		table_Product.getColumnModel().getColumn(1).setPreferredWidth(150);
+		table_Product.getColumnModel().getColumn(2).setPreferredWidth(150);
+		table_Product.getColumnModel().getColumn(3).setPreferredWidth(150);
+		table_Product.getColumnModel().getColumn(4).setPreferredWidth(150);
+		
+		table_Product.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table_Product.setFillsViewportHeight(true);
+		table_Product.setFont(new Font("JetBrains MonoMono", Font.BOLD, 16));
+		table_Product.setBackground(new Color(255, 255, 255));
+		table_Product.getTableHeader().setFont(new Font("JetBrains Mono", Font.BOLD, 17));
+		table_Product.getTableHeader().setBackground(new Color(70, 163, 100));
+		table_Product.getTableHeader().setForeground(new Color(255, 255, 255));
+		table_Product.getTableHeader().setReorderingAllowed(false);
+		table_Product.getTableHeader().setResizingAllowed(false);
+		table_Product.setRowHeight(30);
+		table_Product.setGridColor(new Color(64, 82, 69));
+		table_Product.setShowHorizontalLines(true);
+		table_Product.setBackground(new Color(197, 227, 206));
+		table_Product.setForeground(new Color(47, 97, 62));
 
 		table_Product.addMouseListener(new MouseAdapter() {
 			public int r;
@@ -186,12 +201,28 @@ public class ExportProductView extends JPanel {
 				"Number", "Code ", "Name", "Quantity", "Price"
 			}
 		));
-		table_Exports.getColumnModel().getColumn(0).setPreferredWidth(50);
-		table_Exports.getColumnModel().getColumn(1).setPreferredWidth(57);
-		table_Exports.getColumnModel().getColumn(2).setPreferredWidth(185);
-		table_Exports.getColumnModel().getColumn(3).setPreferredWidth(50);
-		table_Exports.getColumnModel().getColumn(4).setPreferredWidth(37);
+		table_Exports.getColumnModel().getColumn(0).setPreferredWidth(150);
+		table_Exports.getColumnModel().getColumn(1).setPreferredWidth(150);
+		table_Exports.getColumnModel().getColumn(2).setPreferredWidth(150);
+		table_Exports.getColumnModel().getColumn(3).setPreferredWidth(150);
+		table_Exports.getColumnModel().getColumn(4).setPreferredWidth(150);
+		
+		table_Exports.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table_Exports.setFillsViewportHeight(true);
+		table_Exports.setFont(new Font("JetBrains MonoMono", Font.BOLD, 16));
+		table_Exports.setBackground(new Color(255, 255, 255));
+		table_Exports.getTableHeader().setFont(new Font("JetBrains Mono", Font.BOLD, 17));
+		table_Exports.getTableHeader().setBackground(new Color(70, 163, 100));
+		table_Exports.getTableHeader().setForeground(new Color(255, 255, 255));
+		table_Exports.getTableHeader().setReorderingAllowed(false);
+		table_Exports.getTableHeader().setResizingAllowed(false);
+		table_Exports.setRowHeight(30);
+		table_Exports.setGridColor(new Color(64, 82, 69));
+		table_Exports.setShowHorizontalLines(true);
+		table_Exports.setBackground(new Color(197, 227, 206));
+		table_Exports.setForeground(new Color(47, 97, 62));
 		add(table_Exports);
+		
 		
 		JScrollPane scrollPane_1 = new JScrollPane(table_Exports);
 		scrollPane_1.setBounds(503, 176, 722, 478);
@@ -218,7 +249,7 @@ public class ExportProductView extends JPanel {
 		
 		 btn_DeleteProduct = new JButton("Delete product");
 		 btn_DeleteProduct.setBounds(1024, 67, 188, 28);
-		 btn_DeleteProduct.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\delete 30.png"));
+		 btn_DeleteProduct.setIcon(new ImageIcon(ExportProductView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
 		btn_DeleteProduct.setBackground(new Color(6, 191, 33));
 		btn_DeleteProduct.setForeground(new Color(255,255,255));
 		btn_DeleteProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -238,10 +269,11 @@ public class ExportProductView extends JPanel {
 		add(text_totalAmount);
 		
 		btn_ExportsProduct = new JButton("Export product");
-		btn_ExportsProduct.setBounds(1052, 682, 160, 41);
+		btn_ExportsProduct.setIcon(new ImageIcon(ExportProductView.class.getResource("/ite/computer_management/img/icons8-pdf-30.png")));
+		btn_ExportsProduct.setBounds(1030, 682, 182, 41);
 		btn_ExportsProduct.setBackground(new Color(6, 191, 33));
 		btn_ExportsProduct.setForeground(new Color(255,255,255));
-		btn_ExportsProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_ExportsProduct.setFont(new Font("Dialog", Font.PLAIN, 14));
 		add(btn_ExportsProduct);
 		btn_ExportsProduct.addMouseListener(export_productController);
 		

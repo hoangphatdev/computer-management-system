@@ -2,7 +2,9 @@
 package ite.computer_management.view;
 
 import java.awt.Color;
+import java.awt.Font;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,7 +18,8 @@ import ite.computer_management.controller.EditAccountController;
 import ite.computer_management.dao.AccountDAO;
 import ite.computer_management.model.Account;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent; 
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants; 
 public class EditAccountView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -29,6 +32,7 @@ public class EditAccountView extends JFrame {
 	public JButton refreshBtn;
 	public JButton cancelBtn;
 	public AccountView accountView;
+	private JLabel titleLbl;
 
 	public EditAccountView(AccountView accountView, Dashboard dashboard) {
 		this.accountView = accountView;
@@ -40,7 +44,7 @@ public class EditAccountView extends JFrame {
 		EditAccountController editAccountController = new EditAccountController(this);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 567, 495);
+		setBounds(100, 100, 638, 547);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -48,55 +52,60 @@ public class EditAccountView extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel fullNameLbl = new JLabel("Full Name");
-		fullNameLbl.setBounds(65, 27, 102, 36);
+		fullNameLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		fullNameLbl.setBounds(77, 122, 119, 49);
 		fullNameLbl.setOpaque(true);
 		fullNameLbl.setBackground(new Color(70, 163, 100));
 		fullNameLbl.setForeground(new Color(219, 219, 219));
 		contentPane.add(fullNameLbl);
 		
 		JLabel userNameLbl = new JLabel("User Name");
-		userNameLbl.setBounds(65, 113, 102, 36);
+		userNameLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		userNameLbl.setBounds(77, 198, 119, 49);
 		userNameLbl.setOpaque(true);
 		userNameLbl.setBackground(new Color(70, 163, 100));
 		userNameLbl.setForeground(new Color(219, 219, 219));
 		contentPane.add(userNameLbl);
 		
 		JLabel passwordLbl = new JLabel("Password");
-		passwordLbl.setBounds(65, 194,102, 36);
+		passwordLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		passwordLbl.setBounds(77, 280,119, 49);
 		passwordLbl.setOpaque(true);
 		passwordLbl.setBackground(new Color(70, 163, 100));
 		passwordLbl.setForeground(new Color(219, 219, 219));
 		contentPane.add(passwordLbl);
 		
 		JLabel roleLbl = new JLabel("Role");
-		roleLbl.setBounds(65, 277,102, 36);
+		roleLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		roleLbl.setBounds(77, 360,119, 48);
 		roleLbl.setOpaque(true);
 		roleLbl.setBackground(new Color(70, 163, 100));
 		roleLbl.setForeground(new Color(219, 219, 219));
 		contentPane.add(roleLbl);
 		
 		fullNameTxt = new JTextField();
-		fullNameTxt.setBounds(168, 29, 336, 36);
+		fullNameTxt.setBounds(197, 123, 349, 47);
 		contentPane.add(fullNameTxt);
 		fullNameTxt.setColumns(10);
 		
 		userNameTxt = new JTextField();
 		userNameTxt.setColumns(10);
-		userNameTxt.setBounds(168, 114, 336, 36);
+		userNameTxt.setBounds(197, 199, 349, 48);
 		contentPane.add(userNameTxt);
 		
 		passwordTxt = new JTextField();
 		passwordTxt.setColumns(10);
-		passwordTxt.setBounds(168, 194, 336, 36);
+		passwordTxt.setBounds(197, 280, 349, 48);
 		contentPane.add(passwordTxt);
 		
 		roleTxt = new JTextField();
 		roleTxt.setColumns(10);
-		roleTxt.setBounds(168, 277, 336, 36);
+		roleTxt.setBounds(197, 360, 349, 48);
 		contentPane.add(roleTxt);
 		
 		updateBtn = new JButton("UPDATE");
-		updateBtn.setBounds(65, 354, 110, 30);
+		updateBtn.setIcon(new ImageIcon(EditAccountView.class.getResource("/ite/computer_management/img/icons8-update-30.png")));
+		updateBtn.setBounds(256, 441, 119, 43);
 		updateBtn.setOpaque(true);
 		updateBtn.setBackground(new Color(219, 219, 219));
 		updateBtn.setForeground(new Color(70, 163, 100));
@@ -104,7 +113,8 @@ public class EditAccountView extends JFrame {
 		contentPane.add(updateBtn);
 		
 		cancelBtn = new JButton("CANCEL");
-		cancelBtn.setBounds(227, 354, 110, 30);
+		cancelBtn.setIcon(new ImageIcon(EditAccountView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
+		cancelBtn.setBounds(77, 441, 132, 43);
 		cancelBtn.setOpaque(true);
 		cancelBtn.setBackground(new Color(219, 219, 219));
 		cancelBtn.setForeground(new Color(70, 163, 100));
@@ -112,12 +122,23 @@ public class EditAccountView extends JFrame {
 		contentPane.add(cancelBtn);
 		
 		refreshBtn = new JButton("REFRESH");
-		refreshBtn.setBounds(390, 354, 110, 30);
+		refreshBtn.setIcon(new ImageIcon(EditAccountView.class.getResource("/ite/computer_management/img/icons8-refresh-30.png")));
+		refreshBtn.setBounds(414, 441, 132, 43);
 		refreshBtn.setOpaque(true);
 		refreshBtn.setBackground(new Color(219, 219, 219));
 		refreshBtn.setForeground(new Color(70, 163, 100));
 		refreshBtn.addMouseListener(editAccountController);
 		contentPane.add(refreshBtn);
+		
+		titleLbl = new JLabel("EDIT ACCOUNT");
+		titleLbl.setBounds(0, 0, 646, 102);
+		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLbl.setFont(new Font("Hack", Font.BOLD, 24));
+		titleLbl.setForeground(new Color(219, 219, 219));
+		titleLbl.setBackground(new Color(70, 163, 100));
+		titleLbl.setOpaque(true);
+		titleLbl.setBounds(0, 0, 622, 102);
+		contentPane.add(titleLbl);
 	}
 
 	public void clickUpdateBtn() {

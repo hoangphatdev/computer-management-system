@@ -118,7 +118,22 @@ public class ImportCouponView extends JPanel {
 		table = new JTable();
 		table.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Number", "Form code", "Supplier ", "Creator", "Time", "Total amount" }));
+		
+		table.setFillsViewportHeight(true);
+		table.setFont(new Font("JetBrains MonoMono", Font.BOLD, 16));
+		table.setBackground(new Color(255, 255, 255));
+		table.getTableHeader().setFont(new Font("JetBrains Mono", Font.BOLD, 17));
+		table.getTableHeader().setBackground(new Color(70, 163, 100));
+		table.getTableHeader().setForeground(new Color(255, 255, 255));
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setResizingAllowed(false);
+		table.setRowHeight(30);
+		table.setGridColor(new Color(64, 82, 69));
+		table.setShowHorizontalLines(true);
+		table.setBackground(new Color(197, 227, 206));
+		table.setForeground(new Color(47, 97, 62));
 
+		
 		ImportCouponDAO importCouponDAO = new ImportCouponDAO(this);
 		importCouponDAO.selectAll();
 		scrollPane.setViewportView(table);
@@ -142,8 +157,7 @@ public class ImportCouponView extends JPanel {
 
 		btndelete = new JButton("Delete");
 		btndelete.setForeground(new Color(6, 191, 33));
-		btndelete.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\cancel 30.png"));
+		btndelete.setIcon(new ImageIcon(ImportCouponView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
 		btndelete.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btndelete.setBackground(new Color(171, 214, 177));
 		btndelete.setBounds(36, 49, 223, 40);
@@ -152,8 +166,7 @@ public class ImportCouponView extends JPanel {
 
 		btnUpdate = new JButton("Update");
 		btnUpdate.setForeground(new Color(6, 191, 33));
-		btnUpdate.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\edit 30.png"));
+		btnUpdate.setIcon(new ImageIcon(ImportCouponView.class.getResource("/ite/computer_management/img/icons8-update-30.png")));
 		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnUpdate.setBackground(new Color(171, 214, 177));
 		btnUpdate.setBounds(36, 114, 223, 40);
@@ -162,8 +175,7 @@ public class ImportCouponView extends JPanel {
 
 		btnExcel = new JButton("Export excel");
 		btnExcel.setForeground(new Color(6, 191, 33));
-		btnExcel.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\excel 30.png"));
+		btnExcel.setIcon(new ImageIcon(ImportCouponView.class.getResource("/ite/computer_management/img/excel 30.png")));
 		btnExcel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnExcel.setBackground(new Color(171, 214, 177));
 		btnExcel.setBounds(1012, 176, 181, 40);
@@ -171,8 +183,7 @@ public class ImportCouponView extends JPanel {
 		btnExcel.addMouseListener(importsCouponController);
 
 		btnshowdetail = new JButton("display detail");
-		btnshowdetail.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\detail 20.png"));
+		btnshowdetail.setIcon(new ImageIcon(ImportCouponView.class.getResource("/ite/computer_management/img/icons8-search-more-30.png")));
 		btnshowdetail.setForeground(new Color(6, 191, 33));
 		btnshowdetail.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnshowdetail.setBackground(new Color(171, 214, 177));
@@ -181,8 +192,7 @@ public class ImportCouponView extends JPanel {
 		btnshowdetail.addMouseListener(importsCouponController);
 
 		btnRefresh = new JButton("Refresh");
-		btnRefresh.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
+		btnRefresh.setIcon(new ImageIcon(ImportCouponView.class.getResource("/ite/computer_management/img/icons8-refresh-30.png")));
 		btnRefresh.setForeground(new Color(6, 191, 33));
 		btnRefresh.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnRefresh.setBackground(new Color(171, 214, 177));
