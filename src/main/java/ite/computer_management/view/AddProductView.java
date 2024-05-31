@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import javax.swing.JTextField;
@@ -64,9 +65,7 @@ public class AddProductView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 500);
 		contentPane = new JPanel();
-//		contentPane.setBackground(new Color(70, 163, 100));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -300,7 +299,7 @@ public class AddProductView extends JFrame {
 		String preparedCpuName = cpuTxt.getText();
 		String preparedRam = ramTxt.getText();
 		String preparedMachineType = machineTypeTxt.getText();
-		BigDecimal preparedPrice = BigDecimal.valueOf( Double.parseDouble(priceTxt.getText()) );
+		BigInteger preparedPrice = BigInteger.valueOf(Long.valueOf(priceTxt.getText()));
 		int preparedQuantity = Integer.parseInt(quantityTxt.getText());
 		String preparedRom = romTxt.getText();
 		String preparedOrigin = originTxt.getText();
@@ -308,8 +307,8 @@ public class AddProductView extends JFrame {
 		String preparedBatteryCapacity = batteryCapacityTxt.getText();
 		Computer preparedComputer = new Computer(preparedComputerCode, preparedComputerName, preparedQuantity, preparedCpuName, preparedRam, preparedScreenCard,
 					preparedPrice, preparedSourceCapacity, preparedMachineType, preparedRom, preparedScreenSize,preparedBatteryCapacity, preparedOrigin);
-		
-
+		 
+  System.out.println(preparedPrice);
 		int check = ProductDAO.getInstance().insert(preparedComputer);
 		if(check == 1) {
 			//front-end

@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
@@ -90,7 +91,6 @@ public class WirtePDF_File {
             return;
         }
         try {
-            document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(url));
             document.open();
 
@@ -123,8 +123,8 @@ public class WirtePDF_File {
                 pdfTable.addCell(new PdfPCell(new Phrase(mt.getComputerName(), fontData)));
                 pdfTable.addCell(new PdfPCell(new Phrase(formatter.format(mt.getPrice()) + "đ", fontData)));
                 pdfTable.addCell(new PdfPCell(new Phrase(String.valueOf(ctpn.getQuantity()), fontData)));
-                BigDecimal quantity = BigDecimal.valueOf(ctpn.getQuantity());
-                BigDecimal totalPrice = quantity.multiply(mt.getPrice());
+                BigInteger quantity = BigInteger.valueOf(Long.valueOf(ctpn.getQuantity()));
+                BigInteger totalPrice = quantity.multiply(mt.getPrice());
                 pdfTable.addCell(new PdfPCell(new Phrase(formatter.format(totalPrice) + "đ", fontData)));
             }
 
@@ -141,7 +141,9 @@ public class WirtePDF_File {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "There was an error creating the PDF file: " + url);
         }
-    } 
+    }
+
+
     public void writeExportCoupon(String mapn) {
         String url = getFile(mapn);
         if (url == null) {
@@ -181,8 +183,8 @@ public class WirtePDF_File {
                 pdfTable.addCell(new PdfPCell(new Phrase(mt.getComputerName(), fontData)));
                 pdfTable.addCell(new PdfPCell(new Phrase(formatter.format(mt.getPrice()) + "đ", fontData)));
                 pdfTable.addCell(new PdfPCell(new Phrase(String.valueOf(ctpn.getQuantity()), fontData)));
-                BigDecimal quantity = BigDecimal.valueOf(ctpn.getQuantity());
-                BigDecimal totalPrice = quantity.multiply(mt.getPrice());
+                BigInteger quantity = BigInteger.valueOf(Long.valueOf(ctpn.getQuantity()));
+                BigInteger totalPrice = quantity.multiply(mt.getPrice());
                 pdfTable.addCell(new PdfPCell(new Phrase(formatter.format(totalPrice) + "đ", fontData)));
             }
 

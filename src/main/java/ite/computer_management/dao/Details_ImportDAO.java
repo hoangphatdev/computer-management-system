@@ -1,5 +1,6 @@
 package ite.computer_management.dao;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +31,7 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 	        pst.setString(1, t.getForm_Code());
 	        pst.setString(2, t.getComputer_Code());
 	        pst.setInt(3, t.getQuantity());
-	        pst.setDouble(4, t.getUnit_Price());
+	        pst.setObject(4, t.getUnit_Price());
 
 	        ketQua = pst.executeUpdate();
 	    } catch (SQLException e) {
@@ -84,7 +85,7 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 	            pst.setString(1, t.getForm_Code());
 	            pst.setString(2, t.getComputer_Code());
 	            pst.setInt(3, t.getQuantity());
-	            pst.setDouble(4, t.getUnit_Price());
+	            pst.setObject(4, t.getUnit_Price());
 	            pst.setString(5, t.getForm_Code());
 	            pst.setString(6, t.getComputer_Code());
 	            ketQua = pst.executeUpdate();
@@ -109,7 +110,7 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
 	                String form_Code = rs.getString("form_Code");
 	                String computer_Code = rs.getString("computer_Code");
 	                int quantity = rs.getInt("quantity");
-	                double unit_price = rs.getDouble("unit_price");
+	                BigInteger unit_price = BigInteger.valueOf(rs.getLong("unit_price"));
 	                Details_Form ctp = new Details_Form(form_Code, computer_Code, quantity, unit_price);
 	                ketQua.add(ctp);
 	            }
@@ -145,7 +146,7 @@ public class Details_ImportDAO implements DAOInterface<Details_Form>{
                 String form_Code = rs.getString("form_Code");
                 String computer_Code = rs.getString("computer_Code");
                 int quantity = rs.getInt("quantity");
-                double unit_price = rs.getDouble("unit_price");
+                BigInteger unit_price = BigInteger.valueOf( rs.getLong("unit_price"));
                 Details_Form ctp = new Details_Form(form_Code, computer_Code, quantity, unit_price);
                 ketQua.add(ctp);
             }

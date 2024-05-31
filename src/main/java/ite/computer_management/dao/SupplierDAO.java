@@ -31,7 +31,7 @@ public class SupplierDAO implements DAOInterface<Supplier> {
 		ConnectDatabase.getInstance();
 		Connection connect = ConnectDatabase.getConnection();
 		try {
-			String sql = "INSERT INTO Supplier(supplier_Code, supplier_Name, phone_Number, address)" + " VALUE"		
+			String sql = "INSERT INTO supplier" + " VALUE"		
 					+ "(?,?,?,?)";
 			PreparedStatement ps = connect.prepareStatement(sql);
 			ps.setString(1, t.getSupplier_Code());    // setString--> first Parameter is 1
@@ -45,7 +45,8 @@ public class SupplierDAO implements DAOInterface<Supplier> {
 			JOptionPane.showMessageDialog(null, "Insert successfully ><");
 			
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Computer code already exist");
+			JOptionPane.showMessageDialog(null, e);
+			JOptionPane.showMessageDialog(null, "Supplier code already exist");
 		}
 		return check;
     }
@@ -70,31 +71,25 @@ public class SupplierDAO implements DAOInterface<Supplier> {
 		return check;
     }
 
-    @Override
-    public int update(Supplier t) {
-        int check = 0;
-        ConnectDatabase.getInstance();
-        Connection connect = ConnectDatabase.getConnection();
-        String sql = "UPDATE supplier SET supplier_Code=?, supplier_Name=?, phone_Number=?, address=? WHERE supplier_Code=?";
-        try {
-            PreparedStatement ps = connect.prepareStatement(sql);
-            ps.setString(1, t.getSupplier_Code());
-            ps.setString(2, t.getSupplier_Name());
-            ps.setString(3, t.getPhone_Number());
-            ps.setString(4, t.getAddress());
-            ps.setString(5, t.getSupplier_Code()); 
-            check = ps.executeUpdate();
-            connect.close();
-            if (check > 0) {
-                JOptionPane.showMessageDialog(null, "Edit successfully");
-            } else {
-                JOptionPane.showMessageDialog(null, "No records were updated");
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
-        return check;
-    }
+	public int updateWithCondition(Supplier t, String condition) {
+		int check = 0;
+		ConnectDatabase.getInstance();
+		Connection connect = ConnectDatabase.getConnection();
+		String sql = "UPDATE supplier SET supplier_Name=?, phone_Number=?, address=? WHERE supplier_Code=?";
+		try {
+			PreparedStatement ps = connect.prepareStatement(sql);
+			ps.setString(1, t.getSupplier_Name());
+			ps.setString(2, t.getPhone_Number());
+			ps.setString(3, t.getAddress());
+			ps.setString(4, condition);
+			check = ps.executeUpdate();
+			System.out.println("so dong thay doi :" + check);
+			connect.close();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Edit unsuccessfully");
+		}
+		return check;
+	}
 
 
     @Override
@@ -169,13 +164,16 @@ public class SupplierDAO implements DAOInterface<Supplier> {
 
     @Override
     public ArrayList<Supplier> selectByCondition(String condition) {
-        // Chưa cài đặt, để trống cho bây giờ
         return null;
     }
 
     @Override
     public int update(Supplier t, String condition) {
-        // Chưa cài đặt, để trống cho bây giờ
         return 0;
     }
+
+	@Override
+	public int update(Supplier t) {
+		return 0;
+	}
 }

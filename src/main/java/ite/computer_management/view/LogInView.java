@@ -62,7 +62,8 @@ public class LogInView extends JFrame {
 	 */
 	public String getUserName() {
 		return userNameTxt.getText();
-    }
+	}
+
 	public LogInView() {
 		LogInController logInController = new LogInController(this);
 		setTitle("Computer manegement");
@@ -134,7 +135,8 @@ public class LogInView extends JFrame {
 		contentPane.add(Nut_thoat);
 
 		JToggleButton Nut_hienMK = new JToggleButton("");
-		Nut_hienMK.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\mắt 2.png"));
+		Nut_hienMK.setIcon(new ImageIcon(
+				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\mắt 2.png"));
 		Nut_hienMK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Nut_hienMK.isSelected()) {
@@ -152,7 +154,8 @@ public class LogInView extends JFrame {
 		contentPane.add(Nut_hienMK);
 
 		JLabel dangnhap_1 = new JLabel("");
-		dangnhap_1.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\logo2 - Copy.png"));
+		dangnhap_1.setIcon(new ImageIcon(
+				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\logo2 - Copy.png"));
 		dangnhap_1.setFont(new Font("Arial", Font.BOLD, 27));
 		dangnhap_1.setBounds(-46, 43, 450, 407);
 		contentPane.add(dangnhap_1);
@@ -167,9 +170,10 @@ public class LogInView extends JFrame {
 		lblLogIn.setFont(new Font("Freestyle Script", Font.BOLD, 74));
 		lblLogIn.setBounds(480, 11, 238, 142);
 		contentPane.add(lblLogIn);
-		
+
 		JLabel taikhoan_1 = new JLabel("");
-		taikhoan_1.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\anh.jpg"));
+		taikhoan_1.setIcon(new ImageIcon(
+				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\anh.jpg"));
 		taikhoan_1.setForeground(SystemColor.window);
 		taikhoan_1.setFont(new Font("Arial", Font.BOLD, 17));
 		taikhoan_1.setBounds(-128, 0, 1029, 554);
@@ -181,49 +185,49 @@ public class LogInView extends JFrame {
 
 	public void clickLogInBtn() {
 		String userNameEnter = userNameTxt.getText();
-		 char[] passwordChars = passwordTxt.getPassword(); 
-		    String passwordEnter = new String(passwordChars);
+		char[] passwordChars = passwordTxt.getPassword();
+		String passwordEnter = new String(passwordChars);
 		Account account = new Account(userNameEnter, passwordEnter);
 		System.out.print(passwordEnter);
 
 		Account accountReturn = AccountDAO.getInstance().select1AccountAndReturnRole(account);
-		
-		 if (accountReturn != null && accountReturn.getPassword() != null) { 
-		        if (accountReturn.getPassword().equals(passwordEnter)) {       
-		            String role = accountReturn.getRole(); 
-		            if (role != null && role.equalsIgnoreCase("manager")) {
-		            	JOptionPane.showMessageDialog(null, "Welcome to IEC");
-		                new DashboardForManager(accountReturn);
-		                this.dispose();
-		            } else if (role != null && role.equalsIgnoreCase("importStaff")) {
-		            	JOptionPane.showMessageDialog(null, "Welcome to IEC");
-		                new DashboardForImportStaff(accountReturn);
-		                this.dispose();
-		            } else if (role != null && role.equalsIgnoreCase("exportStaff")) {
-		            	JOptionPane.showMessageDialog(null, "Welcome to IEC");
-		                new DashboardForExportStaff(accountReturn);
-		                this.dispose();
-		            } else if (role != null && role.equalsIgnoreCase("admin")) {
-		            	JOptionPane.showMessageDialog(null, "Welcome to IEC");
-		                new Dashboard(accountReturn);
-		                this.dispose();
-		            } else {
-		       
-		                JOptionPane.showMessageDialog(null, "The account does not have role.");
-		            }
-		        } else {
-		            // Mật khẩu sai
-		            JOptionPane.showMessageDialog(null, "Username or password is incorrect.");
-		            passwordTxt.setText("");
-		            for (int i = 0; i < passwordChars.length; i++) {
-		                passwordChars[i] = 0;
-		            }
-		        }
-		    } else {
-		        // Tên người dùng sai hoặc tài khoản không tồn tại
-		        JOptionPane.showMessageDialog(null, "Username or password is incorrect.");
-		        passwordTxt.setText("");
-		    }
-		
+
+		if (accountReturn != null && accountReturn.getPassword() != null) {
+			if (accountReturn.getPassword().equals(passwordEnter)) {
+				String role = accountReturn.getRole();
+				if (role != null && role.equalsIgnoreCase("manager")) {
+					JOptionPane.showMessageDialog(null, "Welcome to IEC");
+					new DashboardForManager(accountReturn);
+					this.dispose();
+				} else if (role != null && role.equalsIgnoreCase("importStaff")) {
+					JOptionPane.showMessageDialog(null, "Welcome to IEC");
+					new DashboardForImportStaff(accountReturn);
+					this.dispose();
+				} else if (role != null && role.equalsIgnoreCase("exportStaff")) {
+					JOptionPane.showMessageDialog(null, "Welcome to IEC");
+					new DashboardForExportStaff(accountReturn);
+					this.dispose();
+				} else if (role != null && role.equalsIgnoreCase("admin")) {
+					JOptionPane.showMessageDialog(null, "Welcome to IEC");
+					new Dashboard(accountReturn);
+					this.dispose();
+				} else {
+
+					JOptionPane.showMessageDialog(null, "The account does not have role.");
+				}
+			} else {
+				// Mật khẩu sai
+				JOptionPane.showMessageDialog(null, "Username or password is incorrect.");
+				passwordTxt.setText("");
+				for (int i = 0; i < passwordChars.length; i++) {
+					passwordChars[i] = 0;
+				}
+			}
+		} else {
+			// Tên người dùng sai hoặc tài khoản không tồn tại
+			JOptionPane.showMessageDialog(null, "Username or password is incorrect.");
+			passwordTxt.setText("");
+		}
+
 	}
 }

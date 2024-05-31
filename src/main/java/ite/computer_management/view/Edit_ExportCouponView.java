@@ -1,7 +1,7 @@
 
 package ite.computer_management.view;
 
-import java.awt.EventQueue;
+import java.awt.EventQueue; 
 
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -84,28 +85,6 @@ public class Edit_ExportCouponView extends JFrame {
 	public JButton btn_back;
 	public ExportCouponDAO ExportCouponDAO;
 	 private String formCode;
-	/**
-	 * Launch the application.
-	 * @param dashboard 
-	 * @param importCouponView 
-	 * @param ICF 
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ImportsProductView frame = new ImportsProductView();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-//
-//	/**
-//	 * Create the frame.
-//	 */
 	
 
 	public ExportForm exportform;
@@ -298,7 +277,7 @@ public class Edit_ExportCouponView extends JFrame {
 	        try {
 	            int quantity = Integer.parseInt(TF_Quantity.getText().trim());
 	            if (quantity > 0) {
-	            	double price = Double.parseDouble(table_Product.getValueAt(row, 4).toString());
+	            	BigInteger price = BigInteger.valueOf(Long.valueOf((table_Product.getValueAt(row, 4).toString())));
 	                String productCode = table_Product.getValueAt(row, 1).toString();
 	                String productName = table_Product.getValueAt(row, 2).toString();
 	                // Thực hiện truy vấn để lấy thông tin còn lại từ cơ sở dữ liệu
@@ -353,7 +332,7 @@ public class Edit_ExportCouponView extends JFrame {
 	                        form_Code = TF_Form.getText();
 	                        if (Details_Form == null) {
 	                            Details_Form = new ArrayList<>();
-	                        }
+	                        } 
 	                        Details_Form.add(new ite.computer_management.model.Details_Form(form_Code, productCode, quantity, price));
 	                    } else {
 	                        JOptionPane.showMessageDialog(this, "Not enough quantity available for this product!");
@@ -407,7 +386,7 @@ public class Edit_ExportCouponView extends JFrame {
 	            	int quantity = Integer.parseInt(tableModelImports.getValueAt(row, 3).toString());
 	                String productCode = table_Exports.getValueAt(row, 1).toString();
 	                String productName = table_Exports.getValueAt(row, 2).toString();
-	                double price = Double.parseDouble(table_Exports.getValueAt(row, 4).toString());
+	                BigInteger price = BigInteger.valueOf(Long.valueOf(table_Exports.getValueAt(row, 4).toString()));
 	                // Thực hiện truy vấn để lấy thông tin còn lại từ cơ sở dữ liệu
 	                String[] productInfo = Exports_DAO.getProductInfo(productCode);
 	                // Kiểm tra xem sản phẩm đã tồn tại trong bảng table_Product hay chưa
@@ -471,14 +450,17 @@ public class Edit_ExportCouponView extends JFrame {
 	            }
 	        }
 	    }
-	    public double total_Amount() {
-			  double tt = 0;
-		        for (ite.computer_management.model.Details_Form i : Details_Form) {
-		            tt += i.getUnit_Price() * i.getQuantity();
-		        }
-		        return tt;
+
+		public BigInteger total_Amount() {
+			BigInteger sum = BigInteger.valueOf(Long.valueOf("0"));
+			for (ite.computer_management.model.Details_Form i : Details_Form) {
+				BigInteger quantityBig = BigInteger.valueOf(Long.valueOf(i.getQuantity()));
+				BigInteger resultEachLoop = i.getUnit_Price().multiply(quantityBig);
+				sum.add(resultEachLoop);
+			}
+			return sum;
 		}
-	    
+
 	    public void loadDataToTableProduct(ExportCouponView ECF) {
 	    	 try {
 		            ArrayList<Details_Form> CTPhieu = Details_ExportDAO.getInstance().selectAll(ECF.getPhieuNhapSelect().getForm_Code().toString());
