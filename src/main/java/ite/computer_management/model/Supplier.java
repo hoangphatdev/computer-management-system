@@ -19,6 +19,12 @@ public class Supplier {
 		Address = address;
 	}
 
+	public Supplier(String supplier_Name, String phone_Number, String address) {
+		this.Supplier_Name = supplier_Name;
+		this.Phone_Number = phone_Number;
+		this.Address = address;
+	}
+
 	public String getSupplier_Code() {
 		return Supplier_Code;
 	}

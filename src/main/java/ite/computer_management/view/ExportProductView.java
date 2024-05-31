@@ -15,7 +15,7 @@ import java.awt.Font;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -73,25 +73,7 @@ public class ExportProductView extends JPanel {
 	public JButton btn_ExportsProduct;
 	public JButton btn_Refresh;
 	public ExportsDAO exportsDAO;
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ImportsProductView frame = new ImportsProductView();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-//
-//	/**
-//	 * Create the frame.
-//	 */
+	
 	  public DecimalFormat getFormatter() {
 	        return formatter;
 	    }
@@ -283,10 +265,10 @@ public class ExportProductView extends JPanel {
 	    if (row == -1) {
 	        JOptionPane.showMessageDialog(this, "Please choose the row you need!");
 	    } else {
-	        try {
+	        try { 
 	            int quantity = Integer.parseInt(TF_Quantity.getText().trim());
 	            if (quantity > 0) {
-	            	double price = Double.parseDouble(table_Product.getValueAt(row, 4).toString());
+	            	BigInteger  price = BigInteger.valueOf(Long.valueOf((table_Product.getValueAt(row, 4).toString())));  
 	                String productCode = table_Product.getValueAt(row, 1).toString();
 	                String productName = table_Product.getValueAt(row, 2).toString();
 	                // Thực hiện truy vấn để lấy thông tin còn lại từ cơ sở dữ liệu
@@ -357,15 +339,17 @@ public class ExportProductView extends JPanel {
 	        } catch (NumberFormatException e) {
 	            JOptionPane.showMessageDialog(this, "Please enter the quantity as an integer!");
 	        }
-	    }
+	    }   
 	}
 	private void updateTotalAmount() {
 	    DefaultTableModel modelExports = (DefaultTableModel) table_Exports.getModel();
-	    double totalAmount = 0;
+	    BigInteger totalAmount = BigInteger.valueOf( Long.valueOf("0"));
 	    for (int i = 0; i < modelExports.getRowCount(); i++) {
-	        double price = Double.parseDouble(modelExports.getValueAt(i, 4).toString());
-	        int quantity = Integer.parseInt(modelExports.getValueAt(i, 3).toString());
-	        totalAmount += price * quantity;
+	        BigInteger price = BigInteger.valueOf(Integer.parseInt(modelExports.getValueAt(i, 4).toString()));
+	        BigInteger quantity = BigInteger.valueOf( Integer.parseInt(modelExports.getValueAt(i, 3).toString()));
+	        
+	        BigInteger resultEachLoop = price.multiply(quantity);
+	        totalAmount = totalAmount.add(resultEachLoop);
 	    }
 	    text_totalAmount.setText(String.valueOf(totalAmount) + "Đ");
 	}
@@ -403,7 +387,7 @@ public class ExportProductView extends JPanel {
 	            	int quantity = Integer.parseInt(tableModelExports.getValueAt(row, 3).toString());
 	                String productCode = table_Exports.getValueAt(row, 1).toString();
 	                String productName = table_Exports.getValueAt(row, 2).toString();
-	                double price = Double.parseDouble(table_Exports.getValueAt(row, 4).toString());
+	            	BigInteger  price = BigInteger.valueOf(Long.valueOf((table_Product.getValueAt(row, 4).toString())));  
 	                // Thực hiện truy vấn để lấy thông tin còn lại từ cơ sở dữ liệu
 	                String[] productInfo = exportsDAO.getProductInfo(productCode);
 	                // Kiểm tra xem sản phẩm đã tồn tại trong bảng table_Product hay chưa
@@ -441,7 +425,7 @@ public class ExportProductView extends JPanel {
 	    	DefaultTableModel model_table = (DefaultTableModel) table_Exports.getModel();
 	    	if(model_table == null) {
 	    		JOptionPane.showMessageDialog(this, "There are no products in the table");
-	    	} else {
+	    	} else { 
 	    		int check = JOptionPane.showConfirmDialog(this, "are you sure??", "yes", JOptionPane.YES_NO_OPTION);
 	    		if(check == JOptionPane.YES_NO_OPTION) {
 	    			long now = System.currentTimeMillis();
@@ -474,12 +458,14 @@ public class ExportProductView extends JPanel {
 	    		}
 	    	}
 	    }
-	    public double total_Amount() {
-			  double tt = 0;
-		        for (ite.computer_management.model.Details_Form i : Details_Form) {
-		            tt += i.getUnit_Price() * i.getQuantity();
-		        }
-		        return tt;
+	    public BigInteger total_Amount() {
+			BigInteger sum = BigInteger.valueOf(Long.valueOf("0"));
+			for (ite.computer_management.model.Details_Form i : Details_Form) {
+				BigInteger quantityBig = BigInteger.valueOf(Long.valueOf(i.getQuantity()));
+				BigInteger resultEachLoop = i.getUnit_Price().multiply(quantityBig);
+				sum.add(resultEachLoop);
+			}
+			return sum;
 		}
 	    public void displayTable() {
 	    	ExportsDAO view = new ExportsDAO();

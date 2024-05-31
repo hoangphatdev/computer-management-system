@@ -103,8 +103,7 @@ public class ProductView extends JPanel {
 
 		btnadd = new JButton("Add");
 		btnadd.setForeground(new Color(6, 191, 33));
-		btnadd.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\add 25.png"));
+		btnadd.setIcon(new ImageIcon(ProductView.class.getResource("/ite/computer_management/img/add/icons8-add-35.png")));
 		btnadd.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnadd.setBackground(new Color(171, 214, 177));
 		btnadd.setBounds(36, 39, 190, 40);
@@ -113,8 +112,7 @@ public class ProductView extends JPanel {
 
 		btndelete = new JButton("Delete");
 		btndelete.setForeground(new Color(6, 191, 33));
-		btndelete.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\cancel 30.png"));
+		btndelete.setIcon(new ImageIcon(ProductView.class.getResource("/ite/computer_management/img/delete/icons8-remove-30.png")));
 		btndelete.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btndelete.setBackground(new Color(171, 214, 177));
 		btndelete.setBounds(36, 101, 190, 40);
@@ -123,8 +121,7 @@ public class ProductView extends JPanel {
 
 		btnUpdate = new JButton("Update");
 		btnUpdate.setForeground(new Color(6, 191, 33));
-		btnUpdate.setIcon(new ImageIcon(
-				"D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\edit 30.png"));
+		btnUpdate.setIcon(new ImageIcon(ProductView.class.getResource("/ite/computer_management/img/edit/icons8-edit-35.png")));
 		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnUpdate.setBackground(new Color(171, 214, 177));
 		btnUpdate.setBounds(36, 166, 190, 40);
@@ -139,6 +136,8 @@ public class ProductView extends JPanel {
 		btnExcel.setBackground(new Color(171, 214, 177));
 		btnExcel.setBounds(1018, 166, 181, 40);
 		add(btnExcel);
+		
+		ImageIcon img = new ImageIcon("~/img/back2.jpg");
 		btnExcel.addMouseListener(productController);
 	}
 
@@ -248,25 +247,30 @@ public class ProductView extends JPanel {
 
 	public void clickEditBtn() {
 		int check = table.getSelectedRowCount();
+	
 		int selectedRowIndex = table.getSelectedRow();
+		System.out.println(selectedRowIndex + "  " + check);
 		if (check < 1) {
 			JOptionPane.showMessageDialog(null, "Please select row to edit >< ");
-		} else {
+		}else if(check ==1 ) {
 			EditProductView editProductView = new EditProductView(this, dashboard);
-			editProductView.computerNameTxt.setText((String) model.getValueAt(selectedRowIndex, 0));
-			editProductView.computerCodeTxt.setText((String) model.getValueAt(selectedRowIndex, 1));
-			editProductView.quantityTxt.setText((String) model.getValueAt(selectedRowIndex, 2));
-			editProductView.cpuTxt.setText((String) model.getValueAt(selectedRowIndex, 3));
-			editProductView.ramTxt.setText((String) model.getValueAt(selectedRowIndex, 4));
-			editProductView.screenCardTxt.setText((String) model.getValueAt(selectedRowIndex, 5));
-			editProductView.priceTxt.setText((String) model.getValueAt(selectedRowIndex, 6));
-			editProductView.sourceCapacityTxt.setText((String) model.getValueAt(selectedRowIndex, 7));
-			editProductView.machineTypeTxt.setText((String) model.getValueAt(selectedRowIndex, 8));
-			editProductView.romTxt.setText((String) model.getValueAt(selectedRowIndex, 9));
-			editProductView.screenSizeTxt.setText((String) model.getValueAt(selectedRowIndex, 10));
-			editProductView.batteryCapacityTxt.setText((String) model.getValueAt(selectedRowIndex, 11));
-			editProductView.originTxt.setText((String) model.getValueAt(selectedRowIndex, 12));
-
+			editProductView.computerNameTxt.setText( String.valueOf(model.getValueAt(selectedRowIndex, 0)));
+			editProductView.computerCodeTxt.setText( String.valueOf(model.getValueAt(selectedRowIndex, 1) ));
+			
+			editProductView.quantityTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 2)));
+			
+			editProductView.cpuTxt.setText( String.valueOf(model.getValueAt(selectedRowIndex, 3) ));
+			editProductView.ramTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 4)) );
+			editProductView.screenCardTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 5))  );
+			editProductView.priceTxt.setText( String.valueOf(model.getValueAt(selectedRowIndex, 6)));
+			editProductView.sourceCapacityTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 7)));
+			editProductView.machineTypeTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 8)) );
+			editProductView.romTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 9)));
+			editProductView.screenSizeTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 10)) );
+			editProductView.batteryCapacityTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 11)));
+			editProductView.originTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 12)));
+		}else if(check >1) {
+			JOptionPane.showMessageDialog(null, "Please just select only 1 row");
 		}
 
 	}

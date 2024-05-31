@@ -18,32 +18,15 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+
 import javax.swing.UIManager;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class EditProductView extends JFrame {
-
 	private static final long serialVersionUID = 1L;
 	public  JButton updateBtn;
-	
-	//-----
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					EditProductView frame = new EditProductView();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
-	 */
 	private JPanel contentPane;
 	public JTextField computerNameTxt;
 	public JTextField computerCodeTxt;
@@ -67,7 +50,8 @@ public class EditProductView extends JFrame {
 	public JButton addLbl;
 	public JButton btnRefresh;
 	public JButton btnNewButton;
-	public JButton btnCancel_1;
+	public JButton btnCancel;
+	
 	public EditProductView(ProductView productView, Dashboard dashboard) {
 		this.productView = productView;
 		EditProductController editProductController = new EditProductController(this);
@@ -75,9 +59,7 @@ public class EditProductView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 500);
 		contentPane = new JPanel();
-//		contentPane.setBackground(new Color(0, 0, 51));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -286,13 +268,13 @@ public class EditProductView extends JFrame {
 		contentPane.add(btnNewButton);
 		btnNewButton.addMouseListener(editProductController);
 		
-		btnCancel_1 = new JButton("Cancel");
-		btnCancel_1.setBackground(new Color(219, 219, 219));
-		btnCancel_1.setForeground(new Color(235, 64, 21));
-		btnCancel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnCancel_1.setBounds(669, 280, 190, 41);
-		contentPane.add(btnCancel_1);
-		btnCancel_1.addMouseListener(editProductController);
+		btnCancel = new JButton("Cancel");
+		btnCancel.setBackground(new Color(219, 219, 219));
+		btnCancel.setForeground(new Color(235, 64, 21));
+		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnCancel.setBounds(669, 280, 190, 41);
+		contentPane.add(btnCancel);
+		btnCancel.addMouseListener(editProductController);
 		
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
@@ -300,6 +282,7 @@ public class EditProductView extends JFrame {
 	public void clickUpdateBtn() {
 		int selectedRowIndex = this.productView.table.getSelectedRow();
 		String conditionComputerCode = (String) this.productView.table.getValueAt(selectedRowIndex, 1);
+		System.out.println(conditionComputerCode);
 		String screenCard = screenCardTxt.getText();
 		String computerName = computerNameTxt.getText();
 		String computerCode = computerCodeTxt.getText();
@@ -307,16 +290,15 @@ public class EditProductView extends JFrame {
 		String cpuName = cpuTxt.getText();
 		String ram = ramTxt.getText();
 		String machineType = machineTypeTxt.getText();
-		BigDecimal price = BigDecimal.valueOf( Long.parseLong(priceTxt.getText()) );
-		
-		System.out.println(price);
-		int quantity = Integer.parseInt(quantityTxt.getText());
-		String rom = romTxt.getText();
+		java.math.BigInteger price = BigInteger.valueOf(Long.valueOf(priceTxt.getText()));
+		int quantity = Integer.valueOf(quantityTxt.getText());
+		String rom = romTxt.getText(); 
 		String origin = originTxt.getText();
 		Double screenSize = Double.parseDouble(screenSizeTxt.getText());
 		String batteryCapacity = batteryCapacityTxt.getText();
 		Computer com = new Computer(computerCode, computerName, quantity, cpuName, ram, screenCard, price, sourceCapacity, machineType, rom, screenSize,
 				batteryCapacity, origin);
+		System.out.println(price);
 		//back-end
 		int check = ProductDAO.getInstance().update(com, conditionComputerCode);
 			//front-end

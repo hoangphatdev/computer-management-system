@@ -2,6 +2,7 @@ package ite.computer_management.dao;
 
 import java.sql.Statement;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,7 +44,7 @@ public class ProductDAO implements DAOInterface<Computer> {
 			ps.setString(4, com.getCpuName());
 			ps.setString(5, com.getRam());
 			ps.setString(6, com.getScreenCard());
-			ps.setBigDecimal(7, com.getPrice());
+			ps.setObject(7, com.getPrice());
 			ps.setString(8, com.getSourceCapacity());
 			ps.setString(9, com.getMachineType());
 			ps.setString(10, com.getRom());
@@ -97,7 +98,7 @@ public class ProductDAO implements DAOInterface<Computer> {
 			ps.setString(4, com.getCpuName());
 			ps.setString(5, com.getRam());
 			ps.setString(6, com.getScreenCard());
-			ps.setBigDecimal(7, com.getPrice());
+			ps.setObject(7, com.getPrice());
 			ps.setString(8, com.getSourceCapacity());
 			ps.setString(9, com.getMachineType());
 			ps.setString(10, com.getRom());
@@ -108,11 +109,11 @@ public class ProductDAO implements DAOInterface<Computer> {
 			check = ps.executeUpdate();
 			connect.close();
 			JOptionPane.showMessageDialog(null, "Edit successfully ><");
-			
+			System.out.println("Update Product: Price: " +  com.getPrice());
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,"Error: " + e);
 		}
-		
+		 
 		return 0;
 	}
 
@@ -137,15 +138,16 @@ public class ProductDAO implements DAOInterface<Computer> {
 			productView.model.setColumnIdentifiers(colName);
 			String computerName, computerCode, cpu, screenCard, machineType, origin, ram, sourceCapacity, rom, batteryCapacity;
 			int quantity;
-			Double price, screenSize;
+			Double  screenSize;
+			BigInteger price;
 			while(rs.next()) {
 				computerCode = rs.getString(1);  // FIRST PARAMETER: 1	
 				computerName = rs.getString(2);
 				quantity = rs.getInt(3);
 				cpu = rs.getString(4);
 				ram = rs.getString(5);
-				screenCard = rs.getString(6);
-				price = rs.getDouble(7);
+				screenCard = rs.getString(6); 
+				price =  BigInteger.valueOf(rs.getLong(7));
 				sourceCapacity = rs.getString(8);
 				machineType = rs.getString(9);
 				rom = rs.getString(10);

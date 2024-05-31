@@ -1,6 +1,7 @@
 
 package ite.computer_management.dao;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class ImportDAO implements DAOInterface<ImportsForm> {
 	   
 	   public ImportDAO() {};
 	public void display(JTable table) {
-		 try {
+		 try { 
 		        ConnectDatabase.getInstance();
 				Connection connection = ConnectDatabase.getConnection();
 
@@ -105,7 +106,7 @@ public class ImportDAO implements DAOInterface<ImportsForm> {
 		                if (resultSet.next()) {
 		                    productInfo[0] = resultSet.getString("computer_Name");
 		                    productInfo[1] = String.valueOf(resultSet.getInt("quantity"));
-		                    productInfo[2] = String.valueOf(resultSet.getDouble("price"));
+		                    productInfo[2] = String.valueOf(resultSet.getLong("price"));
 		                }
 		            }
 		        }
@@ -143,7 +144,7 @@ public class ImportDAO implements DAOInterface<ImportsForm> {
 	            pst.setTimestamp(2, t.getTime_Start());
 	            pst.setString(3, t.getCreator());
 	            pst.setString(4, t.getSupplier());
-	            pst.setDouble(5, t.getTotal_Amount());
+	            pst.setObject(5, t.getTotal_Amount());
 	            ketQua = pst.executeUpdate();
 	            connec.close();
 	        } catch (Exception e) {
@@ -170,7 +171,7 @@ public class ImportDAO implements DAOInterface<ImportsForm> {
             pst.setTimestamp(2, t.getTime_Start());
             pst.setString(3, t.getCreator());
             pst.setString(4, t.getSupplier());
-            pst.setDouble(5, t.getTotal_Amount());
+            pst.setObject(5, t.getTotal_Amount());
             pst.setString(6, t.getForm_Code());
             ketQua = pst.executeUpdate();
             connec.close();
@@ -195,7 +196,7 @@ public class ImportDAO implements DAOInterface<ImportsForm> {
 	                Timestamp time_Start = rs.getTimestamp("time_Start");
 	                String creator = rs.getString("creator");
 	                String supplier_Code = rs.getString("supplier_Code");
-	                double total_Amount = rs.getDouble("total_Amount");
+	                BigInteger total_Amount =  BigInteger.valueOf(rs.getLong("total_Amount"));
 	                ImportsForm p = new ImportsForm(supplier_Code, form_Code, time_Start, creator, Details_ImportDAO.getInstance().selectAll(form_Code), total_Amount);
 	                ketQua.add(p);
 	            }
@@ -221,7 +222,7 @@ public class ImportDAO implements DAOInterface<ImportsForm> {
                 Timestamp time_Start = rs.getTimestamp("time_Start");
                 String creator = rs.getString("creator");
                 String supplier_Code = rs.getString("supplier_Code");
-                double total_Amount = rs.getDouble("total_Amount");
+                BigInteger total_Amount = BigInteger.valueOf( rs.getLong("total_Amount"));
                 ketQua = new ImportsForm(supplier_Code, form_Code, time_Start, creator, Details_ImportDAO.getInstance().selectAll(form_Code), total_Amount);
             }
         } catch (Exception e) {

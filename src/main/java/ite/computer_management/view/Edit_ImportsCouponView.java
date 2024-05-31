@@ -1,7 +1,7 @@
 
 package ite.computer_management.view;
 
-import java.awt.EventQueue;
+import java.awt.EventQueue; 
 
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -306,7 +307,7 @@ public class Edit_ImportsCouponView extends JFrame {
 	        try {
 	            int quantity = Integer.parseInt(TF_Quantity.getText().trim());
 	            if (quantity > 0) {
-	            	double price = Double.parseDouble(table_Product.getValueAt(row, 4).toString());
+	            	BigInteger  price = BigInteger.valueOf(Long.valueOf((table_Product.getValueAt(row, 4).toString())));  
 	                String productCode = table_Product.getValueAt(row, 1).toString();
 	                String productName = table_Product.getValueAt(row, 2).toString();
 	                // Thực hiện truy vấn để lấy thông tin còn lại từ cơ sở dữ liệu
@@ -375,7 +376,7 @@ public class Edit_ImportsCouponView extends JFrame {
 	        } catch (NumberFormatException e) {
 	            JOptionPane.showMessageDialog(this, "Please enter the quantity as an integer!");
 	        }
-	    }
+	    } 
 	}
 	public void updateTotalAmount() {
 	    DefaultTableModel modelImports = (DefaultTableModel) table_Imports.getModel();
@@ -415,7 +416,7 @@ public class Edit_ImportsCouponView extends JFrame {
 	            	int quantity = Integer.parseInt(tableModelImports.getValueAt(row, 3).toString());
 	                String productCode = table_Imports.getValueAt(row, 1).toString();
 	                String productName = table_Imports.getValueAt(row, 2).toString();
-	                double price = Double.parseDouble(table_Imports.getValueAt(row, 4).toString());
+	            	BigInteger  price = BigInteger.valueOf(Long.valueOf((table_Imports.getValueAt(row, 4).toString())));  
 	                // Thực hiện truy vấn để lấy thông tin còn lại từ cơ sở dữ liệu
 	                String[] productInfo = Imports_DAO.getProductInfo(productCode);
 	                // Kiểm tra xem sản phẩm đã tồn tại trong bảng table_Product hay chưa
@@ -478,14 +479,15 @@ public class Edit_ImportsCouponView extends JFrame {
 	            }
 	        }
 	    }
-	    public double total_Amount() {
-			  double tt = 0;
-		        for (ite.computer_management.model.Details_Form i : Details_Form) {
-		            tt += i.getUnit_Price() * i.getQuantity();
-		        }
-		        return tt;
+	    public BigInteger total_Amount() {
+			BigInteger sum = BigInteger.valueOf(Long.valueOf("0"));
+			for (ite.computer_management.model.Details_Form i : Details_Form) {
+				BigInteger quantityBig = BigInteger.valueOf(Long.valueOf(i.getQuantity()));
+				BigInteger resultEachLoop = i.getUnit_Price().multiply(quantityBig);
+				sum.add(resultEachLoop);
+			}
+			return sum;
 		}
-	    
 	    public void loadDataToTableProduct(ImportCouponView ICF) {
 	    	 try {
 		            ArrayList<Details_Form> CTPhieu = Details_ImportDAO.getInstance().selectAll(ICF.getPhieuNhapSelect().getForm_Code().toString());

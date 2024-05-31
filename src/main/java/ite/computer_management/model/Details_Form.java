@@ -1,19 +1,20 @@
 
 package ite.computer_management.model;
 
+import java.math.BigInteger;
 import java.util.Objects;
 
 public class Details_Form {
 	private String form_Code;
 	private String computer_Code;
 	private int quantity;
-	private double unit_Price;
+	private BigInteger unit_Price;
 	
 	public Details_Form() {
 		
 	}
 
-	public Details_Form(String form_Code, String computer_Code, int quantity, double unit_Price) {
+	public Details_Form(String form_Code, String computer_Code, int quantity, BigInteger unit_Price) {
 		super();
 		this.form_Code = form_Code;
 		this.computer_Code = computer_Code;
@@ -45,11 +46,11 @@ public class Details_Form {
 		this.quantity = quantity;
 	}
 
-	public double getUnit_Price() {
+	public BigInteger getUnit_Price() {
 		return unit_Price;
 	}
 
-	public void setUnit_Price(double unit_Price) {
+	public void setUnit_Price(BigInteger unit_Price) {
 		this.unit_Price = unit_Price;
 	}
 	
@@ -59,7 +60,7 @@ public class Details_Form {
 	        return hash;
 	    }
 
-	    @Override
+	   @Override
 	    public boolean equals(Object obj) {
 	        if (this == obj) {
 	            return true;
@@ -74,15 +75,14 @@ public class Details_Form {
 	        if (this.quantity != other.quantity) {
 	            return false;
 	        }
-	        if (Double.doubleToLongBits(this.unit_Price) != Double.doubleToLongBits(other.unit_Price)) {
+	        if (!Objects.equals(this.unit_Price, other.unit_Price)) {
 	            return false;
 	        }
 	        if (!Objects.equals(this.form_Code, other.form_Code)) {
 	            return false;
 	        }
 	        return Objects.equals(this.computer_Code, other.computer_Code);
-	    }
-
+	    } 
 	@Override
 	public String toString() {
 		return "Details_Form [form_Code=" + form_Code + ", computer_Code=" + computer_Code + ", quantity=" + quantity

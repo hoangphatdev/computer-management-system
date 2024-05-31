@@ -49,13 +49,9 @@ public class AddSupplierView extends JFrame {
 		this.supplierView = supplierView;
 		this.dashboard = dashboard;
 		AddSupplierController addSupplierController = new AddSupplierController(this);
-
-		
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 450);
 		contentPane = new JPanel();
-//		contentPane.setBackground(new Color(70, 163, 100));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);

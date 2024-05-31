@@ -1,5 +1,6 @@
 package ite.computer_management.dao;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,7 +42,7 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
 	            pst.setTimestamp(2, t.getTime_Start());
 	            pst.setString(3, t.getCreator());
 	            pst.setString(4, t.getSupplier());
-	            pst.setDouble(5, t.getTotal_Amount());
+	            pst.setObject(5, t.getTotal_Amount());
 	            ketQua = pst.executeUpdate();
 	            connect.close();
 	        } catch (Exception e) {
@@ -80,7 +81,7 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
 	            pst.setTimestamp(2, t.getTime_Start());
 	            pst.setString(3, t.getCreator());
 	            pst.setString(4, t.getSupplier());
-	            pst.setDouble(5, t.getTotal_Amount());
+	            pst.setObject(5, t.getTotal_Amount());
 	            pst.setString(6, t.getForm_Code());
 	            ketQua = pst.executeUpdate();
 	            connect.close();
@@ -105,7 +106,7 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
 	                Timestamp time_Start = rs.getTimestamp("time_Start");
 	                String creator = rs.getString("creator");
 	                String supplier_Code = rs.getString("supplier_Code");
-	                double total_Amount = rs.getDouble("total_Amount");
+	                BigInteger total_Amount = BigInteger.valueOf(rs.getLong("total_Amount"));
 	                ImportsForm p = new ImportsForm(supplier_Code, form_Code, time_Start, creator, Details_ImportDAO.getInstance().selectAll(supplier_Code), total_Amount);
 	                ketQua.add(p);
 	            }
@@ -134,7 +135,7 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
 	            pst.setTimestamp(2, t.getTime_Start());
 	            pst.setString(3, t.getCreator());
 	            pst.setString(4, t.getSupplier());
-	            pst.setDouble(5, t.getTotal_Amount());
+	            pst.setObject(5, t.getTotal_Amount());
 	            pst.setString(6, t.getForm_Code());
 	            ketQua = pst.executeUpdate();
 	            connect.close();
@@ -158,7 +159,7 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
                 Timestamp time_Start = rs.getTimestamp("time_Start");
                 String creator = rs.getString("creator");
                 String supplier_Code = rs.getString("supplier_Code");
-                double total_Amount = rs.getDouble("total_Amount");
+                BigInteger total_Amount = BigInteger.valueOf(rs.getLong("total_Amount"));
                 ketQua = new ImportsForm(supplier_Code, form_Code, time_Start, creator, Details_ImportDAO.getInstance().selectAll(form_Code), total_Amount);
             }
         } catch (Exception e) {

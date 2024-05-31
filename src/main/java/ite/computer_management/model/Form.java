@@ -1,6 +1,7 @@
 
 package ite.computer_management.model;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -8,14 +9,14 @@ public class Form {
 	private String form_Code;
 	private Timestamp time_Start;
 	private String creator;
-	private double total_Amount;
+	private BigInteger total_Amount;
 	private ArrayList<Details_Form> details_Form;
 	
 	public Form() {
 		
 	}
 
-	public Form(String form_Code, Timestamp time_Start,ArrayList<Details_Form> Details_Form ,String creator, double total_Amount) {
+	public Form(String form_Code, Timestamp time_Start,ArrayList<Details_Form> Details_Form ,String creator, BigInteger total_Amount) {
 		super();
 		this.form_Code = form_Code;
 		this.time_Start = time_Start;
@@ -24,7 +25,7 @@ public class Form {
 		this.total_Amount = total_Amount;
 	}
 	
-	public Form(String form_Code, Timestamp time_Start, String creator, double total_Amount) {
+	public Form(String form_Code, Timestamp time_Start, String creator, BigInteger total_Amount) {
 		super();
 		this.form_Code = form_Code;
 		this.time_Start = time_Start;
@@ -56,11 +57,11 @@ public class Form {
 		this.creator = creator;
 	}
 
-	public double getTotal_Amount() {
+	public BigInteger getTotal_Amount() {
 		return total_Amount;
 	}
 
-	public void setTotal_Amount(double total_Amount) {
+	public void setTotal_Amount(BigInteger  total_Amount) {
 		this.total_Amount = total_Amount;
 	}
 	public int hashCode() {

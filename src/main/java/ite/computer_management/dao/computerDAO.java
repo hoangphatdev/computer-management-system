@@ -1,6 +1,7 @@
 package ite.computer_management.dao;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -55,7 +56,7 @@ public class computerDAO implements DAOInterface<Computer> {
 	                String computer_Code = rs.getString("computer_Code");
 	                String computer_Name = rs.getString("computer_Name");
 	                int quantity = rs.getInt("quantity");
-	                BigDecimal price = rs.getBigDecimal("price");
+	                java.math.BigInteger price = BigInteger.valueOf( rs.getLong("price"));
 	                String cpu_Name = rs.getString("cpu_Name");
 	                String ram = rs.getString("ram");
 	                String origin = rs.getString("origin");
@@ -116,7 +117,7 @@ public class computerDAO implements DAOInterface<Computer> {
                 String computer_Code = rs.getString("computer_Code");
                 String computer_Name = rs.getString("computer_Name");
                 int quantity = rs.getInt("quantity");
-                BigDecimal price = rs.getBigDecimal("price");
+                BigInteger price = BigInteger.valueOf(rs.getLong("price"));
                 String cpu_Name = rs.getString("cpu_Name");
                 String ram = rs.getString("ram");
                 String origin = rs.getString("origin");
