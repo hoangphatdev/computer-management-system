@@ -3,6 +3,8 @@ package main;
 import function.FileChooser;
 import function.Method;
 import function.Scrolling;
+import model_socket.Friend;
+
 import java.awt.Adjustable;
 import java.awt.Color;
 import java.awt.Component;
@@ -803,7 +805,7 @@ public class Main extends javax.swing.JFrame {
     private void newFriend(ImageIcon image, int ID, String name, String time) {
         Friend_Box friend = new Friend_Box();
         friend.set(image, ID, name, time);
-        Method.getFriends().put(ID, friend);
+        Method.getFriends().put(ID, (Friend) friend);
         if (Method.getMyName().equalsIgnoreCase(name)) {
             Method.setMyID(ID);
             friend.itMe();
