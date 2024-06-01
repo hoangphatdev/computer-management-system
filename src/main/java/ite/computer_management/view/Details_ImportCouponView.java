@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -43,29 +44,14 @@ public class Details_ImportCouponView extends JFrame {
 	public JTable table_Imports;
 	public ImportDAO Import_Delivery_DAO;
 	private JLabel lblQuantity_1;
-	public JButton btn_cancel;
-	public JButton btnExportFdf;
+	public JButton cancelBtn;
+	public JButton exportPdfBtn;
 	private DefaultTableModel model;
 	private String form_Code;
 	private ArrayList<Details_Form> Details_Form;
 	 private ImportCouponView ICF;
 	 public ImportsForm importform;
 	 public JLabel form_text;
-	/**
-	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Details_ImportCouponView frame = new Details_ImportCouponView(this);
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 	 public JLabel supplier_text;
 	 public JLabel creator_text;
 	public JLabel time_text;
@@ -158,20 +144,20 @@ public class Details_ImportCouponView extends JFrame {
 		lblTime.setBounds(496, 116, 90, 13);
 		getContentPane().add(lblTime);
 		
-		 btn_cancel = new JButton("Cancel");
-		btn_cancel.setBackground(Color.RED);
-		btn_cancel.setForeground(Color.BLACK);
-		btn_cancel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btn_cancel.setBounds(526, 482, 157, 41);
-		getContentPane().add(btn_cancel);
-		btn_cancel.addMouseListener(details_ImportsCouponController);
+		 cancelBtn = new JButton("Cancel");
+		 cancelBtn.setIcon(new ImageIcon(AddProductView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
+			cancelBtn.setForeground(new Color(70, 163, 100));
+			cancelBtn.setBackground(new Color(219,219,219));
+		cancelBtn.setBounds(526, 482, 157, 41);
+		getContentPane().add(cancelBtn);
+		cancelBtn.addMouseListener(details_ImportsCouponController);
 		
-		 btnExportFdf = new JButton("Export PDF");
-		btnExportFdf.setForeground(Color.WHITE);
-		btnExportFdf.setBackground(Color.DARK_GRAY);
-		btnExportFdf.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnExportFdf.setBounds(694, 482, 157, 41);
-		getContentPane().add(btnExportFdf);
+		 exportPdfBtn = new JButton("Export PDF");
+		 exportPdfBtn.setIcon(new ImageIcon(Details_ExportCouponView.class.getResource("/ite/computer_management/img/icons8-pdf-30.png")));
+		 exportPdfBtn.setForeground(new Color(70, 163, 100));
+		 exportPdfBtn.setBackground(new Color(219,219,219));
+		exportPdfBtn.setBounds(694, 482, 157, 41);
+		getContentPane().add(exportPdfBtn);
 		
 		 form_text = new JLabel("3");
 		form_text.setForeground(Color.YELLOW);
@@ -196,7 +182,7 @@ public class Details_ImportCouponView extends JFrame {
 		time_text.setFont(new Font("Tahoma", Font.BOLD, 14));
 		time_text.setBounds(565, 116, 239, 13);
 		getContentPane().add(time_text);
-		btnExportFdf.addMouseListener(details_ImportsCouponController);
+		exportPdfBtn.addMouseListener(details_ImportsCouponController);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}

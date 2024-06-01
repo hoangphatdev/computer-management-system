@@ -78,30 +78,6 @@ public class Edit_ImportsCouponView extends JFrame {
 	private ImportCouponView ICF;
 	public JButton btn_back;
 	 private String formCode;
-	/**
-	 * Launch the application.
-	 * @param dashboard 
-	 * @param importCouponView 
-	 * @param ICF 
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ImportsProductView frame = new ImportsProductView();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-//
-//	/**
-//	 * Create the frame.
-//	 */
-	
-
 	public ImportsForm importform;
 	public Edit_ImportsCouponView(ImportCouponView ICF, ArrayList<Details_Form> Details_Form, String form_code) {
 		init();
@@ -137,6 +113,7 @@ public class Edit_ImportsCouponView extends JFrame {
 		TF_Sreach.setColumns(10);
 		
 		btn_back = new JButton("Back");
+		btn_back.setIcon(new ImageIcon(Edit_ImportsCouponView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
 		btn_back.setForeground(Color.BLACK);
 		btn_back.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_back.setBackground(Color.LIGHT_GRAY);
@@ -233,7 +210,7 @@ public class Edit_ImportsCouponView extends JFrame {
 		JLabel lblQuantity = new JLabel("Quantity:");
 		lblQuantity.setForeground(Color.WHITE);
 		lblQuantity.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblQuantity.setBounds(22, 516, 90, 13);
+		lblQuantity.setBounds(22, 511, 90, 28);
 		getContentPane().add(lblQuantity);
 		
 		TF_Quantity = new JTextField();
@@ -242,18 +219,18 @@ public class Edit_ImportsCouponView extends JFrame {
 		getContentPane().add(TF_Quantity);
 		
 		btn_accept = new JButton("Accept");
-		btn_accept.setBackground(Color.LIGHT_GRAY);
-		btn_accept.setForeground(Color.WHITE);
+		btn_accept.setBackground(new Color(6, 191, 33));
+		btn_accept.setForeground(new Color(255,255,255));
 		btn_accept.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_accept.setBounds(237, 508, 85, 28);
+		btn_accept.setBounds(239, 509, 85, 28);
 		getContentPane().add(btn_accept);
 		btn_accept.addMouseListener(edit_ImportsCoupon_Controller);
 		
 		 btn_DeleteProduct = new JButton("Delete product");
-		 btn_DeleteProduct.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\delete 30.png"));
-		btn_DeleteProduct.setBackground(Color.LIGHT_GRAY);
-		btn_DeleteProduct.setForeground(new Color(0, 0, 0));
-		btn_DeleteProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		 btn_DeleteProduct.setIcon(new ImageIcon(ExportProductView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
+			btn_DeleteProduct.setBackground(new Color(6, 191, 33));
+			btn_DeleteProduct.setForeground(new Color(255,255,255));
+			btn_DeleteProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_DeleteProduct.setBounds(1024, 67, 188, 28);
 		getContentPane().add(btn_DeleteProduct);
 		btn_DeleteProduct.addMouseListener(edit_ImportsCoupon_Controller);
@@ -271,6 +248,7 @@ public class Edit_ImportsCouponView extends JFrame {
 		getContentPane().add(text_totalAmount);
 		
 		btn_save = new JButton("Save");
+		btn_save.setIcon(new ImageIcon(Edit_ImportsCouponView.class.getResource("/ite/computer_management/img/icons8-update-30.png")));
 		btn_save.setBackground(Color.LIGHT_GRAY);
 		btn_save.setForeground(new Color(0, 0, 0));
 		btn_save.setFont(new Font("Tahoma", Font.PLAIN, 15));

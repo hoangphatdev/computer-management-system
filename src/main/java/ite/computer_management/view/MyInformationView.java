@@ -17,6 +17,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 public class MyInformationView extends JFrame {
 
@@ -29,18 +30,18 @@ public class MyInformationView extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					MyInformationView frame = new MyInformationView(account);
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MyInformationView frame = new MyInformationView(account);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
@@ -114,7 +115,10 @@ public class MyInformationView extends JFrame {
 		contentPane.add(changePasswordBtn);
 
 		JButton cancelBtn = new JButton("Cancel");
-		cancelBtn.setBackground(new Color(60, 179, 113));
+		cancelBtn.setIcon(new ImageIcon(MyInformationView.class.getResource("/ite/computer_management/img/icons8-cancel-30.png")));
+		cancelBtn.setOpaque(true);
+		cancelBtn.setBackground(new Color(70, 163, 100));
+		cancelBtn.setForeground(new Color(255, 255, 255));
 		cancelBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -133,3 +137,4 @@ public class MyInformationView extends JFrame {
 		this.dispose();
 	}
 }
+

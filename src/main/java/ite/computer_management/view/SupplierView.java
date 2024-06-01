@@ -72,17 +72,37 @@ public class SupplierView extends JPanel {
 		this.setSize(1250, 800);
 		setLayout(null);
 
-		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBounds(36, 243, 1004, 466);
 		scrollPane.setBounds(36, 243, 1163, 466);
 		add(scrollPane);
+
 		table = new JTable();
 		table.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Supplier code", "Supplier Name", "Phone number", "Address" }));
 		model = (DefaultTableModel) table.getModel();
-		SupplierDAO supplierDAO = new SupplierDAO(this);
 
+		
+		table.setFillsViewportHeight(true);
+		table.setFont(new Font("JetBrains MonoMono", Font.BOLD, 16));
+		table.setBackground(new Color(255, 255, 255));
+		table.setRowHeight(30);
+		table.setGridColor(new Color(64, 82, 69));
+		table.setShowHorizontalLines(true);
+		table.setBackground(new Color(197, 227, 206));
+		table.setForeground(new Color(47, 97, 62));
+		table.getTableHeader().setFont(new Font("JetBrains Mono", Font.BOLD, 17));
+		table.getTableHeader().setBackground(new Color(70, 163, 100));
+		table.getTableHeader().setForeground(new Color(255, 255, 255));
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setResizingAllowed(false);
+
+		table.getColumnModel().getColumn(0).setPreferredWidth(40);
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(3).setPreferredWidth(10);
+		
+		SupplierDAO supplierDAO = new SupplierDAO(this);
 		supplierDAO.display(table);
 		scrollPane.setViewportView(table);
 		searchTxt = new JTextField();
@@ -235,9 +255,9 @@ public class SupplierView extends JPanel {
 			JOptionPane.showMessageDialog(null, "Please select row to edit >< ");
 		} else {
 			EditSupplierView editSupplierView = new EditSupplierView(this, dashboard);
-			editSupplierView.SupplierNameTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 1)) );
+			editSupplierView.SupplierNameTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 1)));
 			editSupplierView.PhoneTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 2)));
-			editSupplierView.AddressTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 3)) );
+			editSupplierView.AddressTxt.setText(String.valueOf(model.getValueAt(selectedRowIndex, 3)));
 		}
 
 	}

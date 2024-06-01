@@ -1,6 +1,6 @@
 package function;
 
-import java.awt.Color;
+import java.awt.Color; 
 import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;

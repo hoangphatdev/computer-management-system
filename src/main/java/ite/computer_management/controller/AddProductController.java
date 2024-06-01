@@ -13,11 +13,11 @@ public class AddProductController implements MouseListener {
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource() == addProductView.addLbl) {
+		if(e.getSource() == addProductView.addBtn) {
 			addProductView.clickAddLbl();
-		}else if(e.getSource() == addProductView.btnCancel) {
+		}else if(e.getSource() == addProductView.cancelBtn) {
 			addProductView.clickCancelLbl();
-		}else if(e.getSource() == addProductView.btnRefresh) {
+		}else if(e.getSource() == addProductView.refreshBtn) {
 			addProductView.clickRefreshLbl();
 		}
 	}

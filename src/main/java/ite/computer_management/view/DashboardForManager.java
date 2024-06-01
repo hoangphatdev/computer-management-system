@@ -109,8 +109,7 @@ public class DashboardForManager extends JFrame {
 
 		productNavLbl = new JLabel("Product");
 		productNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
-		productNavLbl.setIcon(new ImageIcon(
-				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-product-color\\icons8-product-30.png"));
+		productNavLbl.setIcon(new ImageIcon(DashboardForManager.class.getResource("/ite/computer_management/img/icons8-product-30.png")));
 		productNavLbl.setBounds(1, 157, 250, 45);
 		productNavLbl.setBackground(new Color(220, 242, 227));
 		productNavLbl.setForeground(new Color(0, 125, 40));
@@ -119,8 +118,7 @@ public class DashboardForManager extends JFrame {
 		navPanel.add(productNavLbl);
 
 		supplierNavLbl = new JLabel("Supplier");
-		supplierNavLbl.setIcon(new ImageIcon(
-				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-supplier-color\\icons8-supplier-30.png"));
+		supplierNavLbl.setIcon(new ImageIcon(DashboardForManager.class.getResource("/ite/computer_management/img/icons8-supplier-30.png")));
 		supplierNavLbl.setOpaque(true);
 		supplierNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		supplierNavLbl.setBounds(1, 201, 250, 45);
@@ -130,8 +128,7 @@ public class DashboardForManager extends JFrame {
 		navPanel.add(supplierNavLbl);
 
 		statisticalNavLbl = new JLabel("Statistical");
-		statisticalNavLbl.setIcon(new ImageIcon(
-				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-analytics-30.png"));
+		statisticalNavLbl.setIcon(new ImageIcon(DashboardForManager.class.getResource("/ite/computer_management/img/icons8-analysis-30.png")));
 		statisticalNavLbl.setOpaque(true);
 		statisticalNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		statisticalNavLbl.setBounds(1, 625, 250, 45);
@@ -141,8 +138,7 @@ public class DashboardForManager extends JFrame {
 		navPanel.add(statisticalNavLbl);
 
 		importProductNavLbl = new JLabel("Import Product");
-		importProductNavLbl.setIcon(new ImageIcon(
-				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-import-goods-filled-outline\\icons8-import-goods-32.png"));
+		importProductNavLbl.setIcon(new ImageIcon(DashboardForManager.class.getResource("/ite/computer_management/img/importProduct-30.png")));
 		importProductNavLbl.setOpaque(true);
 		importProductNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		importProductNavLbl.setBounds(1, 244, 250, 45);
@@ -152,8 +148,7 @@ public class DashboardForManager extends JFrame {
 		navPanel.add(importProductNavLbl);
 
 		exportProductNavLbl = new JLabel("Export Product");
-		exportProductNavLbl.setIcon(new ImageIcon(
-				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-import-goods-filled-outline\\icons8-import-goods-32.png"));
+		exportProductNavLbl.setIcon(new ImageIcon(DashboardForManager.class.getResource("/ite/computer_management/img/exportProductt-30.png")));
 		exportProductNavLbl.setOpaque(true);
 		exportProductNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		exportProductNavLbl.setBounds(1, 330, 250, 45);
@@ -163,8 +158,7 @@ public class DashboardForManager extends JFrame {
 		navPanel.add(exportProductNavLbl);
 
 		importCouponNavLbl = new JLabel("Import Coupon");
-		importCouponNavLbl.setIcon(new ImageIcon(
-				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-note-30.png"));
+		importCouponNavLbl.setIcon(new ImageIcon(DashboardForManager.class.getResource("/ite/computer_management/img/bill-30.png")));
 		importCouponNavLbl.setOpaque(true);
 		importCouponNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		importCouponNavLbl.setBounds(1, 287, 250, 45);
@@ -174,8 +168,7 @@ public class DashboardForManager extends JFrame {
 		navPanel.add(importCouponNavLbl);
 
 		exportCouponNavLbl = new JLabel("Export Coupon");
-		exportCouponNavLbl.setIcon(new ImageIcon(
-				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-note-30.png"));
+		exportCouponNavLbl.setIcon(new ImageIcon(DashboardForManager.class.getResource("/ite/computer_management/img/bill-30.png")));
 		exportCouponNavLbl.setOpaque(true);
 		exportCouponNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		exportCouponNavLbl.setBounds(1, 374, 250, 50);
@@ -185,8 +178,7 @@ public class DashboardForManager extends JFrame {
 		navPanel.add(exportCouponNavLbl);
 
 		myInformationLbl = new JLabel("My Information");
-		myInformationLbl.setIcon(new ImageIcon(
-				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-user-office-m\\icons8-user-30.png"));
+		myInformationLbl.setIcon(new ImageIcon(DashboardForManager.class.getResource("/ite/computer_management/img/myinfor-30.png")));
 		myInformationLbl.setOpaque(true);
 		myInformationLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		myInformationLbl.setBounds(0, 668, 250, 45);
@@ -195,9 +187,18 @@ public class DashboardForManager extends JFrame {
 		myInformationLbl.setForeground(new Color(219, 219, 219));
 		navPanel.add(myInformationLbl);
 
+		ChatNavLbl_1 = new JLabel("Chat");
+		ChatNavLbl_1.setOpaque(true);
+		ChatNavLbl_1.setIcon(new ImageIcon(DashboardForManager.class.getResource("/ite/computer_management/img/chat.png")));
+		ChatNavLbl_1.setFont(new Font("Dialog", Font.BOLD, 15));
+		ChatNavLbl_1.setBounds(1, 422, 250, 50);
+		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
+		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
+		navPanel.add(ChatNavLbl_1);
+		ChatNavLbl_1.addMouseListener(dashboardForManagerController);
+		
 		logOutNavLbl = new JLabel("Log out");
-		logOutNavLbl.setIcon(new ImageIcon(
-				"C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\log out\\icons8-log-out-32.png"));
+		logOutNavLbl.setIcon(new ImageIcon(DashboardForManager.class.getResource("/ite/computer_management/img/exit30.png")));
 		logOutNavLbl.setOpaque(true);
 		logOutNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
 		logOutNavLbl.setBounds(0, 712, 250, 50);
@@ -205,15 +206,6 @@ public class DashboardForManager extends JFrame {
 		logOutNavLbl.setBackground(new Color(70, 163, 100));
 		logOutNavLbl.setForeground(new Color(219, 219, 219));
 		navPanel.add(logOutNavLbl);
-
-		ChatNavLbl_1 = new JLabel("Chat");
-		ChatNavLbl_1.setOpaque(true);
-		ChatNavLbl_1.setFont(new Font("Dialog", Font.BOLD, 15));
-		ChatNavLbl_1.setBounds(1, 422, 250, 50);
-		ChatNavLbl_1.setBackground(new Color(70, 163, 100));
-		ChatNavLbl_1.setForeground(new Color(219, 219, 219));
-		navPanel.add(ChatNavLbl_1);
-		ChatNavLbl_1.addMouseListener(dashboardForManagerController);
 	}
 
 	public void clickSupplierNav() {
