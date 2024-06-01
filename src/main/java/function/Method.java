@@ -24,7 +24,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import main.Main;
 import Message.Message;
-import model.Friend;
+import model_socket.Friend;
 import my_swing.ImageViewer;
 
 public class Method {

@@ -3,7 +3,7 @@ package my_swing;
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import model.Friend;
+import model_socket.Friend;
 
 public class Friend_Box extends javax.swing.JPanel implements Friend {
 
