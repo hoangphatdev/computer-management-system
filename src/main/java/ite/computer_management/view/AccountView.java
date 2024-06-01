@@ -78,7 +78,7 @@ public class AccountView extends JPanel {
 		setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(-223, 243, 1163, 531);
+		scrollPane.setBounds(23, 243, 1176, 466);
 		scrollPane.setBounds(36, 243, 1163, 466);
 		add(scrollPane);
 		//create table and fetch data from database
@@ -113,19 +113,19 @@ public class AccountView extends JPanel {
 		add(btnadd);
 		btnadd.addMouseListener(accountController);
 		
-		 btndelete = new JButton("Delete");
-		 btndelete.setForeground(new Color(6, 191, 33));
-		 btndelete.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\cancel 30.png"));
-		 btndelete.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btndelete = new JButton("Delete");
+		btndelete.setForeground(new Color(6, 191, 33));
+		btndelete.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\cancel 30.png"));
+		btndelete.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btndelete.setBackground(new Color(171, 214, 177));
 		btndelete.setBounds(36, 100, 190, 40);
 		add(btndelete);
 		btndelete.addMouseListener(accountController);
 		
-		 btnUpdate = new JButton("Update");
-		 btnUpdate.setForeground(new Color(6, 191, 33));
-		 btnUpdate.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\edit 30.png"));
-		 btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnUpdate = new JButton("Update");
+		btnUpdate.setForeground(new Color(6, 191, 33));
+		btnUpdate.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\edit 30.png"));
+		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnUpdate.setBackground(new Color(171, 214, 177));
 		btnUpdate.setBounds(36, 168, 190, 40);
 		add(btnUpdate);

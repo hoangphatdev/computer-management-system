@@ -29,18 +29,18 @@ public class MyInformationView extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MyInformationView frame = new MyInformationView(account);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					MyInformationView frame = new MyInformationView(account);
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -114,6 +114,7 @@ public class MyInformationView extends JFrame {
 		contentPane.add(changePasswordBtn);
 
 		JButton cancelBtn = new JButton("Cancel");
+		cancelBtn.setBackground(new Color(60, 179, 113));
 		cancelBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

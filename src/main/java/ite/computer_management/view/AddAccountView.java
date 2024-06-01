@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import ite.computer_management.controller.AddAccountController;
 import ite.computer_management.dao.AccountDAO;
 import ite.computer_management.model.Account;
@@ -140,26 +142,53 @@ public class AddAccountView extends JFrame {
 		contentPane.add(passwordTxt);
 	}
 	public void clickAddBtn() {
-		String fullName = fullNameTxt.getText();
-		String userName = userNameTxt.getText();
-		char[] passwordChars = passwordTxt.getPassword();
-	    String password = new String(passwordChars); 
-		String role = roleTxt.getText();
-		  if (!isValidPassword(password)) {
-		        JOptionPane.showMessageDialog(this,"Mật khẩu phải có ít nhất 1 chữ hoa, 1 ký tự đặc biệt và tối đa 20 ký tự!");
-		        return;	
-		    }
+	    String fullName = fullNameTxt.getText();
+	    String userName = userNameTxt.getText();
+	    char[] passwordChars = passwordTxt.getPassword();
+	    String password = new String(passwordChars);
+	    String role = roleTxt.getText();
 
-		Account account = new Account(fullName, userName, password, role);
-		int check = AccountDAO.getInstance().insert(account);
-		
-		if(check ==1) {
-			String data[] = {fullName, userName, password, role};
-			accountView.model.addRow(data);
-		}
+	    // Kiểm tra tính hợp lệ của mật khẩu
+	    if (!isValidPassword(password)) {
+	        JOptionPane.showMessageDialog(this, "Mật khẩu không hợp lệ. Vui lòng đảm bảo mật khẩu có:\n" +
+	                "- Ít nhất 8 ký tự và tối đa 20 ký tự\n" +
+	                "- Ít nhất một chữ cái in hoa\n" +
+	                "- Ít nhất một ký tự đặc biệt");
+	        return; 
+	    }
+
+	    // Kiểm tra xem tên người dùng đã tồn tại chưa
+	    if (AccountDAO.getInstance().selectById(userName) !=  null) {
+	        JOptionPane.showMessageDialog(this, "Tên người dùng đã tồn tại!");
+	        return;
+	    }
+
+	    // Băm mật khẩu
+	    String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+	    // Tạo đối tượng Account và thêm vào cơ sở dữ liệu
+	    Account account = new Account(fullName, userName, hashedPassword, role);
+	    int check = AccountDAO.getInstance().insert(account);
+
+	    if (check == 1) {
+	        // Thêm tài khoản mới vào bảng trong AccountView
+	        String data[] = {fullName, userName, "******", role}; // Không hiển thị mật khẩu
+	        accountView.model.addRow(data);
+
+	        // Hiển thị thông báo thành công
+	        JOptionPane.showMessageDialog(this, "Thêm tài khoản thành công!");
+
+	        // Reset các trường nhập liệu
+	        clickRefreshBtn();
+	    } else {
+	        // Hiển thị thông báo nếu thêm không thành công
+	        JOptionPane.showMessageDialog(this, "Thêm tài khoản thất bại!");
+	    }
 	}
+
+	// Phương thức kiểm tra tính hợp lệ của mật khẩu
 	private boolean isValidPassword(String password) {
-	    if (password.length() > 20) {
+	    if (password.length() < 8 || password.length() > 20) {
 	        return false;
 	    }
 	    boolean hasUpperCase = false;
@@ -173,6 +202,7 @@ public class AddAccountView extends JFrame {
 	    }
 	    return hasUpperCase && hasSpecialChar;
 	}
+
 	public void clickCancelBtn() {
 		this.dispose();
 		dashboard.setVisible(true);
