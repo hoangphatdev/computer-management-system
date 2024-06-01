@@ -137,3 +137,4 @@ public class MyInformationView extends JFrame {
 		this.dispose();
 	}
 }
+

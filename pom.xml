@@ -126,6 +126,11 @@
     <artifactId>netty-all</artifactId>
     <version>4.1.92.Final</version> 
 </dependency>
+<dependency>
+    <groupId>org.mindrot</groupId>
+    <artifactId>jbcrypt</artifactId>
+    <version>0.4</version>
+</dependency>
 
   </dependencies>
 </project>

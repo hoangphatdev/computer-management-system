@@ -35,7 +35,7 @@ public class AccountDAO implements DAOInterface<Account> {
 		String sql = "INSERT INTO account VALUE(?,?,?,?)";
 		try {
 			PreparedStatement ps = connect.prepareStatement(sql);
-			ps.setString(1, account.getFullName());    // PreparedStatement: first parameter is 1;
+			ps.setString(1, account.getFullName());   
 			ps.setString(2, account.getUserName());
 			ps.setString(3, account.getPassword());
 			ps.setString(4, account.getRole());
