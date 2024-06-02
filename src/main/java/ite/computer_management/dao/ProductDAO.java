@@ -164,6 +164,25 @@ public class ProductDAO implements DAOInterface<Computer> {
 		}
 		return null;
 	}
+	public int deleteRelatedCoupons(String computerCode) {
+	    String sqlImport = "DELETE FROM detail_imports_coupon WHERE computer_Code = ?";
+	    String sqlExport = "DELETE FROM details_exports_coupon WHERE computer_Code = ?";
+
+	    try (Connection conn = ConnectDatabase.getInstance().getConnection();
+	         PreparedStatement pstmtImport = conn.prepareStatement(sqlImport);
+	         PreparedStatement pstmtExport = conn.prepareStatement(sqlExport)) {
+
+	        pstmtImport.setString(1, computerCode);
+	        pstmtImport.executeUpdate(); // Xóa phiếu nhập
+
+	        pstmtExport.setString(1, computerCode);
+	        return pstmtExport.executeUpdate(); // Xóa phiếu xuất (và trả về số lượng bản ghi đã xóa)
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return -1; 
+	    }
+	}
 
 
 	@Override

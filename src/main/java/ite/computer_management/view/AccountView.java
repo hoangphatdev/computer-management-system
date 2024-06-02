@@ -160,7 +160,7 @@ public class AccountView extends JPanel {
 	public void clickDeleteLbl() {
 		int frontEndCheck = table.getSelectedRowCount();
 		
-		if(frontEndCheck <1) {
+		if(frontEndCheck <1) { 
 			JOptionPane.showMessageDialog(null, "Please select row to delete.");
 		}else {
 			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?");
@@ -170,15 +170,12 @@ public class AccountView extends JPanel {
 				String userName = (String)model.getValueAt(selectedRowIndex, 1);
 				Account account = new Account();
 				account.setUserName(userName);
-				//back-end
 				int check = accountDAO.delete(account);
 				if(check ==1) {
-					//front-end
 					model.removeRow(selectedRowIndex);
 				}
 			}
 		}
-		
 	}
 	public void clickEditLbl() {
 		int check = table.getSelectedRowCount();
@@ -186,18 +183,14 @@ public class AccountView extends JPanel {
 		if(check <1) {
 			JOptionPane.showMessageDialog(null, "Please select row to edit.");
 		}else {
-			
-			String fullName = (String) model.getValueAt(selectedRowIndex, 0); 
 			String userName = (String) model.getValueAt(selectedRowIndex, 1);
-			String password = (String) model.getValueAt(selectedRowIndex, 2);
 			String role = (String) model.getValueAt(selectedRowIndex, 3);
-			
+			String gmail = (String) model.getValueAt(selectedRowIndex, 4);
 			EditAccountView editAccountView = new EditAccountView(this, dashboard);
-			editAccountView.fullNameTxt.setText(fullName); 
+
 			editAccountView.userNameTxt.setText(userName);
-			editAccountView.passwordTxt.setText(password);
 			editAccountView.roleTxt.setText(role);
-			
+			editAccountView.mailtxt.setText(gmail);
 		}
 		
 	}

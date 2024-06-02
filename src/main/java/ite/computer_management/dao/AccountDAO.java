@@ -32,14 +32,14 @@ public class AccountDAO implements DAOInterface<Account> {
 	public int insert(Account account) {
 		int check = 0;
 		Connection connect = ConnectDatabase.getConnection();
-		String sql = "INSERT INTO account VALUE(?,?,?,?)";
+		String sql = "INSERT INTO account VALUE(?,?,?,?,?)";
 		try {
 			PreparedStatement ps = connect.prepareStatement(sql);
 			ps.setString(1, account.getFullName());   
 			ps.setString(2, account.getUserName());
 			ps.setString(3, account.getPassword());
 			ps.setString(4, account.getRole());
-			
+			ps.setString(5, account.getGmail());
 			check = ps.executeUpdate();
 			JOptionPane.showMessageDialog(null, "Insert successfully ><");
 			connect.close();
@@ -68,24 +68,35 @@ public class AccountDAO implements DAOInterface<Account> {
 	}
 	@Override
 	public int update(Account account, String condition) {
-		int check = 0;
-		Connection connect = ConnectDatabase.getConnection();
-		String sql = "UPDATE account SET fullName=?, userName=?, password=?, role=? WHERE userName=?";
-		try {
-			PreparedStatement ps = connect.prepareStatement(sql);
-			ps.setString(1, account.getFullName());
-			ps.setString(2, account.getUserName());
-			ps.setString(3, account.getPassword());
-			ps.setString(4, account.getRole());
-			ps.setString(5, condition);
-			check = ps.executeUpdate();
-			JOptionPane.showMessageDialog(null, "Update successfully >>");
-			connect.close();
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,"Error: " + e);
-		}
-		return check;
+	    int check = 0;
+	    String sql = "UPDATE account SET role=?, gmail=? WHERE userName=?";
+
+	    try (Connection connect = ConnectDatabase.getConnection();
+	         PreparedStatement ps = connect.prepareStatement(sql)) {
+
+	        connect.setAutoCommit(false);
+
+	        ps.setString(2, account.getRole());
+	        ps.setString(3, account.getGmail());
+	        ps.setString(4, condition);
+
+	        check = ps.executeUpdate();
+
+	        if (check > 0) {
+	            connect.commit(); // Chỉ commit nếu cập nhật thành công
+	            JOptionPane.showMessageDialog(null, "Update successfully >>");
+	        } else {
+	            connect.rollback(); // Rollback nếu không có bản ghi nào được cập nhật
+	            JOptionPane.showMessageDialog(null, "Update failed. No matching records found.");
+	        }
+
+	    } catch (SQLException e) {
+	        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+	      
+	    }
+	    return check;
 	}
+
 	@Override
 	public int update(Account account) {
 		// TODO Auto-generated method stub
@@ -102,16 +113,17 @@ public class AccountDAO implements DAOInterface<Account> {
 			ResultSetMetaData rsmd = rs.getMetaData();
 			
 			int colCount = rsmd.getColumnCount();
-			String [] rowName = {"Full Name", "User Name", "Password", "Role"};
+			String [] rowName = {"Full Name", "User Name", "Password", "Role", "gmail"};
 			accountView.model.setColumnIdentifiers(rowName);
-			String fullName, userName, password, role;
+			String fullName, userName, password, role, gmail;
 			while(rs.next()) {
 				fullName = rs.getString(1);
 				userName = rs.getString(2);
 				password = rs.getString(3);
 				role = rs.getString(4);
+				gmail = rs.getString(5);
 				
-				String rowData[] = { fullName, userName, password, role};
+				String rowData[] = { fullName, userName, password, role, gmail};
 				accountView.model.addRow(rowData);
 			}
 			connect.close();
@@ -143,7 +155,8 @@ public class AccountDAO implements DAOInterface<Account> {
 	                String userName = rs.getString("userName");
 	                String password = rs.getString("password");
 	                String role = rs.getString("role");
-	                acc = new Account(fullName, userName, password, role);
+	                String gmail = rs.getString("gmail");
+	                acc = new Account(fullName, userName, password, role, gmail);
 	            }
 	            connect.close();
 	        } catch (Exception e) {
@@ -171,6 +184,7 @@ public class AccountDAO implements DAOInterface<Account> {
 				accountReturn.setUserName(rs.getString("userName")); 
 				accountReturn.setPassword(rs.getString("password")); 
 				accountReturn.setRole(rs.getString("role")); 
+				accountReturn.setGmail(rs.getString("gmail")); 
 			}
 		
 		}catch(Exception e) {
