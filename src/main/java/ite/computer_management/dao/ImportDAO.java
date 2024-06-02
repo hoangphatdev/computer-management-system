@@ -225,6 +225,7 @@ public class ImportDAO implements DAOInterface<ImportsForm> {
                 BigInteger total_Amount = BigInteger.valueOf( rs.getLong("total_Amount"));
                 ketQua = new ImportsForm(supplier_Code, form_Code, time_Start, creator, Details_ImportDAO.getInstance().selectAll(form_Code), total_Amount);
             }
+            connec.close();
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();

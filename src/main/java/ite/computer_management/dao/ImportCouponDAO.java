@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 import ite.computer_management.database.ConnectDatabase;
 import ite.computer_management.model.Form;
@@ -110,6 +111,7 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
 	                ImportsForm p = new ImportsForm(supplier_Code, form_Code, time_Start, creator, Details_ImportDAO.getInstance().selectAll(supplier_Code), total_Amount);
 	                ketQua.add(p);
 	            }
+	            connect.close();
 	        } catch (Exception e) {
 	            // TODO: handle exception
 	            e.printStackTrace();
@@ -168,4 +170,6 @@ public class ImportCouponDAO implements DAOInterface<ImportsForm>{
         }
         return ketQua;
 	}
+	
+
 }

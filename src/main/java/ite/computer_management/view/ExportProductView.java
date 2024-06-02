@@ -482,8 +482,7 @@ public class ExportProductView extends JPanel {
 	    	                text_totalAmount.setText("0");
 	    	                this.form_Code = createId(ExportsDAO.getInstance().selectAll());
 	    	                TF_Form.setText(this.form_Code);
-	    	                ExportCouponView view = new ExportCouponView();
-	    	                view.displayTable();
+	    	               
 	    			} catch (Exception e) {
 					
 					}    		

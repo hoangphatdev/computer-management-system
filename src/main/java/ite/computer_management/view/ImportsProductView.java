@@ -493,8 +493,9 @@ public class ImportsProductView extends JPanel {
 					text_totalAmount.setText("0");
 					this.form_Code = createId(ImportDAO.getInstance().selectAll());
 					TF_Form.setText(this.form_Code);
-					ImportCouponView view = new ImportCouponView();
-					view.displayTable();
+				
+			
+					
 				} catch (Exception e) {
 
 				}
