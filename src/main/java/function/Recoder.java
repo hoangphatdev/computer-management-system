@@ -28,7 +28,7 @@ public class Recoder {
         try {
             line = (TargetDataLine) AudioSystem.getLine(info);
         } catch (Exception e) {
-            System.err.println(e);
+         
         }
     }
 

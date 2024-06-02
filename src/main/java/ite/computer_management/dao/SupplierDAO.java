@@ -156,6 +156,7 @@ public class SupplierDAO implements DAOInterface<Supplier> {
                     }
                 }
             }
+            connect.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
