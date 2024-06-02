@@ -30,24 +30,34 @@ public class AccountDAO implements DAOInterface<Account> {
 	public AccountDAO() {};
 	@Override
 	public int insert(Account account) {
-		int check = 0;
-		Connection connect = ConnectDatabase.getConnection();
-		String sql = "INSERT INTO account VALUE(?,?,?,?,?)";
-		try {
-			PreparedStatement ps = connect.prepareStatement(sql);
-			ps.setString(1, account.getFullName());   
-			ps.setString(2, account.getUserName());
-			ps.setString(3, account.getPassword());
-			ps.setString(4, account.getRole());
-			ps.setString(5, account.getGmail());
-			check = ps.executeUpdate();
-			JOptionPane.showMessageDialog(null, "Insert successfully ><");
-			connect.close();
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Error: " + e);
-		}
-		return check;
+	    int check = 0;
+	    Connection connect = ConnectDatabase.getConnection();
+	    String sql = "INSERT INTO account VALUE(?,?,?,?,?)";
+
+	    try (PreparedStatement ps = connect.prepareStatement(sql)) {
+	        ps.setString(1, account.getFullName());
+	        ps.setString(2, account.getUserName());
+	        ps.setString(3, account.getPassword()); // Lưu mật khẩu đã băm
+	        ps.setString(4, account.getRole());
+	        ps.setString(5, account.getGmail());
+	        check = ps.executeUpdate();
+
+	        JOptionPane.showMessageDialog(null, "Insert successfully ><");
+	    } catch (SQLException e) {
+	        JOptionPane.showMessageDialog(null, "Error: " + e);
+	    } finally {
+	        // Đảm bảo đóng kết nối trong mọi trường hợp
+	        try {
+	            if (connect != null) {
+	                connect.close();
+	            }
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+	    return check;
 	}
+
 
 	@Override
 	public int delete(Account account) {
@@ -164,6 +174,26 @@ public class AccountDAO implements DAOInterface<Account> {
 	        }
 	        return acc;
 	}
+	public Account select1AccountByUsername(String username) {
+	    Account accountReturn = null;
+
+	    try (Connection connect = ConnectDatabase.getConnection();
+	         PreparedStatement ps = connect.prepareStatement("SELECT * FROM account WHERE userName = ?")) {
+	        ps.setString(1, username);
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            if (rs.next()) {
+	                accountReturn = new Account(rs.getString("fullName"), rs.getString("userName"), rs.getString("password"),
+	                                           rs.getString("role"), rs.getString("gmail"));
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return accountReturn;
+	}
+
 	public Account select1AccountAndReturnRole(Account t) {
 		Account accountReturn = new Account();
 		

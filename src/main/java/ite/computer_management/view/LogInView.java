@@ -6,9 +6,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import ite.computer_management.controller.LogInController;
 import ite.computer_management.dao.AccountDAO;
 import ite.computer_management.model.Account;
+import ite.computer_management.model.PasswordHashingService;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,10 +26,13 @@ import javax.swing.Box;
 import javax.swing.border.BevelBorder;
 import java.awt.event.ActionListener;
 import java.beans.Statement;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
 import java.awt.SystemColor;
@@ -182,50 +188,53 @@ public class LogInView extends JFrame {
 	}
 
 	public void clickLogInBtn() {
-		String userNameEnter = userNameTxt.getText();
-		char[] passwordChars = passwordTxt.getPassword();
-		String passwordEnter = new String(passwordChars);
-		Account account = new Account(userNameEnter, passwordEnter);
-		System.out.print(passwordEnter);
+	    String username = userNameTxt.getText();
+	    char[] passwordChars = passwordTxt.getPassword();
+	    String password = new String(passwordChars);
+	    Account account = new Account(username, password);
 
-		Account accountReturn = AccountDAO.getInstance().select1AccountAndReturnRole(account);
+	    Account accountReturn = AccountDAO.getInstance().select1AccountByUsername(username);
 
-		if (accountReturn != null && accountReturn.getPassword() != null) {
-			if (accountReturn.getPassword().equals(passwordEnter)) {
-				String role = accountReturn.getRole();
-				if (role != null && role.equalsIgnoreCase("manager")) {
-					JOptionPane.showMessageDialog(null, "Welcome to IEC");
-					new DashboardForManager(accountReturn);
-					this.dispose();
-				} else if (role != null && role.equalsIgnoreCase("importStaff")) {
-					JOptionPane.showMessageDialog(null, "Welcome to IEC");
-					new DashboardForImportStaff(accountReturn);
-					this.dispose();
-				} else if (role != null && role.equalsIgnoreCase("exportStaff")) {
-					JOptionPane.showMessageDialog(null, "Welcome to IEC");
-					new DashboardForExportStaff(accountReturn);
-					this.dispose();
-				} else if (role != null && role.equalsIgnoreCase("admin")) {
-					JOptionPane.showMessageDialog(null, "Welcome to IEC");
-					new Dashboard(accountReturn);
-					this.dispose();
-				} else {
+	    if (accountReturn != null) {
+	        String storedPassword = accountReturn.getPassword();
 
-					JOptionPane.showMessageDialog(null, "The account does not have role.");
-				}
-			} else {
-				// Mật khẩu sai
-				JOptionPane.showMessageDialog(null, "Username or password is incorrect.");
-				passwordTxt.setText("");
-				for (int i = 0; i < passwordChars.length; i++) {
-					passwordChars[i] = 0;
-				}
-			}
-		} else {
-			// Tên người dùng sai hoặc tài khoản không tồn tại
-			JOptionPane.showMessageDialog(null, "Username or password is incorrect.");
-			passwordTxt.setText("");
-		}
+	        try {
+	            if (PasswordHashingService.validatePassword(password, storedPassword)) {
+	              
+	                passwordTxt.setText("");
+	                Arrays.fill(passwordChars, (char) 0);
 
+	                String role = accountReturn.getRole().toLowerCase();
+	                switch (role) {
+	                    case "manager":
+	                        new DashboardForManager(accountReturn);
+	                        break;
+	                    case "importstaff":
+	                        new DashboardForImportStaff(accountReturn);
+	                        break;
+	                    case "exportstaff":
+	                        new DashboardForExportStaff(accountReturn);
+	                        break;
+	                    case "admin":
+	                        new Dashboard(accountReturn);
+	                        break;
+	                    default:
+	                        JOptionPane.showMessageDialog(null, "The account does not have role.");
+	                }
+	                this.dispose();
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Username or password is incorrect.");
+	                passwordTxt.setText("");
+	            }
+	        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+	            e.printStackTrace();
+	            JOptionPane.showMessageDialog(null, "Error validating password.");
+	        }
+	    } else {
+	        JOptionPane.showMessageDialog(null, "Username or password is incorrect.");
+	        passwordTxt.setText("");
+	    }
 	}
+
+	
 }
