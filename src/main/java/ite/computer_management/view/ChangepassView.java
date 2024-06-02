@@ -74,9 +74,9 @@ public class ChangepassView extends JFrame {
         contentPane.setLayout(null);
         
         JLabel gmail = new JLabel("Gmail:");
+        gmail.setBounds(89, 136, 115, 29);
         gmail.setForeground(SystemColor.window);
         gmail.setFont(new Font("Arial", Font.BOLD, 17));
-        gmail.setBounds(89, 136, 115, 29);
         contentPane.add(gmail);
         
         gmailtext = new JTextField();
@@ -85,9 +85,9 @@ public class ChangepassView extends JFrame {
         gmailtext.setColumns(10);
         
         JLabel mk = new JLabel("New Password:");
+        mk.setBounds(89, 256, 147, 29);
         mk.setForeground(SystemColor.window);
         mk.setFont(new Font("Arial", Font.BOLD, 17));
-        mk.setBounds(89, 256, 147, 29);
         contentPane.add(mk);
         
         mk_text = new JPasswordField();
@@ -95,6 +95,7 @@ public class ChangepassView extends JFrame {
         contentPane.add(mk_text);
         
         JButton Nut_Dangki = new JButton("LOG IN");
+        Nut_Dangki.setBounds(89, 333, 88, 29);
         Nut_Dangki.setBackground(Color.WHITE);
         Nut_Dangki.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -105,10 +106,10 @@ public class ChangepassView extends JFrame {
         });
         
         Nut_Dangki.setFont(new Font("Arial", Font.BOLD, 14));
-        Nut_Dangki.setBounds(89, 333, 88, 29);
         contentPane.add(Nut_Dangki);
         
         JButton Nut_Dangnhap = new JButton("CHANGE PASS");
+        Nut_Dangnhap.setBounds(180, 334, 141, 29);
         Nut_Dangnhap.setBackground(Color.WHITE);
         Nut_Dangnhap.addActionListener(new ActionListener() {
             ResultSet rs;
@@ -139,10 +140,10 @@ public class ChangepassView extends JFrame {
         }
         );
         Nut_Dangnhap.setFont(new Font("Arial", Font.BOLD, 13));
-        Nut_Dangnhap.setBounds(180, 334, 141, 29);
         contentPane.add(Nut_Dangnhap);
         
         JButton Nut_thoat = new JButton("Cancel");
+        Nut_thoat.setBounds(242, 378, 79, 29);
         Nut_thoat.setIcon(new ImageIcon("C:\\Users\\LENOVO\\Desktop\\anhhhhhhhhh\\Screenshot 2023-12-23 152951.png"));
         Nut_thoat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -151,10 +152,10 @@ public class ChangepassView extends JFrame {
         });
         Nut_thoat.setBackground(Color.WHITE);
         Nut_thoat.setFont(new Font("Arial", Font.BOLD, 12));
-        Nut_thoat.setBounds(242, 378, 79, 29);
         contentPane.add(Nut_thoat);
         
         JButton Nut_DoiMk = new JButton("get code");
+        Nut_DoiMk.setBounds(92, 378, 147, 29);
         Nut_DoiMk.setBackground(Color.WHITE);
         Nut_DoiMk.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -184,10 +185,10 @@ public class ChangepassView extends JFrame {
             }
         });
         Nut_DoiMk.setFont(new Font("Arial", Font.BOLD, 12));
-        Nut_DoiMk.setBounds(92, 378, 147, 29);
         contentPane.add(Nut_DoiMk);
         
         JToggleButton Nut_hienMK = new JToggleButton("");
+        Nut_hienMK.setBounds(268, 258, 53, 22);
         Nut_hienMK.setIcon(new ImageIcon("C:\\Users\\LENOVO\\Desktop\\anhhhhhhhhh\\Screenshot 2023-12-23 194914.png"));
         Nut_hienMK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -202,40 +203,40 @@ public class ChangepassView extends JFrame {
         Nut_hienMK.setFont(new Font("Arial", Font.BOLD, 18));
         Nut_hienMK.setBackground(Color.LIGHT_GRAY);
         Nut_hienMK.setForeground(Color.BLACK);
-        Nut_hienMK.setBounds(268, 258, 53, 22);
         contentPane.add(Nut_hienMK);
         
         textcode = new JTextField();
-        textcode.setColumns(10);
         textcode.setBounds(89, 223, 232, 29);
+        textcode.setColumns(10);
         contentPane.add(textcode);
         
         JLabel lblGmail = new JLabel("Code:");
+        lblGmail.setBounds(89, 193, 115, 29);
         lblGmail.setForeground(SystemColor.window);
         lblGmail.setFont(new Font("Arial", Font.BOLD, 17));
-        lblGmail.setBounds(89, 193, 115, 29);
         contentPane.add(lblGmail);
         
         Box verticalBox = Box.createVerticalBox();
+        verticalBox.setBounds(0, -11, 459, 529);
         verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-        verticalBox.setBounds(0, 0, 459, 529);
         contentPane.add(verticalBox);
         
-        JLabel lblLogIn = new JLabel("CHANGE PASS");
-        verticalBox.add(lblLogIn);
-        lblLogIn.setForeground(new Color(0, 0, 0));
-        lblLogIn.setFont(new Font("Freestyle Script", Font.BOLD, 50));
-        
         JLabel dangnhap_1 = new JLabel("");
-        dangnhap_1.setBounds(454, 28, 455, 458);
+        dangnhap_1.setBounds(454, 44, 455, 458);
         contentPane.add(dangnhap_1);
         dangnhap_1.setIcon(new ImageIcon(ChangepassView.class.getResource("/ite/computer_management/img/logo2 - Copy.png")));
         dangnhap_1.setFont(new Font("Arial", Font.BOLD, 27));
         
+        JLabel lblLogIn = new JLabel("CHANGE PASS");
+        lblLogIn.setBounds(91, 40, 240, 60);
+        contentPane.add(lblLogIn);
+        lblLogIn.setForeground(new Color(0, 0, 0));
+        lblLogIn.setFont(new Font("Freestyle Script", Font.BOLD, 50));
+        
         JLabel dangnhap_1_1 = new JLabel("");
+        dangnhap_1_1.setBounds(-92, -47, 1032, 592);
         dangnhap_1_1.setIcon(new ImageIcon(ChangepassView.class.getResource("/ite/computer_management/img/anh.jpg")));
         dangnhap_1_1.setFont(new Font("Arial", Font.BOLD, 27));
-        dangnhap_1_1.setBounds(-92, -47, 1032, 592);
         contentPane.add(dangnhap_1_1);
     }  
     private boolean changePasswordInDatabase(String gmail, String newPassword) throws SQLException {

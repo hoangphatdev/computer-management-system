@@ -32,6 +32,7 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Window;
+import java.awt.Toolkit;
 
 public class Dashboard extends JFrame {
 
@@ -57,6 +58,7 @@ public class Dashboard extends JFrame {
 	Account accountReturn;
 
 	public Dashboard(Account accountReturn) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\lgo.png"));
 		this.accountReturn = accountReturn;
 		init();
 		this.setLocationRelativeTo(null);
@@ -86,6 +88,9 @@ public class Dashboard extends JFrame {
 		ImportsProductView ImportsProductView = new ImportsProductView();
 		tabbedPane.addTab("Imports Product", ImportsProductView);
 
+		ExportProductView ExportProductView = new ExportProductView();
+		tabbedPane.addTab("Export Product", ExportProductView);
+		
 		SupplierView supplierView = new SupplierView(this);
 		tabbedPane.addTab("Supplier manegement", supplierView);
 
@@ -354,7 +359,7 @@ public class Dashboard extends JFrame {
 	}
 
 	public void clickExportCouponNav() {
-		this.tabbedPane.setSelectedIndex(5);
+		this.tabbedPane.setSelectedIndex(6);
 		exportCouponNavLbl.setBackground(new Color(220, 242, 227));
 		exportCouponNavLbl.setForeground(new Color(0, 125, 40));
 
@@ -406,7 +411,7 @@ public class Dashboard extends JFrame {
 	public void clickStatisticalNav() {
 		statisticalchart.setBackground(new Color(220, 242, 227));
 		statisticalchart.setForeground(new Color(0, 125, 40));
-		this.tabbedPane.setSelectedIndex(6);
+		this.tabbedPane.setSelectedIndex(7);
 
 		productNavLbl.setBackground(new Color(70, 163, 100));
 		productNavLbl.setForeground(new Color(219, 219, 219));

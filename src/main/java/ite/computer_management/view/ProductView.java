@@ -169,7 +169,7 @@ public class ProductView extends JPanel {
 
 		btnUpdate = new JButton("Update");
 		btnUpdate.setForeground(new Color(6, 191, 33));
-		btnUpdate.setIcon(new ImageIcon(ProductView.class.getResource("/ite/computer_management/img/edit 30.png")));
+		btnUpdate.setIcon(new ImageIcon(ProductView.class.getResource("/ite/computer_management/img/icons8-update-30.png")));
 		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnUpdate.setBackground(new Color(171, 214, 177));
 		btnUpdate.setBounds(36, 166, 190, 40);
@@ -190,31 +190,43 @@ public class ProductView extends JPanel {
 
 	public void clickAddLbl() {
 		new AddProductView(this, dashboard);
-		ImportDAO view = new ImportDAO();
+		
 	}
 
 	public void clickDeleteLbl() {
-		int check = table.getSelectedRowCount();
-		int selectedRow = table.getSelectedRow();
+	    int check = table.getSelectedRowCount();
+	    int selectedRow = table.getSelectedRow();
 
-		if (check < 1) {
-			JOptionPane.showMessageDialog(null, "Please select row to delete.");
-		} else {
-			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?");
-			if (confirm == 0) {
-				String computerCode = model.getValueAt(selectedRow, 1).toString();
-				String computerName = model.getValueAt(selectedRow, 0).toString();
-				Computer deleteProduct = new Computer();
-				deleteProduct.setComputerCode(computerCode);
-				int result = ProductDAO.getInstance().delete(deleteProduct);
-				System.out.println(result);
-				if (result == 1) {
-					model.removeRow(selectedRow);
-				}
-			}
+	    if (check < 1) {
+	        JOptionPane.showMessageDialog(null, "Please select row to delete.");
+	    } else {
+	        int confirm = JOptionPane.showConfirmDialog(null, "are you sure?\r\n"
+	        		+ "If you delete it, all import and export tickets containing this product will be deleted");
+	        if (confirm == 0) {
+	            String computerCode = model.getValueAt(selectedRow, 1).toString();
+	            String computerName = model.getValueAt(selectedRow, 0).toString();
+	            Computer deleteProduct = new Computer();
+	            deleteProduct.setComputerCode(computerCode);
+	            
+	            // Xóa các phiếu liên quan trong detail_imports_coupon và detail_exports_coupon
+	            int deleteRelatedCheck = ProductDAO.getInstance().deleteRelatedCoupons(computerCode);
+	            
+	            if (deleteRelatedCheck >= 0) { // Kiểm tra đã xóa phiếu liên quan thành công
+	                // Xóa sản phẩm
+	                int result = ProductDAO.getInstance().delete(deleteProduct); 
+	                if (result == 1) {
+	                    model.removeRow(selectedRow);
+	                } else {
+	                    JOptionPane.showMessageDialog(null, "Failed to delete product."); 
+	                }
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Failed to delete related coupons.");
+	            }
+	        }
 
-		}
+	    }
 	}
+
 
 	public void clickSearchBtn() {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();

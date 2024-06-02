@@ -53,6 +53,7 @@ public class AddProductView extends JFrame {
 	public JButton addBtn;
 	public JButton cancelBtn;
 	public JButton refreshBtn;
+	public JLabel add;
 	
 	public AddProductView(ProductView productView, Dashboard dashboard) {
 		this.dashboard = dashboard;
@@ -72,15 +73,15 @@ public class AddProductView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel titleLbl = new JLabel("ADD PRODUCT");
-		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLbl.setBounds(0, 0, 1090, 122);
-		titleLbl.setFont(new Font("Hack", Font.BOLD, 28));
-		titleLbl.setForeground(new Color(219, 219, 219));
-		titleLbl.setBackground(new Color(70, 163, 100));
-		titleLbl.setOpaque(true);
-		contentPane.add(titleLbl);
-		refreshBtn.addMouseListener(addProductController);
+		 add = new JLabel("ADD PRODUCT");
+		add.setHorizontalAlignment(SwingConstants.CENTER);
+		add.setBounds(0, 0, 1090, 122);
+		add.setFont(new Font("Hack", Font.BOLD, 28));
+		add.setForeground(new Color(219, 219, 219));
+		add.setBackground(new Color(70, 163, 100));
+		add.setOpaque(true);
+		contentPane.add(add);
+		add.addMouseListener(addProductController);
 		
 		JLabel computerNameLbl = new JLabel("Computer Name");
 		computerNameLbl.setFont(new Font("Inter", Font.BOLD, 12));
@@ -304,6 +305,7 @@ public class AddProductView extends JFrame {
 		refreshBtn.setBackground(new Color(219,219,219));
 		refreshBtn.setBounds(790, 594, 190, 41);
 		contentPane.add(refreshBtn);
+		refreshBtn.addMouseListener(addProductController);
 	}
 	
 	public void clickAddLbl() {

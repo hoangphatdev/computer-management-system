@@ -36,6 +36,7 @@ public class AddAccountView extends JFrame {
 	public AccountView accountView;
 	public Dashboard dashboard;
 	private JPasswordField passwordTxt;
+	private JTextField text_gmail;
 
 	public AddAccountView(AccountView accountView, Dashboard dashboard) {
 		this.accountView = accountView;
@@ -61,7 +62,7 @@ public class AddAccountView extends JFrame {
 		 addBtn.setBackground(new Color(219,219,219));
 		addBtn.setForeground(new Color(70, 163, 100));
 		addBtn.setFont(new Font("Dialog", Font.BOLD, 12));
-		addBtn.setBounds(226, 389, 154, 37);
+		addBtn.setBounds(224, 432, 154, 37);
 		addBtn.addMouseListener(addAccountController);
 		contentPane.add(addBtn);
 		
@@ -70,7 +71,7 @@ public class AddAccountView extends JFrame {
 		cancelBtn.setForeground(new Color(70, 163, 100));
 		cancelBtn.setBackground(new Color(219,219,219));
 		cancelBtn.setFont(new Font("Dialog", Font.BOLD, 12));
-		cancelBtn.setBounds(463, 389, 121, 37);
+		cancelBtn.setBounds(464, 432, 121, 37);
 		cancelBtn.addMouseListener(addAccountController);
 		contentPane.add(cancelBtn);
 		
@@ -79,7 +80,7 @@ public class AddAccountView extends JFrame {
 		refreshBtn.setForeground(new Color(70, 163, 100));
 		refreshBtn.setFont(new Font("Dialog", Font.BOLD, 12));
 		refreshBtn.setBackground(new Color(219,219,219));
-		refreshBtn.setBounds(22, 389, 121, 37);
+		refreshBtn.setBounds(21, 432, 121, 37);
 		refreshBtn.addMouseListener(addAccountController);
 		contentPane.add(refreshBtn);
 		
@@ -110,14 +111,14 @@ public class AddAccountView extends JFrame {
 		passwordLbl.setOpaque(true);
 		contentPane.add(passwordLbl);
 		
-		JLabel roleLbl = new JLabel("Role");
-		roleLbl.setFont(new Font("Inter", Font.BOLD, 13));
-		roleLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		roleLbl.setBounds(105, 306, 138, 35);
-		roleLbl.setBackground(new Color(70, 163, 100));
-		roleLbl.setForeground(new Color(219, 219, 219));
-		roleLbl.setOpaque(true);
-		contentPane.add(roleLbl);
+		JLabel Gmail = new JLabel("Gmail");
+		Gmail.setFont(new Font("Inter", Font.BOLD, 13));
+		Gmail.setHorizontalAlignment(SwingConstants.CENTER);
+		Gmail.setBounds(105, 366, 138, 35);
+		Gmail.setBackground(new Color(70, 163, 100));
+		Gmail.setForeground(new Color(219, 219, 219));
+		Gmail.setOpaque(true);
+		contentPane.add(Gmail);
 		
 		fullNameTxt = new JTextField();
 		fullNameTxt.setFont(new Font("Roboto", Font.PLAIN, 15));
@@ -149,6 +150,21 @@ public class AddAccountView extends JFrame {
 		passwordTxt = new JPasswordField();
 		passwordTxt.setBounds(241, 251, 259, 35);
 		contentPane.add(passwordTxt);
+		
+		JLabel roleLbl_1 = new JLabel("Role");
+		roleLbl_1.setOpaque(true);
+		roleLbl_1.setHorizontalAlignment(SwingConstants.CENTER);
+		roleLbl_1.setForeground(new Color(219, 219, 219));
+		roleLbl_1.setFont(new Font("Dialog", Font.BOLD, 13));
+		roleLbl_1.setBackground(new Color(70, 163, 100));
+		roleLbl_1.setBounds(105, 307, 138, 35);
+		contentPane.add(roleLbl_1);
+		
+		text_gmail = new JTextField();
+		text_gmail.setFont(new Font("Dialog", Font.PLAIN, 15));
+		text_gmail.setColumns(10);
+		text_gmail.setBounds(242, 366, 258, 35);
+		contentPane.add(text_gmail);
 	}
 	public void clickAddBtn() {
 	    String fullName = fullNameTxt.getText();
@@ -156,42 +172,34 @@ public class AddAccountView extends JFrame {
 	    char[] passwordChars = passwordTxt.getPassword();
 	    String password = new String(passwordChars);
 	    String role = roleTxt.getText();
+	    String gmail = text_gmail.getText();
 
 	    // Kiểm tra tính hợp lệ của mật khẩu
 	    if (!isValidPassword(password)) {
-	        JOptionPane.showMessageDialog(this, "Mật khẩu không hợp lệ. Vui lòng đảm bảo mật khẩu có:\n" +
-	                "- Ít nhất 8 ký tự và tối đa 20 ký tự\n" +
-	                "- Ít nhất một chữ cái in hoa\n" +
-	                "- Ít nhất một ký tự đặc biệt");
+	        JOptionPane.showMessageDialog(this, "Invalid password. Please make sure the password contains:\\n\" +\r\n"
+	        		+ "  \"- At least 8 characters and maximum 20 characters\\n\" +\r\n"
+	        		+ "  \"- At least one capital letter\\n\" +\r\n"
+	        		+ "  \"- At least one special character");
 	        return; 
 	    }
-
-	    // Kiểm tra xem tên người dùng đã tồn tại chưa
 	    if (AccountDAO.getInstance().selectById(userName) !=  null) {
-	        JOptionPane.showMessageDialog(this, "Tên người dùng đã tồn tại!");
+	        JOptionPane.showMessageDialog(this, "Username already exists!");
 	        return;
 	    }
-
-	    // Băm mật khẩu
+	    // mã hóa mật khẩu
 	    String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
 	    // Tạo đối tượng Account và thêm vào cơ sở dữ liệu
-	    Account account = new Account(fullName, userName, hashedPassword, role);
+	    Account account = new Account(fullName, userName, hashedPassword, role, gmail);
 	    int check = AccountDAO.getInstance().insert(account);
 
 	    if (check == 1) {
-	        // Thêm tài khoản mới vào bảng trong AccountView
-	        String data[] = {fullName, userName, "******", role}; // Không hiển thị mật khẩu
+	        String data[] = {fullName, userName, "******", role, gmail}; 
 	        accountView.model.addRow(data);
-
-	        // Hiển thị thông báo thành công
-	        JOptionPane.showMessageDialog(this, "Thêm tài khoản thành công!");
-
-	        // Reset các trường nhập liệu
+	        JOptionPane.showMessageDialog(this, "Account added successfully!");
 	        clickRefreshBtn();
 	    } else {
-	        // Hiển thị thông báo nếu thêm không thành công
-	        JOptionPane.showMessageDialog(this, "Thêm tài khoản thất bại!");
+	        JOptionPane.showMessageDialog(this, "fail");
 	    }
 	}
 

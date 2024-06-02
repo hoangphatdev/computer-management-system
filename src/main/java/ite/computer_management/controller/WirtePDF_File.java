@@ -115,7 +115,7 @@ public class WirtePDF_File {
             pdfTable.addCell(new PdfPCell(new Phrase("Price", fontHeader)));
             pdfTable.addCell(new PdfPCell(new Phrase("quantity", fontHeader)));
             pdfTable.addCell(new PdfPCell(new Phrase("Total amount", fontHeader)));
-
+            BigInteger totalPrice = null;
             // Fill table with data
             for (Details_Form ctpn : Details_ImportDAO.getInstance().selectAll(mapn)) {
                 Computer mt = computerDAO.getInstance().selectById(ctpn.getComputer_Code());
@@ -124,14 +124,15 @@ public class WirtePDF_File {
                 pdfTable.addCell(new PdfPCell(new Phrase(formatter.format(mt.getPrice()) + "đ", fontData)));
                 pdfTable.addCell(new PdfPCell(new Phrase(String.valueOf(ctpn.getQuantity()), fontData)));
                 BigInteger quantity = BigInteger.valueOf(Long.valueOf(ctpn.getQuantity()));
-                BigInteger totalPrice = quantity.multiply(mt.getPrice());
+                 totalPrice = quantity.multiply(mt.getPrice());
                 pdfTable.addCell(new PdfPCell(new Phrase(formatter.format(totalPrice) + "đ", fontData)));
             }
 
             document.add(pdfTable);
             document.add(Chunk.NEWLINE);
 
-            Paragraph paraTongThanhToan = new Paragraph("Total amount: " + formatter.format(pn.getTotal_Amount()) + "đ", fontData);
+            Paragraph paraTongThanhToan = new Paragraph("Total amount: " + formatter.format(totalPrice) + "đ", fontData);
+            System.out.println(pn.getTotal_Amount());
             document.add(paraTongThanhToan);
             document.close();
             JOptionPane.showMessageDialog(null, "The PDF file has been created successfully: " + url);
@@ -175,7 +176,7 @@ public class WirtePDF_File {
             pdfTable.addCell(new PdfPCell(new Phrase("Price", fontHeader)));
             pdfTable.addCell(new PdfPCell(new Phrase("quantity", fontHeader)));
             pdfTable.addCell(new PdfPCell(new Phrase("Total amount", fontHeader)));
-
+            BigInteger totalPrice =null;
             // Fill table with data
             for (Details_Form ctpn : Details_ExportDAO.getInstance().selectAll(mapn)) {
                 Computer mt = computerDAO.getInstance().selectById(ctpn.getComputer_Code());
@@ -184,14 +185,14 @@ public class WirtePDF_File {
                 pdfTable.addCell(new PdfPCell(new Phrase(formatter.format(mt.getPrice()) + "đ", fontData)));
                 pdfTable.addCell(new PdfPCell(new Phrase(String.valueOf(ctpn.getQuantity()), fontData)));
                 BigInteger quantity = BigInteger.valueOf(Long.valueOf(ctpn.getQuantity()));
-                BigInteger totalPrice = quantity.multiply(mt.getPrice());
+                totalPrice = quantity.multiply(mt.getPrice());
                 pdfTable.addCell(new PdfPCell(new Phrase(formatter.format(totalPrice) + "đ", fontData)));
             }
 
             document.add(pdfTable);
             document.add(Chunk.NEWLINE);
 
-            Paragraph paraTongThanhToan = new Paragraph("Total amount: " + formatter.format(pn.getTotal_Amount()) + "đ", fontData);
+            Paragraph paraTongThanhToan = new Paragraph("Total amount: " + formatter.format(totalPrice) + "đ", fontData);
             document.add(paraTongThanhToan);
             document.close();
             JOptionPane.showMessageDialog(null, "The PDF file has been created successfully: " + url);

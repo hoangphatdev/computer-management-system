@@ -463,7 +463,7 @@ public class ExportProductView extends JPanel {
 	    			long now = System.currentTimeMillis();
 	    			Timestamp sqlTimeTamp = new Timestamp(now);
 	    			String Creator = (String) Combo_Creator.getSelectedItem();
-	    			ExportForm EM = new ExportForm(form_Code, sqlTimeTamp, Creator, Details_Form, total_Amount());
+	    			ExportForm EM = new ExportForm(form_Code, sqlTimeTamp, Creator, Details_Form, calculateTotalAmount());
 	    			try {
 	    				ExportsDAO.getInstance().insert(EM);
 	    				computerDAO CPTD = computerDAO.getInstance();
@@ -490,14 +490,26 @@ public class ExportProductView extends JPanel {
 	    		}
 	    	}
 	    }
-	    public BigInteger total_Amount() {
-			BigInteger sum = BigInteger.valueOf(Long.valueOf("0"));
-			for (ite.computer_management.model.Details_Form i : Details_Form) {
-				BigInteger quantityBig = BigInteger.valueOf(Long.valueOf(i.getQuantity()));
-				BigInteger resultEachLoop = i.getUnit_Price().multiply(quantityBig);
-				sum.add(resultEachLoop);
-			}
-			return sum;
+		public BigInteger calculateTotalAmount() {
+		    BigInteger totalAmount = BigInteger.ZERO;
+
+		    // Lấy số lượng hàng trong bảng
+		    int rowCount = table_Exports.getRowCount();
+
+		    // Duyệt qua từng hàng trong bảng
+		    for (int i = 0; i < rowCount; i++) {
+
+		        Object value = table_Exports.getValueAt(i, 4); 
+
+		        if (value != null && value instanceof Number) {
+		            BigInteger amount = new BigInteger(value.toString());
+		            totalAmount = totalAmount.add(amount);
+		        } else {
+		            System.err.println("fail" + (i + 1) + ", col 5");
+		        }
+		    }
+
+		    return totalAmount;
 		}
 	    public void displayTable() {
 	    	ExportsDAO view = new ExportsDAO();
