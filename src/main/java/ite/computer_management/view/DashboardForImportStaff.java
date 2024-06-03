@@ -151,7 +151,8 @@ public class DashboardForImportStaff extends JFrame {
 		myInformationLbl.setBackground( new Color(70, 163, 100));
 		myInformationLbl.setForeground(new Color(219, 219, 219));
 	}
-	
+	 private boolean isLoginViewVisible = false; 
+	  private Login loginView = null; 
 	public void clickChatNav() {
 		chatNavLbl_1.setBackground(new Color(220, 242, 227));
 		chatNavLbl_1.setForeground(new Color(0, 125, 40));
@@ -163,10 +164,11 @@ public class DashboardForImportStaff extends JFrame {
 		importCouponNavLbl.setBackground(new Color(70, 163, 100));
 		importCouponNavLbl.setForeground(new Color(219, 219, 219));
 		
-		Login view = new Login();
-		
-		view.setVisible(true);
-		
+		if (loginView != null) {
+	        loginView.dispose(); 
+	    }
+		loginView = new Login("Import staff");
+	    loginView.setVisible(true);
 	}
 	public void clickMyInformationNav() {
 		myInformationLbl.setBackground( new Color(220, 242, 227));

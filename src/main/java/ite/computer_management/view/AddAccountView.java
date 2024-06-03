@@ -178,12 +178,12 @@ public class AddAccountView extends JFrame {
 	    String role = roleTxt.getText();
 	    String gmail = text_gmail.getText();
 
-	
+
 	    if (AccountDAO.getInstance().selectById(userName) != null) {
 	        JOptionPane.showMessageDialog(this, "Username already exists!");
 	        return;
 	    }
-	 // Kiểm tra tính hợp lệ của mật khẩu
+		 // Kiểm tra tính hợp lệ của mật khẩu
 	    if (!isValidPassword(password)) {
 	        JOptionPane.showMessageDialog(this, "Invalid password. Please make sure the password contains:\\n\" +\r\n"
 	        		+ "  \"- At least 8 characters and maximum 20 characters\\n\" +\r\n"
@@ -197,7 +197,8 @@ public class AddAccountView extends JFrame {
 	        int check = AccountDAO.getInstance().insert(account);
 
 	        if (check == 1) {
-	            // ... (Phần xử lý thêm tài khoản thành công như cũ)
+	        	accountView.displayTable();
+	        	JOptionPane.showMessageDialog(this,"success" );
 	        } else {
 	            JOptionPane.showMessageDialog(this, "Failed to add account.");
 	        }
