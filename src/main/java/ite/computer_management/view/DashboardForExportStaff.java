@@ -146,6 +146,8 @@ public class DashboardForExportStaff extends JFrame {
 		exportCouponNavLbl.setForeground(new Color(219, 219, 219));	
 	}
 
+	 private boolean isLoginViewVisible = false; 
+	  private Login loginView = null; 
 	public void clickExportCouponNav() {
 		this.tabbedPane.setSelectedIndex(1);
 		exportCouponNavLbl.setBackground(new Color(220, 242, 227));
@@ -169,9 +171,11 @@ public class DashboardForExportStaff extends JFrame {
 		exportCouponNavLbl.setBackground(new Color(70, 163, 100));
 		exportCouponNavLbl.setForeground(new Color(219, 219, 219));	
 
-		Login view = new Login();
-		
-		view.setVisible(true);
+		if (loginView != null) {
+	        loginView.dispose(); 
+	    }
+		loginView = new Login("Export staff");
+	    loginView.setVisible(true);
 	}
 	public void clickMyInformationNav() {
 		myInformationLbl.setBackground( new Color(220, 242, 227));

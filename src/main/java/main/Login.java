@@ -55,18 +55,25 @@ public class Login extends JFrame {
     private  JTextField txtIP;
     public  JTextField txtUser;
 	private Button btnCancel;
-	
+	String username;
     public Login() {
         initComponents();
         open();
+ 
     }
-
+    public Login(String username) {
+        initComponents();
+        open();
+        this.username = username; 
+    }
     private void open() {
         setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\Chat-room.png"));
-        Method.setTextFieldSyle(txtUser, "User Name");
+     
         Method.setTextFieldSyle(txtIP, "IP Address");
         showStatus(ms);
-        
+        SwingUtilities.invokeLater(() -> { 
+            txtUser.setText(username); 
+        });
     }
 
 
@@ -78,7 +85,7 @@ public class Login extends JFrame {
         jPanel1 = new JPanel();
         txtIP = new JTextField();
         txtUser = new JTextField();
-       
+        txtUser.setEditable(false);
 
         cmdLogin = new Button();
         jLayeredPane1 = new JLayeredPane();
@@ -108,9 +115,9 @@ public class Login extends JFrame {
         txtUser.setHorizontalAlignment( JTextField.CENTER);
         txtUser.setBorder( BorderFactory.createEmptyBorder(1, 10, 1, 10));
         txtUser.setSelectionColor(new Color(131, 188, 227));
-        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtUserKeyTyped(evt);
+        txtUser.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent evt) {
+                txtIPKeyTyped(evt);
             }
         });
 
@@ -231,14 +238,8 @@ public class Login extends JFrame {
 
     private void cmdLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLoginActionPerformed
         try {
-            if (txtUser.getText().equals("") || !txtUser.getName().equals("have")) {
-                txtUser.grabFocus();
-                showStatus("Please input your user name");
-            } else {
-                if (txtUser.getText().trim().length() > 15) {
-                    txtUser.grabFocus();
-                    showStatus("User name must less than 15 character");
-                } else {
+        
+              
                     String IP = txtIP.getText().trim();
                     if (txtIP.getText().equals("") || !txtIP.getName().equals("have")) {
                         IP = "localhost";
@@ -248,9 +249,9 @@ public class Login extends JFrame {
                     Method.connect(profile_pic, userName, IP);
                     this.dispose();
                     Main.main(null);
-                }
+                
 
-            }
+            
         } catch (UnknownHostException e) {
             showStatus("Unknown host : " + txtIP.getText());
         } catch (java.rmi.UnknownHostException e) {

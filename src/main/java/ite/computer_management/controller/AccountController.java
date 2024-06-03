@@ -5,12 +5,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import ite.computer_management.dao.AccountDAO;
 import ite.computer_management.view.AccountView;
 
 public class AccountController implements MouseListener, KeyListener {
 	AccountView accountView;
 	public AccountController(AccountView av) {
-		accountView = av;
+		this.accountView = av;
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
