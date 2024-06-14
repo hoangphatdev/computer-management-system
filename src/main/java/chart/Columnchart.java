@@ -34,6 +34,7 @@ import ite.computer_management.view.Dashboard;
 import ite.computer_management.view.DashboardForManager;
 
 import javax.swing.JLabel;
+
 import java.awt.Panel;
 
 public class Columnchart extends JPanel {

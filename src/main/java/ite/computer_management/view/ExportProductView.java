@@ -373,18 +373,6 @@ public class ExportProductView extends JPanel {
 	        }
 	    }   
 	}
-	private void updateTotalAmount() {
-	    DefaultTableModel modelExports = (DefaultTableModel) table_Exports.getModel();
-	    BigInteger totalAmount = BigInteger.valueOf( Long.valueOf("0"));
-	    for (int i = 0; i < modelExports.getRowCount(); i++) {
-	        BigInteger price = BigInteger.valueOf(Integer.parseInt(modelExports.getValueAt(i, 4).toString()));
-	        BigInteger quantity = BigInteger.valueOf( Integer.parseInt(modelExports.getValueAt(i, 3).toString()));
-	        
-	        BigInteger resultEachLoop = price.multiply(quantity);
-	        totalAmount = totalAmount.add(resultEachLoop);
-	    }
-	    text_totalAmount.setText(String.valueOf(totalAmount) + "Đ");
-	}
 	public String createId(ArrayList<ExportForm> arrayList) {
         int id = arrayList.size() + 1;
         String check = "";
@@ -463,11 +451,11 @@ public class ExportProductView extends JPanel {
 	    			long now = System.currentTimeMillis();
 	    			Timestamp sqlTimeTamp = new Timestamp(now);
 	    			String Creator = (String) Combo_Creator.getSelectedItem();
-	    			ExportForm EM = new ExportForm(form_Code, sqlTimeTamp, Creator, Details_Form, calculateTotalAmount());
+	    			ExportForm EM = new ExportForm(form_Code, sqlTimeTamp, Creator, Details_Form, TotalAmount());
 	    			try {
 	    				ExportsDAO.getInstance().insert(EM);
 	    				computerDAO CPTD = computerDAO.getInstance();
-	    				for(ite.computer_management.model.Details_Form i : Details_Form) {
+	    				for(Details_Form i : Details_Form) {
 	    					Details_ExportDAO.getInstance().insert(i);
 	    					CPTD.updateQuantity(i.getComputer_Code(),CPTD.selectById(i.getComputer_Code()).getQuantity() + i.getQuantity());
 	    				}
@@ -489,26 +477,29 @@ public class ExportProductView extends JPanel {
 	    		}
 	    	}
 	    }
-		public BigInteger calculateTotalAmount() {
-		    BigInteger totalAmount = BigInteger.ZERO;
-
-		    // Lấy số lượng hàng trong bảng
-		    int rowCount = table_Exports.getRowCount();
-
-		    // Duyệt qua từng hàng trong bảng
-		    for (int i = 0; i < rowCount; i++) {
-
-		        Object value = table_Exports.getValueAt(i, 4); 
-
-		        if (value != null && value instanceof Number) {
-		            BigInteger amount = new BigInteger(value.toString());
-		            totalAmount = totalAmount.add(amount);
-		        } else {
-		            System.err.println("fail" + (i + 1) + ", col 5");
-		        }
+		private BigInteger TotalAmount() {
+			
+			DefaultTableModel modelImports = (DefaultTableModel) table_Exports.getModel();
+			BigInteger totalAmount = BigInteger.valueOf(Long.valueOf("0"));
+			for (int i = 0; i < modelImports.getRowCount(); i++) {
+				BigInteger price = BigInteger.valueOf(Integer.valueOf((modelImports.getValueAt(i, 4).toString())));
+				BigInteger quantity = BigInteger.valueOf(Integer.parseInt(modelImports.getValueAt(i, 3).toString()));
+				BigInteger  resultEachLoop = price.multiply(quantity);
+				totalAmount = totalAmount.add(resultEachLoop);
+			}
+			 return totalAmount;
+		}
+		private void updateTotalAmount() {
+		    DefaultTableModel modelExports = (DefaultTableModel) table_Exports.getModel();
+		    BigInteger totalAmount = BigInteger.valueOf( Long.valueOf("0"));
+		    for (int i = 0; i < modelExports.getRowCount(); i++) {
+		        BigInteger price = BigInteger.valueOf(Integer.parseInt(modelExports.getValueAt(i, 4).toString()));
+		        BigInteger quantity = BigInteger.valueOf( Integer.parseInt(modelExports.getValueAt(i, 3).toString()));
+		        
+		        BigInteger resultEachLoop = price.multiply(quantity);
+		        totalAmount = totalAmount.add(resultEachLoop);
 		    }
-
-		    return totalAmount;
+		    text_totalAmount.setText(String.valueOf(totalAmount) + "Đ");
 		}
 	    public void displayTable() {
 	    	ExportsDAO view = new ExportsDAO();

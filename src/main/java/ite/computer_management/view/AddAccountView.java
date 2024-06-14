@@ -23,6 +23,10 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
@@ -177,13 +181,27 @@ public class AddAccountView extends JFrame {
 	    String password = new String(passwordChars);
 	    String role = roleTxt.getText();
 	    String gmail = text_gmail.getText();
-
-
+	    // check role
+	    List<String> allowedRoles = Arrays.asList("admin", "importstaff", "exportstaff", "manager");
+	    if (!allowedRoles.contains(role)) {
+	        JOptionPane.showMessageDialog(this, "Invalid role. Please choose one of the following: admin, importstaff, exportstaff, manager");
+	        return;
+	    }
+	    // check acount
 	    if (AccountDAO.getInstance().selectById(userName) != null) {
 	        JOptionPane.showMessageDialog(this, "Username already exists!");
 	        return;
 	    }
-		 // Kiểm tra tính hợp lệ của mật khẩu
+	    // check mail
+	    if (AccountDAO.getInstance().selectBygmail(gmail) != null) {
+	        JOptionPane.showMessageDialog(this, "gmail already exists!");
+	        return;
+	    }
+	    if (!isValidGmail(gmail)) {
+	        JOptionPane.showMessageDialog(this, "Invalid Gmail format.");
+	        return;
+	    }
+	 // Kiểm tra tính hợp lệ của mật khẩu
 	    if (!isValidPassword(password)) {
 	        JOptionPane.showMessageDialog(this, "Invalid password. Please make sure the password contains:\\n\" +\r\n"
 	        		+ "  \"- At least 8 characters and maximum 20 characters\\n\" +\r\n"
@@ -192,14 +210,12 @@ public class AddAccountView extends JFrame {
 	        return; 
 	    }
 	    try {
+	    	// mã hóa mk
 	        String hashedPassword = PasswordHashingService.generatePasswordHash(password);
 	        Account account = new Account(fullName, userName, hashedPassword, role, gmail);
 	        int check = AccountDAO.getInstance().insert(account);
 
-	        if (check == 1) {
-	        	accountView.displayTable();
-	        	JOptionPane.showMessageDialog(this,"success" );
-	        } else {
+	        if (check != 1) {
 	            JOptionPane.showMessageDialog(this, "Failed to add account.");
 	        }
 	    } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
@@ -207,8 +223,14 @@ public class AddAccountView extends JFrame {
 	        JOptionPane.showMessageDialog(this, "Error hashing password.");
 	    }
 	}
-
-	// Phương thức kiểm tra tính hợp lệ của mật khẩu
+	// check định dạng gmail
+	private boolean isValidGmail(String gmail) {
+	    String regex = "^[A-Za-z0-9+_.-]+@gmail\\.com$";
+	    Pattern pattern = Pattern.compile(regex);
+	    Matcher matcher = pattern.matcher(gmail);
+	    return matcher.matches();
+	}
+	// ktra tính hợp lệ của mật khẩu
 	private boolean isValidPassword(String password) {
 	    if (password.length() < 8 || password.length() > 20) {
 	        return false;
@@ -234,5 +256,6 @@ public class AddAccountView extends JFrame {
 		userNameTxt.setText(null);
 		passwordTxt.setText(null);
 		roleTxt.setText(null);
+		text_gmail.setText(null);
 	}
 }

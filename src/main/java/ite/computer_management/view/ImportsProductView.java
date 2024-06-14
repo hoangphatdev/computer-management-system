@@ -302,7 +302,7 @@ public class ImportsProductView extends JPanel {
 			try {
 				int quantity = Integer.parseInt(TF_Quantity.getText().trim());
 				if (quantity > 0) {
-					java.math.BigInteger price = BigInteger.valueOf(Long.parseLong(table_Product.getValueAt(row, 4).toString())); 
+					BigInteger price = BigInteger.valueOf(Long.parseLong(table_Product.getValueAt(row, 4).toString())); 
 					String productCode = table_Product.getValueAt(row, 1).toString();
 					String productName = table_Product.getValueAt(row, 2).toString();
 					// Thực hiện truy vấn để lấy thông tin còn lại từ cơ sở dữ liệu
@@ -377,18 +377,6 @@ public class ImportsProductView extends JPanel {
 				JOptionPane.showMessageDialog(this, "Please enter the quantity as an integer!");
 			}
 		}
-	}
-
-	private void updateTotalAmount() {
-		DefaultTableModel modelImports = (DefaultTableModel) table_Imports.getModel();
-		BigInteger totalAmount = BigInteger.valueOf(Long.valueOf("0"));
-		for (int i = 0; i < modelImports.getRowCount(); i++) {
-			BigInteger price = BigInteger.valueOf(Integer.valueOf((modelImports.getValueAt(i, 4).toString())));
-			BigInteger quantity = BigInteger.valueOf(Integer.parseInt(modelImports.getValueAt(i, 3).toString()));
-			BigInteger  resultEachLoop = price.multiply(quantity);
-			totalAmount = totalAmount.add(resultEachLoop);
-		}
-		text_totalAmount.setText(String.valueOf(totalAmount) + "Đ");
 	}
 
 	public String createId(ArrayList<ImportsForm> arr) {
@@ -472,11 +460,11 @@ public class ImportsProductView extends JPanel {
 				Timestamp sqlTimeTamp = new Timestamp(now);
 				String Creator = (String) Combo_Creator.getSelectedItem();
 				ImportsForm IM = new ImportsForm(arrNcc.get(Combo_Supplier.getSelectedIndex()).getSupplier_Code(),
-						form_Code, sqlTimeTamp, Creator, Details_Form, calculateTotalAmount());
+						form_Code, sqlTimeTamp, Creator, Details_Form, TotalAmount());
 				try {
 					ImportDAO.getInstance().insert(IM);
 					computerDAO CPTD = computerDAO.getInstance();
-					for (ite.computer_management.model.Details_Form i : Details_Form) {
+					for (Details_Form i : Details_Form) {
 						Details_ImportDAO.getInstance().insert(i);
 						CPTD.updateQuantity(i.getComputer_Code(),
 								CPTD.selectById(i.getComputer_Code()).getQuantity() + i.getQuantity());
@@ -503,28 +491,29 @@ public class ImportsProductView extends JPanel {
 		}
 	}
 
-	public BigInteger calculateTotalAmount() {
-	    BigInteger totalAmount = BigInteger.ZERO;
+	private BigInteger TotalAmount() {
+		DefaultTableModel modelImports = (DefaultTableModel) table_Imports.getModel();
+		BigInteger totalAmount = BigInteger.valueOf(Long.valueOf("0"));
+		for (int i = 0; i < modelImports.getRowCount(); i++) {
+			BigInteger price = BigInteger.valueOf(Integer.valueOf((modelImports.getValueAt(i, 4).toString())));
+			BigInteger quantity = BigInteger.valueOf(Integer.parseInt(modelImports.getValueAt(i, 3).toString()));
+			BigInteger  resultEachLoop = price.multiply(quantity);
+			totalAmount = totalAmount.add(resultEachLoop);
+		}
+		 return totalAmount;
+	}	
 
-	    // Lấy số lượng hàng trong bảng
-	    int rowCount = table_Imports.getRowCount();
-
-	    // Duyệt qua từng hàng trong bảng
-	    for (int i = 0; i < rowCount; i++) {
-
-	        Object value = table_Imports.getValueAt(i, 4); 
-
-	        if (value != null && value instanceof Number) {
-	            BigInteger amount = new BigInteger(value.toString());
-	            totalAmount = totalAmount.add(amount);
-	        } else {
-	            System.err.println("fail" + (i + 1) + ", col 5");
-	        }
-	    }
-
-	    return totalAmount;
+	private void updateTotalAmount() {
+		DefaultTableModel modelImports = (DefaultTableModel) table_Imports.getModel();
+		BigInteger totalAmount = BigInteger.valueOf(Long.valueOf("0"));
+		for (int i = 0; i < modelImports.getRowCount(); i++) {
+			BigInteger price = BigInteger.valueOf(Integer.valueOf((modelImports.getValueAt(i, 4).toString())));
+			BigInteger quantity = BigInteger.valueOf(Integer.parseInt(modelImports.getValueAt(i, 3).toString()));
+			BigInteger  resultEachLoop = price.multiply(quantity);
+			totalAmount = totalAmount.add(resultEachLoop);
+		}
+		text_totalAmount.setText(String.valueOf(totalAmount) + "Đ");
 	}
-
 
 	public void displayTable() {
 		ImportDAO view = new ImportDAO();

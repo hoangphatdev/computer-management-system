@@ -85,7 +85,7 @@ public class Login extends JFrame {
         jPanel1 = new JPanel();
         txtIP = new JTextField();
         txtUser = new JTextField();
-        txtUser.setEditable(false);
+     
 
         cmdLogin = new Button();
         jLayeredPane1 = new JLayeredPane();

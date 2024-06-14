@@ -174,7 +174,7 @@ public class DashboardForExportStaff extends JFrame {
 		if (loginView != null) {
 	        loginView.dispose(); 
 	    }
-		loginView = new Login("Export staff");
+		loginView = new Login(accountReturn.getFullName());
 	    loginView.setVisible(true);
 	}
 	public void clickMyInformationNav() {

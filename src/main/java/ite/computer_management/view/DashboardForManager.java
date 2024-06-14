@@ -396,7 +396,7 @@ public class DashboardForManager extends JFrame {
 		if (loginView != null) {
 	        loginView.dispose(); 
 	    }
-		loginView = new Login("Manager");
+		loginView = new Login(accountReturn.getFullName());
 	    loginView.setVisible(true);
 	}
 
