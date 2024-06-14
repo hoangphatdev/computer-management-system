@@ -85,8 +85,8 @@ public class WirtePDF_File {
         return url;
     }
 
-    public void writeImportCoupon(String mapn) {
-        String url = getFile(mapn);
+    public void writeImportCoupon(String code) {
+        String url = getFile(code);
         if (url == null) {
             return;
         }
@@ -96,11 +96,11 @@ public class WirtePDF_File {
 
             setTitle("ENTRY FORM INFORMATION");
             
-            ImportsForm pn = ImportDAO.getInstance().selectById(mapn);
+            ImportsForm im = ImportDAO.getInstance().selectById(code);
 
-            Paragraph para1 = new Paragraph("Form code: " + pn.getForm_Code() + "\nTime: " + formatDate.format(pn.getTime_Start()), fontData);
-            Paragraph para2 = new Paragraph("Creator: " + AccountDAO.getInstance().selectById(pn.getCreator()).getFullName()
-                    + "\nSupplier: " + SupplierDAO.getInstance().selectById(pn.getSupplier()).getSupplier_Name() + "  -  " + pn.getSupplier(), fontData);
+            Paragraph para1 = new Paragraph("Form code: " + im.getForm_Code() + "\nTime: " + formatDate.format(im.getTime_Start()), fontData);
+            Paragraph para2 = new Paragraph("Creator: " + AccountDAO.getInstance().selectById(im.getCreator()).getFullName()
+                    + "\nSupplier: " + SupplierDAO.getInstance().selectById(im.getSupplier()).getSupplier_Name() + "  -  " + im.getSupplier(), fontData);
             document.add(para1);
             document.add(para2);
             document.add(Chunk.NEWLINE);
@@ -117,7 +117,7 @@ public class WirtePDF_File {
             pdfTable.addCell(new PdfPCell(new Phrase("Total amount", fontHeader)));
             BigInteger totalPrice = null;
             // Fill table with data
-            for (Details_Form ctpn : Details_ImportDAO.getInstance().selectAll(mapn)) {
+            for (Details_Form ctpn : Details_ImportDAO.getInstance().selectAll(code)) {
                 Computer mt = computerDAO.getInstance().selectById(ctpn.getComputer_Code());
                 pdfTable.addCell(new PdfPCell(new Phrase(ctpn.getComputer_Code(), fontData)));
                 pdfTable.addCell(new PdfPCell(new Phrase(mt.getComputerName(), fontData)));
@@ -131,8 +131,8 @@ public class WirtePDF_File {
             document.add(pdfTable);
             document.add(Chunk.NEWLINE);
 
-            Paragraph paraTongThanhToan = new Paragraph("Total amount: " + formatter.format(totalPrice) + "đ", fontData);
-            System.out.println(pn.getTotal_Amount());
+            Paragraph paraTongThanhToan = new Paragraph("Total amount: " + formatter.format(im.getTotal_Amount()) + "đ", fontData);
+            System.out.println(im.getTotal_Amount());
             document.add(paraTongThanhToan);
             document.close();
             JOptionPane.showMessageDialog(null, "The PDF file has been created successfully: " + url);
@@ -145,8 +145,8 @@ public class WirtePDF_File {
     }
 
 
-    public void writeExportCoupon(String mapn) {
-        String url = getFile(mapn);
+    public void writeExportCoupon(String Code) {
+        String url = getFile(Code);
         if (url == null) {
             return;
         }
@@ -157,10 +157,10 @@ public class WirtePDF_File {
 
             setTitle("ENTRY FORM INFORMATION");
 
-            ExportForm pn = ExportsDAO.getInstance().selectById(mapn);
+            ExportForm ex = ExportsDAO.getInstance().selectById(Code);
 
-            Paragraph para1 = new Paragraph("Form code: " + pn.getForm_Code() + "\nTime: " + formatDate.format(pn.getTime_Start()), fontData);
-            Paragraph para2 = new Paragraph("Creator: " + AccountDAO.getInstance().selectById(pn.getCreator()).getFullName());
+            Paragraph para1 = new Paragraph("Form code: " + ex.getForm_Code() + "\nTime: " + formatDate.format(ex.getTime_Start()), fontData);
+            Paragraph para2 = new Paragraph("Creator: " + AccountDAO.getInstance().selectById(ex.getCreator()).getFullName());
             
             document.add(para1);
             document.add(para2);
@@ -178,7 +178,7 @@ public class WirtePDF_File {
             pdfTable.addCell(new PdfPCell(new Phrase("Total amount", fontHeader)));
             BigInteger totalPrice =null;
             // Fill table with data
-            for (Details_Form ctpn : Details_ExportDAO.getInstance().selectAll(mapn)) {
+            for (Details_Form ctpn : Details_ExportDAO.getInstance().selectAll(Code)) {
                 Computer mt = computerDAO.getInstance().selectById(ctpn.getComputer_Code());
                 pdfTable.addCell(new PdfPCell(new Phrase(ctpn.getComputer_Code(), fontData)));
                 pdfTable.addCell(new PdfPCell(new Phrase(mt.getComputerName(), fontData)));
@@ -192,7 +192,7 @@ public class WirtePDF_File {
             document.add(pdfTable);
             document.add(Chunk.NEWLINE);
 
-            Paragraph paraTongThanhToan = new Paragraph("Total amount: " + formatter.format(totalPrice) + "đ", fontData);
+            Paragraph paraTongThanhToan = new Paragraph("Total amount: " + formatter.format(ex.getTotal_Amount()) + "đ", fontData);
             document.add(paraTongThanhToan);
             document.close();
             JOptionPane.showMessageDialog(null, "The PDF file has been created successfully: " + url);

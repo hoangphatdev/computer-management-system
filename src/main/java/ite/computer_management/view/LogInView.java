@@ -194,11 +194,13 @@ public class LogInView extends JFrame {
 	    Account account = new Account(username, password);
 
 	    Account accountReturn = AccountDAO.getInstance().select1AccountByUsername(username);
-
+	   
+	    // check ac
 	    if (accountReturn != null) {
 	        String storedPassword = accountReturn.getPassword();
 
 	        try {
+	        	// check mk mã hóa 
 	            if (PasswordHashingService.validatePassword(password, storedPassword)) {
 	              
 	                passwordTxt.setText("");

@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import chart.MailCode;
 import ite.computer_management.database.ConnectDatabase;
+import ite.computer_management.model.PasswordHashingService;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +23,8 @@ import javax.swing.Box;
 import javax.swing.border.BevelBorder;
 import java.awt.event.ActionListener;
 import java.beans.Statement;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -122,8 +125,8 @@ public class ChangepassView extends JFrame {
                      try {
                          String newPassword = new String(mk_text.getPassword());
                          String gmail = gmailtext.getText(); 
-
-                         if (changePasswordInDatabase(gmail, newPassword)) {
+                         String hashedPassword = PasswordHashingService.generatePasswordHash(newPassword);
+                         if (changePasswordInDatabase(gmail, hashedPassword)) {
                              JOptionPane.showMessageDialog(null, "Password changed successfully!");
                          } else {
                              JOptionPane.showMessageDialog(null, "fail");
@@ -131,7 +134,13 @@ public class ChangepassView extends JFrame {
                      } catch (SQLException e1) {
                          e1.printStackTrace();
                          JOptionPane.showMessageDialog(null, "Error when querying the database: " + e1.getMessage());
-                     }
+                     } catch (NoSuchAlgorithmException e1) {
+                    	 System.out.println("mã hóa thất bại");
+						e1.printStackTrace();
+					} catch (InvalidKeySpecException e1) {
+						
+						e1.printStackTrace();
+					}
                  } else {
                      // Mã xác nhận không khớp
                      JOptionPane.showMessageDialog(null, "Incorrect code. Please try again!");

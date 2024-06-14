@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import ite.computer_management.database.ConnectDatabase;
 import ite.computer_management.model.Account;
@@ -37,27 +39,18 @@ public class AccountDAO implements DAOInterface<Account> {
 	    try (PreparedStatement ps = connect.prepareStatement(sql)) {
 	        ps.setString(1, account.getFullName());
 	        ps.setString(2, account.getUserName());
-	        ps.setString(3, account.getPassword()); // Lưu mật khẩu đã băm
+	        ps.setString(3, account.getPassword()); 
 	        ps.setString(4, account.getRole());
 	        ps.setString(5, account.getGmail());
 	        check = ps.executeUpdate();
 
+	        display(accountView.table);
 	        JOptionPane.showMessageDialog(null, "Insert successfully ><");
 	    } catch (SQLException e) {
 	        JOptionPane.showMessageDialog(null, "Error: " + e);
-	    } finally {
-	        // Đảm bảo đóng kết nối trong mọi trường hợp
-	        try {
-	            if (connect != null) {
-	                connect.close();
-	            }
-	        } catch (SQLException ex) {
-	            ex.printStackTrace();
-	        }
-	    }
+	    } 
 	    return check;
 	}
-
 
 	@Override
 	public int delete(Account account) {
@@ -144,7 +137,33 @@ public class AccountDAO implements DAOInterface<Account> {
 		return null;
 	}
 
-
+	public void display(JTable table) {
+		 try { 
+		        ConnectDatabase.getInstance();
+				Connection connection = ConnectDatabase.getConnection();
+				
+		        String sql = "SELECT fullName, userName, password, role, gmail FROM account";
+		        try (PreparedStatement p = connection.prepareStatement(sql)) {
+		            try (ResultSet re = p.executeQuery()) {
+		                DefaultTableModel model_table = (DefaultTableModel) table.getModel();
+		                model_table.setRowCount(0);	
+		                int stt =1;
+		                while (re.next()) {
+		                    Object[] row = new Object[]{	                    	
+		                            re.getString("fullName"),
+		                            re.getString("userName"),                     
+		                            re.getString("password"),
+		                            re.getString("role"),    
+		                            re.getString("gmail"),       
+		                    };
+		                    model_table.addRow(row);
+		                }
+		            }
+		        }
+		    } catch (SQLException ex) {
+		        ex.printStackTrace();
+		    } 	
+	}
 
 	@Override
 	public ArrayList selectByCondition(String condition) {
@@ -156,7 +175,29 @@ public class AccountDAO implements DAOInterface<Account> {
 		 Account acc = null;
 	        try {
 	        	Connection connect = ConnectDatabase.getConnection();
-	            String sql = "SELECT * FROM account WHERE fullName=?";
+	            String sql = "SELECT * FROM account WHERE fullName = ?";
+	            PreparedStatement pst = connect.prepareStatement(sql);
+	            pst.setString(1, t);
+	            ResultSet rs = pst.executeQuery();
+	            while (rs.next()) {
+	                String fullName = rs.getString("fullName");
+	                String userName = rs.getString("userName");
+	                String password = rs.getString("password");
+	                String role = rs.getString("role");
+	                String gmail = rs.getString("gmail");
+	                acc = new Account(fullName, userName, password, role, gmail);
+	            }
+	            connect.close();
+	        } catch (Exception e) {
+	            // TODO: handle exception           
+	        }
+	        return acc;
+	}	
+	public Account selectBygmail(String t) {
+		 Account acc = null;
+	        try {
+	        	Connection connect = ConnectDatabase.getConnection();
+	            String sql = "SELECT * FROM account WHERE gmail = ?";
 	            PreparedStatement pst = connect.prepareStatement(sql);
 	            pst.setString(1, t);
 	            ResultSet rs = pst.executeQuery();
@@ -220,20 +261,18 @@ public class AccountDAO implements DAOInterface<Account> {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return accountReturn;
-		 
+		return accountReturn;	 
 	}
 	
-	public void updatePassword(String currentPassword, String newPassword, String userName ) {
+	public void updatePassword(String newPassword, String userName ) {
 		try {
 			Connection connect = ConnectDatabase.getConnection();
-			String sql = "UPDATE account SET password=? WHERE password=? AND userName=?";
+			String sql = "UPDATE account SET password=? WHERE userName=?";
 			PreparedStatement ps = connect.prepareStatement(sql);
 			ps.setString(1, newPassword);
-			ps.setString(2,currentPassword);
-			ps.setString(3,userName );
+			ps.setString(2,userName );
 			
-			int result = ps.executeUpdate();
+			ps.executeUpdate();
 		}catch(Exception e) {
 			JOptionPane.showMessageDialog(null, e);
 			e.printStackTrace();

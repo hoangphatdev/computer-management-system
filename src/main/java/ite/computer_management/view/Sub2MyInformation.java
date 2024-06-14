@@ -10,10 +10,13 @@ import javax.swing.JTextField;
 
 import ite.computer_management.dao.AccountDAO;
 import ite.computer_management.model.Account;
+import ite.computer_management.model.PasswordHashingService;
 
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 public class Sub2MyInformation extends JPanel {
 
@@ -36,11 +39,10 @@ public class Sub2MyInformation extends JPanel {
 		currentPasswordLbl.setFont(new Font("Roboto Medium", Font.PLAIN, 16));
 		add(currentPasswordLbl);
 		
-		currentPasswordTxt = new JTextField(account.getPassword());
+		currentPasswordTxt = new JTextField();
 		currentPasswordTxt.setBounds(326, 25, 302, 40);
 		currentPasswordTxt.setFont(new Font("Roboto", Font.PLAIN, 16));
 		currentPasswordTxt.setColumns(10);
-		currentPasswordTxt.setEditable(false);
 		add(currentPasswordTxt);
 		
 		JLabel newPasswordLbl = new JLabel("New Password");
@@ -73,13 +75,35 @@ public class Sub2MyInformation extends JPanel {
 				String currentPassword = currentPasswordTxt.getText();
 				String reEnterPassword = reEnterPasswordTxt.getText();
 				String userName = account.getUserName();
-				System.out.println(userName);
-				if(newPassword.equalsIgnoreCase(reEnterPassword)) {
-					AccountDAO.getInstance().updatePassword(currentPassword, newPassword, userName);
-					JOptionPane.showMessageDialog(null, "Update password successfully");
-				}else {
+				
+				   if (!isValidPassword(newPassword)) {
+				        JOptionPane.showMessageDialog(null, "Invalid password. Please make sure the password contains:\\n\" +\r\n"
+				        		+ "  \"- At least 8 characters and maximum 20 characters\\n\" +\r\n"
+				        		+ "  \"- At least one capital letter\\n\" +\r\n"
+				        		+ "  \"- At least one special character");
+				        return; 
+				    }
+				   Account accountReturn = AccountDAO.getInstance().select1AccountByUsername(userName);
+				   String storedPassword = accountReturn.getPassword();
+				   try {
+					   
+		
+					if(newPassword.equalsIgnoreCase(reEnterPassword)) {
+						 if (PasswordHashingService.validatePassword(currentPassword, storedPassword)) {
+							 String hashedPassword = PasswordHashingService.generatePasswordHash(newPassword);		
+							 AccountDAO.getInstance().updatePassword(hashedPassword, userName);
+							 JOptionPane.showMessageDialog(null, "Update password successfully");
+							 newPasswordTxt.setText(null);
+							 currentPasswordTxt.setText(null);
+							 reEnterPasswordTxt.setText(null);
+						 } 
+					}else {
 					JOptionPane.showMessageDialog(submitBtn, "The re-entered password does not match the new password :(");
 				}
+			} catch (NoSuchAlgorithmException | InvalidKeySpecException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			}
 		});
 		submitBtn.setFont(new Font("Roboto", Font.BOLD, 16));
@@ -91,5 +115,19 @@ public class Sub2MyInformation extends JPanel {
 		this.setVisible(true);
 		
 	}
-
+	private boolean isValidPassword(String password) {
+	    if (password.length() < 8 || password.length() > 20) {
+	        return false;
+	    }
+	    boolean hasUpperCase = false;
+	    boolean hasSpecialChar = false;
+	    for (char c : password.toCharArray()) {
+	        if (Character.isUpperCase(c)) {
+	            hasUpperCase = true;
+	        } else if (!Character.isLetterOrDigit(c)) {
+	            hasSpecialChar = true;
+	        }
+	    }
+	    return hasUpperCase && hasSpecialChar;
+	}
 }
