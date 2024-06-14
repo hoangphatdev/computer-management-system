@@ -77,8 +77,7 @@ public class ProductView extends JPanel {
 		this.setVisible(true);
 	}
 
-	public void init() {
-		
+	public void init() {	 
 		ProductController productController = new ProductController(this);
 		this.setSize(1250, 800);
 		setLayout(null);

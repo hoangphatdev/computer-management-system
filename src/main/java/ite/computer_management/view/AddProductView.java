@@ -60,7 +60,7 @@ public class AddProductView extends JFrame {
 		this.productView = productView;
 		init();
 		this.setLocationRelativeTo(null);
-		this.setUndecorated(true);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 		setVisible(true);
 	}
 	public void init() {

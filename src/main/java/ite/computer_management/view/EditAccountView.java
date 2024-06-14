@@ -38,12 +38,11 @@ public class EditAccountView extends JFrame {
 		this.accountView = accountView;
 		init();
 		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 		this.setVisible(true);
 	}
 	public void init() {
 		EditAccountController editAccountController = new EditAccountController(this);
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 638, 541);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

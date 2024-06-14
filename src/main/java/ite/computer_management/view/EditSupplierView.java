@@ -44,7 +44,7 @@ public class EditSupplierView extends JFrame {
 	public EditSupplierView(SupplierView supplierView, Dashboard dashboard) {
 		this.supplierView = supplierView;
 		EditSupplierController editSupplierController = new EditSupplierController(this);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 730, 484);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
