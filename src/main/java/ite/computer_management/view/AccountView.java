@@ -177,6 +177,12 @@ public class AccountView extends JPanel {
 			}
 		}
 	}
+
+	public void displayTable() {
+	    model.setRowCount(0);
+	    accountDAO.selectAll();
+	}
+
 	public void clickEditLbl() {
 		int check = table.getSelectedRowCount();
 		int selectedRowIndex = table.getSelectedRow();
