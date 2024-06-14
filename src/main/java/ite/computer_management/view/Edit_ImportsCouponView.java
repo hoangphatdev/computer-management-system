@@ -81,6 +81,8 @@ public class Edit_ImportsCouponView extends JFrame {
 	public ImportsForm importform;
 	public Edit_ImportsCouponView(ImportCouponView ICF, ArrayList<Details_Form> Details_Form, String form_code) {
 		init();
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+		this.setLocationRelativeTo(null);
 		this.form_Code = form_code;
 		TF_Form.setText(form_Code);
 		loadDataToTableProduct(ICF);	

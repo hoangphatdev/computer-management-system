@@ -72,6 +72,7 @@ public class Details_ExportCouponView extends JFrame {
 		init();
 		this.form_Code = form_code;
 		loadDataToTableProduct(ECF);	
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 		this.ECF = (ExportCouponView) ECF;
 		this.exportform = this.ECF.getPhieuNhapSelect();
 		this.Details_Form = Details_ExportDAO.getInstance().selectAll(exportform.getForm_Code());

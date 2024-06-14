@@ -68,6 +68,7 @@ public class Details_ImportCouponView extends JFrame {
 	public Details_ImportCouponView(ImportCouponView ICF, ArrayList<Details_Form> Details_Form, String form_code) {
 		init();
 		this.form_Code = form_code;
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 		loadDataToTableProduct(ICF);	
 		this.ICF = (ImportCouponView) ICF;
 		this.importform = this.ICF.getPhieuNhapSelect();

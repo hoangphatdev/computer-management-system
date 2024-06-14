@@ -91,6 +91,8 @@ public class Edit_ExportCouponView extends JFrame {
 	public Edit_ExportCouponView(ExportCouponView ECF, ArrayList<Details_Form> Details_Form, String form_code) {
 		init();
 		this.form_Code = form_code;
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setLocationRelativeTo(null);
 		TF_Form.setText(form_Code);
 		loadDataToTableProduct(ECF);	
 		this.ECF = (ExportCouponView) ECF;

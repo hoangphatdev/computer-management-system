@@ -67,7 +67,7 @@ public class ChangepassView extends JFrame {
     public ChangepassView() {
         setTitle("Computer mangement");
         setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\lgo - Copy - Copy.png"));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 935, 568);
         contentPane = 	new JPanel();
         contentPane.setBackground(new Color(144, 238, 144));

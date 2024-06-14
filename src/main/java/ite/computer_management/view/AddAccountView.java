@@ -50,12 +50,12 @@ public class AddAccountView extends JFrame {
 		this.accountView = accountView;
 		this.dashboard = dashboard;
 		init();
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setUndecorated(true);
 		this.setVisible(true);
 		
 	}
-	public void init() {
+	public void init() { 
 		AddAccountController addAccountController = new AddAccountController(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 619, 532);
