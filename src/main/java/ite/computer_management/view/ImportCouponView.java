@@ -28,7 +28,7 @@ import ite.computer_management.dao.ImportCouponDAO;
 import ite.computer_management.dao.ImportDAO;
 
 import ite.computer_management.dao.SupplierDAO;
-
+import ite.computer_management.model.Account;
 import ite.computer_management.model.Details_Form;
 import ite.computer_management.model.ImportsForm;
 
@@ -74,6 +74,7 @@ public class ImportCouponView extends JPanel {
 	private ImportCouponView ICF;
 	private ArrayList<Details_Form> Details_Form;
 
+	
 	public DecimalFormat getFormatter() {
 		return formatter;
 	}
@@ -111,7 +112,7 @@ public class ImportCouponView extends JPanel {
 		this.setSize(1250, 800);
 		setLayout(null);
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(36, 243, 1163, 466);
 		add(scrollPane);
 		// create table and fetch data from database
@@ -248,11 +249,14 @@ public class ImportCouponView extends JPanel {
 
 	public void clickEditBtn() {
 		int check = table.getSelectedRowCount();
+		int selectedRowIndex = table.getSelectedRow();
 		if (check < 1) {
 			JOptionPane.showMessageDialog(null, "Please select row to edit >< ");
 		} else {
 			String selectedFormCode = getSelectedFormCode();
 			Edit_ImportsCouponView view = new Edit_ImportsCouponView(this, Details_Form, selectedFormCode);
+			DefaultTableModel modell = (DefaultTableModel) table.getModel();
+			view.creator_txt.setText((String) modell.getValueAt(selectedRowIndex, 3));
 			view.loadDataToTableProduct(this);
 			view.setVisible(true);
 		}

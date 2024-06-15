@@ -41,7 +41,7 @@ import ite.computer_management.dao.ExportsDAO;
 
 
 import ite.computer_management.dao.computerDAO;
-
+import ite.computer_management.model.Account;
 import ite.computer_management.model.Details_Form;
 import ite.computer_management.model.ExportForm;
 
@@ -67,12 +67,13 @@ public class ExportProductView extends JPanel {
 	DecimalFormat formatter = new DecimalFormat("###,###,###");
 	SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm");
 	private String form_Code;
-	private JComboBox Combo_Creator;
 	
 	private ArrayList<Details_Form> Details_Form;
 	public JButton btn_ExportsProduct;
 	public JButton btn_Refresh;
 	public ExportsDAO exportsDAO;
+	Account accountReturn;
+	public JTextField creator_txt;
 	
 	  public DecimalFormat getFormatter() {
 	        return formatter;
@@ -82,22 +83,16 @@ public class ExportProductView extends JPanel {
 	        return formatDate;
 	    }
 	
-	public ExportProductView() {
+	public ExportProductView(Account accountReturn) {
 		init();
+		
+		this.accountReturn = accountReturn;
 		this.setVisible(true);
 		Details_Form = new ArrayList<Details_Form>();
 		form_Code = createId(exportsDAO.getInstance().selectAll());
 		TF_Form.setText(form_Code);
 		
-		Box verticalBox = Box.createVerticalBox();
-		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox.setBounds(22, 10, 446, 78);
-		add(verticalBox);
-		
-		Box verticalBox_1 = Box.createVerticalBox();
-		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox_1.setBounds(503, 19, 722, 146);
-		add(verticalBox_1);
+	
 	}
 	public void init() {
 		exportsDAO = new ExportsDAO(this);
@@ -111,6 +106,21 @@ public class ExportProductView extends JPanel {
 		add(TF_Sreach);
 		TF_Sreach.setColumns(10);
 		TF_Sreach.addKeyListener(export_productController);
+		
+		Box verticalBox = Box.createVerticalBox();
+		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		verticalBox.setBounds(22, 10, 446, 78);
+		add(verticalBox);
+		
+		Box verticalBox_1 = Box.createVerticalBox();
+		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		verticalBox_1.setBounds(503, 19, 722, 146);
+		add(verticalBox_1);
+		
+		creator_txt = new JTextField();
+		creator_txt.setColumns(10);
+		creator_txt.setBounds(600, 69, 349, 28);
+		add(creator_txt);
 		
 		btn_Refresh = new JButton("");
 		btn_Refresh.setIcon(new ImageIcon("D:\\JAVA_project\\computer-management-system\\src\\main\\java\\ite\\computer_management\\img\\reload 30.png"));
@@ -279,16 +289,7 @@ public class ExportProductView extends JPanel {
 		
 		exportsDAO.display(table_Product);
 		
-		Combo_Creator = new JComboBox();
-		Combo_Creator.setBounds(600, 69, 349, 28);
-		add(Combo_Creator);
-		
 		ExportsDAO ex = new ExportsDAO();
-	
-		List<String> fullname = ex.getFullName();
-		for (String FullName : fullname) {
-		    Combo_Creator.addItem(FullName);
-		}
 	
 	}
 	public void addProductActionPerformed() {
@@ -450,7 +451,7 @@ public class ExportProductView extends JPanel {
 	    		if(check == JOptionPane.YES_NO_OPTION) {
 	    			long now = System.currentTimeMillis();
 	    			Timestamp sqlTimeTamp = new Timestamp(now);
-	    			String Creator = (String) Combo_Creator.getSelectedItem();
+	    			String Creator = creator_txt.getText();
 	    			ExportForm EM = new ExportForm(form_Code, sqlTimeTamp, Creator, Details_Form, TotalAmount());
 	    			try {
 	    				ExportsDAO.getInstance().insert(EM);

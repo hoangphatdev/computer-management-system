@@ -73,13 +73,15 @@ public class DashboardForManager extends JFrame {
 		SupplierView supplierView = new SupplierView(this);
 		tabbedPane.addTab("Supplier manegement", supplierView);
 
-		ImportsProductView ImportsProductView = new ImportsProductView();
+		ImportsProductView ImportsProductView = new ImportsProductView(accountReturn);
+		ImportsProductView.creator_txt.setText(accountReturn.getFullName());
 		tabbedPane.addTab("Imports Product", ImportsProductView);
 
 		ImportCouponView importCouponView = new ImportCouponView();
 		tabbedPane.addTab("Import coupon", importCouponView);
 
-		ExportProductView ExportProductView = new ExportProductView();
+		ExportProductView ExportProductView = new ExportProductView(accountReturn);
+		ExportProductView.creator_txt.setText(accountReturn.getFullName());
 		tabbedPane.addTab("Export Product", ExportProductView);
 
 		ExportCouponView exportCouponView = new ExportCouponView();
@@ -425,6 +427,8 @@ public class DashboardForManager extends JFrame {
 	}
 
 	public void clickLogoutNav() {
-		this.dispose();
+		LogInView view = new LogInView();
+		dispose();
+		view.setVisible(true);
 	}
 }

@@ -1,10 +1,30 @@
 package my_swing;
 
 import function.Method;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.LayoutStyle;
+import javax.swing.OverlayLayout;
+import javax.swing.SwingConstants;
 
-public class Get_Emoji_New extends javax.swing.JPanel {
 
+
+public class Get_Emoji_New extends  JPanel {
+
+    private JLabel border;
+    private JLayeredPane jLayeredPane1;
+    private JLabel lb;
+    private JLabel lbName;
+    private JLabel profile;
+    
     public Get_Emoji_New() {
         initComponents();
     }
@@ -18,71 +38,63 @@ public class Get_Emoji_New extends javax.swing.JPanel {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+   
     private void initComponents() {
 
-        jLayeredPane1 = new javax.swing.JLayeredPane();
-        border = new javax.swing.JLabel();
-        profile = new javax.swing.JLabel();
-        lb = new javax.swing.JLabel();
-        lbName = new javax.swing.JLabel();
+        jLayeredPane1 = new JLayeredPane();
+        border = new JLabel();
+        profile = new JLabel();
+        lb = new JLabel();
+        lbName = new JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(600, 104));
-        setPreferredSize(new java.awt.Dimension(600, 104));
+        setBackground(new Color(255, 255, 255));
+        setMaximumSize(new  Dimension(600, 104));
+        setPreferredSize(new  Dimension(600, 104));
 
-        jLayeredPane1.setLayout(new javax.swing.OverlayLayout(jLayeredPane1));
+        jLayeredPane1.setLayout(new  OverlayLayout(jLayeredPane1));
 
-        border.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        border.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/border_small.png"))); // NOI18N
+        border.setHorizontalAlignment( SwingConstants.CENTER);
+        border.setIcon(new  ImageIcon(getClass().getResource("/icon/border_small.png"))); 
         jLayeredPane1.add(border);
 
-        profile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        profile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/profile_small.png"))); // NOI18N
+        profile.setHorizontalAlignment( SwingConstants.CENTER);
+        profile.setIcon(new  ImageIcon(getClass().getResource("/icon/profile_small.png"))); 
         jLayeredPane1.add(profile);
 
-        lb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emoji/emoji_green (1).png"))); // NOI18N
+        lb.setHorizontalAlignment( SwingConstants.CENTER);
+        lb.setIcon(new  ImageIcon(getClass().getResource("/emoji/emoji_green (1).png"))); 
 
-        lbName.setFont(new java.awt.Font("Khmer SBBIC Serif", 1, 12)); // NOI18N
-        lbName.setForeground(new java.awt.Color(29, 118, 206));
+        lbName.setFont(new  Font("Khmer SBBIC Serif", 1, 12)); 
+        lbName.setForeground(new  Color(29, 118, 206));
         lbName.setText("Name");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+         GroupLayout layout = new  GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup( GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLayeredPane1,  GroupLayout.PREFERRED_SIZE, 60,  GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup( GroupLayout.Alignment.LEADING)
+                    .addComponent(lbName,  GroupLayout.PREFERRED_SIZE, 236,  GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lb,  GroupLayout.DEFAULT_SIZE,  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(172, 172, 172)))
                 .addGap(280, 280, 280))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup( GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup( GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbName,  GroupLayout.PREFERRED_SIZE, 22,  GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap( LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lb,  GroupLayout.DEFAULT_SIZE,  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLayeredPane1,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel border;
-    private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JLabel lb;
-    private javax.swing.JLabel lbName;
-    private javax.swing.JLabel profile;
-    // End of variables declaration//GEN-END:variables
 }

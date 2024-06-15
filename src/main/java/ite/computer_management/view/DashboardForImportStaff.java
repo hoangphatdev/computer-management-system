@@ -51,7 +51,8 @@ public class DashboardForImportStaff extends JFrame {
 		tabbedPane.setBounds(254, -20, 1250, 800);
 		contentPane.add(tabbedPane);
 
-		ImportsProductView ImportsProductView = new ImportsProductView();
+		ImportsProductView ImportsProductView = new ImportsProductView(accountReturn);
+		ImportsProductView.creator_txt.setText(accountReturn.getFullName());
 		tabbedPane.addTab("Imports Product", ImportsProductView);
 		ImportCouponView importCouponView = new ImportCouponView();
 		tabbedPane.addTab("Import coupon", importCouponView);
@@ -185,6 +186,8 @@ public class DashboardForImportStaff extends JFrame {
 	}
 
 	public void clickLogoutNav() {
-		this.dispose();
+		LogInView view = new LogInView();
+		dispose();
+		view.setVisible(true);
 	}
 }

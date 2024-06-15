@@ -35,7 +35,7 @@ import ite.computer_management.dao.Details_ImportDAO;
 import ite.computer_management.dao.ImportDAO;
 import ite.computer_management.dao.SupplierDAO;
 import ite.computer_management.dao.computerDAO;
-
+import ite.computer_management.model.Account;
 import ite.computer_management.model.Details_Form;
 import ite.computer_management.model.ImportsForm;
 import ite.computer_management.model.Supplier;
@@ -62,12 +62,13 @@ public class ImportsProductView extends JPanel {
 	SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm");
 	private JComboBox Combo_Supplier;
 	private String form_Code;
-	private JComboBox Combo_Creator;
 	private static final ArrayList<Supplier> arrNcc = SupplierDAO.getInstance().selectAll();
 	private ArrayList<Details_Form> Details_Form;
 	public JButton btn_ImportsProduct;
 	public JButton btn_Refresh;
-
+	public JTextField creator_txt;
+	Account accountReturn;
+	
 	public DecimalFormat getFormatter() {
 		return formatter;
 	}
@@ -75,9 +76,13 @@ public class ImportsProductView extends JPanel {
 	public SimpleDateFormat getFormatDate() {
 		return formatDate;
 	}
+	
 
-	public ImportsProductView() {
+	public ImportsProductView(Account accountReturn) {
 		init();
+		this.accountReturn = accountReturn;
+		
+		
 		this.setVisible(true);
 		Details_Form = new ArrayList<Details_Form>();
 		form_Code = createId(Imports_DAO.getInstance().selectAll());
@@ -92,6 +97,11 @@ public class ImportsProductView extends JPanel {
 		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		verticalBox_1.setBounds(503, 0, 722, 146);
 		add(verticalBox_1);
+		
+		creator_txt = new JTextField();
+		creator_txt.setColumns(10);
+		creator_txt.setBounds(600, 112, 349, 28);
+		add(creator_txt);
 	}
 
 	public void init() {
@@ -275,10 +285,6 @@ public class ImportsProductView extends JPanel {
 
 		Imports_DAO.display(table_Product);
 
-		Combo_Creator = new JComboBox();
-		Combo_Creator.setBounds(600, 108, 349, 28);
-		add(Combo_Creator);
-
 		// lấy dữ liệu từ bảng supplier trong database để hiện thị trong Jcombobox
 		ImportDAO importDAO = new ImportDAO();
 		List<String> supplierNames = importDAO.getSupplierNames();
@@ -286,11 +292,6 @@ public class ImportsProductView extends JPanel {
 			Combo_Supplier.addItem(supplierName);
 		}
 
-		// lấy dữ liệu từ bảng account trong database để hiện thị trong Jcombobox
-		List<String> fullname = importDAO.getFullName();
-		for (String FullName : fullname) {
-			Combo_Creator.addItem(FullName);
-		}
 
 	}
 
@@ -458,7 +459,7 @@ public class ImportsProductView extends JPanel {
 			if (check == JOptionPane.YES_NO_OPTION) {
 				long now = System.currentTimeMillis();
 				Timestamp sqlTimeTamp = new Timestamp(now);
-				String Creator = (String) Combo_Creator.getSelectedItem();
+				String Creator = creator_txt.getText();
 				ImportsForm IM = new ImportsForm(arrNcc.get(Combo_Supplier.getSelectedIndex()).getSupplier_Code(),
 						form_Code, sqlTimeTamp, Creator, Details_Form, TotalAmount());
 				try {

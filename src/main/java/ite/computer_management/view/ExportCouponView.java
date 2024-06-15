@@ -246,11 +246,14 @@ public class ExportCouponView extends JPanel {
 
 	public void clickEditBtn() {
 		int check = table.getSelectedRowCount();
+		int selectedRowIndex = table.getSelectedRow();
 		if (check < 1) {
 			JOptionPane.showMessageDialog(null, "Please select row to edit >< ");
 		} else {
 			String selectedFormCode = getSelectedFormCode();
 			Edit_ExportCouponView view = new Edit_ExportCouponView(this, Details_Form, selectedFormCode);
+			DefaultTableModel modell = (DefaultTableModel) table.getModel();
+			view.creator_txt.setText((String) modell.getValueAt(selectedRowIndex, 2));
 			view.loadDataToTableProduct(this);
 			view.setVisible(true);
 		}
@@ -267,7 +270,6 @@ public class ExportCouponView extends JPanel {
 			Details_ExportCouponView vieww = new Details_ExportCouponView(this, Details_Form, selectedFormCode);
 			vieww.loadDataToTableProduct(this);
 			vieww.form_text.setText((String) modell.getValueAt(selectedRowIndex, 1));
-
 			vieww.creator_text.setText((String) modell.getValueAt(selectedRowIndex, 2));
 			vieww.time_text.setText((String) modell.getValueAt(selectedRowIndex, 3));
 

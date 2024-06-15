@@ -100,7 +100,7 @@ public class WirtePDF_File {
 
             Paragraph para1 = new Paragraph("Form code: " + im.getForm_Code() + "\nTime: " + formatDate.format(im.getTime_Start()), fontData);
             Paragraph para2 = new Paragraph("Creator: " + AccountDAO.getInstance().selectById(im.getCreator()).getFullName()
-                    + "\nSupplier: " + SupplierDAO.getInstance().selectById(im.getSupplier()).getSupplier_Name() + "  -  " + im.getSupplier(), fontData);
+                    + "\nSupplier: " + SupplierDAO.getInstance().selectById(im.getSupplier()).getSupplier_Name() , fontData);
             document.add(para1);
             document.add(para2);
             document.add(Chunk.NEWLINE);

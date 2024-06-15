@@ -39,7 +39,7 @@ public class Sub1MyInformation extends JPanel {
 		userNameLbl.setFont(new Font("Roboto Medium", Font.PLAIN, 16));
 		add(userNameLbl);
 		
-		userNameTxt = new JTextField(account.getUserName());
+		userNameTxt = new JTextField(account.getRole());
 		userNameTxt.setBounds(208, 138, 375, 39);
 		userNameTxt.setFont(new Font("Roboto", Font.PLAIN, 16));
 		userNameTxt.setColumns(10);

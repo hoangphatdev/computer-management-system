@@ -8,6 +8,8 @@ import model_socket.Friend;
 import java.awt.Adjustable;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -15,20 +17,40 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileFilter;
 import Message.Message;
+import my_swing.Button;
 import my_swing.Emoji;
 import my_swing.Emoji_Group;
 import my_swing.Get_Box;
@@ -42,6 +64,7 @@ import my_swing.Get_Photo_Box;
 import my_swing.Get_Photo_Box_New;
 import my_swing.Get_Sound;
 import my_swing.Get_Sound_New;
+import my_swing.Panel;
 import my_swing.Send_Box;
 import my_swing.Send_Box_New;
 import my_swing.Send_Emoji;
@@ -55,6 +78,35 @@ import my_swing.Send_Sound_New;
 
 public class Main extends javax.swing.JFrame {
 
+	 private Button cmdEmoji;
+	    private Button cmdFile;
+	    private Button cmdLogOut;
+	    private Button cmdMicro;
+	    private JButton cmdMix;
+	    private JButton cmdMore;
+	    private Button cmdPhoto;
+	    private JButton cmdSend;
+	    private JLabel jLabel1;
+	    private JLabel jLabel2;
+	    private JLabel lbStatus;
+	    private Panel panel;
+	    private Panel panel1;
+	    private Panel panel2;
+	    private JDesktopPane panelChat;
+	    private JLayeredPane panelEmoji;
+	    private JPanel panelFriend;
+	    private JPanel panelGroup;
+	    private Panel panelMix;
+	    private JPanel panel_bg;
+	    private Panel panel_emoji;
+	    private JPopupMenu popMix;
+	    private JPopupMenu popUp;
+	    private JPopupMenu popUp_emoji;
+	    private JScrollPane spChat;
+	    private JScrollPane spFriend;
+	    private JScrollPane spGroup;
+	    private JTextField txt;
+	    
     public Main() {
         initComponents();
         open();
@@ -110,25 +162,25 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        popUp = new javax.swing.JPopupMenu();
-        panel = new my_swing.Panel();
-        cmdPhoto = new my_swing.Button();
-        cmdEmoji = new my_swing.Button();
-        cmdFile = new my_swing.Button();
-        cmdMicro = new my_swing.Button();
-        popUp_emoji = new javax.swing.JPopupMenu();
-        panel_emoji = new my_swing.Panel();
-        panel1 = new my_swing.Panel();
-        panelEmoji = new javax.swing.JLayeredPane();
-        spGroup = new javax.swing.JScrollPane();
-        panelGroup = new javax.swing.JPanel();
-        popMix = new javax.swing.JPopupMenu();
-        panelMix = new my_swing.Panel();
-        panel2 = new my_swing.Panel();
-        cmdMix = new javax.swing.JButton();
-        panel_bg = new javax.swing.JPanel();
-        spChat = new javax.swing.JScrollPane();
-        panelChat = new javax.swing.JDesktopPane(){
+        popUp = new JPopupMenu();
+        panel = new Panel();
+        cmdPhoto = new Button();
+        cmdEmoji = new Button();
+        cmdFile = new Button();
+        cmdMicro = new Button();
+        popUp_emoji = new JPopupMenu();
+        panel_emoji = new Panel();
+        panel1 = new Panel();
+        panelEmoji = new JLayeredPane();
+        spGroup = new JScrollPane();
+        panelGroup = new JPanel();
+        popMix = new JPopupMenu();
+        panelMix = new Panel();
+        panel2 = new Panel();
+        cmdMix = new JButton();
+        panel_bg = new JPanel();
+        spChat = new JScrollPane();
+        panelChat = new JDesktopPane(){
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -136,9 +188,9 @@ public class Main extends javax.swing.JFrame {
                 g.fillRect(0, 0, getWidth(), getHeight());
             }
         };
-        spFriend = new javax.swing.JScrollPane();
-        panelFriend = new javax.swing.JPanel();
-        txt = new javax.swing.JTextField(){
+        spFriend = new JScrollPane();
+        panelFriend = new JPanel();
+        txt = new JTextField(){
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -148,49 +200,49 @@ public class Main extends javax.swing.JFrame {
                 g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 0, 0);
             }
         };
-        cmdSend = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        cmdMore = new javax.swing.JButton();
+        cmdSend = new JButton();
+        jLabel1 = new JLabel();
+        jLabel2 = new JLabel();
+        cmdMore = new JButton();
         cmdLogOut = new my_swing.Button();
-        lbStatus = new javax.swing.JLabel();
+        lbStatus = new JLabel();
 
-        popUp.setBackground(new java.awt.Color(0,0,0,0));
+        popUp.setBackground(new Color(0,0,0,0));
 
-        panel.setBackground(new java.awt.Color(255, 255, 255));
+        panel.setBackground(new Color(255, 255, 255));
 
-        cmdPhoto.setBackground(new java.awt.Color(255, 255, 255));
-        cmdPhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/photo.png"))); // NOI18N
-        cmdPhoto.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/photo_click.png"))); // NOI18N
-        cmdPhoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cmdPhoto.setBackground(new Color(255, 255, 255));
+        cmdPhoto.setIcon(new ImageIcon(getClass().getResource("/icon/photo.png"))); // NOI18N
+        cmdPhoto.setPressedIcon(new ImageIcon(getClass().getResource("/icon/photo_click.png"))); // NOI18N
+        cmdPhoto.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 cmdPhotoActionPerformed(evt);
             }
         });
 
-        cmdEmoji.setBackground(new java.awt.Color(255, 255, 255));
-        cmdEmoji.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/emoji.png"))); // NOI18N
-        cmdEmoji.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/emoji_click.png"))); // NOI18N
-        cmdEmoji.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cmdEmoji.setBackground(new Color(255, 255, 255));
+        cmdEmoji.setIcon(new ImageIcon(getClass().getResource("/icon/emoji.png"))); // NOI18N
+        cmdEmoji.setPressedIcon(new ImageIcon(getClass().getResource("/icon/emoji_click.png"))); // NOI18N
+        cmdEmoji.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 cmdEmojiActionPerformed(evt);
             }
         });
 
-        cmdFile.setBackground(new java.awt.Color(255, 255, 255));
-        cmdFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/file.png"))); // NOI18N
-        cmdFile.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/file_click.png"))); // NOI18N
-        cmdFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cmdFile.setBackground(new Color(255, 255, 255));
+        cmdFile.setIcon(new ImageIcon(getClass().getResource("/icon/file.png"))); // NOI18N
+        cmdFile.setPressedIcon(new ImageIcon(getClass().getResource("/icon/file_click.png"))); // NOI18N
+        cmdFile.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 cmdFileActionPerformed(evt);
             }
         });
 
-        cmdMicro.setBackground(new java.awt.Color(255, 255, 255));
-        cmdMicro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/microphone.png"))); // NOI18N
-        cmdMicro.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/microphone_click.png"))); // NOI18N
-        cmdMicro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cmdMicro.setBackground(new Color(255, 255, 255));
+        cmdMicro.setIcon(new ImageIcon(getClass().getResource("/icon/microphone.png"))); // NOI18N
+        cmdMicro.setPressedIcon(new ImageIcon(getClass().getResource("/icon/microphone_click.png"))); // NOI18N
+        cmdMicro.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 cmdMicroActionPerformed(evt);
             }
         });
@@ -424,88 +476,88 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        cmdLogOut.setBackground(new java.awt.Color(255, 255, 255));
-        cmdLogOut.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        cmdLogOut.setForeground(new java.awt.Color(51, 51, 51));
+        cmdLogOut.setBackground(new Color(255, 255, 255));
+        cmdLogOut.setBorder(BorderFactory.createLineBorder(new Color(204, 204, 204)));
+        cmdLogOut.setForeground(new Color(51, 51, 51));
         cmdLogOut.setText("Sign out");
-        cmdLogOut.setColorClick(new java.awt.Color(255, 255, 255));
-        cmdLogOut.setColorOver(new java.awt.Color(243, 243, 243));
+        cmdLogOut.setColorClick(new Color(255, 255, 255));
+        cmdLogOut.setColorOver(new Color(243, 243, 243));
         cmdLogOut.setFocusable(false);
-        cmdLogOut.setFont(new java.awt.Font("Khmer SBBIC Serif", 1, 12)); // NOI18N
-        cmdLogOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cmdLogOut.setFont(new Font("Khmer SBBIC Serif", 1, 12)); 
+        cmdLogOut.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 cmdLogOutActionPerformed(evt);
             }
         });
 
-        lbStatus.setFont(new java.awt.Font("Khmer SBBIC Serif", 0, 14)); // NOI18N
-        lbStatus.setForeground(new java.awt.Color(255, 0, 51));
-        lbStatus.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lbStatus.setFont(new Font("Khmer SBBIC Serif", 0, 14)); 
+        lbStatus.setForeground(new Color(255, 0, 51));
+        lbStatus.setHorizontalAlignment(SwingConstants.TRAILING);
 
-        javax.swing.GroupLayout panel_bgLayout = new javax.swing.GroupLayout(panel_bg);
+        GroupLayout panel_bgLayout = new GroupLayout(panel_bg);
         panel_bg.setLayout(panel_bgLayout);
         panel_bgLayout.setHorizontalGroup(
-            panel_bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            panel_bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(panel_bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(spFriend)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_bgLayout.createSequentialGroup()
+                    .addComponent(jLabel1, GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(GroupLayout.Alignment.TRAILING, panel_bgLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(cmdLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_bgLayout.createSequentialGroup()
-                        .addComponent(txt, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(GroupLayout.Alignment.TRAILING, panel_bgLayout.createSequentialGroup()
+                        .addComponent(txt,GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmdMore)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmdSend, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(spChat, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmdSend, GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spChat, GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
                     .addGroup(panel_bgLayout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                        .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbStatus, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                         .addGap(10, 10, 10)))
                 .addContainerGap())
         );
         panel_bgLayout.setVerticalGroup(
-            panel_bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            panel_bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(panel_bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
-                    .addComponent(lbStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbStatus, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(panel_bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spFriend, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spFriend, GroupLayout.PREFERRED_SIZE, 412, GroupLayout.PREFERRED_SIZE)
                     .addComponent(spChat))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt)
-                    .addComponent(cmdMore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmdSend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmdLogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cmdMore, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmdSend, GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmdLogOut, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(panel_bg, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(panel_bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panel_bg, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     private void setEmoji(Emoji_Group eg1) {
         panelEmoji.removeAll();
@@ -522,7 +574,7 @@ public class Main extends javax.swing.JFrame {
         panelEmoji.revalidate();
         panelEmoji.repaint();
     }
-    private void cmdSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSendActionPerformed
+    private void cmdSendActionPerformed(ActionEvent evt) {
         if (txt.getName().equals("have") && !txt.getText().equals("")) {
             try {
                 Method.sendMessage(txt.getText().trim());
@@ -531,17 +583,17 @@ public class Main extends javax.swing.JFrame {
             } catch (Exception e) {
             }
         }
-    }//GEN-LAST:event_cmdSendActionPerformed
+    }
 
-    private void cmdMoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMoreActionPerformed
+    private void cmdMoreActionPerformed(ActionEvent evt) {
         popUp.show(cmdMore, -10, -155);
-    }//GEN-LAST:event_cmdMoreActionPerformed
+    }
 
-    private void txtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyTyped
+    private void txtKeyTyped(KeyEvent evt) {
         if (evt.getKeyChar() == 10) {
             cmdSendActionPerformed(null);
         }
-    }//GEN-LAST:event_txtKeyTyped
+    }
 
     private Thread th;
     private int currentID = 0;
@@ -588,40 +640,39 @@ public class Main extends javax.swing.JFrame {
         });
         th.start();
     }
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+    private void formWindowOpened(WindowEvent evt) {
         start();
-    }//GEN-LAST:event_formWindowOpened
+    }
 
-    private void cmdPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdPhotoActionPerformed
+    private void cmdPhotoActionPerformed(ActionEvent evt) {
         popUp.setVisible(false);
         setImage();
-    }//GEN-LAST:event_cmdPhotoActionPerformed
+    }
 
-    private void cmdEmojiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdEmojiActionPerformed
+    private void cmdEmojiActionPerformed(ActionEvent evt) {
         popUp.setVisible(false);
         popUp_emoji.show(txt, 5, -365);
-    }//GEN-LAST:event_cmdEmojiActionPerformed
+    }
 
-    private void cmdFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdFileActionPerformed
+    private void cmdFileActionPerformed(ActionEvent evt) {
         try {
             popUp.setVisible(false);
             setFile();
         } catch (Exception e) {
             showStatus("Error : " + e.getMessage());
         }
-    }//GEN-LAST:event_cmdFileActionPerformed
+    }
 
-    private void cmdMicroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMicroActionPerformed
+    private void cmdMicroActionPerformed(ActionEvent evt) {
         popMix.show(txt, 170, -90);
-    }//GEN-LAST:event_cmdMicroActionPerformed
-
-    private void cmdMixMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmdMixMousePressed
+    }
+    private void cmdMixMousePressed(MouseEvent evt) {
         cmdMix.setBackground(new Color(94, 197, 95));
         cmdMix.setText("Starting");
         Method.getRecoder().captureAudio();
-    }//GEN-LAST:event_cmdMixMousePressed
+    }
 
-    private void cmdMixMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmdMixMouseReleased
+    private void cmdMixMouseReleased(MouseEvent evt) {
         try {
             cmdMix.setBackground(new Color(242, 67, 67));
             cmdMix.setText("Start");
@@ -630,9 +681,9 @@ public class Main extends javax.swing.JFrame {
         } catch (Exception e) {
             showStatus("Error : " + e.getMessage());
         }
-    }//GEN-LAST:event_cmdMixMouseReleased
+    }
 
-    private void cmdLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLogOutActionPerformed
+    private void cmdLogOutActionPerformed(ActionEvent evt) {
         int c = JOptionPane.showConfirmDialog(this, "Are you sure you want to sign out ?", "Sign out", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (c == JOptionPane.YES_OPTION) {
             try {
@@ -640,8 +691,7 @@ public class Main extends javax.swing.JFrame {
             } catch (Exception e) {
             }
         }
-    }//GEN-LAST:event_cmdLogOutActionPerformed
-
+    }
     private void signOut(String ms) {
         try {
             this.dispose();
@@ -919,58 +969,26 @@ public class Main extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new Main().setVisible(true);
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private my_swing.Button cmdEmoji;
-    private my_swing.Button cmdFile;
-    private my_swing.Button cmdLogOut;
-    private my_swing.Button cmdMicro;
-    private javax.swing.JButton cmdMix;
-    private javax.swing.JButton cmdMore;
-    private my_swing.Button cmdPhoto;
-    private javax.swing.JButton cmdSend;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel lbStatus;
-    private my_swing.Panel panel;
-    private my_swing.Panel panel1;
-    private my_swing.Panel panel2;
-    private javax.swing.JDesktopPane panelChat;
-    private javax.swing.JLayeredPane panelEmoji;
-    private javax.swing.JPanel panelFriend;
-    private javax.swing.JPanel panelGroup;
-    private my_swing.Panel panelMix;
-    private javax.swing.JPanel panel_bg;
-    private my_swing.Panel panel_emoji;
-    private javax.swing.JPopupMenu popMix;
-    private javax.swing.JPopupMenu popUp;
-    private javax.swing.JPopupMenu popUp_emoji;
-    private javax.swing.JScrollPane spChat;
-    private javax.swing.JScrollPane spFriend;
-    private javax.swing.JScrollPane spGroup;
-    private javax.swing.JTextField txt;
-    // End of variables declaration//GEN-END:variables
 }
