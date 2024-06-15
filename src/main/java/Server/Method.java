@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import javax.swing.JTextArea;
 
 public class Method {
+    private static int clientID;
+    private static int fileID;
+    private static ArrayList<Client> clients;
+    private static JTextArea txt;
 
     public static int getFileID() {
         return fileID;
@@ -43,9 +47,4 @@ public class Method {
         clients.add(client);
         return clientID++;
     }
-    private static int clientID;
-    private static int fileID;
-    private static ArrayList<Client> clients;
-    private static JTextArea txt;
-
 }

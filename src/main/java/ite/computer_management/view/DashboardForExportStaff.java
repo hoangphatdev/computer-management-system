@@ -58,7 +58,9 @@ public class DashboardForExportStaff extends JFrame {
 		tabbedPane.setBounds(254, -20, 1250, 800);
 		contentPane.add(tabbedPane);
 
-		ExportProductView ExportProductView = new ExportProductView();
+		ExportProductView ExportProductView = new ExportProductView(accountReturn);
+		ExportProductView.creator_txt.setText(accountReturn.getFullName());
+		
 		ExportProductView.table_Product.setLocation(23, 142);
 		tabbedPane.addTab("Export Product", ExportProductView);
 
@@ -192,6 +194,8 @@ public class DashboardForExportStaff extends JFrame {
 	}
 
 	public void clickLogoutNav() {
-		this.dispose();
+		LogInView view = new LogInView();
+		dispose();
+		view.setVisible(true);
 	}
 }

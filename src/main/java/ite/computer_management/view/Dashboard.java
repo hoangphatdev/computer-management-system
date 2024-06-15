@@ -85,10 +85,12 @@ public class Dashboard extends JFrame {
 		AccountView accountView = new AccountView(this);
 		tabbedPane.addTab("Account Mangement", accountView);
 
-		ImportsProductView ImportsProductView = new ImportsProductView();
+		ImportsProductView ImportsProductView = new ImportsProductView(accountReturn);
+		ImportsProductView.creator_txt.setText(accountReturn.getFullName());
 		tabbedPane.addTab("Imports Product", ImportsProductView);
 
-		ExportProductView ExportProductView = new ExportProductView();
+		ExportProductView ExportProductView = new ExportProductView(accountReturn);
+		ExportProductView.creator_txt.setText(accountReturn.getFullName());
 		tabbedPane.addTab("Export Product", ExportProductView);
 		
 		SupplierView supplierView = new SupplierView(this);
@@ -287,7 +289,8 @@ public class Dashboard extends JFrame {
 		importProductNavLbl.setBackground(new Color(220, 242, 227));
 		importProductNavLbl.setForeground(new Color(0, 125, 40));
 		this.tabbedPane.setSelectedIndex(2);
-
+		
+		
 		productNavLbl.setBackground(new Color(70, 163, 100));
 		productNavLbl.setForeground(new Color(219, 219, 219));
 		supplierNavLbl.setBackground(new Color(70, 163, 100));
@@ -496,9 +499,8 @@ public class Dashboard extends JFrame {
 	}
 
 	public void clickLogoutNav() {
-		Window window = SwingUtilities.getWindowAncestor(logOutNavLbl);
-		if (window != null) {
-			window.dispose();
-		}
+		LogInView view = new LogInView();
+		dispose();
+		view.setVisible(true);
 	}
 }

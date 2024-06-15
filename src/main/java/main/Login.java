@@ -6,6 +6,7 @@ import ite.computer_management.view.Dashboard;
 import my_swing.Button;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
@@ -13,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
@@ -121,16 +124,16 @@ public class Login extends JFrame {
             }
         });
 
-        cmdLogin.setBackground(new java.awt.Color(101, 167, 232));
-        cmdLogin.setForeground(new java.awt.Color(255, 255, 255));
+        cmdLogin.setBackground(new Color(101, 167, 232));
+        cmdLogin.setForeground(new Color(255, 255, 255));
         cmdLogin.setText("Log in");
-        cmdLogin.setColorClick(new java.awt.Color(152, 196, 239));
-        cmdLogin.setColorOver(new java.awt.Color(31, 121, 208));
+        cmdLogin.setColorClick(new Color(152, 196, 239));
+        cmdLogin.setColorOver(new Color(31, 121, 208));
         cmdLogin.setFillBorder(20);
         cmdLogin.setFocusable(false);
-        cmdLogin.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        cmdLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cmdLogin.setFont(new Font("sansserif", 1, 14)); // NOI18N
+        cmdLogin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 cmdLoginActionPerformed(evt);
             }
         });
@@ -139,9 +142,9 @@ public class Login extends JFrame {
 
         border.setHorizontalAlignment( SwingConstants.CENTER);
         border.setIcon(new  ImageIcon(getClass().getResource("/icon/border.png"))); // NOI18N
-        border.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        border.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        border.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        border.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 borderMouseClicked(evt);
             }
         });
@@ -234,9 +237,9 @@ public class Login extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void cmdLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLoginActionPerformed
+    private void cmdLoginActionPerformed(java.awt.event.ActionEvent evt) {
         try {
         
               
@@ -298,22 +301,22 @@ public class Login extends JFrame {
                 profile.setIcon(profile_pic);
             }
         }
-    }//GEN-LAST:event_borderMouseClicked
+    }
 
-    private void txtUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyTyped
+    private void txtUserKeyTyped(KeyEvent evt) {
         if (evt.getKeyChar() == 10) {
             txtIP.grabFocus();
         }
         if (txtUser.getText().trim().length() >= 15) {
             evt.consume();
         }
-    }//GEN-LAST:event_txtUserKeyTyped
+    }
 
-    private void txtIPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIPKeyTyped
+    private void txtIPKeyTyped(KeyEvent evt) {
         if (evt.getKeyChar() == 10) {
             cmdLoginActionPerformed(null);
         }
-    }//GEN-LAST:event_txtIPKeyTyped
+    }
 
     private ImageIcon profile_pic;
     private Timer timer = new Timer(5000, new ActionListener() {

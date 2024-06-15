@@ -41,6 +41,7 @@ import ite.computer_management.dao.ImportDAO;
 import ite.computer_management.dao.SupplierDAO;
 import ite.computer_management.dao.computerDAO;
 import ite.computer_management.database.ConnectDatabase;
+import ite.computer_management.model.Account;
 import ite.computer_management.model.Computer;
 import ite.computer_management.model.Details_Form;
 import ite.computer_management.model.ImportsForm;
@@ -70,7 +71,6 @@ public class Edit_ImportsCouponView extends JFrame {
 	DecimalFormat formatter = new DecimalFormat("###,###,###");
 	public JComboBox Combo_Supplier;
 	private String form_Code;
-	public JComboBox Combo_Creator;
 	private static final ArrayList<Supplier> arrNcc = SupplierDAO.getInstance().selectAll();
 	private ArrayList<Details_Form> Details_Form;
 	private ArrayList<Details_Form> Details_Form_old;
@@ -79,12 +79,16 @@ public class Edit_ImportsCouponView extends JFrame {
 	public JButton btn_back;
 	 private String formCode;
 	public ImportsForm importform;
+	public JTextField creator_txt;
+
+	
 	public Edit_ImportsCouponView(ImportCouponView ICF, ArrayList<Details_Form> Details_Form, String form_code) {
 		init();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 		this.setLocationRelativeTo(null);
 		this.form_Code = form_code;
 		TF_Form.setText(form_Code);
+		
 		loadDataToTableProduct(ICF);	
 		this.ICF = (ImportCouponView) ICF;
 		this.importform = this.ICF.getPhieuNhapSelect();
@@ -99,6 +103,11 @@ public class Edit_ImportsCouponView extends JFrame {
 		this.setSize(1250,595);
 		getContentPane().setLayout(null);
 
+		creator_txt = new JTextField();
+		creator_txt.setColumns(10);
+		creator_txt.setBounds(600, 112, 349, 28);
+		creator_txt.setEditable(false);
+		getContentPane().add(creator_txt);
 		
 		Box verticalBox = Box.createVerticalBox();
 		verticalBox.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -107,7 +116,7 @@ public class Edit_ImportsCouponView extends JFrame {
 		
 		Box verticalBox_1 = Box.createVerticalBox();
 		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox_1.setBounds(504, 10, 722, 146);
+		verticalBox_1.setBounds(504, 10, 722, 155);
 		getContentPane().add(verticalBox_1);
 		TF_Sreach = new JTextField();
 		TF_Sreach.setBounds(37, 49, 282, 28);
@@ -260,10 +269,6 @@ public class Edit_ImportsCouponView extends JFrame {
 		
 		Imports_DAO.display(table_Product);
 		
-		Combo_Creator = new JComboBox();
-		Combo_Creator.setBounds(600, 108, 349, 28);
-		getContentPane().add(Combo_Creator);
-		
 		// lấy dữ liệu từ bảng supplier trong database để hiện thị trong Jcombobox
 		ImportDAO importDAO = new ImportDAO();
 		List<String> supplierNames = importDAO.getSupplierNames();
@@ -271,12 +276,6 @@ public class Edit_ImportsCouponView extends JFrame {
 		    Combo_Supplier.addItem(supplierName);
 		}
 
-		// lấy dữ liệu từ bảng account trong database để hiện thị trong Jcombobox
-		List<String> fullname = importDAO.getFullName();
-		for (String FullName : fullname) {
-		    Combo_Creator.addItem(FullName);
-		}
-	
 	}
 	public void addProductActionPerformed() {
 	    Imports_productController imports_productController;
@@ -423,7 +422,7 @@ public class Edit_ImportsCouponView extends JFrame {
 	                int newQuantity = Integer.parseInt(productInfo[1]) + quantity;
 	                Imports_DAO.updateProductQuantity(productCode, newQuantity);
 	                form_Code = TF_Form.getText();
-	                Details_Form.remove(new ite.computer_management.model.Details_Form(form_Code, productCode, quantity, price));
+	                Details_Form.remove(new Details_Form(form_Code, productCode, quantity, price));
 	            } catch (NumberFormatException e) {
 	                JOptionPane.showMessageDialog(this, "Please enter the quantity as an integer!");
 	            }
@@ -435,19 +434,19 @@ public class Edit_ImportsCouponView extends JFrame {
 	    	if (Details_Form.isEmpty()) {
 	            JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm để nhập hàng !","Cảnh báo", JOptionPane.WARNING_MESSAGE);
 	        } else {
-	            for (ite.computer_management.model.Details_Form ct : Details_Form_old) {
+	            for (Details_Form ct : Details_Form_old) {
 	                computerDAO.getInstance().updateSoLuong(ct.getComputer_Code(), computerDAO.getInstance().selectById(ct.getComputer_Code()).getQuantity() - ct.getQuantity());
 	            }
-	            for (ite.computer_management.model.Details_Form ct : Details_Form) {
+	            for (Details_Form ct : Details_Form) {
 	            	computerDAO.getInstance().updateSoLuong(ct.getComputer_Code(), computerDAO.getInstance().selectById(ct.getComputer_Code()).getQuantity() + ct.getQuantity());
 	            }
 	            long now = System.currentTimeMillis();
 	            Timestamp sqlTimestamp = new Timestamp(now);
-	            ImportsForm pn = new ImportsForm(arrNcc.get(Combo_Supplier.getSelectedIndex()).getSupplier_Code(),formCode, sqlTimestamp, Combo_Creator.getSelectedIndex(), Details_Form, total_Amount());
+	            ImportsForm pn = new ImportsForm(arrNcc.get(Combo_Supplier.getSelectedIndex()).getSupplier_Code(),formCode, sqlTimestamp, creator_txt.getText(), Details_Form, total_Amount());
 	            try {
 	                ImportDAO.getInstance().update(pn);
 	                Details_ImportDAO.getInstance().delete(Details_Form_old.get(Details_Form_old.size() - 1));
-	                for (ite.computer_management.model.Details_Form i : Details_Form) {
+	                for (Details_Form i : Details_Form) {
 	                    Details_ImportDAO.getInstance().insert(i);
 	                }
 	                JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
@@ -461,7 +460,7 @@ public class Edit_ImportsCouponView extends JFrame {
 	    }
 	    public BigInteger total_Amount() {
 			BigInteger sum = BigInteger.valueOf(Long.valueOf("0"));
-			for (ite.computer_management.model.Details_Form i : Details_Form) {
+			for (Details_Form i : Details_Form) {
 				BigInteger quantityBig = BigInteger.valueOf(Long.valueOf(i.getQuantity()));
 				BigInteger resultEachLoop = i.getUnit_Price().multiply(quantityBig);
 				sum.add(resultEachLoop);

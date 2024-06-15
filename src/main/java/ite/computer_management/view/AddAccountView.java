@@ -65,7 +65,7 @@ public class AddAccountView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		addBtn = new JButton("Add Product");
+		addBtn = new JButton("Add account");
 		 addBtn.setIcon(new ImageIcon(AddProductView.class.getResource("/ite/computer_management/img/add 30.png")));
 		 addBtn.setBackground(new Color(219,219,219));
 		addBtn.setForeground(new Color(70, 163, 100));
@@ -230,7 +230,7 @@ public class AddAccountView extends JFrame {
 	    Matcher matcher = pattern.matcher(gmail);
 	    return matcher.matches();
 	}
-	// ktra tính hợp lệ của mật khẩu
+	// ktra mật khẩu
 	private boolean isValidPassword(String password) {
 	    if (password.length() < 8 || password.length() > 20) {
 	        return false;

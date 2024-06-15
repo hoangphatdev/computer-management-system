@@ -46,7 +46,8 @@ public class Client extends Thread {
                     time = ms.getName().split("!")[1];
                     profile = ms.getImage();
                     Method.getTxt().append("New Client name : " + userName + " has connected ...\n");
-                    //  list all friend send to new client login
+                 
+                    // liệt kê các client đã đăng nhập
                     for (Client client : Method.getClients()) {
                         ms = new Message();
                         ms.setStatus("New");
@@ -56,8 +57,9 @@ public class Client extends Thread {
                         out.writeObject(ms);
                         out.flush();
                     }
-                    //  send new client to old client
+                    //  gửi tn cho các client
                     for (Client client : Method.getClients()) {
+                    	// chỉ gửi tn cho các clinent khác ngoài mình
                         if (client != this) {
                             ms = new Message();
                             ms.setStatus("New");
@@ -69,20 +71,29 @@ public class Client extends Thread {
                         }
                     }
                 } else if (status.equals("File")) {
+                	// tạo id 
                     int fileID = Method.getFileID();
                     String fileN = ms.getName();
                     SimpleDateFormat df = new SimpleDateFormat("ddMMyyyyhhmmssaa");
+                    // tạo tên tệp mới
                     String fileName = fileID + "!" + df.format(new Date()) + "!" + ms.getName().split("!")[0];
                     Method.getTxt().append(fileName);
+                    
+                    // tạo 1 luồng để lưu trữ dữ liệu trong data
                     FileOutputStream output = new FileOutputStream(new File("data/" + fileName));
                     output.write(ms.getData());
                     output.close();
+                    
                     Method.setFileID(fileID + 1);
+                    
+                    //tạo tn thông báo
                     ms = new Message();
                     ms.setStatus("File");
                     ms.setName(fileID + "!" + fileN);
                     ms.setImage((ImageIcon) FileSystemView.getFileSystemView().getSystemIcon(new File("data/" + fileName)));
                     ms.setID(ID);
+                    
+                    // gửi thông tin tới all client
                     for (Client client : Method.getClients()) {
                         client.getOut().writeObject(ms);
                         client.getOut().flush();
@@ -98,9 +109,12 @@ public class Client extends Thread {
             }
 
         } catch (Exception e) {
-            try {
+            
+        	// xóa tất cả client khỏi list 
+        	try {
                 Method.getClients().remove(this);
                 Method.getTxt().append("Client Name : " + userName + " has been out of this server ...\n");
+                // duyệt các client để xem còn client nào trong list
                 for (Client s : Method.getClients()) {
                     Message ms = new Message();
                     ms.setStatus("Error");
@@ -115,6 +129,8 @@ public class Client extends Thread {
         }
     }
 
+    
+    // gửi file
     private void sendFile(Message ms) {
         new Thread(new Runnable() {
             @Override

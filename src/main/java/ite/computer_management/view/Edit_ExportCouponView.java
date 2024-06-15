@@ -76,7 +76,6 @@ public class Edit_ExportCouponView extends JFrame {
 	public JButton btn_accept;
 	DecimalFormat formatter = new DecimalFormat("###,###,###");
 	private String form_Code;
-	public JComboBox Combo_Creator;
 	private static final ArrayList<Supplier> arrNcc = SupplierDAO.getInstance().selectAll();
 	private ArrayList<Details_Form> Details_Form;
 	private ArrayList<Details_Form> Details_Form_old;
@@ -84,16 +83,21 @@ public class Edit_ExportCouponView extends JFrame {
 	private ExportCouponView ECF;
 	public JButton btn_back;
 	public ExportCouponDAO ExportCouponDAO;
-	 private String formCode;
-	
-
+	private String formCode;
 	public ExportForm exportform;
+	public JTextField creator_txt;
+	
 	public Edit_ExportCouponView(ExportCouponView ECF, ArrayList<Details_Form> Details_Form, String form_code) {
 		init();
 		this.form_Code = form_code;
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		TF_Form.setText(form_Code);
+		
+		creator_txt = new JTextField();
+		creator_txt.setColumns(10);
+		creator_txt.setBounds(600, 75, 282, 28);
+		getContentPane().add(creator_txt);
 		loadDataToTableProduct(ECF);	
 		this.ECF = (ExportCouponView) ECF;
 		this.exportform = this.ECF.getPhieuNhapSelect();
@@ -116,7 +120,7 @@ public class Edit_ExportCouponView extends JFrame {
 		
 		Box verticalBox_1 = Box.createVerticalBox();
 		verticalBox_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		verticalBox_1.setBounds(512, 20, 722, 146);
+		verticalBox_1.setBounds(512, 10, 722, 110);
 		getContentPane().add(verticalBox_1);
 		TF_Sreach = new JTextField();
 		TF_Sreach.setBounds(37, 49, 282, 28);
@@ -259,17 +263,7 @@ public class Edit_ExportCouponView extends JFrame {
 		
 		Exports_DAO.display(table_Product);
 		
-		Combo_Creator = new JComboBox();
-		Combo_Creator.setBounds(600, 69, 349, 28);
-		getContentPane().add(Combo_Creator);
-		
 		ExportsDAO exportDAO = new ExportsDAO();
-	
-		// lấy dữ liệu từ bảng account trong database để hiện thị trong Jcombobox
-		List<String> fullname = exportDAO.getFullName();
-		for (String FullName : fullname) {
-		    Combo_Creator.addItem(FullName);
-		}
 	
 	}
 	public void addProductActionPerformed() {
@@ -430,19 +424,19 @@ public class Edit_ExportCouponView extends JFrame {
 	    	if (Details_Form.isEmpty()) {
 	            JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm để nhập hàng !","Cảnh báo", JOptionPane.WARNING_MESSAGE);
 	        } else {
-	            for (ite.computer_management.model.Details_Form ct : Details_Form_old) {
+	            for (Details_Form ct : Details_Form_old) {
 	                computerDAO.getInstance().updateSoLuong(ct.getComputer_Code(), computerDAO.getInstance().selectById(ct.getComputer_Code()).getQuantity() - ct.getQuantity());
 	            }
-	            for (ite.computer_management.model.Details_Form ct : Details_Form) {
+	            for (Details_Form ct : Details_Form) {
 	            	computerDAO.getInstance().updateSoLuong(ct.getComputer_Code(), computerDAO.getInstance().selectById(ct.getComputer_Code()).getQuantity() + ct.getQuantity());
 	            }
 	            long now = System.currentTimeMillis();
 	            Timestamp sqlTimestamp = new Timestamp(now);
-	            ExportForm pn = new ExportForm(formCode, sqlTimestamp, Combo_Creator.getSelectedIndex(), Details_Form, total_Amount());
+	            ExportForm pn = new ExportForm(formCode, sqlTimestamp, creator_txt.getText(), Details_Form, total_Amount());
 	            try {
 	                ExportsDAO.getInstance().update(pn);
 	                Details_ExportDAO.getInstance().delete(Details_Form_old.get(Details_Form_old.size() - 1));
-	                for (ite.computer_management.model.Details_Form i : Details_Form) {
+	                for (Details_Form i : Details_Form) {
 	                    Details_ExportDAO.getInstance().insert(i);
 	                }
 	                JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
@@ -457,7 +451,7 @@ public class Edit_ExportCouponView extends JFrame {
 
 		public BigInteger total_Amount() {
 			BigInteger sum = BigInteger.valueOf(Long.valueOf("0"));
-			for (ite.computer_management.model.Details_Form i : Details_Form) {
+			for (Details_Form i : Details_Form) {
 				BigInteger quantityBig = BigInteger.valueOf(Long.valueOf(i.getQuantity()));
 				BigInteger resultEachLoop = i.getUnit_Price().multiply(quantityBig);
 				sum.add(resultEachLoop);
